@@ -14,11 +14,6 @@
 
 /**
  * Class tl_c4g_forum
- *
- * @copyright  Küstenschmiede GmbH Software & Design 2012
- * @author     Jürgen Witte <http://www.kuestenschmiede.de>
- * @package    con4gis
- * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  */
 class C4GUtils {
 	/**
