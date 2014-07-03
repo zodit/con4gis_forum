@@ -204,7 +204,7 @@ CREATE TABLE `tl_module` (
   `c4g_forum_bbcodes` char(1) NOT NULL default '1',  
   `c4g_forum_bbcodes_editor_imguploadpath` char(128) NOT NULL default '',  
   `c4g_forum_bbcodes_smileys` char(1) NOT NULL default '1', 
-  `c4g_forum_bbcodes_smileys_url` char(128) NOT NULL default 'system/modules/con4gis_jquery_gui/html/js/wswgEditor/images/smilies',  
+  `c4g_forum_bbcodes_smileys_url` char(128) NOT NULL default 'system/modules/con4gis_common/lib/wswgEditor/images/smilies',  
   `c4g_forum_bbcodes_autourl` char(1) NOT NULL default '1', 
   `c4g_forum_bbcodes_editor` char(1) NOT NULL default '0',
   `c4g_forum_boxes_text` char(1) NOT NULL default '1',  

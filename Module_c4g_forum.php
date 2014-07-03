@@ -13,16 +13,6 @@
  */
 
 
-
-if (version_compare(VERSION,'3','<')) {
-	include_once "lib/C4GUtils.php";
-}
-
-if (version_compare(VERSION,'3','<') && (TL_MODE != 'BE')) {
-	include_once "system/modules/con4gis_jquery_gui/C4GJQueryGUI.php";
-}
-
-
 $GLOBALS['c4gForumErrors'] = array();
 $GLOBALS['c4gForumSearchParamCache'] = array();
 
@@ -44,15 +34,9 @@ function c4gForumErrorHandler($code, $text, $file, $line)
 
 /**
  * Class Module_c4g_forum
- *
- * @copyright  Küstenschmiede GmbH Software & Design 2012
- * @author     Jürgen Witte <http://www.kuestenschmiede.de> 
- * @package    con4gis 
- * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  */
 class Module_c4g_forum extends Module
 {
-
 	/**
 	 * Template
 	 * @var string
