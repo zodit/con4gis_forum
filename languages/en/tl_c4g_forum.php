@@ -52,8 +52,8 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['member_rights'] 	= array('Forum member perm
 																'Define which actions forum members are allowed to perform.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['admin_rights'] 	= array('Forum administrator permissions', 
 																'Define which actions forum administrators are allowed to perform.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['enable_maps'] 		= array('Enable maps (requires con4gis-Maps)',
-																'Check this to activate map functionality for this forum. Note that you also have to configure map functionality in the frontend module, and to assign sufficient rights to the members. Requires the Contao extension \'c4g_maps\' to be installed! ');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['enable_maps'] 		= array('Enable maps (requires con4gis-maps)',
+																'Check this to activate map functionality for this forum. Note that you also have to configure map functionality in the frontend module, and to assign sufficient rights to the members. Requires the Contao extension \'con4gis-maps\' to be installed! ');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['map_type'] 		= array('Location type',
 																'Define the type of locations that may be created inside the forum.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['map_override_locationstyle']  	= array('Allow overriding the maps locationstyle', 
@@ -61,7 +61,7 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['map_override_locationstyle']  	= array('All
 $GLOBALS['TL_LANG']['tl_c4g_forum']['map_override_locstyles']  	= array('allowed Location styles', 
 																		'Check the location styles available for the users. Default: all');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['map_id'] 			= array('Basemap',
-																'Select a map, which is defined in con4gis-Maps as base map for the choosen editor in posts, and for showing maps.');
+																'Select a map, which is defined in con4gis-maps as base map for the choosen editor in posts, and for showing maps.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['map_location_label'] 	= array('Location label',
 																	'Define a label to substitute the term "map location" in the frontend.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['map_label'] 		= array('Label',
@@ -88,7 +88,7 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['intropage_legend']		= 'Intropage';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['infotext_legend'] 		= 'Information';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['groups_legend'] 		= 'Member groups';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['rights_legend'] 		= 'Permissions';
-$GLOBALS['TL_LANG']['tl_c4g_forum']['maps_legend'] 			= 'Maps (con4gis)';
+$GLOBALS['TL_LANG']['tl_c4g_forum']['maps_legend'] 			= 'Map link (con4gis-maps)';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['expert_legend']  		= 'Expert settings';
 
 /**
@@ -147,9 +147,9 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['right_movethread'] 		= 'Move thread';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_subscribethread']	= 'Subscribe thread';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_subscribeforum'] 	= 'Subscribe forum';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_addmember'] 			= 'Add forum members';
-$GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapview'] 			= 'View maps (con4gis-Maps)';
-$GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapedit'] 			= 'Edit maps (con4gis-Maps)';
-$GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapextend'] 			= 'Extend mapdata (con4gis-Maps)';
+$GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapview'] 			= 'View maps (con4gis-maps)';
+$GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapedit'] 			= 'Edit maps (con4gis-maps)';
+$GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapextend'] 			= 'Extend mapdata (con4gis-maps)';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapedit'] 			= 'Edit maps: Location style';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_search'] 			= 'Search';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_latestthreads']		= 'Latest threads';
