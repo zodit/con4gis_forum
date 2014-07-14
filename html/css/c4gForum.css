@@ -133,6 +133,13 @@
 .c4gForumThreadHeader {
 	margin-bottom: 10px;
 }
+.c4gForumThreadHeader h3.ui-accordion-header {
+	outline: none;
+	margin: 0;
+}
+.c4gForumThreadHeaderDesc {
+	border: none;
+}
 
 .c4gGuiDialogContentNoJqui, .c4gGuiDialogButtonsNoJqui {
 	padding-left: 10px;
