@@ -5,7 +5,7 @@
  *
  * @version   php 5
  * @package   con4gis
- * @author    Jürgen Witte <http://www.kuestenschmiede.de> 
+ * @author     Jürgen Witte <http://www.kuestenschmiede.de> 
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
  * @copyright Küstenschmiede GmbH Software & Design 2014
  * @link      https://www.kuestenschmiede.de
@@ -15,7 +15,12 @@
 
 
 /**
- * Class Module_c4g_forum_breadcrumb 
+ * Class Module_c4g_forum_breadcrumb
+ *
+ * @copyright  Küstenschmiede GmbH Software & Design 2012
+ * @author     Jürgen Witte <http://www.kuestenschmiede.de> 
+ * @package    con4gis 
+ * @author     Jürgen Witte <http://www.kuestenschmiede.de> 
  */
 class Module_c4g_forum_breadcrumb extends Module
 {

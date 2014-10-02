@@ -5,7 +5,7 @@
  *
  * @version   php 5
  * @package   con4gis
- * @author    Jürgen Witte <http://www.kuestenschmiede.de> 
+ * @author     Jürgen Witte <http://www.kuestenschmiede.de> 
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
  * @copyright Küstenschmiede GmbH Software & Design 2014
  * @link      https://www.kuestenschmiede.de
@@ -19,6 +19,11 @@ if (version_compare(VERSION,'3','<')) {
 
 /**
  * Class C4GForumHelper 
+ *
+ * @copyright  Küstenschmiede GmbH Software & Design 2012
+ * @author     Jürgen Witte <http://www.kuestenschmiede.de> 
+ * @package    con4gis 
+ * @author     Jürgen Witte <http://www.kuestenschmiede.de> 
  */
 class C4GForumHelper extends System
 {
@@ -2819,10 +2824,12 @@ class C4GForumHelper extends System
 	 */
 	public static function isGoogleMapsUsed($database)
 	{
-		$services = $database->prepare(
-				'SELECT DISTINCT c.provider FROM tl_c4g_forum a, tl_c4g_maps b, tl_c4g_map_prof_services c '.
-				'WHERE b.id = a.map_id AND b.profile=c.pid AND c.provider=?')->execute('google');
-		return ($services->numRows > 0);		
+	// @todo
+		// $services = $database->prepare(
+		// 		'SELECT DISTINCT c.provider FROM tl_c4g_forum a, tl_c4g_maps b, tl_c4g_map_prof_services c '.
+		// 		'WHERE b.id = a.map_id AND b.profile=c.pid AND c.provider=?')->execute('google');
+		// return ($services->numRows > 0);		
+		return false;
 	}
 
 

@@ -99,8 +99,8 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_jqtooltip_lib'] 	= array('jQuery Too
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_jqscrollpane_lib'] 	= array('jScrollPane Bibliothek laden',
 																		'Aktivieren Sie diese Checkbox wenn Sie in jQuery UI Dialogen stylebare Scrollbalken verwenden wollen.');
 
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_enable_maps'] 		= array('Kartenanbindung aktivieren (erfordert con4gis-maps)',
-																		'Bei Aktivierung dieses Schalters kann ein Mitglied mit entsprechenden Rechten Beiträge mit Geo-Koordinaten versehen, vorausgesetzt die Karten-Funktionalität wurde im entsprechenden Forenbereich aktiviert. Funktioniert nur, wenn die Contao-Erweiterung \'con4gis-maps\' installiert ist! ');
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_enable_maps'] 		= array('Kartenanbindung aktivieren (erfordert C4G-Maps)',
+																		'Bei Aktivierung dieses Schalters kann ein Mitglied mit entsprechenden Rechten Beiträge mit Geo-Koordinaten versehen, vorausgesetzt die Karten-Funktionalität wurde im entsprechenden Forenbereich aktiviert. Funktioniert nur, wenn die Contao-Erweiterung \'con4gis-Maps\' installiert ist! ');
 
 if (version_compare(VERSION, '3', '<')) {
 	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap'] 		= array('Eine XML-Sitemap erstellen',
@@ -124,7 +124,7 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_general_legend'] 	= 'Diskussion
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_bbcodes_legend'] 	= 'Diskussionsforum - BBCodes';
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_boxes_legend'] 	= 'Diskussionsforum - Einstellungen für Kachelsicht';
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_jqui_legend'] 		= 'Diskussionsforum - jQuery UI';
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend'] 		= 'Diskussionsforum - Kartenanbindung (con4gis-maps)';
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend'] 		= 'Diskussionsforum - Kartenanbindung (con4gis-Maps)';
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_lib_legend'] 		= 'Diskussionsforum - jQuery Bibliotheken';
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_sitemap_legend'] 	= 'Diskussionsforum - XML-Sitemap';
 

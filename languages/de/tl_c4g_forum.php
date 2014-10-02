@@ -52,8 +52,8 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['member_rights'] 			= array('Berechtigungen 
 																		'Legen Sie fest, welche Aktionen ein Forenmitglied durchführen darf.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['admin_rights'] 			= array('Berechtigungen für Moderatoren', 
 																		'Legen Sie fest, welche Aktionen ein Moderator durchführen darf.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['enable_maps'] 				= array('Kartenanbindung aktivieren (erfordert con4gis-maps)',
-																		'Bei Aktivierung dieses Schalters kann ein Mitglied mit entsprechenden Rechten Beiträge mit Geo-Koordinaten versehen, vorausgesetzt die Karten-Funktionalität wurde auch im Frontend-Modul aktiviert. Funktioniert nur, wenn die Contao-Erweiterung \'con4gis-maps\' installiert ist! ');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['enable_maps'] 				= array('Kartenanbindung aktivieren (erfordert con4gis-Maps)',
+																		'Bei Aktivierung dieses Schalters kann ein Mitglied mit entsprechenden Rechten Beiträge mit Geo-Koordinaten versehen, vorausgesetzt die Karten-Funktionalität wurde auch im Frontend-Modul aktiviert. Funktioniert nur, wenn die Contao-Erweiterung \'c4g_maps\' installiert ist! ');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['map_type'] 				= array('Lokationstyp',
 																		'Legen Sie fest, welcher Typ von Lokationen im Forum angelegt werden kann.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['map_override_locationstyle']  	= array('Überschreiben der Karten-Lokationsstile erlauben', 
@@ -61,7 +61,7 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['map_override_locationstyle']  	= array('Üb
 $GLOBALS['TL_LANG']['tl_c4g_forum']['map_override_locstyles']  	= array('Erlaubte Lokationsstile', 
 																		'Wählen Sie die Lokationsstile, die dem Benutzer zur Auswahl stehen. Standard: alle');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['map_id'] 					= array('Basiskarte',
-																		'Legt eine zuvor in con4gis-maps definierte Karte fest, die als Basis für den gewählten Editor in den Beiträgen und die Anzeige der Karte verwendet wird.');
+																		'Legt eine zuvor in con4gis-Maps definierte Karte fest, die als Basis für den gewählten Editor in den Beiträgen und die Anzeige der Karte verwendet wird.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['map_location_label'] 		= array('Label Lokation',
 																		'Wenn Sie hier ein Label festlegen, so ersetzt dieses den Text "Kartenlokation" im Frontend des Forums.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['map_label'] 				= array('Label',
@@ -89,7 +89,7 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['infotext_legend'] 		= 'Informationstexte';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['groups_legend']  		= 'Mitgliedergruppen';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['rights_legend']  		= 'Berechtigungen';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['expert_legend']  		= 'Experteneinstellungen';
-$GLOBALS['TL_LANG']['tl_c4g_forum']['maps_legend'] 			= 'Kartenanbindung (con4gis-maps)';
+$GLOBALS['TL_LANG']['tl_c4g_forum']['maps_legend'] 			= 'Kartenanbindung (con4gis-Maps)';
 
 /**
  * Buttons
@@ -147,9 +147,9 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['right_movethread'] 	= 'Thema verschieben';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_subscribethread']= 'Thema abonnieren';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_subscribeforum'] = 'Forenbereich abonnieren';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_addmember'] 		= 'Forenmitglieder hinzufügen';
-$GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapview'] 		= 'Karten anzeigen (con4gis-maps)';
-$GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapedit'] 		= 'Kartendaten editieren (con4gis-maps)';
-$GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapextend'] 		= 'Kartendaten erweitern (con4gis-maps)';
+$GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapview'] 		= 'Karten anzeigen (con4gis-Maps)';
+$GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapedit'] 		= 'Kartendaten editieren (con4gis-Maps)';
+$GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapextend'] 		= 'Kartendaten erweitern (con4gis-Maps)';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapedit_style'] 	= 'Kartendaten editieren: Lokationsstil';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_search'] 		= 'Suchen';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_latestthreads']	= 'Neue Themen';

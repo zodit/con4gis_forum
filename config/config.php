@@ -17,32 +17,39 @@
 /**
  * Global settings
  */
-$GLOBALS['c4g_forum_extension']['installed'] = true;
+$GLOBALS['con4gis_forum_extension']['installed']    = true;
+$GLOBALS['con4gis_forum_extension']['version']      = '3.0.0 beta';
 
 /**
  * Frontend modules
  */
-array_insert($GLOBALS['FE_MOD']['con4gis'], 20, array
+array_insert( $GLOBALS['FE_MOD']['con4gis'], 5, array
 (
-	'c4g_forum' => 'Module_c4g_forum',
-	'c4g_forum_breadcrumb' => 'Module_c4g_forum_breadcrumb',
+	'c4g_forum' 				=> 'Module_c4g_forum',
+	'c4g_forum_breadcrumb' 		=> 'Module_c4g_forum_breadcrumb',
 )
 );	
 
 /**
  * Backend Modules
  */
-array_insert(
-    $GLOBALS['BE_MOD']['con4gis'], 20, array(
-    'c4g_forum'=>array(
-		'tables' => array('tl_c4g_forum'),
-		'build_index' => array('C4GForumBackend', 'buildIndex'),
- 		'icon'	 => 'system/modules/con4gis_forum/html/forumicon.png'
-	) ) );
+array_insert( $GLOBALS['BE_MOD']['con4gis'], 5, array
+(
+    'c4g_forum' => array
+    (
+		'tables' 		=> array('tl_c4g_forum'),
+		'build_index' 	=> array('C4GForumBackend', 'buildIndex'),
+ 		'icon'	 		=> 'system/modules/con4gis_forum/html/forumicon.png'
+	) 
+));
 
 /**
  * Hooks
  */
 $GLOBALS['TL_HOOKS']['removeOldFeeds'][] = array('C4GForumHelper','removeOldFeedsHook');
 
+/**
+ * Rest-API
+ */
+$GLOBALS['TL_API']['c4g_forum_ajax'] 		= 'C4gForumAjaxApi';
 ?>

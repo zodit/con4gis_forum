@@ -469,6 +469,11 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_breadcrumb_jumpTo'] = array
 
 /**
  * Class tl_module_c4g_forum
+ *
+ * @copyright  Küstenschmiede GmbH Software & Design 2012
+ * @author     Jürgen Witte <http://www.kuestenschmiede.de>
+ * @package    con4gis
+ * @author     Jürgen Witte <http://www.kuestenschmiede.de> 
  */
 class tl_module_c4g_forum extends Backend {
 	

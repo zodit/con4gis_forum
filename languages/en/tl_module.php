@@ -97,8 +97,8 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_jqtooltip_lib'] 	= array('Load jQuer
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_jqscrollpane_lib'] 	= array('Load jScrollPane library',
 																		'Check this if you want to use styleable scrollbars in jQuery UI dialogs.');
 
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_enable_maps'] 		= array('Enable maps (requires con4gis-maps)',
-																		'Check this to activate map functionality in general. Note that you also have to configure map functionality in the forum maintenance. Requires the Contao extension \'con4gis-maps\' to be installed! ');
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_enable_maps'] 		= array('Enable maps (requires con4gis-Maps)',
+																		'Check this to activate map functionality in general. Note that you also have to configure map functionality in the forum maintenance. Requires the Contao extension \'con4gis-Maps\' to be installed! ');
 
 if (version_compare(VERSION,'3','<')) {
 	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap'] 		= array('Create an XML sitemap',
@@ -122,7 +122,7 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_general_legend'] 		= 'Forum - G
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_bbcodes_legend'] 		= 'Forum - BBCodes';
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_boxes_legend'] 		= 'Forum - Box navigation settings';
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_jqui_legend'] 			= 'Forum - jQuery UI';
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend'] 			= 'Forum - Map link (con4gis-maps)';
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend'] 			= 'Forum - Maps (con4gis)';
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_lib_legend'] 			= 'Forum - jQuery libraries';
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_sitemap_legend'] 		= 'Forum - XML sitemap';
 
