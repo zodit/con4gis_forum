@@ -17,7 +17,8 @@
 /**
  * Global settings
  */
-$GLOBALS['c4g_forum_extension']['installed'] = true;
+$GLOBALS['con4gis_forum_extension']['installed']    = true;
+$GLOBALS['con4gis_forum_extension']['version']      = '3.0.0 beta';
 
 /**
  * Frontend modules
@@ -47,4 +48,8 @@ array_insert( $GLOBALS['BE_MOD']['con4gis'], 5, array
  */
 $GLOBALS['TL_HOOKS']['removeOldFeeds'][] = array('C4GForumHelper','removeOldFeedsHook');
 
+/**
+ * Rest-API
+ */
+$GLOBALS['TL_API']['c4g_forum_ajax'] 		= 'C4gForumAjaxApi';
 ?>

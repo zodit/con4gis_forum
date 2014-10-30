@@ -16,13 +16,16 @@
  */
 ClassLoader::addClasses(array
 (
-	'Module_c4g_forum_breadcrumb' => 'system/modules/con4gis_forum/Module_c4g_forum_breadcrumb.php',
-	'C4GForumSubscription'        => 'system/modules/con4gis_forum/C4GForumSubscription.php',
-	'C4GForumHelper'              => 'system/modules/con4gis_forum/C4GForumHelper.php',
 	'C4GForumBackend'             => 'system/modules/con4gis_forum/C4GForumBackend.php',
-	'Module_c4g_forum'    		  => 'system/modules/con4gis_forum/Module_c4g_forum.php',
+	'C4GForumHelper'              => 'system/modules/con4gis_forum/C4GForumHelper.php',
+	'C4GForumSubscription'        => 'system/modules/con4gis_forum/C4GForumSubscription.php',
 	// Lib
 	'C4GUtils'                    => 'system/modules/con4gis_forum/lib/C4GUtils.php',
+
+	// Modules
+	'C4gForumAjaxApi'             => 'system/modules/con4gis_forum/modules/api/C4gForumAjaxApi.php',
+	'Module_c4g_forum'            => 'system/modules/con4gis_forum/Module_c4g_forum.php',
+	'Module_c4g_forum_breadcrumb' => 'system/modules/con4gis_forum/Module_c4g_forum_breadcrumb.php',
 ));
 
 
@@ -31,7 +34,7 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'mod_c4g_forum_plainhtml' => 'system/modules/con4gis_forum/templates',
-	'mod_c4g_forum_breadcrumb'        => 'system/modules/con4gis_forum/templates',
-	'mod_c4g_forum'           => 'system/modules/con4gis_forum/templates',
+	'mod_c4g_forum'            => 'system/modules/con4gis_forum/templates',
+	'mod_c4g_forum_breadcrumb' => 'system/modules/con4gis_forum/templates',
+	'mod_c4g_forum_plainhtml'  => 'system/modules/con4gis_forum/templates',
 ));

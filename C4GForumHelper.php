@@ -2824,10 +2824,12 @@ class C4GForumHelper extends System
 	 */
 	public static function isGoogleMapsUsed($database)
 	{
-		$services = $database->prepare(
-				'SELECT DISTINCT c.provider FROM tl_c4g_forum a, tl_c4g_maps b, tl_c4g_map_prof_services c '.
-				'WHERE b.id = a.map_id AND b.profile=c.pid AND c.provider=?')->execute('google');
-		return ($services->numRows > 0);		
+	// @todo
+		// $services = $database->prepare(
+		// 		'SELECT DISTINCT c.provider FROM tl_c4g_forum a, tl_c4g_maps b, tl_c4g_map_prof_services c '.
+		// 		'WHERE b.id = a.map_id AND b.profile=c.pid AND c.provider=?')->execute('google');
+		// return ($services->numRows > 0);		
+		return false;
 	}
 
 

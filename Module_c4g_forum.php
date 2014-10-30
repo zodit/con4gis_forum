@@ -1787,7 +1787,7 @@ class Module_c4g_forum extends Module
 			$return ['dialogclose'] = array("movethread".$threadId, "thread".$threadId);
 			$return ['usermessage'] = $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_THREAD_SUCCESS'];
 			
-			if ($threadSubscribers || forumSubscribers || newForumSubscribers) {
+			if ($threadSubscribers || $forumSubscribers || $newForumSubscribers) {
 				$cronjob =
 					$this->helper->subscription->sendSubscriptionEMail ( 
 						array_merge($threadSubscribers,$forumSubscribers,$newForumSubscribers), $threadId, 'moveThread');
@@ -3472,7 +3472,6 @@ class Module_c4g_forum extends Module
 	 */
 	public function generateAjax($request=null)
 	{		 
-		
 		// auf die benutzerdefinierte Fehlerbehandlung umstellen
 		$old_error_handler = set_error_handler("c4gForumErrorHandler");
 		if ($request==null) {
@@ -3633,8 +3632,9 @@ class Module_c4g_forum extends Module
         $GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/html/css/c4gForum.css';
         //$GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/html/css/bbcodes.css';
         $data['id'] = $this->id;
-        $data['ajaxUrl'] = "ajax.php";
-        $data['ajaxData'] = "action=fmd&id=".$this->id."&language=".$GLOBALS['TL_LANGUAGE']."&page=".$objPage->id;
+        $data['ajaxUrl'] = "api4gis/c4g_forum_ajax";
+        // $data['ajaxData'] = "action=fmd&id=".$this->id."&language=".$GLOBALS['TL_LANGUAGE']."&page=".$objPage->id;
+        $data['ajaxData'] = $this->id;
         
 		$size = deserialize ( $this->c4g_forum_size,true );
 		if ($size[0] != 0) {
