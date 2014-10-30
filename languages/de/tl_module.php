@@ -45,8 +45,8 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_language'] 			= array('Frontend-Spra
 
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes'] 			= array('BBCodes verwenden (BETA)',
 																		'Deaktivieren Sie diese Checkbox, falls Sie BBCodes komplett deaktivieren möchten! Die Verwendung von BBCodes ist dann in diesem Forum nicht mehr möglich. Dies kann zu Formatfehlern führen, wenn diese in einem bereits laufenden Forum zuvor aktiviert waren.');
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor'] 	= array('WYSIWYG-Editor verwenden',
-																		'Achtung: Dieses Feature funktioniert nur, wenn das Forum eingebettet, also nicht im Dialog, verwendet wird!');
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor'] 	= array('Alten WYSIWYG-Editor verwenden','Achtung: Dieses Feature funktioniert nur, wenn das Forum eingebettet, also nicht im Dialog, verwendet wird!');
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_ckeditor'] 	= array('Neuen WYSIWYG-Editor verwenden','');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath'] 	= array('Bildupload-Verzeichnis',
 																					'Bestimmt das Verzeichnis, in dem hochgeladene Bilder gespeichert werden sollen.');
 // $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_smileys'] 	= array('Smileys verwenden',

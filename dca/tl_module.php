@@ -43,7 +43,7 @@ $GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][] = array('tl_modul
 $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_jqui'] = 
 	    'c4g_forum_jqui_lib,c4g_forum_uitheme_css_src,c4g_forum_dialogsize,c4g_forum_dialogs_embedded,c4g_forum_embdialogs_jqui,c4g_forum_breadcrumb_jqui_layout,c4g_forum_buttons_jqui_layout,c4g_forum_table_jqui_layout,c4g_forum_posts_jqui,c4g_forum_boxes_jqui_layout,c4g_forum_enable_scrollpane';
 $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_bbcodes'] =
-		'c4g_forum_bbcodes_editor, c4g_forum_bbcodes_editor_imguploadpath'; //, c4g_forum_bbcodes_smileys,c4g_forum_bbcodes_smileys_url,c4g_forum_bbcodes_autourl';
+		'c4g_forum_bbcodes_editor,c4g_forum_ckeditor, c4g_forum_bbcodes_editor_imguploadpath'; //, c4g_forum_bbcodes_smileys,c4g_forum_bbcodes_smileys_url,c4g_forum_bbcodes_autourl';
 $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_sitemap'] =
 'c4g_forum_sitemap_filename,c4g_forum_sitemap_contents';
 
@@ -182,6 +182,14 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes'] = array
 $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor'] = array
 (
 		'label'                   => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor'],
+		'exclude'                 => true,
+		'default'                 => false,
+		'inputType'               => 'checkbox'
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_ckeditor'] = array
+(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_ckeditor'],
 		'exclude'                 => true,
 		'default'                 => false,
 		'inputType'               => 'checkbox'

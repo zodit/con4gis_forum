@@ -892,7 +892,10 @@ class Module_c4g_forum extends Module
 		$editorId = '';
 		if ($this->c4g_forum_bbcodes_editor) {
 			$editorId = ' id="editor"';
-		}		
+		}
+		if ($this->c4g_forum_ckeditor) {
+			$editorId = ' id="ckeditor"';
+		}
 		$data .= '<div class="c4gForumNewThreadContent">'.
 				 $GLOBALS['TL_LANG']['C4G_FORUM']['POST'].':<br/>'.
 				 '<input type="hidden" name="uploadEnv" value="{{env::path}}">'.
@@ -937,6 +940,9 @@ class Module_c4g_forum extends Module
 		$editorId = '';
 		if ($this->c4g_forum_bbcodes_editor) {
 			$editorId = ' id="editor"';
+		}
+        if ($this->c4g_forum_ckeditor) {
+			$editorId = ' id="ckeditor"';
 		}
 		$data = '<div class="c4gForumNewPost">'.
 				'<div class="c4gForumNewPostSubject">'.
@@ -2315,6 +2321,9 @@ class Module_c4g_forum extends Module
 		if ($this->c4g_forum_bbcodes_editor) {
 			$editorId = ' id="editor"';
 		}
+        if ($this->c4g_forum_ckeditor) {
+			$editorId = ' id="ckeditor"';
+		}
 		$data = '<div class="c4gForumEditPost">'.
 				'<div class="c4gForumEditPostSubject">'.
 				$GLOBALS['TL_LANG']['C4G_FORUM']['SUBJECT'].':<br/>'.
@@ -2333,7 +2342,8 @@ class Module_c4g_forum extends Module
 		
 		$data .=	
 				'</div>';
-				
+
+
 
 		$return = array( 
   			dialogtype => "html", 
@@ -3668,6 +3678,13 @@ class Module_c4g_forum extends Module
 		$data['jquiButtons'] = $this->c4g_forum_buttons_jqui_layout;
 		$data['embedDialogs'] = $this->c4g_forum_dialogs_embedded;
 		$data['jquiEmbeddedDialogs'] = $this->dialogs_jqui;
+
+
+
+        if($this->c4g_forum_ckeditor){
+            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/ckeditor/ckeditor.js|static';
+        }
+
 		
 		if (!$this->c4g_forum_breadcrumb_jqui_layout) {
 			$data['breadcrumbDelim'] = '>';
