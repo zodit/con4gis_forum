@@ -3632,7 +3632,7 @@ class Module_c4g_forum extends Module
         $GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/html/css/c4gForum.css';
         //$GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/html/css/bbcodes.css';
         $data['id'] = $this->id;
-        $data['ajaxUrl'] = "api4gis/c4g_forum_ajax";
+        $data['ajaxUrl'] = "system/modules/con4gis_core/api/c4g_forum_ajax";
         // $data['ajaxData'] = "action=fmd&id=".$this->id."&language=".$GLOBALS['TL_LANGUAGE']."&page=".$objPage->id;
         $data['ajaxData'] = $this->id;
         
