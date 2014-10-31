@@ -3679,10 +3679,11 @@ class Module_c4g_forum extends Module
 		$data['embedDialogs'] = $this->c4g_forum_dialogs_embedded;
 		$data['jquiEmbeddedDialogs'] = $this->dialogs_jqui;
 
+        \Contao\Session::getInstance()->set("con4gisUploadPath", $this->c4g_forum_bbcodes_editor_imguploadpath);
 
 
         if($this->c4g_forum_ckeditor){
-            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/ckeditor/ckeditor.js|static';
+            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/ckeditor/ckeditor.js';
         }
 
 		
