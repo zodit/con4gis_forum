@@ -3679,10 +3679,17 @@ class Module_c4g_forum extends Module
 		$data['embedDialogs'] = $this->c4g_forum_dialogs_embedded;
 		$data['jquiEmbeddedDialogs'] = $this->dialogs_jqui;
 
-        \Contao\Session::getInstance()->set("con4gisUploadPath", $this->c4g_forum_bbcodes_editor_imguploadpath);
+        \Contao\Session::getInstance()->set("con4gisImageUploadPath", $this->c4g_forum_bbcodes_editor_imguploadpath);
+        \Contao\Session::getInstance()->set("con4gisFileUploadPath", $this->c4g_forum_bbcodes_editor_fileuploadpath);
+        \Contao\Session::getInstance()->set("c4g_forum_bbcodes_editor_uploadTypes", $this->c4g_forum_bbcodes_editor_uploadTypes);
+        \Contao\Session::getInstance()->set("c4g_forum_bbcodes_editor_maxFileSize", $this->c4g_forum_bbcodes_editor_maxFileSize);
+        \Contao\Session::getInstance()->set("c4g_forum_bbcodes_editor_imageWidth", $this->c4g_forum_bbcodes_editor_imageWidth);
+        \Contao\Session::getInstance()->set("c4g_forum_bbcodes_editor_imageHeight", $this->c4g_forum_bbcodes_editor_imageHeight);
 
+        $aToolbarButtons = explode(",",$this->c4g_forum_bbcodes_editor_toolbaritems);
 
         if($this->c4g_forum_ckeditor){
+            $GLOBALS['TL_HEAD'][] = "<script>var ckEditorItems = ['".implode("','", $aToolbarButtons)."'];</script>";
             $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/ckeditor/ckeditor.js';
         }
 

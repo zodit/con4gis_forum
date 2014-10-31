@@ -43,7 +43,7 @@ $GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][] = array('tl_modul
 $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_jqui'] = 
 	    'c4g_forum_jqui_lib,c4g_forum_uitheme_css_src,c4g_forum_dialogsize,c4g_forum_dialogs_embedded,c4g_forum_embdialogs_jqui,c4g_forum_breadcrumb_jqui_layout,c4g_forum_buttons_jqui_layout,c4g_forum_table_jqui_layout,c4g_forum_posts_jqui,c4g_forum_boxes_jqui_layout,c4g_forum_enable_scrollpane';
 $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_bbcodes'] =
-		'c4g_forum_bbcodes_editor,c4g_forum_ckeditor, c4g_forum_bbcodes_editor_imguploadpath'; //, c4g_forum_bbcodes_smileys,c4g_forum_bbcodes_smileys_url,c4g_forum_bbcodes_autourl';
+		'c4g_forum_bbcodes_editor,c4g_forum_ckeditor, c4g_forum_bbcodes_editor_imguploadpath, c4g_forum_bbcodes_editor_fileuploadpath, c4g_forum_bbcodes_editor_toolbaritems, c4g_forum_bbcodes_editor_uploadTypes,c4g_forum_bbcodes_editor_maxFileSize,c4g_forum_bbcodes_editor_imageWidth, c4g_forum_bbcodes_editor_imageHeight'; //, c4g_forum_bbcodes_smileys,c4g_forum_bbcodes_smileys_url,c4g_forum_bbcodes_autourl';
 $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_sitemap'] =
 'c4g_forum_sitemap_filename,c4g_forum_sitemap_contents';
 
@@ -161,7 +161,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_language'] = array
 	'exclude'                 => true,
 	'default'                 => '',
 	'inputType'               => 'text',
-	'eval'                    => array('maxlength'=>5, style => 'width: 100px' )
+	'eval'                    => array('maxlength'=>5, "style" => 'width: 100px' )
 );
 
 
@@ -201,7 +201,23 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_imguploadpat
 		'exclude'                 => true,
 		'default'                 => '',
 		'inputType'               => 'text',
-		'eval'                    => array('maxlength'=>128, style => 'width: 200px' )
+		'eval'                    => array('maxlength'=>128, "style" => 'width: 200px' )
+);
+$GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_fileuploadpath'] = array
+(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_fileuploadpath'],
+		'exclude'                 => true,
+		'default'                 => '',
+		'inputType'               => 'text',
+		'eval'                    => array('maxlength'=>128, "style" => 'width: 200px' )
+);
+$GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_toolbaritems'] = array
+(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems'],
+		'exclude'                 => true,
+		'default'                 => 'Cut, Copy, Paste, PasteText, PasteFromWord, -, Undo, Redo, Bold, Italic, Underline, Strike, Subscript, Superscript, -, RemoveFormat, NumberedList, BulletedList, Link, Unlink, Anchor, Image, FileUpload, Table, Smiley, TextColor, BGColor',
+		'inputType'               => 'text',
+		'eval'                    => array('maxlength'=>255, 'class' => '', 'style' => 'width:662px' )
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_smileys'] = array
@@ -218,7 +234,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_smileys_url'] = arr
 		'exclude'                 => true,
 		'default'                 => 'system/modules/con4gis_forum/html/images/smileys',
 		'inputType'               => 'text',
-		'eval'                    => array('maxlength'=>128, style => 'width: 200px' )
+		'eval'                    => array('maxlength'=>128, "style" => 'width: 200px' )
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_autourl'] = array
@@ -462,6 +478,39 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_sitemap_contents'] = array
 	'eval'                    => array('multiple'=>true),
 	'save_callback'			  => array(array('tl_module_c4g_forum','update_sitemap'))
 );
+
+
+
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_uploadTypes'] = array(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['c4g_forum_bbcodes_editor_uploadTypes'],
+    'inputType'               => 'text',
+    'eval'                    => array('tl_class'=>'w50')
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_maxFileSize'] = array(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['c4g_forum_bbcodes_editor_maxFileSize'],
+    'inputType'               => 'text',
+    'default' => '2048000',
+    'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50')
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_imageWidth'] = array(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['c4g_forum_bbcodes_editor_imageWidth'],
+    'inputType'               => 'text',
+    'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50')
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_imageHeight'] = array(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['c4g_forum_bbcodes_editor_imageHeight'],
+    'inputType'               => 'text',
+    'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50')
+);
+
+
+
+
+
 
 /***
  * Fields - Breadcrumb Module

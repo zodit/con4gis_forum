@@ -45,10 +45,10 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_language'] 			= array('Frontend-Lang
 
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes'] 			= array('Use BBCodes (BETA)',
 																		'Deactivate this checkbox, if you do not want to use BBCodes in your forum. Please take note, that deactivating BBCodes after they have already been used, may cause ugly formating-errors.');
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor'] 	= array('Use WYSIWYG-Editor',
-																		'CAUTION: This Feature only works for embedded forums!');
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath'] 	= array('Image Upload-Folder',
-																					'Decide where uploaded images should be stored');
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor'] 	= array('Use WYSIWYG-Editor','CAUTION: This Feature only works for embedded forums!');
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems'] 	= array('WYSIWYG-Editor Toolbar Buttons','');
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath'] 	= array('Image Upload-Folder','Decide where uploaded images should be stored');
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_fileuploadpath'] 	= array('File Upload-Folder','Decide where uploaded files should be stored. An additional folder named by date is created in here');
 // $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_smileys'] = array('Use Smileys','This Feature converts ASCII-smilies into pictures.');
 // $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_smileys_url'] = array('Path to Smiley-Icons','eg = system/modules/con4gis_forum/html/images/smileys');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_autourl'] 	= array('Automaticaly recognize URLs',
