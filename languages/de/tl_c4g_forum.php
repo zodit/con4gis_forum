@@ -16,9 +16,9 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_c4g_forum']['name'] 					= array('Name', 
-																		'Name des Forenbereiches');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['headline'] 				= array('Überschrift', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['name'] 					= array('Name', 'Name des Forenbereiches');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['tags'] 					= array('Tags', 'Schlagwort-Vorgabe zur Auswahl bei der Thread-Erstellung');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['headline'] 				= array('Überschrift',
 																		'Hier können Sie dem Forenbereich eine Überschrift hinzufügen.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['description'] 				= array('Beschreibung', 
 																		'Die Beschreibung wird als Tooltip angezeigt.');
@@ -90,6 +90,7 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['groups_legend']  		= 'Mitgliedergruppen';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['rights_legend']  		= 'Berechtigungen';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['expert_legend']  		= 'Experteneinstellungen';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['maps_legend'] 			= 'Kartenanbindung (con4gis-Maps)';
+$GLOBALS['TL_LANG']['tl_c4g_forum']['additional_legend'] 			= 'Zusätzliche Informationen';
 
 /**
  * Buttons

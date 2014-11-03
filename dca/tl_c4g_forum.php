@@ -126,6 +126,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 										 '{comfort_legend},box_imagesrc;'.
 										 '{intropage_legend:hide},use_intropage;'.
 										 '{infotext_legend:hide},pretext,posttext;'.
+										 '{additional_legend:hide},tags;'.
 										 '{groups_legend:hide},define_groups;'.
 										 '{rights_legend:hide},define_rights;'.
 										 '{expert_legend:hide},linkurl,link_newwindow,sitemap_exclude;',
@@ -427,6 +428,13 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 				'default'                 => '',
 				'inputType'               => 'checkbox',
 		),
+		'tags' => array
+		(
+				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['tags'],
+				'exclude'                 => true,
+				'inputType'               => 'c4g_tags',
+		),
+
 	)
 );
 

@@ -1,0 +1,18 @@
+<script>
+//    chzn-drop
+
+(function(){
+    window.addEvent("domready",function(){
+
+        var oInput = $("ctrl_tags_chzn").getElement("input.default");
+        oInput.addEvent("keyup",function(){
+            var oChosen = this.getElement(".chzn-results");
+            console.log(oChosen);
+        });
+    });
+
+})();
+
+</script>
+<h3><?php echo $this->generateLabel(); echo $this->xlabel; ?></h3>
+<?php echo $this->generateWithError(true); ?>

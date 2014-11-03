@@ -21,6 +21,7 @@ ClassLoader::addClasses(array
 	'C4GForumSubscription'        => 'system/modules/con4gis_forum/C4GForumSubscription.php',
 	// Lib
 	'C4GUtils'                    => 'system/modules/con4gis_forum/lib/C4GUtils.php',
+	'C4GTags'                    => 'system/modules/con4gis_forum/widgets/C4GTags.php',
 
 	// Modules
 	'C4gForumAjaxApi'             => 'system/modules/con4gis_forum/modules/api/C4gForumAjaxApi.php',
@@ -34,6 +35,7 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
+	'be_tag_widget'            => 'system/modules/con4gis_forum/templates/backend/widget',
 	'mod_c4g_forum'            => 'system/modules/con4gis_forum/templates',
 	'mod_c4g_forum_breadcrumb' => 'system/modules/con4gis_forum/templates',
 	'mod_c4g_forum_plainhtml'  => 'system/modules/con4gis_forum/templates',

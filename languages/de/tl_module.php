@@ -18,6 +18,7 @@
 /**
  * Fields
  */
+
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_size'] 				= array('Größe (Breite, Höhe)', 
 																		'Größe des Bereiches, in dem das Forum dargestellt wird. Bei Eingabe von "0" oder nichts wird der Wert nicht gesetzt, und die Breite sowie die Höhe werden automatisch ermittelt.');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_scroll'] 			= array('Größe scrollbarer Bereich der Themenliste (Breite, Höhe)', 

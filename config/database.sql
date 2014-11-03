@@ -53,6 +53,7 @@ CREATE TABLE `tl_c4g_forum` (
   `linkurl` varchar(255) NOT NULL default '',
   `link_newwindow` char(1) NOT NULL default '',
   `sitemap_exclude` char(1) NOT NULL default '',
+  `tags` blob NULL,
   PRIMARY KEY  (`id`),
   KEY `pid` (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -75,6 +76,7 @@ CREATE TABLE `tl_c4g_forum_thread` (
   `edit_count` int(10) unsigned NOT NULL default '0',
   `edit_last_author` int(10) unsigned NOT NULL default '0',
   `edit_last_time` int(10) unsigned NOT NULL default '0',
+  `tags` blob NULL,
   PRIMARY KEY  (`id`),
   KEY `pid` (`pid`),
 --  FULLTEXT KEY `threaddesc` (`threaddesc`)

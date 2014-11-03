@@ -15,6 +15,7 @@
 
 $GLOBALS['TL_LANG']['C4G_FORUM']['FORUM'] 					= 'Forum';
 $GLOBALS['TL_LANG']['C4G_FORUM']['THREAD'] 					= 'Thema';
+$GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'] 					= 'Tags/Schlagworte';
 $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS'] 				= 'Themen';
 $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUM'] 				= 'Forenbereich';
 $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUMS'] 				= 'Forenbereiche';
