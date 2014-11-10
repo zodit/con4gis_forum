@@ -122,6 +122,7 @@ CREATE TABLE `tl_c4g_forum_post` (
 --  `text` blob NULL,
 --  `subject` text NOT NULL default ' ',
   `subject` varchar(100) NOT NULL default '',
+  `tags` varchar(255) NOT NULL default '',
   `author` int(10) NOT NULL default '0',
   `creation` int(10) NOT NULL default '0',
   `forum_id` int(10) unsigned NOT NULL default '0',

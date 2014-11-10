@@ -240,7 +240,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 		'posttext' => array
 		(
 			'label'					=> &$GLOBALS['TL_LANG']['tl_c4g_forum']['posttext'],
-			'search'				=> true,
+            'search'				=> true,
 			'inputType'				=> 'textarea',
 			'eval'					=> array('rte'=>'tinyMCE'),
 		),
@@ -431,8 +431,10 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 		'tags' => array
 		(
 				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['tags'],
-				'exclude'                 => true,
-				'inputType'               => 'c4g_tags',
+                'search'				=> true,
+				'inputType'               => 'text',
+                'load_callback'           => array("tl_c4g_forum" => "decodeTags"),
+                'eval'                    => array(),
 		),
 
 	)
@@ -485,6 +487,14 @@ class tl_c4g_forum extends Backend
 		  return $this->generateImage(preg_replace('/\.gif$/i', '_.gif', $icon)).' ';
 		}  
 	}
+
+
+    public function decodeTags($sValue, $oDca){
+        echo "<pre>";
+        var_dump($sValue);
+        die();
+
+    }
 
 	/**
 	 * Update the palette information that depend on other values

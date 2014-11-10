@@ -52,11 +52,3 @@ $GLOBALS['TL_HOOKS']['removeOldFeeds'][] = array('C4GForumHelper','removeOldFeed
  * Rest-API
  */
 $GLOBALS['TL_API']['c4g_forum_ajax'] 		= 'C4gForumAjaxApi';
-
-
-
-
-    /**
-     * Back end form fields
-     */
-    $GLOBALS['BE_FFL']['c4g_tags'] = "C4GTags";

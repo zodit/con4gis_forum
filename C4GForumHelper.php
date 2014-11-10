@@ -780,7 +780,7 @@ class C4GForumHelper extends System
 				break;
 			case 'post':
 				$srcTable = "tl_c4g_forum_post";
-				$srcCol = "CONCAT(subject, ' ', text)";
+				$srcCol = "CONCAT(subject, ' ', text, ' ', tags)";
 				break;
 			default:
 				//@TODO ERROR MESSAGE
@@ -1292,7 +1292,7 @@ class C4GForumHelper extends System
 		}
 		$select = "SELECT a.id,a.pid AS threadid," . $sqlAuthor . ",a.creation,a.subject,a.text,c.name AS threadname, c.author AS threadauthor, d.name AS forumname,d.id AS forumid, ".
 		                 "a.post_number, c.posts, a.edit_count, " . $sqlEditUser . " AS edit_username, a.edit_last_time, a.linkname, a.linkurl, d.link_newwindow,".
-		                 "a.loc_geox, a.loc_geoy, a.loc_data_type, a.loc_data_content, a.locstyle, a.loc_label, a.loc_tooltip, a.loc_osm_id, ".
+		                 "a.loc_geox, a.loc_geoy, a.loc_data_type, a.loc_data_content, a.locstyle, a.loc_label, a.loc_tooltip, a.loc_osm_id, a.tags, ".
 		                 "d.map_label, d.map_tooltip, d.map_popup, d.map_link ". 
 				"FROM tl_c4g_forum_post a ".
 				"LEFT JOIN tl_member b ON b.id = a.author ".
@@ -1506,22 +1506,29 @@ class C4GForumHelper extends System
 		}
 		return $result;
 	}
-	/**
-	 * 
-	 * @param int $threadId
-	 * @param int $userId
-	 * @param int $post
-	 * @param int $forumId
-	 * @param int $post_number
-	 * @param string $linkname
-	 * @param string $linkurl
-	 * @param string $loc_geox
-	 * @param string $loc_geoy
-	 * @param int $locstyle
-	 * @param string $loc_label
-	 * @param string $loc_tooltip
-	 */
-	protected function insertPostIntoDBInternal($threadId, $userId, $subject, $post, $forumId, $post_number, $linkname, $linkurl, $loc_geox, $loc_geoy, $locstyle, $loc_label, $loc_tooltip, $loc_data_content, $loc_osm_id)
+
+
+        /**
+         * @param $threadId
+         * @param $userId
+         * @param $subject
+         * @param $post
+         * @param $tags
+         * @param $forumId
+         * @param $post_number
+         * @param $linkname
+         * @param $linkurl
+         * @param $loc_geox
+         * @param $loc_geoy
+         * @param $locstyle
+         * @param $loc_label
+         * @param $loc_tooltip
+         * @param $loc_data_content
+         * @param $loc_osm_id
+         *
+         * @return bool
+         */
+        protected function insertPostIntoDBInternal($threadId, $userId, $subject, $post, $tags, $forumId, $post_number, $linkname, $linkurl, $loc_geox, $loc_geoy, $locstyle, $loc_label, $loc_tooltip, $loc_data_content, $loc_osm_id)
 	{
 		$set = array();
 		$set['pid'] = $threadId;
@@ -1559,6 +1566,11 @@ class C4GForumHelper extends System
 			$set['loc_data_type'] = 'geojson';
 			$set['loc_data_content'] = C4GUtils::secure_ugc($loc_data_content);
 		}
+
+        if(!empty($tags)) {
+            $set['tags'] = implode(", ",$tags);
+        }
+
 		$objInsertStmt = $this->Database->prepare("INSERT INTO tl_c4g_forum_post %s")
 										->set($set)
 										->execute();
@@ -1589,7 +1601,7 @@ class C4GForumHelper extends System
 	 * @param string $label
 	 * @param string $tooltip
 	 */
-	public function updatePostDB($post, $userId, $subject, $postText, $linkname, $linkurl, $loc_geox, $loc_geoy, $locstyle, $loc_label, $loc_tooltip, $loc_data_content, $loc_osm_id)
+	public function updatePostDB($post, $userId, $subject,$tags, $postText, $linkname, $linkurl, $loc_geox, $loc_geoy, $locstyle, $loc_label, $loc_tooltip, $loc_data_content, $loc_osm_id)
 	{
 		$set = array();
 		$set['text'] = nl2br(C4GUtils::secure_ugc($postText));
@@ -1632,6 +1644,10 @@ class C4GForumHelper extends System
 				$set['loc_data_content'] = '';				
 			}
 		}
+
+        if(!empty($tags)) {
+            $set['tags'] = implode(", ",$tags);
+        }
 				
 		$objUpdateStmt = $this->Database->prepare("UPDATE tl_c4g_forum_post %s WHERE id=?")
 										->set($set)
@@ -1791,7 +1807,7 @@ class C4GForumHelper extends System
 	 * @param string $loc_tooltip
 	 * @throws Exception
 	 */
-	public function insertPostIntoDB($threadId, $userId, $subject, $post, $linkname, $linkurl, $loc_geox, $loc_geoy, $locstyle, $loc_label, $loc_tooltip, $loc_data_content, $loc_osm_id)
+	public function insertPostIntoDB($threadId, $userId, $subject, $post, $tags, $linkname, $linkurl, $loc_geox, $loc_geoy, $locstyle, $loc_label, $loc_tooltip, $loc_data_content, $loc_osm_id)
 	{
 		$this->Database->beginTransaction();
 		try {
@@ -1799,7 +1815,7 @@ class C4GForumHelper extends System
 		   		"SELECT a.pid AS forum_id, a.posts AS threadposts, b.posts AS forumposts, b.threads AS forumthreads ".
 		   		"FROM tl_c4g_forum_thread a, tl_c4g_forum b WHERE ".
 		   		"a.id=? AND b.id = a.pid")->execute($threadId);
-			$result = $this->insertPostIntoDBInternal($threadId, $userId, $subject, $post, $thread->forum_id, $thread->threadposts + 1,
+			$result = $this->insertPostIntoDBInternal($threadId, $userId, $subject, $post, $tags, $thread->forum_id, $thread->threadposts + 1,
 													  $linkname, $linkurl, $loc_geox, $loc_geoy, $locstyle, $loc_label, $loc_tooltip, $loc_data_content, $loc_osm_id);
 			if (!$result)
 			{
@@ -1843,24 +1859,28 @@ class C4GForumHelper extends System
 	}
 
 
-	/**
-	 * 
-	 * @param int $forumId
-	 * @param string $threadname
-	 * @param int $userId
-	 * @param string $threaddesc
-	 * @param int $sort
-	 * @param string $post
-	 * @param string $linkname
-	 * @param string $linkurl
-	 * @param string $geox
-	 * @param string $geoy
-	 * @param int $locstyle
-	 * @param string $label
-	 * @param string $tooltip
-	 * @throws Exception
-	 */
-	public function insertThreadIntoDB($forumId, $threadname, $userId, $threaddesc, $sort, $post, $linkname, $linkurl, $geox, $geoy, $locstyle, $label, $tooltip, $geodata, $loc_osm_id )
+        /**
+         * @param $forumId
+         * @param $threadname
+         * @param $userId
+         * @param $threaddesc
+         * @param $sort
+         * @param $post
+         * @param $tags
+         * @param $linkname
+         * @param $linkurl
+         * @param $geox
+         * @param $geoy
+         * @param $locstyle
+         * @param $label
+         * @param $tooltip
+         * @param $geodata
+         * @param $loc_osm_id
+         *
+         * @return bool
+         * @throws \Exception
+         */
+        public function insertThreadIntoDB($forumId, $threadname, $userId, $threaddesc, $sort, $post, $tags, $linkname, $linkurl, $geox, $geoy, $locstyle, $label, $tooltip, $geodata, $loc_osm_id )
 	{
 		$this->Database->beginTransaction();
 		try {
@@ -1890,7 +1910,7 @@ class C4GForumHelper extends System
 			$savePost = ($post || $linkname || $linkurl);
 
 			if ($savePost) {
-				$result = $this->insertPostIntoDBInternal($objInsertStmt->insertId, $userId, $threadname, $post, $forumId, 1, $linkname, $linkurl, $geox, $geoy, $locstyle, $label, $tooltip, $geodata, $loc_osm_id);
+				$result = $this->insertPostIntoDBInternal($objInsertStmt->insertId, $userId, $threadname, $post,$tags, $forumId, 1, $linkname, $linkurl, $geox, $geoy, $locstyle, $label, $tooltip, $geodata, $loc_osm_id);
 				if (!$result)
 				{
 					$this->Database->rollbackTransaction();
