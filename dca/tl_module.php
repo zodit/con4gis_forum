@@ -215,7 +215,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_toolbaritems
 (
 		'label'                   => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems'],
 		'exclude'                 => true,
-		'default'                 => 'Cut, Copy, Paste, PasteText, PasteFromWord, -, Undo, Redo, Bold, Italic, Underline, Strike, Subscript, Superscript, -, RemoveFormat, NumberedList, BulletedList, Link, Unlink, Anchor, Image, FileUpload, Table, Smiley, TextColor, BGColor',
+		'default'                 => 'Cut,Copy,Paste,PasteText,PasteFromWord,-,Undo,Redo,TextColor,Bold,Italic,Underline,Strike,Subscript,Superscript,-,RemoveFormat,NumberedList,BulletedList,Link,Unlink,Anchor,Image,FileUpload,Table,Smiley',
 		'inputType'               => 'text',
 		'eval'                    => array('maxlength'=>255, 'class' => '', 'style' => 'width:662px' )
 );
