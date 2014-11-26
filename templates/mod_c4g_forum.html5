@@ -28,7 +28,8 @@ if (typeof(jQuery)=='undefined') {
 				"jquiButtons: '" . $this->c4gdata['jquiButtons'] ."', ".
 				"breadcrumbDelim: '" . $this->c4gdata['breadcrumbDelim'] . "', ".
 				"embedDialogs: '" . $this->c4gdata['embedDialogs'] ."', ".
-				"jquiEmbeddedDialogs: '" . $this->c4gdata['jquiEmbeddedDialogs'] ."', ";
+				"jquiEmbeddedDialogs: '" . $this->c4gdata['jquiEmbeddedDialogs'] ."', ".
+				"contaoPath: '" . \Contao\Environment::get('base').\Contao\Environment::get('path')."', ";
 		if ($this->c4gdata['navPanel']) {
 			echo "navPanel: true";
 		}
