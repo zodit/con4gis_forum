@@ -208,7 +208,7 @@ CREATE TABLE `tl_module` (
   `c4g_forum_bbcodes_editor_imguploadpath` char(128) NOT NULL default '',
   `c4g_forum_bbcodes_editor_fileuploadpath` char(128) NOT NULL default '',
   `c4g_forum_bbcodes_smileys` char(1) NOT NULL default '1',
-  `c4g_forum_bbcodes_editor_toolbaritems` varchar(255) NOT NULL default 'Cut, Copy, Paste, PasteText, PasteFromWord, -, Undo, Redo, Bold, Italic, Underline, Strike, Subscript, Superscript, -, RemoveFormat, NumberedList, BulletedList, Link, Unlink, Anchor, Image, FileUpload, Table, Smiley, TextColor, BGColor',
+  `c4g_forum_bbcodes_editor_toolbaritems` varchar(600) NOT NULL default 'Cut,Copy,Paste,PasteText,PasteFromWord,-,Undo,Redo,TextColor,BGColor,Bold,Italic,Underline,Strike,Subscript,Superscript,-,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,-,RemoveFormat,NumberedList,BulletedList,Link,Unlink,Anchor,Image,FileUpload,Table,Smiley',
   `c4g_forum_bbcodes_smileys_url` char(128) NOT NULL default 'system/modules/con4gis_core/lib/wswgEditor/images/smilies',
   `c4g_forum_bbcodes_autourl` char(1) NOT NULL default '1', 
   `c4g_forum_bbcodes_editor` char(1) NOT NULL default '0',
