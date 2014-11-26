@@ -17,6 +17,12 @@ if (typeof(jQuery)=='undefined') {
 } else {
 	jQuery(document).ready(function() {
 		<?php
+
+		$sPath = \Contao\Environment::get('path');
+		if(substr($sPath,0,1) == "/"){
+		    $sPath = substr($sPath,1);
+		}
+
 		echo "jQuery('div#". $this->c4gdata['div']."' ).c4gGui({".
 				"id: ".$this->c4gdata['id'].", ".
 				"height: '" . $this->c4gdata['height'] ."', ".
@@ -29,7 +35,7 @@ if (typeof(jQuery)=='undefined') {
 				"breadcrumbDelim: '" . $this->c4gdata['breadcrumbDelim'] . "', ".
 				"embedDialogs: '" . $this->c4gdata['embedDialogs'] ."', ".
 				"jquiEmbeddedDialogs: '" . $this->c4gdata['jquiEmbeddedDialogs'] ."', ".
-				"contaoPath: '" . \Contao\Environment::get('base').\Contao\Environment::get('path')."', ";
+				"contaoPath: '" . \Contao\Environment::get('base').$sPath."', ";
 		if ($this->c4gdata['navPanel']) {
 			echo "navPanel: true";
 		}
