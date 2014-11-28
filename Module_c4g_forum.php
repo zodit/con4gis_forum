@@ -195,6 +195,16 @@
             \Contao\Session::getInstance()->set("c4g_forum_bbcodes_editor_imageWidth", $this->c4g_forum_bbcodes_editor_imageWidth);
             \Contao\Session::getInstance()->set("c4g_forum_bbcodes_editor_imageHeight", $this->c4g_forum_bbcodes_editor_imageHeight);
 
+
+//            echo "<pre>";
+//            var_dump($this->c4g_forum_bbcodes_editor_imguploadpath);
+//            var_dump($this->c4g_forum_bbcodes_editor_fileuploadpath);
+//            var_dump($this->c4g_forum_bbcodes_editor_uploadTypes);
+//            var_dump($this->c4g_forum_bbcodes_editor_maxFileSize);
+//            var_dump($this->c4g_forum_bbcodes_editor_imageWidth);
+//            var_dump($this->c4g_forum_bbcodes_editor_imageHeight);
+//            die();
+
             $aToolbarButtons = explode(",", $this->c4g_forum_bbcodes_editor_toolbaritems);
 
             if ($this->c4g_forum_ckeditor) {

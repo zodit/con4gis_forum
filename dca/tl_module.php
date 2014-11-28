@@ -483,26 +483,26 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_sitemap_contents'] = array
 
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_uploadTypes'] = array(
-    'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['c4g_forum_bbcodes_editor_uploadTypes'],
+    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_uploadTypes'],
     'inputType'               => 'text',
     'eval'                    => array('tl_class'=>'w50')
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_maxFileSize'] = array(
-    'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['c4g_forum_bbcodes_editor_maxFileSize'],
+    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_maxFileSize'],
     'inputType'               => 'text',
     'default' => '2048000',
     'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50')
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_imageWidth'] = array(
-    'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['c4g_forum_bbcodes_editor_imageWidth'],
+    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageWidth'],
     'inputType'               => 'text',
     'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50')
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_imageHeight'] = array(
-    'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['c4g_forum_bbcodes_editor_imageHeight'],
+    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageHeight'],
     'inputType'               => 'text',
     'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50')
 );

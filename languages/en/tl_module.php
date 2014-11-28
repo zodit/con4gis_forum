@@ -115,6 +115,13 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap_contents'] 	= array('Sitemap
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb_jumpTo'] = array('Redirect to',
 																		'Please select the page which contains the frontend module of the forum.');
 
+
+
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_uploadTypes'] = array("Allowed Filetypes","comma separated, without dot ");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_maxFileSize'] = array("Max Filesize","Declaration in Byte: 1 kB = 1024 Byte, 1 MB = 1048576 Byte");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageWidth'] = array("Max image width","Declaration in pixel");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageHeight'] = array("Max image height","Declaration in pixel");
+
 /**
  * Legend
  */

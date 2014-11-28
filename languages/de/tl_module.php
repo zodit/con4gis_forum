@@ -119,6 +119,13 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap_contents'] 	= array('Inhalte
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb_jumpTo'] = array('Weiterleitungsseite',
 																		'Wählen Sie hier die Seite aus, auf der sich das Frontend-Modul mit dem Diskussionsforum befindet.');
 
+
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_uploadTypes'] = array("Erlaubte Dateitypen","Kommasepariert, ohne Punkt");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_maxFileSize'] = array("Maximale Dateigröße","Angabe in Byte: 1 kB = 1024 Byte, 1 MB = 1048576 Byte");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageWidth'] = array("Maximale Bildbreite","Angabe in Pixel");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageHeight'] = array("Maximale Bildhöhe","Angabe in Pixel");
+
+
 /**
  * Legend
  */
