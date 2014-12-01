@@ -5,7 +5,6 @@ if ($this->style):
   echo 'style="'.$this->style.'"';
 endif; 
 echo '>';
-
 ?>
 
 <script>
@@ -30,7 +29,8 @@ if (typeof(jQuery)=='undefined') {
 				"breadcrumbDelim: '" . $this->c4gdata['breadcrumbDelim'] . "', ".
 				"embedDialogs: '" . $this->c4gdata['embedDialogs'] ."', ".
 				"jquiEmbeddedDialogs: '" . $this->c4gdata['jquiEmbeddedDialogs'] ."', ".
-				"contaoPath: '" . \Contao\Environment::get('base')."', ";
+				"contaoPath: '" . \Contao\Environment::get('base')."', ".
+				"contaoLanguage: '" . $GLOBALS['TL_LANGUAGE'] . "',";
 		if ($this->c4gdata['navPanel']) {
 			echo "navPanel: true";
 		}
