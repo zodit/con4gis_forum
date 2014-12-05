@@ -15,6 +15,7 @@
 
 $GLOBALS['TL_LANG']['C4G_FORUM']['FORUM'] 					= 'Forum';
 $GLOBALS['TL_LANG']['C4G_FORUM']['THREAD'] 					= 'Thread';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'] 					= 'Tags';
 $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS'] 				= 'Threads';
 $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUM'] 				= 'Forum';
 $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUMS'] 				= 'Forums';
@@ -67,6 +68,7 @@ $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_CREATED'] 		= 'Created by <b %s>%s
 $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_SUBJECT'] 		= '<b %s>Subject:</b> <span %s>%s</span>';
 $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_LINK'] 			= 'Link: <a href="%s">%s</a>';
 $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_LINK_NEWWINDOW'] 	= 'Link: <a href="%s" target="_blank">%s</a>';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_TAGS'] 		= 'Tags: %s';
 $GLOBALS['TL_LANG']['C4G_FORUM']['POST_EDIT_INFO'] 				= 'Edited <b %s>%s</b> times, last on <b %s>%s</b> by <b %s>%s</b>';
 
 $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_THREAD_TITLE'] 		= 'New thread in forum "%s"';

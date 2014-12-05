@@ -45,10 +45,10 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_language'] 			= array('Frontend-Lang
 
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes'] 			= array('Use BBCodes (BETA)',
 																		'Deactivate this checkbox, if you do not want to use BBCodes in your forum. Please take note, that deactivating BBCodes after they have already been used, may cause ugly formating-errors.');
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor'] 	= array('Use WYSIWYG-Editor',
-																		'CAUTION: This Feature only works for embedded forums!');
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath'] 	= array('Image Upload-Folder',
-																					'Decide where uploaded images should be stored');
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor'] 	= array('Use WYSIWYG-Editor','CAUTION: This Feature only works for embedded forums!');
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems'] 	= array('WYSIWYG-Editor Toolbar Buttons','');
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath'] 	= array('Image Upload-Folder','Decide where uploaded images should be stored');
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_fileuploadpath'] 	= array('File Upload-Folder','Decide where uploaded files should be stored. An additional folder named by date is created in here');
 // $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_smileys'] = array('Use Smileys','This Feature converts ASCII-smilies into pictures.');
 // $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_smileys_url'] = array('Path to Smiley-Icons','eg = system/modules/con4gis_forum/html/images/smileys');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_autourl'] 	= array('Automaticaly recognize URLs',
@@ -97,8 +97,8 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_jqtooltip_lib'] 	= array('Load jQuer
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_jqscrollpane_lib'] 	= array('Load jScrollPane library',
 																		'Check this if you want to use styleable scrollbars in jQuery UI dialogs.');
 
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_enable_maps'] 		= array('Enable maps (requires con4gis-maps)',
-																		'Check this to activate map functionality in general. Note that you also have to configure map functionality in the forum maintenance. Requires the Contao extension \'con4gis-maps\' to be installed! ');
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_enable_maps'] 		= array('Enable maps (requires con4gis-Maps)',
+																		'Check this to activate map functionality in general. Note that you also have to configure map functionality in the forum maintenance. Requires the Contao extension \'con4gis-Maps\' to be installed! ');
 
 if (version_compare(VERSION,'3','<')) {
 	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap'] 		= array('Create an XML sitemap',
@@ -115,6 +115,13 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap_contents'] 	= array('Sitemap
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb_jumpTo'] = array('Redirect to',
 																		'Please select the page which contains the frontend module of the forum.');
 
+
+
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_uploadTypes'] = array("Allowed Filetypes","comma separated, without dot ");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_maxFileSize'] = array("Max Filesize","Declaration in Byte: 1 kB = 1024 Byte, 1 MB = 1048576 Byte");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageWidth'] = array("Max image width","Declaration in pixel");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageHeight'] = array("Max image height","Declaration in pixel");
+
 /**
  * Legend
  */
@@ -122,7 +129,7 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_general_legend'] 		= 'Forum - G
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_bbcodes_legend'] 		= 'Forum - BBCodes';
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_boxes_legend'] 		= 'Forum - Box navigation settings';
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_jqui_legend'] 			= 'Forum - jQuery UI';
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend'] 			= 'Forum - Map link (con4gis-maps)';
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend'] 			= 'Forum - Maps (con4gis)';
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_lib_legend'] 			= 'Forum - jQuery libraries';
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_sitemap_legend'] 		= 'Forum - XML sitemap';
 

@@ -5,7 +5,6 @@ if ($this->style):
   echo 'style="'.$this->style.'"';
 endif; 
 echo '>';
-
 ?>
 
 <script>
@@ -17,6 +16,7 @@ if (typeof(jQuery)=='undefined') {
 } else {
 	jQuery(document).ready(function() {
 		<?php
+
 		echo "jQuery('div#". $this->c4gdata['div']."' ).c4gGui({".
 				"id: ".$this->c4gdata['id'].", ".
 				"height: '" . $this->c4gdata['height'] ."', ".
@@ -28,7 +28,9 @@ if (typeof(jQuery)=='undefined') {
 				"jquiButtons: '" . $this->c4gdata['jquiButtons'] ."', ".
 				"breadcrumbDelim: '" . $this->c4gdata['breadcrumbDelim'] . "', ".
 				"embedDialogs: '" . $this->c4gdata['embedDialogs'] ."', ".
-				"jquiEmbeddedDialogs: '" . $this->c4gdata['jquiEmbeddedDialogs'] ."', ";
+				"jquiEmbeddedDialogs: '" . $this->c4gdata['jquiEmbeddedDialogs'] ."', ".
+				"contaoPath: '" . \Contao\Environment::get('base')."', ".
+				"contaoLanguage: '" . $GLOBALS['TL_LANGUAGE'] . "',";
 		if ($this->c4gdata['navPanel']) {
 			echo "navPanel: true";
 		}

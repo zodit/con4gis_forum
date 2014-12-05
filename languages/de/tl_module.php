@@ -18,6 +18,7 @@
 /**
  * Fields
  */
+
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_size'] 				= array('Größe (Breite, Höhe)', 
 																		'Größe des Bereiches, in dem das Forum dargestellt wird. Bei Eingabe von "0" oder nichts wird der Wert nicht gesetzt, und die Breite sowie die Höhe werden automatisch ermittelt.');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_scroll'] 			= array('Größe scrollbarer Bereich der Themenliste (Breite, Höhe)', 
@@ -45,10 +46,11 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_language'] 			= array('Frontend-Spra
 
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes'] 			= array('BBCodes verwenden (BETA)',
 																		'Deaktivieren Sie diese Checkbox, falls Sie BBCodes komplett deaktivieren möchten! Die Verwendung von BBCodes ist dann in diesem Forum nicht mehr möglich. Dies kann zu Formatfehlern führen, wenn diese in einem bereits laufenden Forum zuvor aktiviert waren.');
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor'] 	= array('WYSIWYG-Editor verwenden',
-																		'Achtung: Dieses Feature funktioniert nur, wenn das Forum eingebettet, also nicht im Dialog, verwendet wird!');
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath'] 	= array('Bildupload-Verzeichnis',
-																					'Bestimmt das Verzeichnis, in dem hochgeladene Bilder gespeichert werden sollen.');
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor'] 	= array('Alten WYSIWYG-Editor verwenden','Achtung: Dieses Feature funktioniert nur, wenn das Forum eingebettet, also nicht im Dialog, verwendet wird!');
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems'] 	= array('WYSIWYG-Editor Toolbar Schaltfächen','');
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_ckeditor'] 	= array('Neuen WYSIWYG-Editor verwenden','');
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath'] 	= array('Bildupload-Verzeichnis','Bestimmt das Verzeichnis, in dem hochgeladene Bilder gespeichert werden sollen.');
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_fileuploadpath'] 	= array('Dateiupload-Verzeichnis','Bestimmt das Verzeichnis, in dem hochgeladene Dateien gespeichert werden sollen. Es wird je Tag ein extra Ordner innerhalb dieses Ordners angelegt');
 // $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_smileys'] 	= array('Smileys verwenden',
 // 																		'Deaktivieren Sie diese Checkbox, falls Sie nicht wollen, dass das Forum Smileys automatisch erkennt und gegen entsprechende Icons austauscht.');
 // $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_smileys_url'] 	= array('Pfad zu den Smiley-Icons',
@@ -99,8 +101,8 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_jqtooltip_lib'] 	= array('jQuery Too
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_jqscrollpane_lib'] 	= array('jScrollPane Bibliothek laden',
 																		'Aktivieren Sie diese Checkbox wenn Sie in jQuery UI Dialogen stylebare Scrollbalken verwenden wollen.');
 
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_enable_maps'] 		= array('Kartenanbindung aktivieren (erfordert con4gis-maps)',
-																		'Bei Aktivierung dieses Schalters kann ein Mitglied mit entsprechenden Rechten Beiträge mit Geo-Koordinaten versehen, vorausgesetzt die Karten-Funktionalität wurde im entsprechenden Forenbereich aktiviert. Funktioniert nur, wenn die Contao-Erweiterung \'con4gis-maps\' installiert ist! ');
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_enable_maps'] 		= array('Kartenanbindung aktivieren (erfordert C4G-Maps)',
+																		'Bei Aktivierung dieses Schalters kann ein Mitglied mit entsprechenden Rechten Beiträge mit Geo-Koordinaten versehen, vorausgesetzt die Karten-Funktionalität wurde im entsprechenden Forenbereich aktiviert. Funktioniert nur, wenn die Contao-Erweiterung \'con4gis-Maps\' installiert ist! ');
 
 if (version_compare(VERSION, '3', '<')) {
 	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap'] 		= array('Eine XML-Sitemap erstellen',
@@ -117,6 +119,13 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap_contents'] 	= array('Inhalte
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb_jumpTo'] = array('Weiterleitungsseite',
 																		'Wählen Sie hier die Seite aus, auf der sich das Frontend-Modul mit dem Diskussionsforum befindet.');
 
+
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_uploadTypes'] = array("Erlaubte Dateitypen","Kommasepariert, ohne Punkt");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_maxFileSize'] = array("Maximale Dateigröße","Angabe in Byte: 1 kB = 1024 Byte, 1 MB = 1048576 Byte");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageWidth'] = array("Maximale Bildbreite","Angabe in Pixel");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageHeight'] = array("Maximale Bildhöhe","Angabe in Pixel");
+
+
 /**
  * Legend
  */
@@ -124,7 +133,7 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_general_legend'] 	= 'Diskussion
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_bbcodes_legend'] 	= 'Diskussionsforum - BBCodes';
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_boxes_legend'] 	= 'Diskussionsforum - Einstellungen für Kachelsicht';
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_jqui_legend'] 		= 'Diskussionsforum - jQuery UI';
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend'] 		= 'Diskussionsforum - Kartenanbindung (con4gis-maps)';
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend'] 		= 'Diskussionsforum - Kartenanbindung (con4gis-Maps)';
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_lib_legend'] 		= 'Diskussionsforum - jQuery Bibliotheken';
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_sitemap_legend'] 	= 'Diskussionsforum - XML-Sitemap';
 

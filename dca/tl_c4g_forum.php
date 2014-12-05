@@ -126,6 +126,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 										 '{comfort_legend},box_imagesrc;'.
 										 '{intropage_legend:hide},use_intropage;'.
 										 '{infotext_legend:hide},pretext,posttext;'.
+										 '{additional_legend:hide},tags;'.
 										 '{groups_legend:hide},define_groups;'.
 										 '{rights_legend:hide},define_rights;'.
 										 '{expert_legend:hide},linkurl,link_newwindow,sitemap_exclude;',
@@ -239,7 +240,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 		'posttext' => array
 		(
 			'label'					=> &$GLOBALS['TL_LANG']['tl_c4g_forum']['posttext'],
-			'search'				=> true,
+            'search'				=> true,
 			'inputType'				=> 'textarea',
 			'eval'					=> array('rte'=>'tinyMCE'),
 		),
@@ -427,11 +428,25 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 				'default'                 => '',
 				'inputType'               => 'checkbox',
 		),
+		'tags' => array
+		(
+				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['tags'],
+                'search'				=> true,
+				'inputType'               => 'text',
+                'load_callback'           => array("tl_c4g_forum" => "decodeTags"),
+                'eval'                    => array(),
+		),
+
 	)
 );
 
 /**
  * Class tl_c4g_forum
+ *
+ * @copyright  Küstenschmiede GmbH Software & Design 2012 
+ * @author     Jürgen Witte <http://www.kuestenschmiede.de> 
+ * @package    con4gis
+ * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  */
 class tl_c4g_forum extends Backend
 {
@@ -472,6 +487,14 @@ class tl_c4g_forum extends Backend
 		  return $this->generateImage(preg_replace('/\.gif$/i', '_.gif', $icon)).' ';
 		}  
 	}
+
+
+    public function decodeTags($sValue, $oDca){
+        echo "<pre>";
+        var_dump($sValue);
+        die();
+
+    }
 
 	/**
 	 * Update the palette information that depend on other values

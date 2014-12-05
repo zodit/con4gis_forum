@@ -15,6 +15,7 @@
 
 $GLOBALS['TL_LANG']['C4G_FORUM']['FORUM'] 					= 'Forum';
 $GLOBALS['TL_LANG']['C4G_FORUM']['THREAD'] 					= 'Thema';
+$GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'] 					= 'Tags/Schlagworte';
 $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS'] 				= 'Themen';
 $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUM'] 				= 'Forenbereich';
 $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUMS'] 				= 'Forenbereiche';
@@ -66,6 +67,7 @@ $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_COUNT'] 		= ' Beitrag <b %s>#%d</b
 $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_CREATED'] 	= 'Erstellt von <b %s>%s</b> am <b %s>%s</b>';
 $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_SUBJECT'] 	= '<b %s>Betreff:</b> <span %s>%s</span>';
 $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_LINK'] 		= 'Link: <a href="%s">%s</a>';
+$GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_TAGS'] 		= 'Tags: %s';
 $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_LINK_NEWWINDOW'] = 'Link: <a href="%s" target="_blank">%s</a>';
 $GLOBALS['TL_LANG']['C4G_FORUM']['POST_EDIT_INFO'] 			= '<b %s>%s</b> Mal geändert, zuletzt am <b %s>%s</b> von <b %s>%s</b>';
 
