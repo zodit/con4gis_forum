@@ -209,8 +209,9 @@
 
             if ($this->c4g_forum_ckeditor) {
                 $GLOBALS['TL_HEAD'][]       = "<script>var ckEditorItems = ['" . implode("','", $aToolbarButtons) . "'];</script>";
+                $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.css';
                 $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/ckeditor/ckeditor.js';
-                $GLOBALS['TL_JAVASCRIPT'][] = "/assets/mootools/chosen/chosen-uncompressed.js|static";
+                $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.jquery.min.js';
             }
 
 
@@ -2786,7 +2787,7 @@
 
             $sHtml       = "<div class=\"" . $sDivName . "\">";
             $sHtml .= $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'] . ':<br/>';
-            $sHtml .= "<select name=\"tags\" class=\"formdata c4g_tags\" multiple=\"multiple\" style='width:100%;'>";
+            $sHtml .= "<select name=\"tags\" class=\"formdata c4g_tags\" multiple=\"multiple\" style='width:100%;' data-placeholder='".$GLOBALS['TL_LANG']['C4G_FORUM']['SELECT_TAGS_PLACEHOLDER']."'>";
             foreach ($aTags as $sTag) {
 
                 $sHtml .= "<option";
@@ -2798,7 +2799,7 @@
             $sHtml .= "</select>";
             $sHtml .= "</div>";
 
-            $sHtml .= "<script>$$('.c4g_tags').chosen();</script>";
+            $sHtml .= "<script>jQuery(document).ready(function(){jQuery('.c4g_tags').chosen();});</script>";
 
 
             return $sHtml;
