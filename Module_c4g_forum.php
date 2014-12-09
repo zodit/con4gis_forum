@@ -1289,7 +1289,7 @@
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea><br/>' .
                      '</div>';
             $data .= $this->getPostlinkForForm('c4gForumNewThreadPostLink', $forumId, 'newthread', '', '');
-            $data .= $this->getPostMapEntryForForm('c4gForumNewThreadMapData', $forumId, 'newthread', '', '', '', '', '', '', '');
+            $data .= $this->getPostMapEntryForForm('c4gForumNewThreadMapData', $forumId, 'newthread', '', '', '', '', '', '', '','');
 
             $data .= '</div>';
 
