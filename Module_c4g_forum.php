@@ -1275,7 +1275,13 @@
             if ($this->c4g_forum_ckeditor) {
                 $editorId = ' id="ckeditor"';
             }
-            $data .= $this->getTagForm('c4gForumNewThreadPostTags', $forumId, 'newthread');
+
+            $aPost = array(
+                "forumid" => $forumId,
+                "tags" => array()
+            );
+
+            $data .= $this->getTagForm('c4gForumNewThreadPostTags', $aPost, 'newthread');
             $data .= '<div class="c4gForumNewThreadContent">' .
                      $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
                      '<input type="hidden" name="uploadEnv" value="{{env::path}}">' .
@@ -1341,12 +1347,17 @@
             if ($this->c4g_forum_ckeditor) {
                 $editorId = ' id="ckeditor"';
             }
+
+            $aPost = array(
+                "forumid" => $thread['forumid'],
+                "tags" => array()
+            );
             $data = '<div class="c4gForumNewPost">' .
                     '<div class="c4gForumNewPostSubject">' .
                     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBJECT'] . ':<br/>' .
                     '<input name="subject" value="' . $thread['threadname'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="100" /><br />' .
                     '</div>';
-            $data .= $this->getTagForm('c4gForumNewPostPostTags', $thread['forumid'], 'newpost');
+            $data .= $this->getTagForm('c4gForumNewPostPostTags', $aPost, 'newpost');
             $data .='<div class="c4gForumNewPostContent">' .
                     $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
                     '<input type="hidden" name="uploadEnv" value="{{env::path}}">' .
@@ -2783,6 +2794,7 @@
          */
         public function getTagForm($sDivName, $aPost, $sForumId)
         {
+
             $aTags       = $this->getTagsRecursivByParent($aPost['forumid']);
 
             $sHtml       = "<div class=\"" . $sDivName . "\">";
