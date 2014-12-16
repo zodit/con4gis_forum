@@ -168,4 +168,13 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_references']['THREADS'] 	= 'Öffentliche T
 $GLOBALS['TL_LANG']['tl_module']['c4g_references']['FORUMS'] 	= 'Öffentliche Forenbereiche';
 $GLOBALS['TL_LANG']['tl_module']['c4g_references']['INTROS'] 	= 'Öffentliche Forenbereiche - Einstiegsseiten';
 
+	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip'] = array("Tootip für die Themenliste","");
+	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['title_first_post'] = "Titel des ersten Beitrags";
+	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['title_last_post'] = "Titel des letzten Beitrags";
+	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['body_first_post'] = "Beschreibung des ersten Beitrags";
+	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['body_last_post'] = "Beschreibung des letzten Beitrags";
+	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['threadtitle'] = "Titel des Themas";
+	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['threadbody'] = "Beschreibung des Themas";
+	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['disabled'] = "deaktiviert";
+
 ?>

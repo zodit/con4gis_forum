@@ -546,17 +546,46 @@
                     $lastPost     = $thread['creation'];
                     $lastUsername = $thread['username'];
                 }
-                if ($thread['threaddesc']) {
-                    $tooltip = $thread['threaddesc'];
-                } else {
-                    //$tooltip = $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_NODESC'];
-                    $tooltip = $this->helper->getFirstPostLimitedTextOfThreadFromDB($thread['id'], 250);
-                    $tooltip = preg_replace('/\[[^\[\]]*\]/i', '', $tooltip);
+
+
+
+                switch($this->c4g_forum_tooltip){
+                    case "title_first_post":
+                        $tooltip = $this->helper->getFirstPostLimitedTextOfThreadFromDB($thread['id'], 250,true);
+                        $tooltip = preg_replace('/\[[^\[\]]*\]/i', '', $tooltip);
+                        break;
+                    case "title_last_post":
+                        $tooltip = $this->helper->getLastPostLimitedTextOfThreadFromDB($thread['id'], 250,true);
+                        $tooltip = preg_replace('/\[[^\[\]]*\]/i', '', $tooltip);
+                        break;
+                    case "body_first_post":
+                        $tooltip = $this->helper->getFirstPostLimitedTextOfThreadFromDB($thread['id'], 250);
+                        $tooltip = preg_replace('/\[[^\[\]]*\]/i', '', $tooltip);
+                        break;
+                    case "body_last_post":
+                        $tooltip = $this->helper->getLastPostLimitedTextOfThreadFromDB($thread['id'], 250);
+                        $tooltip = preg_replace('/\[[^\[\]]*\]/i', '', $tooltip);
+                        break;
+                    case "threadtitle":
+                        $tooltip = $thread['name'];
+                        break;
+                    case "threadbody":
+                        $tooltip = $thread['threaddesc'];
+                        break;
+                    case "disabled":
+                        $tooltip = false;
+                        break;
+                    default:
+                        $tooltip = $thread['threaddesc'];
+                        break;
                 }
+
                 if (strlen($tooltip) >= 245) {
                     $tooltip = substr($tooltip, 0, strrpos($tooltip, ' '));
                     $tooltip .= ' [...]';
                 }
+
+
                 $plainHtmlData = false;
                 if ($this->plainhtml) {
                     // for search engines: only show threadnames
