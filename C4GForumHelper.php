@@ -782,6 +782,14 @@ class C4GForumHelper extends System
 				$srcTable = "tl_c4g_forum_post";
 				$srcCol = "CONCAT(subject, ' ', text, ' ', tags)";
 				break;
+			case 'tag':
+				$srcTable = "tl_c4g_forum_post";
+				$srcCol = "tags";
+				break;
+			case 'threadtag':
+				$srcTable = "tl_c4g_forum_thread";
+				$srcCol = "tags";
+				break;
 			default:
 				//@TODO ERROR MESSAGE
 				break;
@@ -800,8 +808,14 @@ class C4GForumHelper extends System
 		}
 		
 		//compress data
-		$dataSet = C4GUtils::compressDataSetForSearch($dataSet);
-		$dataSet = explode(' ', $dataSet);
+        if($type == "tag" || $type == "threadtag"){
+            $dataSet = C4GUtils::compressDataSetForSearch($dataSet,false,true,true);
+            $dataSet = explode(',',$dataSet);
+            $dataSet = array_map("trim",$dataSet);
+        }else{
+		    $dataSet = C4GUtils::compressDataSetForSearch($dataSet);
+		    $dataSet = explode(' ', $dataSet);
+        }
 		
 		if(empty($dataSet)){
 			return null;
@@ -1583,6 +1597,7 @@ class C4GForumHelper extends System
 		$result['post_id'] = $objInsertStmt->insertId;
 		//update index
 		$this->createIndex('post', $result['post_id']);
+		$this->createIndex('tag', $result['post_id']);
 		return $result;
 	}
 	
@@ -1660,7 +1675,8 @@ class C4GForumHelper extends System
 		
 		//update index
 		$this->createIndex('post', $post['id']);
-		
+		$this->createIndex('tag', $post['id']);
+
 		return true;
 	}
 
@@ -1693,7 +1709,8 @@ class C4GForumHelper extends System
 		//update index
 		$this->createIndex('threadhl', $thread['id']);
 		$this->createIndex('threaddesc', $thread['id']);
-		
+		$this->createIndex('threadtag', $thread['id']);
+
 		return true;
 	}
 	
@@ -1894,7 +1911,10 @@ class C4GForumHelper extends System
 			$set['sort'] = $sort;
 			$set['name'] = C4GUtils::secure_ugc($threadname);
 		    $set['threaddesc'] = nl2br(C4GUtils::secure_ugc($threaddesc));
-			
+            if(!empty($tags)) {
+                $set['tags'] = implode(", ",$tags);
+            }
+
 			$objInsertStmt = $this->Database->prepare("INSERT INTO tl_c4g_forum_thread %s")
 											->set($set)
 											->execute();
@@ -1946,6 +1966,7 @@ class C4GForumHelper extends System
 		//update index
 		$this->createIndex('threadhl', $new_thread_id);
 		$this->createIndex('threaddesc', $new_thread_id);
+		$this->createIndex('threadtag', $new_thread_id);
 		return $result;
 		
 	}

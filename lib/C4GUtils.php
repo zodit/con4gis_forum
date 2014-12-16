@@ -83,24 +83,29 @@ class C4GUtils {
 	/**
 	 * compresses the raw data set for searching/indexing
 	 * and removes stopwords
-	 * @param array (of strings) $rawDataSet
-	 */
-	public static function compressDataSetForSearch($rawDataSet, $stripStopwords=true)
+     *
+     * @param      $rawDataSet
+     * @param bool $stripStopwords
+     * @param bool $preserveComma
+     *
+     * @return mixed|string
+     */
+	public static function compressDataSetForSearch($rawDataSet, $stripStopwords = true,$bPreserveComma = false, $bPreserveNumbers = false)
 	{
-		$dSearch = array(
-				'#ß#',
-				'#Ä|ä#',
-				'#Ö|ö#',
-				'#Ü|ü#',
-				'#Á|á|À|à|Â|â#',
-				'#Ó|ó|Ò|ò|Ô|ô#',
-				'#Ú|ú|Ù|ù|Û|û#',
-				'#É|é|È|è|Ê|ê#',
-				'#Í|í|Ì|ì|Î|î#',
-				'#([/.,+-]*\s)#',
-				'#([^A-Za-z])#',
-				'# +#'
-				);
+            $dSearch = array(
+                '#ß#',
+                '#Ä|ä#',
+                '#Ö|ö#',
+                '#Ü|ü#',
+                '#Á|á|À|à|Â|â#',
+                '#Ó|ó|Ò|ò|Ô|ô#',
+                '#Ú|ú|Ù|ù|Û|û#',
+                '#É|é|È|è|Ê|ê#',
+                '#Í|í|Ì|ì|Î|î#',
+                ($bPreserveComma === false)?'#([/.,+-]*\s)#':'#([/.+-]*\s)#',
+                ($bPreserveNumbers === false)?($bPreserveComma === false)?'#([^A-Za-z])#':'#([^A-Za-z,])#':($bPreserveComma === false)?'#([^A-Za-z0-9])#':'#([^A-Za-z0-9,])#',
+                '# +#'
+            );
 		$dReplace = array(
 				'ss',
 				'ae',
@@ -116,8 +121,8 @@ class C4GUtils {
 				' '
 				);
 
-		$dataSet = trim(stripslashes(strip_tags($dataSet)));
-		$dataSet = preg_replace($dSearch, $dReplace, $rawDataSet);
+		$dataSet = trim(stripslashes(strip_tags($rawDataSet)));
+		$dataSet = preg_replace($dSearch, $dReplace, $dataSet);
 		$dataSet = trim(strtolower($dataSet));
 		
 		unset($dSearch);
