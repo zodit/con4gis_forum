@@ -4557,6 +4557,10 @@
                     $this->Session->setData($session);
                 }
             }
+            if(empty($this->c4g_forum_language)){
+                $this->c4g_forum_language = $GLOBALS['TL_LANGUAGE'];
+            }
+
             $this->loadLanguageFile('frontendModules', $this->c4g_forum_language);
             $this->loadLanguageFile('stopwords', $this->c4g_forum_language);
 
