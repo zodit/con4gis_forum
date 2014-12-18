@@ -815,7 +815,6 @@
                 $post['tags'] = explode(", ",$post['tags']);
             }
 
-
             //$collapse = $this->c4g_forum_collapsible_posts;
             $last  = false;
             $first = false;
@@ -1004,7 +1003,7 @@
         {
 
             $return = array();
-            if ($post['username'] == $this->User->username) {
+            if ($post['authorid'] == $this->User->id) {
                 $delAction  = 'delownpostdialog';
                 $editAction = 'editownpostdialog';
             } else {
@@ -2559,7 +2558,7 @@
 
             $posts = $this->helper->getPostFromDB($postId);
             $post  = $posts[0];
-            if ($post['username'] == $this->User->username) {
+            if ($post['authorid'] == $this->User->id) {
                 $action = 'delownpost';
             } else {
                 $action = 'delpost';
@@ -2612,7 +2611,7 @@
 
             $posts = $this->helper->getPostFromDB($postId);
             $post  = $posts[0];
-            if ($post['username'] == $this->User->username) {
+            if ($post['authorid'] == $this->User->id) {
                 $action = 'delownpostdialog';
             } else {
                 $action = 'delpostdialog';
@@ -2661,7 +2660,7 @@
 
             $posts = $this->helper->getPostFromDB($postId);
             $post  = $posts[0];
-            if ($post['username'] == $this->User->username) {
+            if ($post['authorid'] == $this->User->id) {
                 $action = 'editownpost';
             } else {
                 $action = 'editpost';
@@ -3046,7 +3045,7 @@
             if (!empty($post['tags'])) {
                 $post['tags'] = explode(", ",$post['tags']);
             }
-            if ($post['username'] == $this->User->username) {
+            if ($post['authorid'] == $this->User->id) {
                 $action        = 'editownpostdialog';
                 $previewAction = 'previeweditownpost';
             } else {
@@ -4542,7 +4541,7 @@
 
             if ($this->c4g_forum_jumpTo) {
 
-                // redirect to defined page			
+                // redirect to defined page
                 $objPage = $this->Database->prepare("SELECT id, alias FROM tl_page WHERE id=?")
                     ->limit(1)
                     ->execute($this->c4g_forum_jumpTo);
@@ -4576,7 +4575,7 @@
                 $request = $_GET['req'];
 
                 if ($request != 'undefined') {
-                    // replace "state" parameter in Session-Referer to force correct 
+                    // replace "state" parameter in Session-Referer to force correct
                     // handling after login with "redirect back" set
                     $session                       = $this->Session->getData();
                     $session['referer']['last']    = $session['referer']['current'];
@@ -4611,7 +4610,7 @@
                 }
 
                 // if there was an initial get parameter "state" then use it for jumping directly
-                // to the refering function 
+                // to the refering function
                 if (($request == 'initnav') && $_GET['initreq']) {
                     $_GET['historyreq'] = $_GET['initreq'];
                 }
