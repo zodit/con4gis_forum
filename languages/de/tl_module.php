@@ -9,7 +9,7 @@
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
  * @copyright Küstenschmiede GmbH Software & Design 2014
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -19,13 +19,13 @@
  * Fields
  */
 
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_size'] 				= array('Größe (Breite, Höhe)', 
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_size'] 				= array('Größe (Breite, Höhe)',
 																		'Größe des Bereiches, in dem das Forum dargestellt wird. Bei Eingabe von "0" oder nichts wird der Wert nicht gesetzt, und die Breite sowie die Höhe werden automatisch ermittelt.');
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_scroll'] 			= array('Größe scrollbarer Bereich der Themenliste (Breite, Höhe)', 
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_scroll'] 			= array('Größe scrollbarer Bereich der Themenliste (Breite, Höhe)',
 																		'Geben Sie nichts oder 0 ein, wenn Sie keine Scrollbalken möchten.');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_startforum'] 		= array('Startpunkt des Forums',
 																		'Wählen Sie hier den Forenbereich bei dem das Forum starten soll. Wenn Sie keine Angabe machen, dann sind alle Forenbereiche verfügbar.');
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_navigation'] 	= array('Navigation', 
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_navigation'] 	= array('Navigation',
 																		'Wählen Sie die Art der Navigation für das Forum aus.');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_threadclick'] 		= array('Aktion bei Klick auf Thema',
 																		'Wählen Sie, welche Aktion bei einem Klick auf ein Thema ausgeführt werden soll.');
@@ -73,7 +73,7 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_jqui_lib'] 			= array('jQuery UI Bib
 																		'Deaktivieren Sie diese Checkbox, falls Sie jQuery UI bereits anderweitig laden. Vorsicht beim Deaktivieren: achten Sie darauf, dass eine kompatible Version geladen wird!');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_uitheme_css_src'] 	= array('jQuery UI ThemeRoller CSS Datei',
 																		'Wählen Sie hier wenn gewünscht eine CSS Datei aus, die Sie mit dem jQuery UI ThemeRoller erstellt haben.');
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_dialogsize'] 		= array('Größe von Dialogen (Breite, Höhe)', 
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_dialogsize'] 		= array('Größe von Dialogen (Breite, Höhe)',
 																		'Größe der Dialoge. Hat keine Bedeutung, wenn die Dialoge eingebettet sind. Wenn Sie nichts eingeben, werden Standardwerte für die Dialoggröße angenommen.');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_buttons_jqui_layout'] 	= array('Buttonleiste im jQuery UI Layout',
 																			'Wählen Sie, ob die Buttonleiste aus jQuery-UI Buttons bestehen sollen, oder ob sie normale Links bleiben sollen.');
@@ -109,8 +109,8 @@ if (version_compare(VERSION, '3', '<')) {
 																		'Eine Google XML-Sitemap im Wurzelverzeichnis erstellen.');
 } else {
 	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap'] 		= array('Eine XML-Sitemap erstellen',
-																		'Eine Google XML-Sitemap im Verzeichnis "share/" erstellen.');	
-}	
+																		'Eine Google XML-Sitemap im Verzeichnis "share/" erstellen.');
+}
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap_filename'] 	= array('Sitemap-Dateiname',
 																		'Geben Sie den Namen der Sitemap-Datei ohne die Dateiendung .xml ein.');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap_contents'] 	= array('Inhalte der Sitemap',
@@ -120,10 +120,10 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb_jumpTo'] = array('Weiterl
 																		'Wählen Sie hier die Seite aus, auf der sich das Frontend-Modul mit dem Diskussionsforum befindet.');
 
 
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_uploadTypes'] = array("Erlaubte Dateitypen","Kommasepariert, ohne Punkt");
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_maxFileSize'] = array("Maximale Dateigröße","Angabe in Byte: 1 kB = 1024 Byte, 1 MB = 1048576 Byte");
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageWidth'] = array("Maximale Bildbreite","Angabe in Pixel");
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageHeight'] = array("Maximale Bildhöhe","Angabe in Pixel");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_uploadTypes'] 		= array("Erlaubte Dateitypen","Kommasepariert, ohne Punkt");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_maxFileSize'] 		= array("Maximale Dateigröße","Angabe in Byte: 1 kB = 1024 Byte, 1 MB = 1048576 Byte");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageWidth'] 		= array("Maximale Bildbreite","Angabe in Pixel");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageHeight'] 		= array("Maximale Bildhöhe","Angabe in Pixel");
 
 
 /**
@@ -131,13 +131,13 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb_jumpTo'] = array('Weiterl
  */
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_general_legend'] 	= 'Diskussionsforum - Allgemein';
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_bbcodes_legend'] 	= 'Diskussionsforum - BBCodes';
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_boxes_legend'] 	= 'Diskussionsforum - Einstellungen für Kachelsicht';
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_jqui_legend'] 		= 'Diskussionsforum - jQuery UI';
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend'] 		= 'Diskussionsforum - Kartenanbindung (con4gis-Maps)';
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_lib_legend'] 		= 'Diskussionsforum - jQuery Bibliotheken';
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_boxes_legend'] 		= 'Diskussionsforum - Einstellungen für Kachelsicht';
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_jqui_legend'] 			= 'Diskussionsforum - jQuery UI';
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend'] 			= 'Diskussionsforum - Kartenanbindung (con4gis-Maps)';
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_lib_legend'] 			= 'Diskussionsforum - jQuery Bibliotheken';
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_sitemap_legend'] 	= 'Diskussionsforum - XML-Sitemap';
 
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb_legend'] 	= 'Navigationspfad';
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb_legend'] 		= 'Navigationspfad';
 
 /**
  * References
@@ -165,16 +165,16 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_references']['CF'] 		= 'Erster Beitrag auf
 $GLOBALS['TL_LANG']['tl_module']['c4g_references']['CL'] 		= 'Letzter Beitrag aufgeklappt';
 
 $GLOBALS['TL_LANG']['tl_module']['c4g_references']['THREADS'] 	= 'Öffentliche Themen';
-$GLOBALS['TL_LANG']['tl_module']['c4g_references']['FORUMS'] 	= 'Öffentliche Forenbereiche';
-$GLOBALS['TL_LANG']['tl_module']['c4g_references']['INTROS'] 	= 'Öffentliche Forenbereiche - Einstiegsseiten';
+$GLOBALS['TL_LANG']['tl_module']['c4g_references']['FORUMS'] 		= 'Öffentliche Forenbereiche';
+$GLOBALS['TL_LANG']['tl_module']['c4g_references']['INTROS'] 		= 'Öffentliche Forenbereiche - Einstiegsseiten';
 
-	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip'] = array("Tootip für die Themenliste","");
-	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['title_first_post'] = "Titel des ersten Beitrags";
-	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['title_last_post'] = "Titel des letzten Beitrags";
-	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['body_first_post'] = "Beschreibung des ersten Beitrags";
-	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['body_last_post'] = "Beschreibung des letzten Beitrags";
-	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['threadtitle'] = "Titel des Themas";
-	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['threadbody'] = "Beschreibung des Themas";
-	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['disabled'] = "deaktiviert";
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip'] 													= array("Tootip für die Themenliste","");
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['title_first_post'] = "Titel des ersten Beitrags";
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['title_last_post'] 	= "Titel des letzten Beitrags";
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['body_first_post'] 	= "Inhalt des ersten Beitrags";
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['body_last_post'] 	= "Inhalt des letzten Beitrags";
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['threadtitle'] 			= "Titel des Themas";
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['threadbody'] 			= "Beschreibung des Themas";
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['disabled'] 				= "deaktiviert";
 
 ?>
