@@ -1,8 +1,8 @@
-con4gis-forum
+con4gis-Forum
 =============
 
-part of the GIS-Kit con4gis
+Part of the GIS-Kit con4gis
 
-- [x] con4gis_forum
 - [ ] con4gis_core https://github.com/Kuestenschmiede/con4gis_core
 - [ ] con4gis_maps https://github.com/Kuestenschmiede/con4gis_maps
+- [x] con4gis_forum

@@ -209,8 +209,9 @@
 
             if ($this->c4g_forum_ckeditor) {
                 $GLOBALS['TL_HEAD'][]       = "<script>var ckEditorItems = ['" . implode("','", $aToolbarButtons) . "'];</script>";
+                $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.css';
                 $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/ckeditor/ckeditor.js';
-                $GLOBALS['TL_JAVASCRIPT'][] = "/assets/mootools/chosen/chosen-uncompressed.js|static";
+                $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.jquery.min.js';
             }
 
 
@@ -545,17 +546,46 @@
                     $lastPost     = $thread['creation'];
                     $lastUsername = $thread['username'];
                 }
-                if ($thread['threaddesc']) {
-                    $tooltip = $thread['threaddesc'];
-                } else {
-                    //$tooltip = $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_NODESC'];
-                    $tooltip = $this->helper->getFirstPostLimitedTextOfThreadFromDB($thread['id'], 250);
-                    $tooltip = preg_replace('/\[[^\[\]]*\]/i', '', $tooltip);
+
+
+
+                switch($this->c4g_forum_tooltip){
+                    case "title_first_post":
+                        $tooltip = $this->helper->getFirstPostLimitedTextOfThreadFromDB($thread['id'], 250,true);
+                        $tooltip = preg_replace('/\[[^\[\]]*\]/i', '', $tooltip);
+                        break;
+                    case "title_last_post":
+                        $tooltip = $this->helper->getLastPostLimitedTextOfThreadFromDB($thread['id'], 250,true);
+                        $tooltip = preg_replace('/\[[^\[\]]*\]/i', '', $tooltip);
+                        break;
+                    case "body_first_post":
+                        $tooltip = $this->helper->getFirstPostLimitedTextOfThreadFromDB($thread['id'], 250);
+                        $tooltip = preg_replace('/\[[^\[\]]*\]/i', '', $tooltip);
+                        break;
+                    case "body_last_post":
+                        $tooltip = $this->helper->getLastPostLimitedTextOfThreadFromDB($thread['id'], 250);
+                        $tooltip = preg_replace('/\[[^\[\]]*\]/i', '', $tooltip);
+                        break;
+                    case "threadtitle":
+                        $tooltip = $thread['name'];
+                        break;
+                    case "threadbody":
+                        $tooltip = $thread['threaddesc'];
+                        break;
+                    case "disabled":
+                        $tooltip = false;
+                        break;
+                    default:
+                        $tooltip = $thread['threaddesc'];
+                        break;
                 }
+
                 if (strlen($tooltip) >= 245) {
                     $tooltip = substr($tooltip, 0, strrpos($tooltip, ' '));
                     $tooltip .= ' [...]';
                 }
+
+
                 $plainHtmlData = false;
                 if ($this->plainhtml) {
                     // for search engines: only show threadnames
@@ -785,7 +815,6 @@
                 $post['tags'] = explode(", ",$post['tags']);
             }
 
-
             //$collapse = $this->c4g_forum_collapsible_posts;
             $last  = false;
             $first = false;
@@ -974,7 +1003,7 @@
         {
 
             $return = array();
-            if ($post['username'] == $this->User->username) {
+            if ($post['authorid'] == $this->User->id) {
                 $delAction  = 'delownpostdialog';
                 $editAction = 'editownpostdialog';
             } else {
@@ -1274,7 +1303,13 @@
             if ($this->c4g_forum_ckeditor) {
                 $editorId = ' id="ckeditor"';
             }
-            $data .= $this->getTagForm('c4gForumNewThreadPostTags', $forumId, 'newthread');
+
+            $aPost = array(
+                "forumid" => $forumId,
+                "tags" => array()
+            );
+
+            $data .= $this->getTagForm('c4gForumNewThreadPostTags', $aPost, 'newthread');
             $data .= '<div class="c4gForumNewThreadContent">' .
                      $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
                      '<input type="hidden" name="uploadEnv" value="{{env::path}}">' .
@@ -1282,7 +1317,7 @@
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea><br/>' .
                      '</div>';
             $data .= $this->getPostlinkForForm('c4gForumNewThreadPostLink', $forumId, 'newthread', '', '');
-            $data .= $this->getPostMapEntryForForm('c4gForumNewThreadMapData', $forumId, 'newthread', '', '', '', '', '', '', '');
+            $data .= $this->getPostMapEntryForForm('c4gForumNewThreadMapData', $forumId, 'newthread', '', '', '', '', '', '', '','');
 
             $data .= '</div>';
 
@@ -1340,12 +1375,17 @@
             if ($this->c4g_forum_ckeditor) {
                 $editorId = ' id="ckeditor"';
             }
+
+            $aPost = array(
+                "forumid" => $thread['forumid'],
+                "tags" => array()
+            );
             $data = '<div class="c4gForumNewPost">' .
                     '<div class="c4gForumNewPostSubject">' .
                     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBJECT'] . ':<br/>' .
                     '<input name="subject" value="' . $thread['threadname'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="100" /><br />' .
                     '</div>';
-            $data .= $this->getTagForm('c4gForumNewPostPostTags', $thread['forumid'], 'newpost');
+            $data .= $this->getTagForm('c4gForumNewPostPostTags', $aPost, 'newpost');
             $data .='<div class="c4gForumNewPostContent">' .
                     $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
                     '<input type="hidden" name="uploadEnv" value="{{env::path}}">' .
@@ -2518,7 +2558,7 @@
 
             $posts = $this->helper->getPostFromDB($postId);
             $post  = $posts[0];
-            if ($post['username'] == $this->User->username) {
+            if ($post['authorid'] == $this->User->id) {
                 $action = 'delownpost';
             } else {
                 $action = 'delpost';
@@ -2571,7 +2611,7 @@
 
             $posts = $this->helper->getPostFromDB($postId);
             $post  = $posts[0];
-            if ($post['username'] == $this->User->username) {
+            if ($post['authorid'] == $this->User->id) {
                 $action = 'delownpostdialog';
             } else {
                 $action = 'delpostdialog';
@@ -2620,7 +2660,7 @@
 
             $posts = $this->helper->getPostFromDB($postId);
             $post  = $posts[0];
-            if ($post['username'] == $this->User->username) {
+            if ($post['authorid'] == $this->User->id) {
                 $action = 'editownpost';
             } else {
                 $action = 'editpost';
@@ -2782,11 +2822,12 @@
          */
         public function getTagForm($sDivName, $aPost, $sForumId)
         {
+
             $aTags       = $this->getTagsRecursivByParent($aPost['forumid']);
 
             $sHtml       = "<div class=\"" . $sDivName . "\">";
             $sHtml .= $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'] . ':<br/>';
-            $sHtml .= "<select name=\"tags\" class=\"formdata c4g_tags\" multiple=\"multiple\" style='width:100%;'>";
+            $sHtml .= "<select name=\"tags\" class=\"formdata c4g_tags\" multiple=\"multiple\" style='width:100%;' data-placeholder='".$GLOBALS['TL_LANG']['C4G_FORUM']['SELECT_TAGS_PLACEHOLDER']."'>";
             foreach ($aTags as $sTag) {
 
                 $sHtml .= "<option";
@@ -2798,7 +2839,7 @@
             $sHtml .= "</select>";
             $sHtml .= "</div>";
 
-            $sHtml .= "<script>$$('.c4g_tags').chosen();</script>";
+            $sHtml .= "<script>jQuery(document).ready(function(){jQuery('.c4g_tags').chosen();});</script>";
 
 
             return $sHtml;
@@ -3004,7 +3045,7 @@
             if (!empty($post['tags'])) {
                 $post['tags'] = explode(", ",$post['tags']);
             }
-            if ($post['username'] == $this->User->username) {
+            if ($post['authorid'] == $this->User->id) {
                 $action        = 'editownpostdialog';
                 $previewAction = 'previeweditownpost';
             } else {
@@ -4500,7 +4541,7 @@
 
             if ($this->c4g_forum_jumpTo) {
 
-                // redirect to defined page			
+                // redirect to defined page
                 $objPage = $this->Database->prepare("SELECT id, alias FROM tl_page WHERE id=?")
                     ->limit(1)
                     ->execute($this->c4g_forum_jumpTo);
@@ -4534,7 +4575,7 @@
                 $request = $_GET['req'];
 
                 if ($request != 'undefined') {
-                    // replace "state" parameter in Session-Referer to force correct 
+                    // replace "state" parameter in Session-Referer to force correct
                     // handling after login with "redirect back" set
                     $session                       = $this->Session->getData();
                     $session['referer']['last']    = $session['referer']['current'];
@@ -4544,6 +4585,10 @@
                     $this->Session->setData($session);
                 }
             }
+            if(empty($this->c4g_forum_language)){
+                $this->c4g_forum_language = $GLOBALS['TL_LANGUAGE'];
+            }
+
             $this->loadLanguageFile('frontendModules', $this->c4g_forum_language);
             $this->loadLanguageFile('stopwords', $this->c4g_forum_language);
 
@@ -4565,7 +4610,7 @@
                 }
 
                 // if there was an initial get parameter "state" then use it for jumping directly
-                // to the refering function 
+                // to the refering function
                 if (($request == 'initnav') && $_GET['initreq']) {
                     $_GET['historyreq'] = $_GET['initreq'];
                 }

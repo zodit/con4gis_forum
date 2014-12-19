@@ -9,7 +9,7 @@
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
  * @copyright Küstenschmiede GmbH Software & Design 2014
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -18,13 +18,13 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_size'] 				= array('Size (width, height)', 
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_size'] 				= array('Size (width, height)',
 																		'Size of division (DIV) wherein the forum is displayed. The size is calculated automatically when you don\'t enter values here.');
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_scroll'] 			= array('Size of the scrollable area of the threadlist (width, height)', 
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_scroll'] 			= array('Size of the scrollable area of the threadlist (width, height)',
 																		'Leave empty if you don\'t want scrollbars.');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_startforum'] 		= array('Origin',
 																		'Choose the parent forum to start from. Leave empty to see all defined forums.');
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_navigation'] 	= array('Navigation', 
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_navigation'] 	= array('Navigation',
 																		'Choose the navigation for the forum.');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_threadclick'] 		= array('Thread click action',
 																		'Choose the action to be performed when a thread is clicked.');
@@ -38,7 +38,7 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb'] 		= array('Show breadcr
 																		'Check this if you want the breadcrumb to be displayed.');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_hide_intropages'] 	= array('Hide intropages',
 																		'Check this to hide intropages despite they have been defined. This can make sense if you want to realise different views on your forum with several frontend modules.');
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_jumpTo'] 			= array('Redirect page on denied permission', 
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_jumpTo'] 			= array('Redirect page on denied permission',
 																		'Please choose the page to which visitors will be redirected when the permission for a requested action is not granted.');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_language'] 			= array('Frontend-Language',
 																		'Empty=determine automatically, de=German, en=English.');
@@ -63,13 +63,13 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_boxes_lastpost'] 	= array('Box navig
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_boxes_center'] 		= array('Center box navigation',
 																		'Check this to center the block containing the boxes.');
 
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_jqui'] 				= array('Use jQuery UI', 
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_jqui'] 				= array('Use jQuery UI',
 																		'Uncheck this to deactivate jQuery UI completely. The library is not loaded and all jQuery UI dependent functionality is deactivated!');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_jqui_lib'] 			= array('Load jQuery UI library',
 																		'Uncheck this if you are already loading the jQuery UI library by yourself: please check that you use a compatible version of the library!');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_uitheme_css_src'] 	= array('jQuery UI ThemeRoller CSS file',
 																		'Optionally: select the CSS file you created with the jQuery UI ThemeRoller.');
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_dialogsize'] 		= array('Size of dialogs (width, height)', 
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_dialogsize'] 		= array('Size of dialogs (width, height)',
 																		'Leave empty to use default values. Has no meaning if you use embedded dialogs.');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_buttons_jqui_layout'] 	= array('Use jQuery UI Layout for the toolbar buttons',
 																			'Check this to use jQuery-UI Buttons, otherwise links are created.');
@@ -105,8 +105,8 @@ if (version_compare(VERSION,'3','<')) {
 																		'Create a Google XML sitemap in the root directory.');
 } else {
 	$GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap'] 		= array('Create an XML sitemap',
-																		'Create a Google XML sitemap in the directory "share/".');	
-}	
+																		'Create a Google XML sitemap in the directory "share/".');
+}
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap_filename'] 	= array('Sitemap file name',
 																		'Enter the name of the sitemap file without extension .xml.');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap_contents'] 	= array('Sitemap content',
@@ -160,8 +160,17 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_references']['CC'] 				= 'All posts collap
 $GLOBALS['TL_LANG']['tl_module']['c4g_references']['CF'] 				= 'First post uncollapsed';
 $GLOBALS['TL_LANG']['tl_module']['c4g_references']['CL'] 				= 'Last post uncollapsed';
 
-$GLOBALS['TL_LANG']['tl_module']['c4g_references']['THREADS'] 			= 'Public threads';
+$GLOBALS['TL_LANG']['tl_module']['c4g_references']['THREADS'] 		= 'Public threads';
 $GLOBALS['TL_LANG']['tl_module']['c4g_references']['FORUMS'] 			= 'Public forums';
 $GLOBALS['TL_LANG']['tl_module']['c4g_references']['INTROS'] 			= 'Public forums - Intropages';
+
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip'] = array("Tootip for threadlist","");
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['title_first_post'] = "Title of first post";
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['title_last_post'] = "Title of last post";
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['body_first_post'] = "Content of first post";
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['body_last_post'] = "Content of last post";
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['threadtitle'] = "Threadtitle";
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['threadbody'] = "Threaddescription";
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['disabled'] = "disabled";
 
 ?>

@@ -69,6 +69,10 @@
         protected function compile()
         {
 
+            if(empty($this->c4g_forum_language)){
+                $this->c4g_forum_language = $GLOBALS['TL_LANGUAGE'];
+            }
+
             $data = array();
             $this->loadLanguageFile('frontendModules', $this->c4g_forum_language);
 
