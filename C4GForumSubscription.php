@@ -5,11 +5,11 @@
  *
  * @version   php 5
  * @package   con4gis
- * @author     Jürgen Witte <http://www.kuestenschmiede.de> 
+ * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -17,9 +17,9 @@
  * Class C4GForumSubscription
  *
  * @copyright  Küstenschmiede GmbH Software & Design 2012
- * @author     Jürgen Witte <http://www.kuestenschmiede.de> 
- * @package    con4gis 
- * @author     Jürgen Witte <http://www.kuestenschmiede.de> 
+ * @author     Jürgen Witte <http://www.kuestenschmiede.de>
+ * @package    con4gis
+ * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  */
 class C4GForumSubscription
 {
@@ -31,12 +31,12 @@ class C4GForumSubscription
 	public $frontendUrl = null;
 
 	public $MailCache = array();
-	
+
 	/**
 	 * @var C4GForumHelper
 	 */
 	protected $helper = null;
-	
+
 	/**
 	 * Construktor
 	 */
@@ -53,7 +53,7 @@ class C4GForumSubscription
 			$this->ForumName = $forumName;
 		}
 	}
-	
+
 	/**
 	 * Give back a subforum subscription
 	 * @param int $forumId
@@ -81,7 +81,7 @@ class C4GForumSubscription
 				"WHERE pid = ? AND member = ? AND thread_only=?")
 				->execute($forumId,$userId,false)->subscriptionId;
 	}
-	
+
 	/**
 	 *
 	 * Give back a thread subscription
@@ -123,7 +123,7 @@ class C4GForumSubscription
 					->execute($forumId)->fetchAllAssoc();
 		}
 	}
-	
+
 	/**
 	 *
 	 * Give back all subscribers of a given thread id from DB as array.
@@ -131,7 +131,7 @@ class C4GForumSubscription
 	 */
 	public function getThreadSubscribersFromDB($threadId)
 	{
-	
+
 		return $this->Database->prepare(
 				"SELECT a.member AS memberId, b.email AS email, b.username as username, 0 as type ".
 				"FROM tl_c4g_forum_thread_subscription a ".
@@ -139,37 +139,37 @@ class C4GForumSubscription
 				"WHERE a.pid = ?")
 				->execute($threadId)->fetchAllAssoc();
 	}
-	
+
 	/**
 	 * @param int $forumId
 	 * @param int $userId
 	 */
 	public function insertSubscriptionSubforumIntoDB($forumId, $userId, $subscriptionOnlyThreads) {
-	
+
 		$set = array ();
 		$set ['pid'] = $forumId;
 		$set ['member'] = $userId;
 		$set ['thread_only'] = $subscriptionOnlyThreads;
 		$objInsertStmt = $this->Database->prepare ( "INSERT INTO tl_c4g_forum_subforum_subscription %s" )->set ( $set )->execute ();
-	
+
 		return $objInsertStmt->affectedRows;
 	}
-	
+
 	/**
 	 * @param int $threadId
 	 * @param int $userId
 	 */
 	public function insertSubscriptionThreadIntoDB($threadId, $userId) {
-	
+
 		$set = array ();
 		$set ['pid'] = $threadId;
 		$set ['member'] = $userId;
-	
+
 		$objInsertStmt = $this->Database->prepare ( "INSERT INTO tl_c4g_forum_thread_subscription %s" )->set ( $set )->execute ();
-	
+
 		return $objInsertStmt->affectedRows;
 	}
-	
+
 	/**
 	 * Delete subscription by $subscriptionId
 	 * @param int $subscriptionId
@@ -183,7 +183,7 @@ class C4GForumSubscription
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Delete subscription by $subscriptionId
 	 * @param int $subscriptionId
@@ -197,7 +197,7 @@ class C4GForumSubscription
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Delete all subscription of a member
 	 * @param int $subscriptionId
@@ -205,21 +205,21 @@ class C4GForumSubscription
 	public function deleteAllSubscriptions( $memberId )
 	{
 		$rows = 0;
-		
+
 		$objDeleteStmt = $this->Database->prepare("DELETE FROM tl_c4g_forum_subforum_subscription WHERE member = ?")
 			->execute($memberId);
 		$rows += $objDeleteStmt->affectedRows;
-		
+
 		$objDeleteStmt = $this->Database->prepare("DELETE FROM tl_c4g_forum_thread_subscription WHERE member = ?")
 		->execute($memberId);
 		$rows += $objDeleteStmt->affectedRows;
-				
+
 		if ($rows==0) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Delete subscription by $threadId
 	 * @param int $threadId
@@ -233,28 +233,28 @@ class C4GForumSubscription
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Check validity of Mail-Address
 	 * @param string $email
 	 * @return boolean
 	 */
 	protected function checkmail($email) {
-	
+
 		if (! filter_var ( $email, FILTER_VALIDATE_EMAIL )) {
 			return false;
 		} else {
 			return true;
 		}
 	}
-	
+
 	/**
 	 * @param int $subscribers
 	 */
 	public function sendSubscriptionEMail($subscribers, $threadId, $sendKind) {
-	
+
 		$thread = $this->helper->getThreadAndForumNameFromDBUncached ( $threadId );
-	
+
 		$cron = array();
 		$addresses = array();
 		foreach ( $subscribers as $subscriber ) {
@@ -263,10 +263,10 @@ class C4GForumSubscription
 					$sType = 'SUBFORUM';
 					$sPerm = 'subscribeforum';
 				} else {
-					$sType = 'THREAD';						
+					$sType = 'THREAD';
 					$sPerm = 'subscribethread';
 				}
-				
+
 				// check if subscriber still has permission to get subscription mails
 				if ($this->helper->checkPermission($thread['forumid'], $sPerm, $subscriber['memberId'])) {
 					switch ($sendKind) {
@@ -295,24 +295,24 @@ class C4GForumSubscription
 							$intro = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_SUBFORUM_MAIL_NEWTHREAD_INTRO'];
 							break;
 					}
-				
+
 					$data = array();
 					$data['command'] = 'sendmail';
-					$data['charset'] = 'UTF-8';			
-			
+					$data['charset'] = 'UTF-8';
+
 					if ($GLOBALS ['TL_CONFIG'] ['useSMTP'] and $this->checkmail ( $GLOBALS ['TL_CONFIG'] ['smtpUser'] )) {
 						$data['from'] = $GLOBALS ['TL_CONFIG'] ['smtpUser'];
 					} else {
 						$data['from'] = $GLOBALS ['TL_CONFIG'] ['adminEmail'];
 					}
-						
+
 					$data['subject'] = sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_'.$sType.'_MAIL_SUBJECT'],
 							$subjectAddition,
 							$GLOBALS['TL_CONFIG']['websiteTitle'],
 							$thread['forumname'],
 							$thread['threadname'] );
-						
-			
+
+
 					$text = sprintf( $intro,
 							$GLOBALS['TL_CONFIG']['websiteTitle'],
 							$thread['forumname'],
@@ -320,78 +320,78 @@ class C4GForumSubscription
 							$this->User->username,
 							$this->MailCache ['subject'],
 							$this->MailCache ['moveThreadOldName'] );
-						
+
 
 					// umformatierung BBC-Quotes
 					$this->MailCache ['post'] = preg_replace(
-							'/\[quote=([^\]]+)\]([\s\S]*?)\[\/quote\]/i', 
-							'"$2" (Zitat von $1)', 
+							'/\[quote=([^\]]+)\]([\s\S]*?)\[\/quote\]/i',
+							'"$2" (Zitat von $1)',
 							$this->MailCache ['post']
 						);
 					$this->MailCache ['post'] = preg_replace(
-							'/\[quote\]([\s\S]*?)\[\/quote\]/i', 
-							'"$1" (Zitat)', 
+							'/\[quote\]([\s\S]*?)\[\/quote\]/i',
+							'"$1" (Zitat)',
 							$this->MailCache ['post']
 						);
 					// umformatierung Spoiler
 					$this->MailCache ['post'] = preg_replace(
-							'/\[spoiler\]([\s\S]*?)\[\/spoiler\]/i', 
-							'(Spoiler)', 
+							'/\[spoiler\]([\s\S]*?)\[\/spoiler\]/i',
+							'(Spoiler)',
 							$this->MailCache ['post']
 						);
 					// umformatierung Listen
 					$this->MailCache ['post'] = preg_replace(
-							'/\[\*\]([^\[]*)/i', 
-							'\n- $1', 
+							'/\[\*\]([^\[]*)/i',
+							'\n- $1',
 							$this->MailCache ['post']
 						);
 					// entferne BBCodes
 					$this->MailCache ['post'] = preg_replace('/\[[^\[\]]*\]/i', '', $this->MailCache ['post']);
-						
+
 
 					if (($sendKind != 'delThread') && ($sendKind != 'moveThread')) {
 						$text .= sprintf( $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_TEXT'],
 								$this->MailCache ['post'] );
-			
+
 						if ($this->MailCache ['linkurl']) {
 							$text .= sprintf( $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_LINK'],
 									$this->MailCache ['linkname'],
 									$this->MailCache ['linkurl'] );
 						}
-			
+
 					}
-	
+
 					$data['text'] =
 						sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_HELLO'],$subscriber['username'])
 						.$text;
-					if (($sendKind!='delThread') || ($subscriber['type']==1)) { 
+					if (($sendKind!='delThread') || ($subscriber['type']==1)) {
 						$data['text'] .= sprintf(
 								$GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_'.$sType.'_MAIL_END'],
-						        $this->helper->getUrlForThread( $threadId,$thread['forumid'] ), 
+						        $this->helper->getUrlForThread( $threadId,$thread['forumid'] ),
 								$this->helper->getUrlForForum( $thread['forumid'] ),
 								$this->generateUnsubscribeLinkThread( $threadId, $subscriber['email'] ),
 								$this->generateUnsubscribeLinkSubforum( $thread['forumid'], $subscriber['email'] ),
 								$this->generateUnsubscribeLinkAll( $subscriber['email'] )
 						);
-					}	
-					
+					}
+
 					$data['to'] = $subscriber['email'];
 					$cron[] = $data;
-					
+
 					$addresses[$subscriber ['email']] = true;
-				}	
-			}	
+				}
+			}
 		}
 
-		
+
 		if ($cron) {
 			// send mails via cron job, (will be triggered in Javascript part)
-			$filename = md5(uniqid(mt_rand(), true));		
+			$filename = md5(uniqid(mt_rand(), true));
 			$objFile = fopen(TL_ROOT . '/system/tmp/' . $filename.'.tmp', 'wb');
 			fputs($objFile, serialize($cron));
 			fclose($objFile);
-		}	
-		
+		}
+
 		return $filename;
 	}
 
@@ -401,18 +401,18 @@ class C4GForumSubscription
 	 */
 	protected function encryptLinkData($string)
 	{
-		return str_rot13(rtrim(base64_encode($string),'='));		
+		return str_rot13(rtrim(base64_encode($string),'='));
 	}
-	
-	
+
+
 	/**
 	 * @param string $string
 	 * @return string
 	 */
 	protected function decryptLinkData($string) {
 		return base64_decode(str_rot13($string).'==');
-	}	
-	
+	}
+
 	/**
 	 * @param int $threadId
 	 * @param string $mail
@@ -429,7 +429,7 @@ class C4GForumSubscription
 	 */
 	public function generateUnsubscribeLinkSubforum($forumId, $mail)
 	{
-		return strtok($this->helper->frontendUrl,'?') . '?state=unsubscribesubforum:'.$this->encryptLinkData($forumId.';'.$mail);		
+		return strtok($this->helper->frontendUrl,'?') . '?state=unsubscribesubforum:'.$this->encryptLinkData($forumId.';'.$mail);
 	}
 
 	/**
@@ -438,9 +438,9 @@ class C4GForumSubscription
 	 */
 	public function generateUnsubscribeLinkAll($mail)
 	{
-		return strtok($this->helper->frontendUrl,'?') . '?state=unsubscribeall:'.$this->encryptLinkData($mail);		
+		return strtok($this->helper->frontendUrl,'?') . '?state=unsubscribeall:'.$this->encryptLinkData($mail);
 	}
-		
+
 	/**
 	 * @param string $value
 	 */
@@ -454,23 +454,23 @@ class C4GForumSubscription
 				->execute($values[1]);
 		if ($member->id) {
 			$subscriptionId = $this->getThreadSubscriptionFromDB($values[0], $member->id);
-			if ($subscriptionId) { 
+			if ($subscriptionId) {
 				if ($this->deleteSubscriptionThread($subscriptionId)) {
-					$message = 
+					$message =
 						sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_THREAD_LINK_SUCCESS'],$thread['name'],$member->username);
 				}
 			}
-			
-		}		
+
+		}
 		if (!$message) {
 			$message = $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_THREAD_LINK_FAILED'];
 		}
 		$return['message'] = $message;
-		$return['forumid'] = $thread['forumid'];	
+		$return['forumid'] = $thread['forumid'];
 		$return['threadid'] = $values[0];
-		return $return;	
+		return $return;
 	}
-	
+
 	/**
 	 * @param string $value
 	 */
@@ -485,22 +485,22 @@ class C4GForumSubscription
 			$subscriptionId = $this->getSubforumSubscriptionFromDB($values[0], $member->id);
 			if ($subscriptionId) {
 				if ($this->deleteSubscriptionSubforum($subscriptionId)) {
-					$message = 
+					$message =
 						sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_SUBFORUM_LINK_SUCCESS'],$this->helper->getForumNameFromDB($values[0]),$member->username);
 				}
 			}
-				
+
 		}
-		
+
 		if (!$message) {
 			$return['message'] = $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_SUBFORUM_LINK_FAILED'];
-		}	
+		}
 		$return['message'] = $message;
 		$return['forumid'] = $values[0];
 		return $return;
-		
+
 	}
-	
+
 	/**
 	 * @param string $value
 	 */
@@ -513,12 +513,12 @@ class C4GForumSubscription
 				->execute($email);
 		if ($member->id) {
 			if ($this->deleteAllSubscriptions($member->id)) {
-				return sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_ALL_LINK_SUCCESS'],$member->username);				
+				return sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_ALL_LINK_SUCCESS'],$member->username);
 			}
-				
+
 		}
 		return $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_ALL_LINK_FAILED'];
-	}			
+	}
 }
 
 ?>

@@ -7,9 +7,9 @@
  * @package   con4gis
  * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -20,45 +20,45 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['name'] 					= array('Name', 'Name des Foren
 $GLOBALS['TL_LANG']['tl_c4g_forum']['tags'] 					= array('Tags', 'Schlagwort-Vorgabe zur Auswahl bei der Thread- / Post-Erstellung');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['headline'] 				= array('Überschrift',
 																		'Hier können Sie dem Forenbereich eine Überschrift hinzufügen.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['description'] 				= array('Beschreibung', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['description'] 				= array('Beschreibung',
 																		'Die Beschreibung wird als Tooltip angezeigt.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['published'] 				= array('Veröffentlicht', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['published'] 				= array('Veröffentlicht',
 																		'Legt fest, ob der Forenbereich veröffentlicht wird.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['box_imagesrc'] 			= array('Bild für Kachel', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['box_imagesrc'] 			= array('Bild für Kachel',
 																		'Legt ein Bild fest, das auf der Kachel in der Kachelsicht angezeigt wird.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['use_intropage'] 			= array('Einstiegsseite verwenden', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['use_intropage'] 			= array('Einstiegsseite verwenden',
 																		'Wenn Sie eine Einstiegsseite verwenden, dann wird bevor der Forenbereich aufgerufen wird eine frei definierbare Seite unterhalb des Navigationspfades angezeigt.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['intropage'] 				= array('Inhalt Einstiegsseite', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['intropage'] 				= array('Inhalt Einstiegsseite',
 																		'Der Inhalt der Einstiegsseite in den Forenbereich.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['intropage_forumbtn'] 		= array('Text für Button zum Forum', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['intropage_forumbtn'] 		= array('Text für Button zum Forum',
 																		'Wenn Sie hier einen Text eingeben, so wird unterhalb des Inhalts der Einstiegsseite ein Button erzeugt, der in den eigentlichen Forenbereich verzweigt.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['intropage_forumbtn_jqui'] 	= array('Button zum Forum im jQuery UI Stil', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['intropage_forumbtn_jqui'] 	= array('Button zum Forum im jQuery UI Stil',
 																		'Wählen Sie diese Option, damit kein einfacher Link, sondern ein Button im jQuery UI Stil angezeigt wird.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['pretext'] 					= array('Informationstext über der Themenliste bzw. Forenliste', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['pretext'] 					= array('Informationstext über der Themenliste bzw. Forenliste',
 																		'Dieser Text wird der Themenliste bzw. Forenliste des aktuellen Forenbereiches vorangestellt.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['posttext'] 				= array('Informationstext unter der Themenliste bzw. Forenliste', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['posttext'] 				= array('Informationstext unter der Themenliste bzw. Forenliste',
 																		'Dieser Text wird unter der Themenliste bzw. Forenliste des aktuellen Forenbereiches angezeigt.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['define_groups'] 			= array('Mitgliedergruppen festlegen', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['define_groups'] 			= array('Mitgliedergruppen festlegen',
 																		'Wählen Sie dieses Auswahlfeld, um dem Forenbereich Mitgliedergruppen zuzuweisen. Wenn Sie keine Mitgliedergruppen festlegen, dann gelten die Zuweisungen aus dem übergeordneten Forenbereich');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['member_groups'] 			= array('Mitglieder des Forenbereichs', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['member_groups'] 			= array('Mitglieder des Forenbereichs',
 																		'Mitgliedergruppen des Forenbereichs, deren Mitglieder Berechtigungen als Forenmitglieder erhalten sollen.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['admin_groups'] 			= array('Moderatoren des Forenbereichs', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['admin_groups'] 			= array('Moderatoren des Forenbereichs',
 																		'Mitgliedergruppen des Forenbereichs, deren Mitglieder Berechtigungen als Moderatoren erhalten sollen.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['define_rights'] 			= array('Berechtigungen festlegen', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['define_rights'] 			= array('Berechtigungen festlegen',
 																		'Wählen Sie dieses Auswahlfeld, um Gästen, Forenmitgliedern und Moderatoren Berechtigungen zuzuweisen. Wenn Sie keine Berechtigungen festlegen, dann gelten die Berechtigungen aus dem übergeordneten Forenbereich. Sind gar keine Berechtigungen definiert, dann greifen Standardberechtigungen.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['guest_rights'] 			= array('Berechtigungen für Gäste', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['guest_rights'] 			= array('Berechtigungen für Gäste',
 																		'Legen Sie fest, welche Aktionen ein Gast durchführen darf.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['member_rights'] 			= array('Berechtigungen für Forenmitglieder', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['member_rights'] 			= array('Berechtigungen für Forenmitglieder',
 																		'Legen Sie fest, welche Aktionen ein Forenmitglied durchführen darf.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['admin_rights'] 			= array('Berechtigungen für Moderatoren', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['admin_rights'] 			= array('Berechtigungen für Moderatoren',
 																		'Legen Sie fest, welche Aktionen ein Moderator durchführen darf.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['enable_maps'] 				= array('Kartenanbindung aktivieren (erfordert con4gis-Maps)',
 																		'Bei Aktivierung dieses Schalters kann ein Mitglied mit entsprechenden Rechten Beiträge mit Geo-Koordinaten versehen, vorausgesetzt die Karten-Funktionalität wurde auch im Frontend-Modul aktiviert. Funktioniert nur, wenn die Contao-Erweiterung \'c4g_maps\' installiert ist! ');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['map_type'] 				= array('Lokationstyp',
 																		'Legen Sie fest, welcher Typ von Lokationen im Forum angelegt werden kann.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['map_override_locationstyle']  	= array('Überschreiben der Karten-Lokationsstile erlauben', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['map_override_locationstyle']  	= array('Überschreiben der Karten-Lokationsstile erlauben',
 																		'Mit dieser Option erlauben sie die dem Benutzer mit der Erweiterung der PopUp-Information auch den Lokationsstil zu überschreiben.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['map_override_locstyles']  	= array('Erlaubte Lokationsstile', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['map_override_locstyles']  	= array('Erlaubte Lokationsstile',
 																		'Wählen Sie die Lokationsstile, die dem Benutzer zur Auswahl stehen. Standard: alle');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['map_id'] 					= array('Basiskarte',
 																		'Legt eine zuvor in con4gis-Maps definierte Karte fest, die als Basis für den gewählten Editor in den Beiträgen und die Anzeige der Karte verwendet wird.');
@@ -72,11 +72,11 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['map_popup'] 				= array('Popup',
 																		'Definiert woher der Inhalt eines eventuell bei Klick auf eine Lokation anzuzeigendes Popup genommen wird.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['map_link'] 				= array('Link',
 																		'Definiert woher der Link kommt, der bei Klick auf eine Lokation angesprungen wird.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['linkurl'] 					= array('Direktlink auf andere Seite', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['linkurl'] 					= array('Direktlink auf andere Seite',
 																		'Legen Sie hier einen Link fest, der bei der Auswahl des Forenbereichs angesprungen wird (Absprung aus dem Forum).');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['link_newwindow'] 			= array('Links in neuem Fenster öffnen', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['link_newwindow'] 			= array('Links in neuem Fenster öffnen',
 																		'Links nicht im selben Fenster, sondern in einem neuen Fenster öffnen.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['sitemap_exclude'] 			= array('Nicht in XML-Sitemap aufnehmen', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['sitemap_exclude'] 			= array('Nicht in XML-Sitemap aufnehmen',
 																		'Den Forenbereich und die Themen nicht in die Google XML-Sitemap aufnehmen (die Sitemap wird im Frontend-Modul aktiviert)');
 
 /**
@@ -158,18 +158,18 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['right_latestthreads']	= 'Neue Themen';
 /**
  * Fulltext Indexing Configuration Texts
  */
-$GLOBALS['TL_LANG']['tl_c4g_forum']['headline_index']  	= array('Volltext-Indizierung', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['headline_index']  	= array('Volltext-Indizierung',
 																'Informationen zur Volltextindizierung und Erstellung des Index.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['info_headline']   	= "Informationen zur Volltext-Indizierung";
-$GLOBALS['TL_LANG']['tl_c4g_forum']['info']   	 	  	= array('Erste Indizierung', 
-																'Letzte Totalindizierung', 
-																'Letzte Indizierung', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['info']   	 	  	= array('Erste Indizierung',
+																'Letzte Totalindizierung',
+																'Letzte Indizierung',
 																'Anzahl indizierter Wörter');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['noIndex']    	    = "Es wurde noch keine Indizierung durchgeführt! Ohne eine Indizierung funktioniert Ihre Suche nicht!";
-$GLOBALS['TL_LANG']['tl_c4g_forum']['warning']     		= array("Eine komplette Indizierung kann einige Zeit in Anspruch nehmen. Dies ist stark vom Inhalt des Forums abhängig.", 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['warning']     		= array("Eine komplette Indizierung kann einige Zeit in Anspruch nehmen. Dies ist stark vom Inhalt des Forums abhängig.",
 																"Bitte haben Sie etwas Geduld und verlassen Sie diese Seite während des Vorgangs nicht!");
 $GLOBALS['TL_LANG']['tl_c4g_forum']['success']			= "Ihr Forum wurde erfolgreich indiziert.";
-$GLOBALS['TL_LANG']['tl_c4g_forum']['fail']				= array("FEHLER: ", 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['fail']				= array("FEHLER: ",
 																"Bei der Indizierung kam es zu einer Zeitüberschreitung!");
 
 ?>

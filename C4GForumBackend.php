@@ -7,9 +7,9 @@
  * @package   con4gis
  * @author     Tobias Dobbrunz <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -19,8 +19,8 @@
  *
  * Provide methods to handle backendconfigurations
  * @copyright  Küstenschmiede GmbH Software & Design 2012
- * @author     Tobias Dobbrunz <http://www.kuestenschmiede.de> 
- * @package    con4gis 
+ * @author     Tobias Dobbrunz <http://www.kuestenschmiede.de>
+ * @package    con4gis
  * @author     Tobias Dobbrunz <http://www.kuestenschmiede.de>
  */
 class C4GForumBackend extends Backend
@@ -34,18 +34,18 @@ class C4GForumBackend extends Backend
 		$this->import('Database');
 		$this->helper = new C4GForumHelper($this->Database);
 	}
-	
+
 	/**
 	 * build the fulltextindex
 	 */
 	public function buildIndex()
 	{
 		$message = '';
-		
+
 		if ($this->Input->post('FORM_SUBMIT') == 'tl_c4g_forum_build_index')
 		{
 			$this->helper->renewAllTheIndexesFromDB();
-		
+
 			// TODO Errorhandling
 			// 			// Check for errors
 			// 			if ( ERROR )
@@ -62,13 +62,13 @@ class C4GForumBackend extends Backend
 			'.$GLOBALS['TL_LANG']['tl_c4g_forum']['success'].'
 			</div>';
 		}
-		
+
 		//fetch info
 		$indexInfo = $this->Database->prepare(
 					"SELECT first, last_total_renew, last_index FROM tl_c4g_forum_search_last_index ".
 					"WHERE id = 1"
 				)->executeUncached()->fetchAllAssoc();
-		
+
 		//check if there was an index before
 		if(isset($indexInfo[0])){
 			$wordCount = $this->Database->prepare(
@@ -80,7 +80,7 @@ class C4GForumBackend extends Backend
 			$wordCount = 0;
 			$noIndex = true;
 		}
-		
+
 		// create the form
 		$form=
 			//back-button
@@ -115,21 +115,21 @@ class C4GForumBackend extends Backend
 				<div style="width:233px; float:right; border-bottom:1px solid #ddd; padding:3px; margin:1px;">
 					'.strftime("%d.%m.%Y", $indexInfo[0]['first']).'
 				</div>
-				
+
 				<div style="width:350px; background-color:#eee; float:left; border-bottom:1px solid #ddd; padding:3px; margin:1px;">
 					'.$GLOBALS['TL_LANG']['tl_c4g_forum']['info'][1].'
 				</div>
 				<div style="width:233px; background-color:#eee; float:right; border-bottom:1px solid #ddd; padding:3px; margin:1px;">
 					'.strftime("%d.%m.%Y", $indexInfo[0]['last_total_renew']).'
 				</div>
-				
+
 				<div style="width:350px; float:left; border-bottom:1px solid #ddd; padding:3px; margin:1px;">
 					'.$GLOBALS['TL_LANG']['tl_c4g_forum']['info'][2].'
 				</div>
 				<div style="width:233px; float:right; border-bottom:1px solid #ddd; padding:3px; margin:1px;">
 					'.strftime("%d.%m.%Y", $indexInfo[0]['last_index']).'
 				</div>
-				
+
 				<div style="width:350px; background-color:#eee; float:left; border-bottom:1px solid #ddd; padding:3px; margin:1px;">
 					'.$GLOBALS['TL_LANG']['tl_c4g_forum']['info'][3].'
 				</div>
@@ -141,24 +141,24 @@ class C4GForumBackend extends Backend
 		$form .='
 			<div>&nbsp;</div>
 			</div>
-			
+
 			<br/>
 			'.
-			
-			
+
+
 			'
 			<div class="tl_header">
 				'.$GLOBALS['TL_LANG']['tl_c4g_forum']['warning'][0].'
 				<br>
 				'.$GLOBALS['TL_LANG']['tl_c4g_forum']['warning'][1].'
 			</div>
-			
+
 			</center>
 			<br/>
 			'.
-		
+
 			// TODO index einzelner Foren erneuern
-		
+
 			//submit-buttons
 			'
 			<div class="tl_formbody_submit">
@@ -167,11 +167,11 @@ class C4GForumBackend extends Backend
 				</div>
 			</div>
 			</form>';
-		
+
 		// return the form
 		return $form;
 	}
-	
+
 }
 
 ?>
