@@ -23,7 +23,7 @@ $GLOBALS['con4gis_forum_extension']['version']      = '1.0.1';
 /**
  * Frontend modules
  */
-array_insert( $GLOBALS['FE_MOD']['con4gis'], 5, array
+array_insert( $GLOBALS['FE_MOD']['con4gis'], 6, array
 (
 	'c4g_forum' 				=> 'Module_c4g_forum',
 	'c4g_forum_breadcrumb' 		=> 'Module_c4g_forum_breadcrumb',

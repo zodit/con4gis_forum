@@ -9,7 +9,7 @@
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
  * @copyright Küstenschmiede GmbH Software & Design 2014
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -24,11 +24,11 @@ $GLOBALS['TL_LANG']['MOD']['c4g_forum'] 			= array( 'Foren', 'Foren verwalten.' 
 /**
  * Frontend modules
  */
-$GLOBALS['TL_LANG']['FMD']['c4g_forum'] 			= array('Forum (con4gis)', 
+$GLOBALS['TL_LANG']['FMD']['c4g_forum'] 			= array('Forum (con4gis)',
 															'Mit diesem Modul binden Sie ein Forum ein.');
-$GLOBALS['TL_LANG']['FMD']['c4g_forum_comfort'] 	= array('Forum (con4gis) - Komfortsicht', 
+$GLOBALS['TL_LANG']['FMD']['c4g_forum_comfort'] 	= array('Forum (con4gis) - Komfortsicht',
 															'Mit diesem Modul binden Sie ein Forum in der Komfortsicht ein.');
-$GLOBALS['TL_LANG']['FMD']['c4g_forum_breadcrumb'] 	= array('Forum-Navigationspfad (con4gis)', 
+$GLOBALS['TL_LANG']['FMD']['c4g_forum_breadcrumb'] 	= array('Forum (con4gis) - Navigationspfad',
 															'Mit diesem Modul binden Sie einen Navigationspfad für, über ein Forum verlinkte, Seiten ein.');
 
 ?>
