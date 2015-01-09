@@ -44,7 +44,7 @@ $GLOBALS['TL_LANG']['tl_module']['c4g_forum_jumpTo'] 			= array('Weiterleitungss
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_language'] 			= array('Frontend-Sprache des Forums',
 																		'Leer=Automatisch ermitteln, de=Deutsch, en=Englisch.');
 
-$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes'] 			= array('BBCodes verwenden (BETA)',
+$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes'] 			= array('BBCodes verwenden',
 																		'Deaktivieren Sie diese Checkbox, falls Sie BBCodes komplett deaktivieren möchten! Die Verwendung von BBCodes ist dann in diesem Forum nicht mehr möglich. Dies kann zu Formatfehlern führen, wenn diese in einem bereits laufenden Forum zuvor aktiviert waren.');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor'] 	= array('Alten WYSIWYG-Editor verwenden','Achtung: Dieses Feature funktioniert nur, wenn das Forum eingebettet, also nicht im Dialog, verwendet wird!');
 $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems'] 	= array('WYSIWYG-Editor Toolbar Schaltfächen','');
