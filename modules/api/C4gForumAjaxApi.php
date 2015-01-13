@@ -7,9 +7,9 @@
  * @package   con4gis
  * @author    Tobias Dobbrunz <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -27,7 +27,7 @@ class C4gForumAjaxApi extends \Frontend
 
 		$id = $arrInput[0]?:null;
 		$req = $arrInput[1]?:null;
-		// switch ($_SERVER['REQUEST_METHOD']) 
+		// switch ($_SERVER['REQUEST_METHOD'])
 		// {
 		// 	case 'GET':
 		// 		return $this->get( $id, $req );
@@ -39,7 +39,7 @@ class C4gForumAjaxApi extends \Frontend
 		// 		header('HTTP/1.1 405 Method Not Allowed');
 		// 		die;
 		// }
-		
+
 		if (isset( $id ) && is_numeric( $id )) {
 			return $this->getC4gFrontendModule( $id, $req );
 		} else {
@@ -49,7 +49,7 @@ class C4gForumAjaxApi extends \Frontend
 	}
 
 	//comment
-	private function get( $id = null, $req = null ) 
+	private function get( $id = null, $req = null )
 	{
 		if (!isset( $id )) {
 			#pass

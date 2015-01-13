@@ -7,58 +7,58 @@
  * @package   con4gis
  * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_c4g_forum']['name'] 			= array('Name', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['name'] 			= array('Name',
 																'Name of forum');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['headline'] 		= array('Headline', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['headline'] 		= array('Headline',
 																'Here you can add a headline to the forum.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['description'] 		= array('Description', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['description'] 		= array('Description',
 																'The description is displayed as a tooltip.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['published'] 		= array('Published', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['published'] 		= array('Published',
 																'Activate this to publish the forum.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['box_imagesrc'] 	= array('Image for box', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['box_imagesrc'] 	= array('Image for box',
 																'Image to be displayed in a box in the frontend module.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['use_intropage'] 	= array('Use intropage', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['use_intropage'] 	= array('Use intropage',
 																'An intropage is a page where you can display information. It contains a link to the threadlist of the forum.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['intropage'] 		= array('Content of intropage', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['intropage'] 		= array('Content of intropage',
 																'The content of the intropage. May also contain images and links.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['intropage_forumbtn'] 	= array('Text on button to forum', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['intropage_forumbtn'] 	= array('Text on button to forum',
 																	'If you enter text here a button is generated, which links to the threadlist of the forum.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['intropage_forumbtn_jqui'] 	= array('Use jQuery UI Style for forum button', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['intropage_forumbtn_jqui'] 	= array('Use jQuery UI Style for forum button',
 																		'Activate this to get a jQuery UI button, or deactivated it to get a simple link.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['pretext'] 			= array('Text before threadlist / subforumlist', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['pretext'] 			= array('Text before threadlist / subforumlist',
 																'This text is displayed right before the threadlist / subforumlist.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['posttext'] 		= array('Text after threadlist / subforumlist', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['posttext'] 		= array('Text after threadlist / subforumlist',
 																'This text is displayed right after the threadlist /subforumlist.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['define_groups'] 	= array('Define member groups', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['define_groups'] 	= array('Define member groups',
 																'Check this to assign member groups to this forum. Otherwise the assignments are inherited from the parent forum.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['member_groups'] 	= array('Forum members', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['member_groups'] 	= array('Forum members',
 																'Members of the selected member groups are assigned the permissions for forum members.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['admin_groups'] 	= array('Forum administrators', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['admin_groups'] 	= array('Forum administrators',
 																'Members of the selected member groups are assigned the permissions for forum administrators.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['define_rights'] 	= array('Define permissions', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['define_rights'] 	= array('Define permissions',
 																'Check this to assign permissions to guests, forum members and forum administrators. Otherwise the assignments are inherited from the parent forum. If there are no permissions assigned at all, default permissions are applied.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['guest_rights'] 	= array('Guest permissions', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['guest_rights'] 	= array('Guest permissions',
 																'Define which actions guests are allowed to perform.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['member_rights'] 	= array('Forum member permissions', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['member_rights'] 	= array('Forum member permissions',
 																'Define which actions forum members are allowed to perform.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['admin_rights'] 	= array('Forum administrator permissions', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['admin_rights'] 	= array('Forum administrator permissions',
 																'Define which actions forum administrators are allowed to perform.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['enable_maps'] 		= array('Enable maps (requires con4gis-Maps)',
 																'Check this to activate map functionality for this forum. Note that you also have to configure map functionality in the frontend module, and to assign sufficient rights to the members. Requires the Contao extension \'c4g_maps\' to be installed! ');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['map_type'] 		= array('Location type',
 																'Define the type of locations that may be created inside the forum.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['map_override_locationstyle']  	= array('Allow overriding the maps locationstyle', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['map_override_locationstyle']  	= array('Allow overriding the maps locationstyle',
 																			'Checking this option allows the user to override the maps locationstyle with his/her popup-extension.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['map_override_locstyles']  	= array('allowed Location styles', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['map_override_locstyles']  	= array('allowed Location styles',
 																		'Check the location styles available for the users. Default: all');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['map_id'] 			= array('Basemap',
 																'Select a map, which is defined in con4gis-Maps as base map for the choosen editor in posts, and for showing maps.');
@@ -72,11 +72,11 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['map_popup'] 		= array('Popup',
 																'Defines the source of a popup, which is to be displayed on click at a location symbol.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['map_link'] 		= array('Link',
 																'Defines the source of a link, which is to be jumped to on click at a location symbol.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['linkurl'] 			= array('Link to other page', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['linkurl'] 			= array('Link to other page',
 																'Please enter a link if you want to jump to another page when the forum is clicked.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['link_newwindow'] 	= array('Open links in new window', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['link_newwindow'] 	= array('Open links in new window',
 																'Do not open links in the same window, but display the linked pages in a new window.');
-$GLOBALS['TL_LANG']['tl_c4g_forum']['sitemap_exclude'] 	= array('Exclude from XML sitemap', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['sitemap_exclude'] 	= array('Exclude from XML sitemap',
 																'Don\'t put the forum and its threads into the Google XML sitemap (XML sitemap is activated in the frontend module)');
 
 /**
@@ -157,18 +157,18 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['right_latestthreads']		= 'Latest threads';
 /**
  * Fulltext Indexing Configuration Texts
  */
-$GLOBALS['TL_LANG']['tl_c4g_forum']['headline_index']  	= array('Fulltext-Indexing', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['headline_index']  	= array('Fulltext-Indexing',
 																'Information about the Fulltextindex and creating it.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['info_headline']   	= "Information about the Fulltextindex";
-$GLOBALS['TL_LANG']['tl_c4g_forum']['info']   	 	  	= array('First Index', 
-																'Last total-Index', 
-																'Last Index', 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['info']   	 	  	= array('First Index',
+																'Last total-Index',
+																'Last Index',
 																'Number of indexed words');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['noIndex']    	    = "No Index found! Your search will not work without an Index!";
 $GLOBALS['TL_LANG']['tl_c4g_forum']['warning']     		= array("A complete Indexing will take a while. This depends strongly on the amount of content of the Forum.",
 																"Please be patient and do not leave this site while creating the Index!");
 $GLOBALS['TL_LANG']['tl_c4g_forum']['success']			= "The Index was successfully created.";
-$GLOBALS['TL_LANG']['tl_c4g_forum']['fail']				= array("ERROR: ", 
+$GLOBALS['TL_LANG']['tl_c4g_forum']['fail']				= array("ERROR: ",
 																"Timeout while creating the Index!");
 
 ?>

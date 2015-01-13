@@ -7,9 +7,9 @@
  * @package   con4gis
  * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 /**
@@ -22,12 +22,12 @@
  */
 class C4GUtils {
 	/**
-	 * 
+	 *
 	 * Secure user generated content
 	 * @param $str
 	 */
 	public static function secure_ugc($str) {
-		
+
 		// kritische Kontrollzeichen rausfiltern
 		$search = array( chr(0), chr(1), chr(2), chr(3), chr(4), chr(5), chr(6), chr(7), chr(8),
 		                 chr(11), chr(12), chr(14), chr(15), chr(16), chr(17), chr(18), chr(19) );
@@ -36,20 +36,20 @@ class C4GUtils {
 		// Unerwünschte Unicode Sonderzeichen z.B. zur Umkehrung des Textflusses entfernen
 		$regex = '/(?:%E(?:2|3)%8(?:0|1)%(?:A|8|9)\w)/i';
 		$result = urldecode(preg_replace($regex,' ',urlencode($result)));
-		
+
 		// Eingangs-Html formatieren und überflüssige Leerzeichen entfernen
 		return trim(htmlspecialchars($result));
-		
+
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * Flatten a multi dimensional array
 	 * @param array $a
 	 */
 	public static function array_flatten($a) {
-    	$ab = array(); 
-    	if(!is_array($a)) 
+    	$ab = array();
+    	if(!is_array($a))
     		return $ab;
     	foreach($a as $value){
         	if(is_array($value)){
@@ -57,12 +57,12 @@ class C4GUtils {
         	}else{
             	array_push($ab,$value);
         	}
-    	}	   
+    	}
     	return $ab;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param array $params
 	 */
 	public static function addParametersToURL( $url, $params )
@@ -73,13 +73,13 @@ class C4GUtils {
 		}
 		parse_str($qspart, $qsvars);
 		foreach ($params AS $key=>$value)
-		{	
+		{
 			$qsvars[$key] = $value;
-		}	
+		}
 		$newqs = http_build_query($qsvars);
-		return $urlpart . '?' . $newqs;		
+		return $urlpart . '?' . $newqs;
 	}
-	
+
 	/**
 	 * compresses the raw data set for searching/indexing
 	 * and removes stopwords
@@ -124,10 +124,10 @@ class C4GUtils {
 		$dataSet = trim(stripslashes(strip_tags($rawDataSet)));
 		$dataSet = preg_replace($dSearch, $dReplace, $dataSet);
 		$dataSet = trim(strtolower($dataSet));
-		
+
 		unset($dSearch);
 		unset($dReplace);
-		
+
 		if ($stripStopwords) {
 			$dSearch = array(
 					'#(\s[A-Za-z]{1,2})\s#',
@@ -139,7 +139,7 @@ class C4GUtils {
 					' ',
 					' '
 			);
-			
+
 			$dataSet = ' ' . str_replace(' ', '  ', $dataSet) . ' ';
 			$dataSet = trim(preg_replace($dSearch, $dReplace, $dataSet));
 		}

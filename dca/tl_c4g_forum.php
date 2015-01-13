@@ -7,32 +7,32 @@
  * @package   con4gis
  * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
 
 /**
- * Table tl_c4g_forum 
+ * Table tl_c4g_forum
  */
 $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 (
 
 	// Config
 	'config' => array
-	(		
+	(
 	    'label'                       => $GLOBALS['TL_CONFIG']['websiteTitle'],
 	    'dataContainer'               => 'Table',
 		'enableVersioning'            => true,
 	    'onload_callback'			  => array(
 											array('tl_c4g_forum', 'updateDCA')
-										 ),											
+										 ),
 	    'onsubmit_callback'           => array(array('tl_c4g_forum', 'onSubmit')),
 		'ondelete_callback'			  => array(
 											array('tl_c4g_forum', 'onDeleteForum')
-										 )	
+										 )
 	),
 
 	// List
@@ -139,7 +139,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 										 '{groups_legend:hide},define_groups;'.
 										 '{rights_legend:hide},define_rights;'.
 										 '{expert_legend:hide},linkurl,link_newwindow,sitemap_exclude;',
-											 
+
 	),
 
 	'subpalettes' => array(
@@ -158,7 +158,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'inputType'               => 'text',
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>100 )
 		),
-		
+
 		'headline' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['headline'],
@@ -168,7 +168,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'options'                 => array('h1', 'h2', 'h3', 'h4', 'h5', 'h6'),
 			'eval'                    => array('maxlength'=>200)
 		),
-		
+
 		'description' => array
 		(
 			'label'					=> &$GLOBALS['TL_LANG']['tl_c4g_forum']['description'],
@@ -176,16 +176,16 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'inputType'				=> 'textarea',
 			'eval'                  => array('style' => 'height:60px')
 		),
-		
+
 		'published' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['published'],
 			'exclude'                 => true,
 			'default'                 => false,
 			'inputType'               => 'checkbox',
-			'eval'                    => array(), 
+			'eval'                    => array(),
 		),
-		
+
 		'box_imagesrc' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['box_imagesrc'],
@@ -193,7 +193,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'inputType'               => 'fileTree',
 			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'extensions'=>'gif,jpg,jpeg,png', 'tl_class'=>'clr', 'mandatory'=>false)
 		),
-		
+
 
 		'use_intropage' => array
 		(
@@ -221,7 +221,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'eval'                    => array('maxlength'=>100 )
 		),
 
-		'intropage_forumbtn_jqui' => array	
+		'intropage_forumbtn_jqui' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['intropage_forumbtn_jqui'],
 			'exclude'                 => true,
@@ -236,7 +236,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'inputType'				=> 'textarea',
 			'eval'					=> array('rte'=>'tinyMCE'),
 		),
-		
+
 		'posttext' => array
 		(
 			'label'					=> &$GLOBALS['TL_LANG']['tl_c4g_forum']['posttext'],
@@ -244,7 +244,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'inputType'				=> 'textarea',
 			'eval'					=> array('rte'=>'tinyMCE'),
 		),
-		
+
 		'define_groups' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['define_groups'],
@@ -261,8 +261,8 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'inputType'               => 'checkbox',
 			'foreignKey'              => 'tl_member_group.name',
 			'eval'                    => array('mandatory'=>false, 'multiple'=>true)
-		),		
-		
+		),
+
 		'admin_groups' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['admin_groups'],
@@ -270,8 +270,8 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'inputType'               => 'checkbox',
 			'foreignKey'              => 'tl_member_group.name',
 			'eval'                    => array('mandatory'=>false, 'multiple'=>true)
-		),		
-				
+		),
+
 		'define_rights' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['define_rights'],
@@ -287,27 +287,27 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['guest_rights'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-		    'options_callback'        => array('tl_c4g_forum','getGuestRightList'),		
+		    'options_callback'        => array('tl_c4g_forum','getGuestRightList'),
 			'eval'                    => array('mandatory'=>false, 'multiple'=>true)
-		),			
+		),
 
 		'member_rights' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['member_rights'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-		    'options_callback'        => array('tl_c4g_forum','getRightList'),		
+		    'options_callback'        => array('tl_c4g_forum','getRightList'),
 			'eval'                    => array('mandatory'=>false, 'multiple'=>true)
-		),	
+		),
 
 		'admin_rights' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['admin_rights'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-		    'options_callback'        => array('tl_c4g_forum','getRightList'),		
+		    'options_callback'        => array('tl_c4g_forum','getRightList'),
 			'eval'                    => array('mandatory'=>false, 'multiple'=>true)
-		),	
+		),
 
 		'enable_maps' => array
 		(
@@ -346,7 +346,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 				'options_callback'        => array('tl_c4g_forum','getAllLocStyles'),
 				'eval'                    => array('mandatory'=>false, 'multiple'=>true),
 		),
-				
+
 		'map_id' => array
 		(
 				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_id'],
@@ -362,7 +362,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 				'inputType'               => 'text',
 				'eval'                    => array('maxlength'=>20 )
 		),
-		
+
 		'map_label' => array
 		(
 				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_label'],
@@ -371,7 +371,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 				'options'                 => array('OFF','SUBJ','LINK','CUST'),
 				'default'                 => 'OFF',
 				'reference'               => &$GLOBALS['TL_LANG']['tl_c4g_forum']['references'],
-		),		
+		),
 
 		'map_tooltip' => array
 		(
@@ -401,7 +401,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 				'options'                 => array('OFF','POST','THREA','PLINK'),
 				'default'                 => 'OFF',
 				'reference'               => &$GLOBALS['TL_LANG']['tl_c4g_forum']['references'],
-		),		
+		),
 
 		'linkurl' => array
 		(
@@ -419,8 +419,8 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 				'exclude'                 => true,
 				'default'                 => '',
 				'inputType'               => 'checkbox',
-		),		
-				
+		),
+
 		'sitemap_exclude' => array
 		(
 				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['sitemap_exclude'],
@@ -443,8 +443,8 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 /**
  * Class tl_c4g_forum
  *
- * @copyright  Küstenschmiede GmbH Software & Design 2012 
- * @author     Jürgen Witte <http://www.kuestenschmiede.de> 
+ * @copyright  Küstenschmiede GmbH Software & Design 2012
+ * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  * @package    con4gis
  * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  */
@@ -460,9 +460,9 @@ class tl_c4g_forum extends Backend
 
 		$this->import('BackendUser', 'User');
 		$this->loadLanguageFile('stopwords');
-		
+
 	}
-	
+
 	/**
 	 * Return the copy page with subpages button
 	 * @param array
@@ -481,11 +481,11 @@ class tl_c4g_forum extends Backend
 									  ->limit(1)
 									  ->execute($row['id']);
 
-		if ($objSubpages->numRows > 0) {					
+		if ($objSubpages->numRows > 0) {
 		  return '<a href="'.$this->addToUrl($href.'&amp;id='.$row['id']).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
-		} else {   
+		} else {
 		  return $this->generateImage(preg_replace('/\.gif$/i', '_.gif', $icon)).' ';
-		}  
+		}
 	}
 
 
@@ -503,18 +503,18 @@ class tl_c4g_forum extends Backend
 	{
 		if ($dc->Database != null) {
 			$helper = new C4GForumHelper($dc->Database);
-			$GLOBALS['TL_DCA']['tl_c4g_forum']['fields']['guest_rights']['default'] = 
+			$GLOBALS['TL_DCA']['tl_c4g_forum']['fields']['guest_rights']['default'] =
 				$helper->getGuestDefaultRights();
-	    	$GLOBALS['TL_DCA']['tl_c4g_forum']['fields']['member_rights']['default'] = 
+	    	$GLOBALS['TL_DCA']['tl_c4g_forum']['fields']['member_rights']['default'] =
 				$helper->getMemberDefaultRights();
-	    	$GLOBALS['TL_DCA']['tl_c4g_forum']['fields']['admin_rights']['default'] = 
+	    	$GLOBALS['TL_DCA']['tl_c4g_forum']['fields']['admin_rights']['default'] =
 				$helper->getAdminDefaultRights();
-		}	
-		
-	    	
+		}
+
+
 	    if (!$dc->id) {
 	    	return;
-	    }	    	    
+	    }
 		$objForum = $this->Database->prepare("SELECT use_intropage, map_type, map_override_locationstyle FROM tl_c4g_forum WHERE id=?")
 			->limit(1)
 			->execute($dc->id);
@@ -525,10 +525,10 @@ class tl_c4g_forum extends Backend
 		  			$GLOBALS['TL_DCA']['tl_c4g_forum']['palettes']['with_intropage'];
 	    	}
 	    }
-	    
-	    // add Maps section if c4gMaps is installed 
+
+	    // add Maps section if c4gMaps is installed
 	    if ($GLOBALS['c4g_maps_extension']['installed']) {
-	    	$c4gMapsFields = '{maps_legend:hide},enable_maps;';	    	
+	    	$c4gMapsFields = '{maps_legend:hide},enable_maps;';
 	    	$GLOBALS['TL_DCA']['tl_c4g_forum']['palettes']['default'] =
 	    		str_replace('{expert_legend',$c4gMapsFields.'{expert_legend',
 	    				$GLOBALS['TL_DCA']['tl_c4g_forum']['palettes']['default']);
@@ -550,9 +550,9 @@ class tl_c4g_forum extends Backend
 			    	$GLOBALS['TL_DCA']['tl_c4g_forum']['subpalettes']['enable_maps'] =
 			    		str_replace('map_override_locationstyle,',
 			    			'map_override_locationstyle,map_override_locstyles,', $GLOBALS['TL_DCA']['tl_c4g_forum']['subpalettes']['enable_maps']);
-			    } 
+			    }
 			}
-	    	
+
 	    }
 
 	}
@@ -595,7 +595,7 @@ class tl_c4g_forum extends Backend
 		if (!$row['published'])
 		{
 			$icon = 'invisible.gif';
-		}		
+		}
 
 		return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
 	}
@@ -616,7 +616,7 @@ class tl_c4g_forum extends Backend
 		}
 
 		$this->createInitialVersion('tl_c4g_forum', $intId);
-	
+
 		// Trigger the save_callback
 		if (is_array($GLOBALS['TL_DCA']['tl_c4g_forum']['fields']['published']['save_callback']))
 		{
@@ -635,7 +635,7 @@ class tl_c4g_forum extends Backend
 	}
 
 	/**
-	 * 
+	 *
 	 * Get List of available rights
 	 * @param DataContainer $dc
 	 */
@@ -647,12 +647,12 @@ class tl_c4g_forum extends Backend
 			foreach ($rights as $right) {
 				$return[$right] = $GLOBALS['TL_LANG']['tl_c4g_forum']['right_'.$right];
 			}
-		}	
+		}
 		return $return;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * Get List of available rights
 	 * @param DataContainer $dc
 	 */
@@ -667,8 +667,8 @@ class tl_c4g_forum extends Backend
 		}
 		return $return;
 	}
-	
-	
+
+
 	/**
 	 * @param DataContainer $dc
 	 */
@@ -678,44 +678,44 @@ class tl_c4g_forum extends Backend
 			$helper = new C4GForumHelper($dc->Database);
 			$helper->updateForumRightsAndGroupInheritance($dc->activeRecord->id,$dc->activeRecord->pid);
 			$helper->updateMapEnabledInheritance($dc->activeRecord->id,$dc->activeRecord->pid);
-		}	
-		
+		}
+
 	}
-	
+
 	public static function onDeleteForum(DataContainer $dc)
-	{		
+	{
 		if (($dc->activeRecord != null) && ($dc->Database != null))
-		{			
+		{
 			if ($dc->activeRecord->id > 0)
 			{
 				$helper = new C4GForumHelper($dc->Database);
-				// TODO move old threads and posts to a paper bin 
+				// TODO move old threads and posts to a paper bin
 			}
 		}
 	}
-	
+
 	/**
 	 * Return the page pick wizard for the linkUrl
 	 * @param DataContainer $dc
 	 */
 	public function pickLinkUrl(DataContainer $dc)
 	{
-		if (version_compare(VERSION,'3','<')) {		
+		if (version_compare(VERSION,'3','<')) {
 			$strField = 'ctrl_' . $dc->field . (($this->Input->get('act') == 'editAll') ? '_' . $dc->id : '');
 			return ' ' . $this->generateImage('pickpage.gif', $GLOBALS['TL_LANG']['MSC']['pagepicker'], 'style="vertical-align:top; cursor:pointer;" onclick="Backend.pickPage(\'' . $strField . '\')"');
 		}
 		else {
 			return ' <a href="contao/page.php?do='.Input::get('do').'&amp;table='.$dc->table.'&amp;field='.$dc->field.'&amp;value='.str_replace(array('{{link_url::', '}}'), '', $dc->value).'" title="'.specialchars($GLOBALS['TL_LANG']['MSC']['pagepicker']).'" onclick="Backend.getScrollOffset();Backend.openModalSelector({\'width\':765,\'title\':\''.specialchars(str_replace("'", "\\'", $GLOBALS['TL_LANG']['MOD']['page'][0])).'\',\'url\':this.href,\'id\':\''.$dc->field.'\',\'tag\':\'ctrl_'.$dc->field . ((Input::get('act') == 'editAll') ? '_' . $dc->id : '').'\',\'self\':this});return false">' . $this->generateImage('pickpage.gif', $GLOBALS['TL_LANG']['MSC']['pagepicker'], 'style="vertical-align:top;cursor:pointer"') . '</a>';
-		}			
-	}	
-	
+		}
+	}
+
 	/**
 	 * Return all defined maps
 	 * @param object
 	 * @return array
 	 */
 	public function get_maps(DataContainer $dc)
-	{	
+	{
 		$maps = $this->Database->prepare ( "SELECT * FROM tl_c4g_maps WHERE is_map=1 AND published=1" )->execute ();
 		if ($maps->numRows > 0) {
 			while ( $maps->next () ) {
@@ -724,7 +724,7 @@ class tl_c4g_forum extends Backend
 		}
 		return $return;
 	}
-	
-	
+
+
 }
 ?>
