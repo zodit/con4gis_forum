@@ -22,6 +22,7 @@ ClassLoader::addClasses(array
 	// Lib
 	'C4GUtils'                    => 'system/modules/con4gis_forum/lib/C4GUtils.php',
 	'C4GTags'                    => 'system/modules/con4gis_forum/widgets/C4GTags.php',
+	'C4gForumModel'                    => 'system/modules/con4gis_forum/models/C4gForumModel.php',
 
 	// Modules
 	'C4gForumAjaxApi'             => 'system/modules/con4gis_forum/modules/api/C4gForumAjaxApi.php',

@@ -43,7 +43,7 @@ $GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][] = array('tl_modul
 $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_jqui'] =
 	    'c4g_forum_jqui_lib,c4g_forum_uitheme_css_src,c4g_forum_dialogsize,c4g_forum_dialogs_embedded,c4g_forum_embdialogs_jqui,c4g_forum_breadcrumb_jqui_layout,c4g_forum_buttons_jqui_layout,c4g_forum_table_jqui_layout,c4g_forum_posts_jqui,c4g_forum_boxes_jqui_layout,c4g_forum_enable_scrollpane';
 $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_bbcodes'] =
-		'c4g_forum_bbcodes_editor,c4g_forum_ckeditor, c4g_forum_bbcodes_editor_imguploadpath, c4g_forum_bbcodes_editor_fileuploadpath, c4g_forum_bbcodes_editor_toolbaritems, c4g_forum_bbcodes_editor_uploadTypes,c4g_forum_bbcodes_editor_maxFileSize,c4g_forum_bbcodes_editor_imageWidth, c4g_forum_bbcodes_editor_imageHeight'; //, c4g_forum_bbcodes_smileys,c4g_forum_bbcodes_smileys_url,c4g_forum_bbcodes_autourl';
+		'c4g_forum_editor, c4g_forum_bbcodes_editor_imguploadpath, c4g_forum_bbcodes_editor_fileuploadpath, c4g_forum_bbcodes_editor_toolbaritems, c4g_forum_bbcodes_editor_uploadTypes,c4g_forum_bbcodes_editor_maxFileSize,c4g_forum_bbcodes_editor_imageWidth, c4g_forum_bbcodes_editor_imageHeight'; //, c4g_forum_bbcodes_smileys,c4g_forum_bbcodes_smileys_url,c4g_forum_bbcodes_autourl';
 $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_sitemap'] =
 'c4g_forum_sitemap_filename,c4g_forum_sitemap_contents';
 
@@ -187,6 +187,8 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor'] = array
 		'inputType'               => 'checkbox'
 );
 
+
+
 $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_ckeditor'] = array
 (
 		'label'                   => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_ckeditor'],
@@ -194,6 +196,20 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_ckeditor'] = array
 		'default'                 => false,
 		'inputType'               => 'checkbox'
 );
+
+	$GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_editor'] = array(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor'],
+		'exclude'                 => true,
+		'default'                 => false,
+		'inputType'               => 'radio',
+		'options' => array(
+			'ck' => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor_option']['ck'],
+			'bb' => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor_option']['bb'],
+			'no' => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor_option']['no'],
+		)
+	);
+
+
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_imguploadpath'] = array
 (

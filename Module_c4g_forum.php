@@ -195,23 +195,15 @@
             \Contao\Session::getInstance()->set("c4g_forum_bbcodes_editor_imageWidth", $this->c4g_forum_bbcodes_editor_imageWidth);
             \Contao\Session::getInstance()->set("c4g_forum_bbcodes_editor_imageHeight", $this->c4g_forum_bbcodes_editor_imageHeight);
 
-
-//            echo "<pre>";
-//            var_dump($this->c4g_forum_bbcodes_editor_imguploadpath);
-//            var_dump($this->c4g_forum_bbcodes_editor_fileuploadpath);
-//            var_dump($this->c4g_forum_bbcodes_editor_uploadTypes);
-//            var_dump($this->c4g_forum_bbcodes_editor_maxFileSize);
-//            var_dump($this->c4g_forum_bbcodes_editor_imageWidth);
-//            var_dump($this->c4g_forum_bbcodes_editor_imageHeight);
-//            die();
-
             $aToolbarButtons = explode(",", $this->c4g_forum_bbcodes_editor_toolbaritems);
 
-            if ($this->c4g_forum_ckeditor) {
+
+            $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.css';
+            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.jquery.min.js';
+
+            if ($this->c4g_forum_editor === "ck") {
                 $GLOBALS['TL_HEAD'][]       = "<script>var ckEditorItems = ['" . implode("','", $aToolbarButtons) . "'];</script>";
-                $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.css';
                 $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/ckeditor/ckeditor.js';
-                $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.jquery.min.js';
             }
 
 
@@ -1297,11 +1289,13 @@
             $data .= $this->getThreadDescForForm('c4gForumNewThreadDesc', $forumId, 'newthread', '');
             $data .= $this->getThreadSortForForm('c4gForumNewThreadSort', $forumId, 'newthread', '999');
             $editorId = '';
-            if ($this->c4g_forum_bbcodes_editor) {
+
+            if ($this->c4g_forum_editor === "bb") {
                 $editorId = ' id="editor"';
-            }
-            if ($this->c4g_forum_ckeditor) {
+            }elseif ($this->c4g_forum_editor === "ck") {
                 $editorId = ' id="ckeditor"';
+            }else{
+                $editorId = '';
             }
 
             $aPost = array(
@@ -1309,10 +1303,20 @@
                 "tags" => array()
             );
 
+            $sServerName = \Environment::get("serverName");
+            $sHttps      = \Environment::get("https");
+            $path        = \Environment::get("path");
+            $sProtocol = !empty($sHttps) ? 'https://' : 'http://';
+            $sSite     = $sProtocol . $sServerName . $path;
+            if(substr($sSite,-1,1) != "/"){
+                $sSite .= "/";
+            }
+
+
             $data .= $this->getTagForm('c4gForumNewThreadPostTags', $aPost, 'newthread');
             $data .= '<div class="c4gForumNewThreadContent">' .
                      $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
-                     '<input type="hidden" name="uploadEnv" value="{{env::path}}">' .
+                     '<input type="hidden" name="uploadEnv" value="'.$sSite.'">' .
                      '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea><br/>' .
                      '</div>';
@@ -1369,17 +1373,28 @@
                 return $this->getPermissionDenied($message);
             }
             $editorId = '';
-            if ($this->c4g_forum_bbcodes_editor) {
+            if ($this->c4g_forum_editor === "bb") {
                 $editorId = ' id="editor"';
-            }
-            if ($this->c4g_forum_ckeditor) {
+            }elseif ($this->c4g_forum_editor === "ck") {
                 $editorId = ' id="ckeditor"';
+            }else{
+                $editorId = '';
             }
 
             $aPost = array(
                 "forumid" => $thread['forumid'],
                 "tags" => array()
             );
+
+            $sServerName = \Environment::get("serverName");
+            $sHttps      = \Environment::get("https");
+            $path        = \Environment::get("path");
+            $sProtocol = !empty($sHttps) ? 'https://' : 'http://';
+            $sSite     = $sProtocol . $sServerName . $path;
+            if(substr($sSite,-1,1) != "/"){
+                $sSite .= "/";
+            }
+
             $data = '<div class="c4gForumNewPost">' .
                     '<div class="c4gForumNewPostSubject">' .
                     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBJECT'] . ':<br/>' .
@@ -1388,7 +1403,7 @@
             $data .= $this->getTagForm('c4gForumNewPostPostTags', $aPost, 'newpost');
             $data .='<div class="c4gForumNewPostContent">' .
                     $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
-                    '<input type="hidden" name="uploadEnv" value="{{env::path}}">' .
+                    '<input type="hidden" name="uploadEnv" value="'.$sSite.'">' .
                     '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
                     '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea>' .
                     '</div>';
@@ -1403,6 +1418,8 @@
             $data .=
                 '<input name="parentDialog" type="hidden" class="formdata" value="' . $parentDialog . '"></input>' .
                 '</div>';
+
+
             $return = array(
                 "dialogtype"    => "form",
                 "dialogid"      => "newpost",
@@ -2824,23 +2841,24 @@
         {
 
             $aTags       = $this->getTagsRecursivByParent($aPost['forumid']);
+            $sHtml = "";
+            if(!empty($aTags)) {
+                $sHtml = "<div class=\"" . $sDivName . "\">";
+                $sHtml .= $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'] . ':<br/>';
+                $sHtml .= "<select name=\"tags\" class=\"formdata c4g_tags\" multiple=\"multiple\" style='width:100%;' data-placeholder='" . $GLOBALS['TL_LANG']['C4G_FORUM']['SELECT_TAGS_PLACEHOLDER'] . "'>";
+                foreach ($aTags as $sTag) {
 
-            $sHtml       = "<div class=\"" . $sDivName . "\">";
-            $sHtml .= $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'] . ':<br/>';
-            $sHtml .= "<select name=\"tags\" class=\"formdata c4g_tags\" multiple=\"multiple\" style='width:100%;' data-placeholder='".$GLOBALS['TL_LANG']['C4G_FORUM']['SELECT_TAGS_PLACEHOLDER']."'>";
-            foreach ($aTags as $sTag) {
-
-                $sHtml .= "<option";
-                if (in_array($sTag, $aPost['tags'])) {
-                    $sHtml .= ' selected="selected"';
+                    $sHtml .= "<option";
+                    if (in_array($sTag, $aPost['tags'])) {
+                        $sHtml .= ' selected="selected"';
+                    }
+                    $sHtml .= ">" . $sTag . "</option>";
                 }
-                $sHtml .= ">" . $sTag . "</option>";
+                $sHtml .= "</select>";
+                $sHtml .= "</div>";
+
+                $sHtml .= "<script>jQuery(document).ready(function(){jQuery('.c4g_tags').chosen();});</script>";
             }
-            $sHtml .= "</select>";
-            $sHtml .= "</div>";
-
-            $sHtml .= "<script>jQuery(document).ready(function(){jQuery('.c4g_tags').chosen();});</script>";
-
 
             return $sHtml;
         }
@@ -2856,7 +2874,17 @@
                     $sReturn = $this->getTagsRecursivByParent($aTags['pid']);
                 }
             }
-            return explode(",", $sReturn);
+            $aReturn = explode(",", $sReturn);
+            if(empty($aReturn)){
+                $aReturn = array();
+            }
+            if(count($aReturn) === 1){
+                if($aReturn[0] === ''){
+                    $aReturn = array();
+                }
+            }
+
+            return $aReturn;
         }
 
 
@@ -3056,12 +3084,24 @@
                 return $this->getPermissionDenied($this->helper->permissionError);
             }
             $editorId = '';
-            if ($this->c4g_forum_bbcodes_editor) {
+            if ($this->c4g_forum_editor === "bb") {
                 $editorId = ' id="editor"';
-            }
-            if ($this->c4g_forum_ckeditor) {
+            }elseif ($this->c4g_forum_editor === "ck") {
                 $editorId = ' id="ckeditor"';
+            }else{
+                $editorId = '';
             }
+
+
+            $sServerName = \Environment::get("serverName");
+            $sHttps      = \Environment::get("https");
+            $path        = \Environment::get("path");
+            $sProtocol = !empty($sHttps) ? 'https://' : 'http://';
+            $sSite     = $sProtocol . $sServerName . $path;
+            if(substr($sSite,-1,1) != "/"){
+                $sSite .= "/";
+            }
+
 
             $data = "";
 
@@ -3074,7 +3114,7 @@
 
             $data .= '<div class="c4gForumEditPostContent">' .
                      $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
-                     '<input type="hidden" name="uploadEnv" value="{{env::path}}">' .
+                     '<input type="hidden" name="uploadEnv" value="'.$sSite.'">' .
                      '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all">' . strip_tags($post['text']) . '</textarea>' .
                      '</div>';

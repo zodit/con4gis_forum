@@ -212,6 +212,7 @@ CREATE TABLE `tl_module` (
   `c4g_forum_bbcodes_smileys_url` char(128) NOT NULL default 'system/modules/con4gis_core/lib/wswgEditor/images/smilies',
   `c4g_forum_bbcodes_autourl` char(1) NOT NULL default '1', 
   `c4g_forum_bbcodes_editor` char(1) NOT NULL default '0',
+  `c4g_forum_editor` char(2) NOT NULL default 'ck',
   `c4g_forum_bbcodes_editor_uploadTypes` varchar(255) NOT NULL default 'jpg,png,gif,zip,pdf',
   `c4g_forum_bbcodes_editor_maxFileSize` varchar(255) NOT NULL default '2048000',
   `c4g_forum_bbcodes_editor_imageWidth` varchar(10) NOT NULL default '800',
