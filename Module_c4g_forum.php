@@ -170,6 +170,18 @@
             }
             $data['initData'] = $this->generateAjax($request);
 
+            // save forum url for linkbuilding in ajaxrequests
+            $aTmpData = $this->Session->getData();
+            if(stristr($aTmpData['referer']['current'],"/con4gis_core/api/") === false) {
+                $aTmpData['current_forum_url'] = $aTmpData['referer']['current'];
+                $this->Session->setData($aTmpData);
+            }else{
+                $aTmpData['referer']['last'] = $aTmpData['current_forum_url'];
+                $aTmpData['referer']['current'] = $aTmpData['current_forum_url'];
+                $this->Session->setData($aTmpData);
+            }
+
+
             $data['div'] = 'c4g_forum';
             switch ($this->c4g_forum_comf_navigation) {
                 case 'TREE':
@@ -4602,6 +4614,25 @@
 
 
         /**
+         * @return bool|string
+         */
+        public function getForumPageUrl(){
+            $id = $this->c4g_forum_sitemap_root;
+            $sFrontendUrl = false;
+            if(!empty($id)){
+                $oPage =\Contao\PageModel::findPublishedById($id);
+                if (version_compare(VERSION, '3.1', '<')) {
+                    $sFrontendUrl = $this->Environment->url;
+                } else {
+                    $sFrontendUrl = $this->Environment->url . TL_PATH . '/';
+                }
+                $sFrontendUrl .= $this->getFrontendUrl($oPage->row());
+            }
+            return $sFrontendUrl;
+        }
+
+
+        /**
          * function is called by every Ajax requests
          */
         public function generateAjax($request = null)
@@ -4638,10 +4669,16 @@
                 $this->initMembers();
                 $session = $this->Session->getData();
                 if (version_compare(VERSION, '3.1', '<')) {
-                    $frontendUrl = $this->Environment->url . $session['referer']['current'];
+                    $frontendUrl = $this->Environment->url . $session['current_forum_url'];
                 } else {
-                    $frontendUrl = $this->Environment->url . TL_PATH . '/' . $session['referer']['current'];
+                    $frontendUrl = $this->Environment->url . TL_PATH . '/' . $session['current_forum_url'];
                 }
+
+                $tmpFrontendUrl = $this->getForumPageUrl();
+                if($tmpFrontendUrl !== false){
+                    $frontendUrl = $tmpFrontendUrl;
+                }
+
                 $this->helper = new C4GForumHelper($this->Database, $this->Environment, $this->User, $this->headline,
                                                    $frontendUrl, $this->c4g_forum_show_realname);
 

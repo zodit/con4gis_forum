@@ -168,6 +168,9 @@
         'Check this to activate map functionality in general. Note that you also have to configure map functionality in the forum maintenance. Requires the Contao extension \'con4gis-Maps\' to be installed! '
     );
 
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap_root'] = array("Targetpage for sitemaplinks","");
+
+
     if (version_compare(VERSION, '3', '<')) {
         $GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap'] = array(
             'Create an XML sitemap',
