@@ -174,7 +174,7 @@
     );
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_enable_maps'] = array(
-        'Kartenanbindung aktivieren (erfordert C4G-Maps)',
+        'Kartenanbindung aktivieren (erfordert con4gis-Maps)',
         'Bei Aktivierung dieses Schalters kann ein Mitglied mit entsprechenden Rechten Beiträge mit Geo-Koordinaten versehen, vorausgesetzt die Karten-Funktionalität wurde im entsprechenden Forenbereich aktiviert. Funktioniert nur, wenn die Contao-Erweiterung \'con4gis-Maps\' installiert ist! '
     );
 
