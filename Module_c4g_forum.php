@@ -2895,7 +2895,7 @@
         {
 
             return
-                ($GLOBALS['c4g_maps_extension']['installed']) &&
+                ($GLOBALS['con4gis_maps_extension']['installed']) &&
                 ($this->c4g_forum_enable_maps);
         }
 
@@ -3390,7 +3390,7 @@
                 $mapData['pickGeo_initzoom'] = 14;
 
                 $mapData['geocoding']     = true;
-                $mapData['geocoding_url'] = 'system/modules/c4g_maps/C4GNominatim.php';
+                $mapData['geocoding_url'] = 'system/modules/con4gis_maps/C4GNominatim.php';
                 $mapData['geocoding_div'] = 'c4gForumPostMapGeocoding';
 
                 $mapData['div'] = 'c4gForumPostMap';

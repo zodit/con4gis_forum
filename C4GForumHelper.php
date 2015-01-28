@@ -2416,7 +2416,7 @@ class C4GForumHelper extends System
 	 */
 	public function getGuestRightList() {
 		$return = $this->getGuestDefaultRights();
-		if ($GLOBALS['c4g_maps_extension']['installed']) {
+		if ($GLOBALS['con4gis_maps_extension']['installed']) {
 			$return[] = 'mapview';
 		}
 		return $return;
@@ -2427,7 +2427,7 @@ class C4GForumHelper extends System
 	 */
 	public function getRightList() {
 		$return = $this->getAdminDefaultRights();
-		if ($GLOBALS['c4g_maps_extension']['installed']) {
+		if ($GLOBALS['con4gis_maps_extension']['installed']) {
 			$return[] = 'mapview';
 			$return[] = 'mapedit';
 			$return[] = 'mapextend';
