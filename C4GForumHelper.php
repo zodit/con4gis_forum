@@ -1650,9 +1650,13 @@ class C4GForumHelper extends System
 		}
 		if ($loc_geox!=NULL) {
 			$set['loc_geox'] = C4GUtils::secure_ugc($loc_geox);
+		} else {
+			$set['loc_geox'] = '';
 		}
 		if ($loc_geoy!=NULL) {
 			$set['loc_geoy'] = C4GUtils::secure_ugc($loc_geoy);
+		} else {
+			$set['loc_geoy'] = '';
 		}
 		if ($locstyle!=NULL) {
 			$set['locstyle'] = $locstyle;
@@ -1666,7 +1670,6 @@ class C4GForumHelper extends System
 		// if ($loc_osm_id!=NULL) {
 			$set['loc_osm_id'] = C4GUtils::secure_ugc($loc_osm_id);
 		// }
-
 		if ($loc_data_content!=NULL && $loc_data_content!='') {
 			$set['loc_data_type'] = 'geojson';
 			$set['loc_data_content'] = C4GUtils::secure_ugc($loc_data_content);

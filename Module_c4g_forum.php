@@ -117,18 +117,19 @@
             }
             // initialize used Javascript Libraries and CSS files
             C4GJQueryGUI::initializeLibraries(
-                true,                                            // add c4gJQuery GUI Core LIB
-                ($this->c4g_forum_jquery_lib == true),            // add JQuery
-                ($this->c4g_forum_jqui_lib == true),            // add JQuery UI
-                ($this->c4g_forum_comf_navigation == 'TREE'),    // add Tree Control
-                ($this->c4g_forum_jqtable_lib == true),            // add Table Control
-                ($this->c4g_forum_jqhistory_lib == true),        // add history.js
-                ($this->c4g_forum_jqtooltip_lib == true),        // add simple tooltip
-                ($this->c4g_forum_enable_maps == true),         // add C4GMaps
-                $useGoogleMaps,                                    // add C4GMaps - include Google Maps Javascript?
-                ($this->c4g_forum_enable_maps == true),         // add C4GMaps Feature Editor
+                true,                                               // add c4gJQuery GUI Core LIB
+                ($this->c4g_forum_jquery_lib == true),              // add JQuery
+                ($this->c4g_forum_jqui_lib == true),                // add JQuery UI
+                ($this->c4g_forum_comf_navigation == 'TREE'),       // add Tree Control
+                ($this->c4g_forum_jqtable_lib == true),             // add Table Control
+                ($this->c4g_forum_jqhistory_lib == true),           // add history.js
+                ($this->c4g_forum_jqtooltip_lib == true),           // add simple tooltip
+                ($this->c4g_forum_enable_maps == true),             // add C4GMaps
+                $useGoogleMaps,                                     // add C4GMaps - include Google Maps Javascript?
+                ($this->c4g_forum_enable_maps == true),             // add C4GMaps Feature Editor
                 ($this->c4g_forum_bbcodes == true),
-                ($this->c4g_forum_jqscrollpane_lib == true));   // add jScrollPane
+                ($this->c4g_forum_jqscrollpane_lib == true)         // add jScrollPane
+            );
 
             //Override JQuery UI Default Theme CSS if defined
             if ($this->c4g_forum_uitheme_css_src) {
