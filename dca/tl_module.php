@@ -217,7 +217,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_imguploadpat
 		'exclude'                 => true,
 		'default'                 => '',
 		'inputType'               => 'text',
-		'eval'                    => array('maxlength'=>128, "style" => 'width: 200px' )
+		'eval'                    => array('maxlength'=>128, "style" => 'width: 200px', 'trailingSlash' => true)
 );
 $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_fileuploadpath'] = array
 (
@@ -225,7 +225,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_fileuploadpa
 		'exclude'                 => true,
 		'default'                 => '',
 		'inputType'               => 'text',
-		'eval'                    => array('maxlength'=>128, "style" => 'width: 200px' )
+		'eval'                    => array('maxlength'=>128, "style" => 'width: 200px', 'trailingSlash' => true )
 );
 $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_toolbaritems'] = array
 (
