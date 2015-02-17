@@ -45,7 +45,7 @@ $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_jqui'] =
 $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_bbcodes'] =
 		'c4g_forum_editor, c4g_forum_bbcodes_editor_imguploadpath, c4g_forum_bbcodes_editor_fileuploadpath, c4g_forum_bbcodes_editor_toolbaritems, c4g_forum_bbcodes_editor_uploadTypes,c4g_forum_bbcodes_editor_maxFileSize,c4g_forum_bbcodes_editor_imageWidth, c4g_forum_bbcodes_editor_imageHeight'; //, c4g_forum_bbcodes_smileys,c4g_forum_bbcodes_smileys_url,c4g_forum_bbcodes_autourl';
 $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_sitemap'] =
-'c4g_forum_sitemap_filename,c4g_forum_sitemap_contents';
+'c4g_forum_sitemap_root,c4g_forum_sitemap_filename,c4g_forum_sitemap_contents';
 
 /***
  * Fields - General
@@ -489,6 +489,13 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_sitemap'] = array
 	'inputType'               => 'checkbox',
 	'eval'                    => array('submitOnChange'=>true),
 	'save_callback'			  => array(array('tl_module_c4g_forum','update_sitemap'))
+);
+$GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_sitemap_root'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap_root'],
+	'exclude'                 => true,
+	'inputType'               => 'pageTree',
+	'eval'                    => array('mandatory'=>true),
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_sitemap_filename'] = array
