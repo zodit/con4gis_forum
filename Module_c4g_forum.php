@@ -4637,6 +4637,7 @@
          */
         public function generateAjax($request = null)
         {
+            global $objPage;
 
             // auf die benutzerdefinierte Fehlerbehandlung umstellen
             $old_error_handler = set_error_handler("c4gForumErrorHandler");
@@ -4672,11 +4673,6 @@
                     $frontendUrl = $this->Environment->url . $session['current_forum_url'];
                 } else {
                     $frontendUrl = $this->Environment->url . TL_PATH . '/' . $session['current_forum_url'];
-                }
-
-                $tmpFrontendUrl = $this->getForumPageUrl();
-                if($tmpFrontendUrl !== false){
-                    $frontendUrl = $tmpFrontendUrl;
                 }
 
                 $this->helper = new C4GForumHelper($this->Database, $this->Environment, $this->User, $this->headline,
