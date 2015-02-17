@@ -244,5 +244,6 @@ CREATE TABLE `tl_module` (
   `c4g_forum_tooltip` varchar(50) NOT NULL default 'body_first_post',
   `c4g_forum_sitemap_contents` blob NULL,
   `c4g_forum_sitemap_updated` int(10) NOT NULL default '0',
+  `c4g_forum_sitemap_root` int(10) unsigned NOT NULL default '0',
   `c4g_forum_breadcrumb_jumpTo` int(10) unsigned NOT NULL default '0',
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
