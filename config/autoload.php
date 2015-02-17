@@ -38,6 +38,7 @@ TemplateLoader::addFiles(array
 (
 	'be_tag_widget'            => 'system/modules/con4gis_forum/templates/backend/widget',
 	'mod_c4g_forum'            => 'system/modules/con4gis_forum/templates',
+	'c4g_subscription'            => 'system/modules/con4gis_forum/templates/mail',
 	'mod_c4g_forum_breadcrumb' => 'system/modules/con4gis_forum/templates',
 	'mod_c4g_forum_plainhtml'  => 'system/modules/con4gis_forum/templates',
 ));

@@ -18,6 +18,7 @@
  */
 $GLOBALS['TL_LANG']['tl_c4g_forum']['name'] 					= array('Name', 'Name des Forenbereiches');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['tags'] 					= array('Tags', 'Schlagwort-Vorgabe zur Auswahl bei der Thread- / Post-Erstellung');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['mail_subscription_text'] 					= array('E-Mail-Vorlage für Benachrichtigung bei Änderungen', '');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['headline'] 				= array('Überschrift',
 																		'Hier können Sie dem Forenbereich eine Überschrift hinzufügen.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['description'] 				= array('Beschreibung',

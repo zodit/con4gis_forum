@@ -149,6 +149,25 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_MOVETHREAD_INTRO'] = "das Mitglied '%4\$s' hat Thema '%3\$s' aus Forenbereich '%6\$s' in den Forenbereich '%2\$s' verschoben.\r\n";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_NEWTHREAD_INTRO']  = "das Mitglied '%4\$s' hat das Thema '%3\$s' in Ihrem abonnierten Forenbereich '%2\$s' neu angelegt.\r\n";
 
+
+
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_NEW_POST'] = "Beitrag erstellt";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_EDIT_POST'] = "Beitrag bearbeitet";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_DEL_POST'] = "Beitrag gelöscht";
+
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_NEW_POST_WITH_SUBJECT'] = "Beitrag mit dem Betreff '%s' erstellt";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_EDIT_POST_WITH_SUBJECT'] = "Beitrag mit dem Betreff '%s' bearbeitet";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_DEL_POST_WITH_SUBJECT'] = "Beitrag mit dem Betreff '%s' gelöscht";
+
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_NEW_THREAD'] = "Thema erstellt";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_EDIT_THREAD'] = "Thema bearbeitet";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_DEL_THREAD'] = "Thema gelöscht";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_MOVE_THREAD'] = "Thema verschoben";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_NEW_THREAD_WITH_SUBJECT'] = "Thema erstellt";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_EDIT_THREAD_WITH_SUBJECT'] = "Thema mit dem Betreff '%s' bearbeitet";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_DEL_THREAD_WITH_SUBJECT'] = "Thema mit dem Betreff '%s' gelöscht";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_MOVE_THREAD_WITH_SUBJECT'] = "Thema aus Forenbereich '%s' in den Forenbereich '%s' verschoben";
+
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_LINK'] = "Link: '%s' (%s)\r\n";
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_TEXT'] =

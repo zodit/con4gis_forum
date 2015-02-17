@@ -2849,14 +2849,17 @@
          *
          * @return string
          */
-        public function getTagForm($sDivName, $aPost, $sForumId)
+        public function getTagForm($sDivName, $aPost, $sForumId, $label = false)
         {
 
+            if($label === false){
+                $label = $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'];
+            }
             $aTags       = $this->getTagsRecursivByParent($aPost['forumid']);
             $sHtml = "";
             if(!empty($aTags)) {
                 $sHtml = "<div class=\"" . $sDivName . "\">";
-                $sHtml .= $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'] . ':<br/>';
+                $sHtml .= $label . ':<br/>';
                 $sHtml .= "<select name=\"tags\" class=\"formdata c4g_tags\" multiple=\"multiple\" style='width:100%;' data-placeholder='" . $GLOBALS['TL_LANG']['C4G_FORUM']['SELECT_TAGS_PLACEHOLDER'] . "'>";
                 foreach ($aTags as $sTag) {
 
@@ -2875,7 +2878,7 @@
             return $sHtml;
         }
 
-        private function getTagsRecursivByParent($sForumId){
+        public function getTagsRecursivByParent($sForumId){
             $sReturn = "";
             $aTagsResult = \Contao\Database::getInstance()->prepare("SELECT tags, pid FROM tl_c4g_forum WHERE id = %s")->execute($sForumId);
             $aTags       = $aTagsResult->row();
@@ -3632,8 +3635,17 @@
                     '<div>' .
                     '<input type="checkbox" id="onlyThreads" name="onlyThreads" class="formdata ui-corner-all" /><label for="onlyThreads">' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_ONLYTHREADS'] . '</label><br/>' .
                     '<input type="checkbox" id="wholeWords" name="wholeWords" class="formdata ui-corner-all" /><label for="wholeWords">' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_WHOLEWORDS'] . '</label>' .
-                    '</div>' .
-                    '<br /> ' .
+                    '</div>' ;
+
+            // show tag field in search form
+            if($this->c4g_forum_use_tags_in_search == "1"){
+                $aTags = $this->getTagForm("search_tags",array("forumid" => $forumId,"tags" => array()),$forumId);
+                $data .= '<br /><div>';
+                $data .= $aTags;
+                $data .= '</div><br />';
+            }
+
+            $data .= '<br /> ' .
                     $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_LBL_SEARCH_ALL_THEMES'] . ' ';
             $data .= $this->helper->getForumsAsHTMLDropdownMenuFromDB($this->c4g_forum_startforum, $forumId, ' - ');
 
@@ -3730,7 +3742,7 @@
             }
 
             //prompt a message if search-field is empty
-            if (!$this->putVars['search']) {
+            if (!$this->putVars['search'] && !$this->putVars['tags']) {
                 $return['usermessage'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCH_MESSAGE_NO_SEARCH_ENTRY'];
 
                 return $return;
@@ -4519,6 +4531,9 @@
                     if (isset($values[2])) {
                         $return = $this->search($values[1], $values[2]);
                     } else {
+                        if(!isset($this->putVars['tags'])){
+                            $this->putVars['tags'] = array();
+                        }
                         $return = $this->search($values[1],
                                                 array(
                                                     "searchLocation"    => $this->putVars['searchLocation'],
@@ -4530,6 +4545,7 @@
                                                     "timeDirection"     => $this->putVars['timeDirection'],
                                                     "timePeriod"        => $this->putVars['timePeriod'],
                                                     "timeUnit"          => $this->putVars['timeUnit'],
+                                                    "tags"          => $this->putVars['tags'],
                                                 )
                         );
                     }
