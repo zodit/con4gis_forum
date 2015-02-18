@@ -439,8 +439,12 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 		'mail_subscription_text' => array
 		(
 				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['mail_subscription_text'],
-                'search'				=> true,
+                'search'				  => true,
+                'default'                 => &$GLOBALS['TL_LANG']['tl_c4g_forum']['default_subscription_text'],
 				'inputType'               => 'textarea',
+                'save_callback' => array(
+                    array('tl_c4g_forum','setMailTextDefault')
+                ),
                 'eval'                    => array("rows" => 15, "cols" => 60, "style" => "height:300px !important;"),
 		),
 
@@ -469,6 +473,15 @@ class tl_c4g_forum extends Backend
 		$this->loadLanguageFile('stopwords');
 
 	}
+
+
+    public function setMailTextDefault($varValue, DataContainer $dc){
+        if(empty($varValue)){
+            return $GLOBALS['TL_LANG']['tl_c4g_forum']['default_subscription_text'];
+        }else{
+            return $varValue;
+        }
+    }
 
 	/**
 	 * Return the copy page with subpages button

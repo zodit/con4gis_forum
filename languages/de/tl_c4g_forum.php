@@ -173,4 +173,27 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['success']			= "Ihr Forum wurde erfolgreich 
 $GLOBALS['TL_LANG']['tl_c4g_forum']['fail']				= array("FEHLER: ",
 																"Bei der Indizierung kam es zu einer Zeitüberschreitung!");
 
+
+
+    $GLOBALS['TL_LANG']['tl_c4g_forum']['default_subscription_text'] = <<<TEXT
+Hallo ##USERNAME##,
+
+das Mitglied '##RESPONSIBLE_USERNAME##' hat in Ihrem abonnierten Forenbereich '##FORUMNAME##' im Thema '##THREADNAME##' ##ACTION_PRE## ##ACTION_NAME_WITH_SUBJECT##
+
+
+##POST_CONTENT##
+
+
+Öffnen Sie den Forenbereich über den folgenden Link:
+##DETAILS_LINK##
+
+__________________________________________________________________________________________
+
+Um das Forenbereichs-Abonnement abzubestellen verwenden Sie bitte diesen Link:
+##UNSUBSCRIBE_LINK##
+
+Um alle Abonnements abzubestellen verwenden Sie bitte diesen Link:
+##UNSUBSCRIBE_ALL_LINK##
+TEXT;
+
 ?>
