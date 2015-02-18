@@ -267,10 +267,13 @@ class C4GForumSubscription
 					$sPerm = 'subscribethread';
 				}
 
+                $sActionType = "POST";
+
                 $aMailData = array(
                     "USERNAME" => "",
                     "RESPONSIBLE_USERNAME" => "",
                     "ACTION_NAME" => "",
+                    "ACTION_PRE" => "",
                     "ACTION_NAME_WITH_SUBJECT" => "",
                     "FORUMNAME" => "",
                     "THREADNAME" => "",
@@ -286,58 +289,43 @@ class C4GForumSubscription
 					switch ($sendKind) {
 						case "new" :
 							$subjectAddition = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_'.$sType.'_MAIL_NEW'];
-							$intro = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_'.$sType.'_MAIL_NEW_INTRO'];
-
-
-                            $aMailData['ACTION_NAME'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_NEW_POST'];
-                            $aMailData['ACTION_NAME_WITH_SUBJECT'] = sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_NEW_POST_WITH_SUBJECT'],$this->MailCache ['subject']);
-
+                            $aMailData['ACTION_NAME'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_'.$sActionType.''];
+                            $aMailData['ACTION_NAME_WITH_SUBJECT'] = sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_'.$sActionType.'_WITH_SUBJECT'],$this->MailCache ['subject']);
 
 							break;
 						case "edit" :
 							$subjectAddition = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_'.$sType.'_MAIL_EDIT'];
-							$intro = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_'.$sType.'_MAIL_EDIT_INTRO'];
-
-
-                            $aMailData['ACTION_NAME'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_EDIT_POST'];
-                            $aMailData['ACTION_NAME_WITH_SUBJECT'] = sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_EDIT_POST_WITH_SUBJECT'],$this->MailCache ['subject']);
-
+                            $aMailData['ACTION_NAME'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_'.$sActionType.''];
+                            $aMailData['ACTION_NAME_WITH_SUBJECT'] = sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_'.$sActionType.'_WITH_SUBJECT'],$this->MailCache ['subject']);
 
 							break;
 						case "delete" :
 							$subjectAddition = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_'.$sType.'_MAIL_DELETE'];
-							$intro = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_'.$sType.'_MAIL_DELETE_INTRO'];
-
-                            $aMailData['ACTION_NAME'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_DEL_POST'];
-                            $aMailData['ACTION_NAME_WITH_SUBJECT'] = sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_DEL_POST_WITH_SUBJECT'],$this->MailCache ['subject']);
-
+                            $aMailData['ACTION_NAME'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_'.$sActionType.''];
+                            $aMailData['ACTION_NAME_WITH_SUBJECT'] = sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_'.$sActionType.'_WITH_SUBJECT'],$this->MailCache ['subject']);
 
 							break;
 						case "delThread" :
 							$subjectAddition = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_'.$sType.'_MAIL_DELTHREAD'];
-							$intro = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_'.$sType.'_MAIL_DELTHREAD_INTRO'];
-
-                            $aMailData['ACTION_NAME'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_DEL_THREAD'];
-                            $aMailData['ACTION_NAME_WITH_SUBJECT'] = sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_DEL_THREAD_WITH_SUBJECT'],$thread['threadname']);
-
+                            $aMailData['ACTION_NAME'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD'];
+                            $aMailData['ACTION_NAME_WITH_SUBJECT'] = sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD_WITH_SUBJECT'],$thread['threadname']);
+                            $sActionType = "THREAD";
 							break;
 						case "moveThread" :
 							$subjectAddition = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_'.$sType.'_MAIL_MOVETHREAD'];
-							$intro = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_'.$sType.'_MAIL_MOVETHREAD_INTRO'];
-
-                            $aMailData['ACTION_NAME'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_MOVE_THREAD'];
-                            $aMailData['ACTION_NAME_WITH_SUBJECT'] = sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_MOVE_THREAD_WITH_SUBJECT'],$this->MailCache ['moveThreadOldName'], $thread['threadname']);
-
+                            $aMailData['ACTION_NAME'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD'];
+                            $aMailData['ACTION_NAME_WITH_SUBJECT'] = sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD_WITH_SUBJECT'],$this->MailCache ['moveThreadOldName'], $thread['threadname']);
+                            $sActionType = "THREAD";
 							break;
 						case "newThread" : // only subforum
 							$subjectAddition = $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_THREAD'];
-							$intro = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_SUBFORUM_MAIL_NEWTHREAD_INTRO'];
-
-                            $aMailData['ACTION_NAME'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_NEW_THREAD'];
-                            $aMailData['ACTION_NAME_WITH_SUBJECT'] = sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_ACTION_NEW_THREAD_WITH_SUBJECT'],$thread['threadname']);
-
+                            $aMailData['ACTION_NAME'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD'];
+                            $aMailData['ACTION_NAME_WITH_SUBJECT'] = sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD_WITH_SUBJECT'],$thread['threadname']);
+                            $sActionType = "THREAD";
 							break;
 					}
+
+                    $aMailData['ACTION_PRE'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_'.$sActionType.'_PRE'];
 
 					$data = array();
 					$data['command'] = 'sendmail';
@@ -354,15 +342,6 @@ class C4GForumSubscription
 							$GLOBALS['TL_CONFIG']['websiteTitle'],
 							$thread['forumname'],
 							$thread['threadname'] );
-
-
-					$text = sprintf( $intro,
-							$GLOBALS['TL_CONFIG']['websiteTitle'],
-							$thread['forumname'],
-							$thread['threadname'],
-							$this->User->username,
-							$this->MailCache ['subject'],
-							$this->MailCache ['moveThreadOldName'] );
 
 
                     $aMailData['USERNAME'] = $subscriber['username'];
@@ -394,45 +373,16 @@ class C4GForumSubscription
 							'\n- $1',
 							$this->MailCache ['post']
 						);
+
+
 					// entferne BBCodes
 					$this->MailCache ['post'] = preg_replace('/\[[^\[\]]*\]/i', '', $this->MailCache ['post']);
 
-
-					if (($sendKind != 'delThread') && ($sendKind != 'moveThread')) {
-						$text .= sprintf( $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_TEXT'],
-								$this->MailCache ['post'] );
-
-						if ($this->MailCache ['linkurl']) {
-							$text .= sprintf( $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_LINK'],
-									$this->MailCache ['linkname'],
-									$this->MailCache ['linkurl'] );
-						}
-
-					}
-
-
+                    // set post subject and content
                     $aMailData['POST_SUBJECT'] = $this->MailCache ['subject'];
                     $aMailData['POST_CONTENT'] = $this->MailCache ['post'];
 
-
-
-
-					$data['text'] =
-						sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_HELLO'],$subscriber['username'])
-						.$text;
-					if (($sendKind!='delThread') || ($subscriber['type']==1)) {
-						$data['text'] .= sprintf(
-								$GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_'.$sType.'_MAIL_END'],
-						        $this->helper->getUrlForThread( $threadId,$thread['forumid'] ),
-								$this->helper->getUrlForForum( $thread['forumid'] ),
-								$this->generateUnsubscribeLinkThread( $threadId, $subscriber['email'] ),
-								$this->generateUnsubscribeLinkSubforum( $thread['forumid'], $subscriber['email'] ),
-								$this->generateUnsubscribeLinkAll( $subscriber['email'] )
-						);
-					}
-
-
-
+                    // building links
                     if($sType == "SUBFORUM"){
 
                         $aMailData['DETAILS_LINK'] = $this->helper->getUrlForForum( $thread['forumid'] );
@@ -446,13 +396,9 @@ class C4GForumSubscription
                         $aMailData['UNSUBSCRIBE_ALL_LINK'] = $this->generateUnsubscribeLinkAll( $subscriber['email'] );
                     }
 
-					$data['to'] = $subscriber['email'];
-
-
-
-
                     $data['text'] = $this->parseMailText($thread['mail'],$aMailData);
 
+					$data['to'] = $subscriber['email'];
 
 					$cron[] = $data;
 

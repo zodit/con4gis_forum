@@ -971,7 +971,7 @@ class C4GForumHelper extends System
         }
 
 		//check if still empty
-		if(empty($searchParam['search']) && !$bFilterByTags){
+		if(empty($searchParam['search']) && !$bTagsOnly){
 			$GLOBALS['c4gForumSearchParamCache']['search'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHRESULTPAGE_SEARCHTAGERROR'];
 			return array();
 		}
@@ -1008,9 +1008,6 @@ class C4GForumHelper extends System
 		$typeSet[] = "'threaddesc'";
 
         if($bTagsOnly){
-//            $inHeadlines = false;
-//            $inDescriptions = false;
-//            $inPosts = false;
             $typeSet = array("'tag'");
         }else{
             $typeSet[] = "'tag'";
@@ -1041,8 +1038,8 @@ class C4GForumHelper extends System
 				$wordIdSet[] = $wordId;
 			}
 		}
-		if($bFilterByTags){
-            //for each word in the searchstring
+
+        if($bTagsOnly){
             foreach($searchParam['tags'] as $searchWord){
                 //check wordlength
                 if(strlen($searchWord) > 32){
@@ -1063,16 +1060,12 @@ class C4GForumHelper extends System
                     $wordIdSet[] = $wordId;
                 }
             }
-		}
-
-
-
-
-
+        }
 		//end the search if no word was found
 		if(empty($wordIdSet)){
 			return array();
 		}
+
 
 
 		$wordIdSet = implode(', ', $wordIdSet);
@@ -1214,9 +1207,11 @@ class C4GForumHelper extends System
 				break;
 		}
 
+
 		//finally get what we were looking for
 		$results = $this->Database->prepare(
-				"SELECT a.id,a.pid AS forumid,a.name,a.threaddesc," . $sqlAuthor . ",a.creation,a.sort,a.posts,a.tags,".
+				"SELECT a.id,a.pid AS forumid,a.name,a.threaddesc," . $sqlAuthor . ",a.creation,a.sort,a.posts, CONCAT(
+(SELECT GROUP_CONCAT(tags) FROM tl_c4g_forum_post WHERE pid = a.id ) ) AS tags,".
 				"c.creation AS lastPost, " . $sqlLastUser . " AS lastUsername ".
 				"FROM tl_c4g_forum_thread a ".
 				"LEFT JOIN tl_member b ON b.id = a.author ".
@@ -1229,18 +1224,32 @@ class C4GForumHelper extends System
 					->limit(500)
 					->execute();
 		$results = $results->fetchAllAssoc();
-
-		foreach($results as $key => &$result){
-			// check permission of user to see the found thread
-			if (!$this->checkPermission($result['forumid'],'threadlist') ||
+        echo "<pre>";
+        var_dump($results);
+        foreach($results as $key => &$result){
+            if($bFilterByTags){
+                $resultTags = explode(",",$result['tags']);
+                $resultTags = array_map('trim',$resultTags);
+                $aIntersect = array_intersect($resultTags, $searchParam['tags']);
+                if(empty($aIntersect)){
+                    unset($results[$key]);
+                    continue;
+                }
+            }
+            else {
+                //add counts to the result as we need it for sorting
+                $result['hits'] = $hits[$result['id']];
+            }
+            // check permission of user to see the found thread
+            if (!$this->checkPermission($result['forumid'],'threadlist') ||
 				!$this->checkPermission($result['forumid'],'search')) {
-				unset($results[$key]);
-			}
-			else {
-				//add counts to the result as we need it for sorting
-				$result['hits'] = $hits[$result['id']];
-			}
+                unset($results[$key]);
+            }
 		}
+
+echo "<pre>";
+var_dump($results);
+die();
 
 
 
