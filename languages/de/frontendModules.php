@@ -23,6 +23,7 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_THREAD']              = 'Neues Thema';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST']                    = 'Beitrag';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POSTS']                   = 'Beiträge';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST']                = 'Letzter Beitrag';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST']                = 'Neuer Beitrag';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_PREVIEW']        = 'Vorschau - Neuer Beitrag';
     $GLOBALS['TL_LANG']['C4G_FORUM']['ALL_POSTS']               = 'Alle';

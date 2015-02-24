@@ -202,6 +202,7 @@ CREATE TABLE `tl_module` (
   `c4g_forum_collapsible_posts` char(2) NOT NULL default 'NC',
   `c4g_forum_breadcrumb` char(1) NOT NULL default '1',  
   `c4g_forum_hide_intropages` char(1) NOT NULL default '',
+  `c4g_forum_show_last_post_on_new` char(1) NOT NULL default '',
   `c4g_forum_jumpTo` int(10) unsigned NOT NULL default '0',
   `c4g_forum_language` char(5) NOT NULL default '',  
   `c4g_forum_bbcodes` char(1) NOT NULL default '1',  

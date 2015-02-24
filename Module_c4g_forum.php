@@ -1380,6 +1380,21 @@
         {
 
             $thread = $this->helper->getThreadAndForumNameFromDB($threadId);
+
+            $sLastPost = "";
+            if($this->c4g_forum_show_last_post_on_new) {
+                $posts  = $this->helper->getPostsOfThreadFromDB($threadId, true);
+                if (!empty($posts)) {
+                    $aPost     = $posts[0];
+                    $sLastPost = "<h3>" . $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST'] . "</h3>";
+                    $sLastPost .= $this->generatePostAsHtml($aPost, false, true);
+                    $sLastPost .= "<br>";
+                    $sLastPost .= "<h3>" . $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST'] . "</h3>";
+                }
+            }
+
+
+
             list($access, $message) = $this->checkPermission($thread['forumid']);
             if (!$access) {
                 return $this->getPermissionDenied($message);
@@ -1407,7 +1422,9 @@
                 $sSite .= "/";
             }
 
-            $data = '<div class="c4gForumNewPost">' .
+            $data = $sLastPost;
+
+            $data .= '<div class="c4gForumNewPost">' .
                     '<div class="c4gForumNewPostSubject">' .
                     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBJECT'] . ':<br/>' .
                     '<input name="subject" value="' . $thread['threadname'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="100" /><br />' .

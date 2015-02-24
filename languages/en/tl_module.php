@@ -71,6 +71,9 @@
         'Use BBCodes',
         'Deactivate this checkbox, if you do not want to use BBCodes in your forum. Please take note, that deactivating BBCodes after they have already been used, may cause ugly formating-errors.'
     );
+
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_last_post_on_new'] = array("Show last post on create new one", "");
+
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor']                = array('Use WYSIWYG-Editor', 'CAUTION: This Feature only works for embedded forums!');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems']   = array('WYSIWYG-Editor Toolbar Buttons', '');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath']  = array('Image Upload-Folder', 'Decide where uploaded images should be stored');
