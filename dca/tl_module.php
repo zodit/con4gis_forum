@@ -586,7 +586,7 @@ class tl_module_c4g_forum extends Backend {
 	public function updateDCA(DataContainer $dc)
 	{
 		// add Maps section if c4gMaps is installed
-		if ($GLOBALS['c4g_maps_extension']['installed']) {
+		if ($GLOBALS['con4gis_maps_extension']['installed']) {
 			$c4gMapsFields = '{c4g_forum_comf_maps_legend:hide},c4g_forum_enable_maps;';
 			$GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum'] =
 				str_replace('{protected_legend',$c4gMapsFields.'{protected_legend',
