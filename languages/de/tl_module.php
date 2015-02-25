@@ -210,6 +210,7 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_maxFileSize'] = array("Maximale Dateigröße", "Angabe in Byte: 1 kB = 1024 Byte, 1 MB = 1048576 Byte");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageWidth']  = array("Maximale Bildbreite", "Angabe in Pixel");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageHeight'] = array("Maximale Bildhöhe", "Angabe in Pixel");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_use_tags_in_search'] = array("Schlagworte in Suchmaske anzeigen", "");
 
 
     /**
@@ -222,6 +223,7 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend']    = 'Diskussionsforum - Kartenanbindung (con4gis-Maps)';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_lib_legend']     = 'Diskussionsforum - jQuery Bibliotheken';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_sitemap_legend'] = 'Diskussionsforum - XML-Sitemap';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tags_legend'] = 'Diskussionsforum - Schlagworte';
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb_legend'] = 'Navigationspfad';
 

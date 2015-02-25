@@ -129,7 +129,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 										 '{additional_legend:hide},tags;'.
 										 '{groups_legend:hide},define_groups;'.
 										 '{rights_legend:hide},define_rights;'.
-										 '{expert_legend:hide},linkurl,link_newwindow,sitemap_exclude;',
+										 '{expert_legend:hide},linkurl,link_newwindow,sitemap_exclude;mail_subscription_text',
 
 	    // used in updateDCA(), because subpalettes don't work well with TinyMCE fields!!
 		'with_intropage'              => '{general_legend},name,headline,description,published;'.
@@ -436,6 +436,17 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
                 'load_callback'           => array("tl_c4g_forum" => "decodeTags"),
                 'eval'                    => array(),
 		),
+		'mail_subscription_text' => array
+		(
+				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['mail_subscription_text'],
+                'search'				  => true,
+                'default'                 => &$GLOBALS['TL_LANG']['tl_c4g_forum']['default_subscription_text'],
+				'inputType'               => 'textarea',
+                'save_callback' => array(
+                    array('tl_c4g_forum','setMailTextDefault')
+                ),
+                'eval'                    => array("rows" => 15, "cols" => 60, "style" => "height:300px !important;"),
+		),
 
 	)
 );
@@ -462,6 +473,15 @@ class tl_c4g_forum extends Backend
 		$this->loadLanguageFile('stopwords');
 
 	}
+
+
+    public function setMailTextDefault($varValue, DataContainer $dc){
+        if(empty($varValue)){
+            return $GLOBALS['TL_LANG']['tl_c4g_forum']['default_subscription_text'];
+        }else{
+            return $varValue;
+        }
+    }
 
 	/**
 	 * Return the copy page with subpages button

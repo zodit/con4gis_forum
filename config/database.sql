@@ -54,6 +54,7 @@ CREATE TABLE `tl_c4g_forum` (
   `link_newwindow` char(1) NOT NULL default '',
   `sitemap_exclude` char(1) NOT NULL default '',
   `tags` blob NULL,
+  `mail_subscription_text` text NULL,
   PRIMARY KEY  (`id`),
   KEY `pid` (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -195,7 +196,8 @@ CREATE TABLE `tl_module` (
   `c4g_forum_size` varchar(255) NOT NULL default '',
   `c4g_forum_scroll` varchar(255) NOT NULL default '',
   `c4g_forum_startforum` int(10) unsigned NOT NULL default '0',
-  `c4g_forum_comf_navigation` varchar(10) NOT NULL default 'BOXES',  
+  `c4g_forum_use_tags_in_search` char(1) NOT NULL default '1',
+  `c4g_forum_comf_navigation` varchar(10) NOT NULL default 'BOXES',
   `c4g_forum_threadclick` char(6) NOT NULL default 'THREAD',  
   `c4g_forum_show_realname` char(2) NOT NULL default 'UU',
   `c4g_forum_postsort` char(2) NOT NULL default 'UP',  
