@@ -171,4 +171,25 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['success']			= "The Index was successfully c
 $GLOBALS['TL_LANG']['tl_c4g_forum']['fail']				= array("ERROR: ",
 																"Timeout while creating the Index!");
 
+
+$GLOBALS['TL_LANG']['tl_c4g_forum']['default_subscription_text'] = <<<TEXT
+Hello ##USERNAME##,
+
+member '##RESPONSIBLE_USERNAME##' ##ACTION_PRE## ##ACTION_NAME_WITH_SUBJECT## to your subscribed thread '##THREADNAME##' in froum '##FORUMNAME##'
+
+
+##POST_CONTENT##
+
+
+To open the thread use the following link:
+##DETAILS_LINK##
+
+__________________________________________________________________________________________
+
+To unsubscribe from the forum use this link:
+##UNSUBSCRIBE_LINK##
+
+To cancel all subscriptions please use this link:
+##UNSUBSCRIBE_ALL_LINK##
+TEXT;
 ?>

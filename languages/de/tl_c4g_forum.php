@@ -18,6 +18,7 @@
  */
 $GLOBALS['TL_LANG']['tl_c4g_forum']['name'] 					= array('Name', 'Name des Forenbereiches');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['tags'] 					= array('Tags', 'Schlagwort-Vorgabe zur Auswahl bei der Thread- / Post-Erstellung');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['mail_subscription_text'] 					= array('E-Mail-Vorlage für Benachrichtigung bei Änderungen', '');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['headline'] 				= array('Überschrift',
 																		'Hier können Sie dem Forenbereich eine Überschrift hinzufügen.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['description'] 				= array('Beschreibung',
@@ -171,5 +172,28 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['warning']     		= array("Eine komplette Ind
 $GLOBALS['TL_LANG']['tl_c4g_forum']['success']			= "Ihr Forum wurde erfolgreich indiziert.";
 $GLOBALS['TL_LANG']['tl_c4g_forum']['fail']				= array("FEHLER: ",
 																"Bei der Indizierung kam es zu einer Zeitüberschreitung!");
+
+
+
+    $GLOBALS['TL_LANG']['tl_c4g_forum']['default_subscription_text'] = <<<TEXT
+Hallo ##USERNAME##,
+
+das Mitglied '##RESPONSIBLE_USERNAME##' hat in Ihrem abonnierten Forenbereich '##FORUMNAME##' im Thema '##THREADNAME##' ##ACTION_PRE## ##ACTION_NAME_WITH_SUBJECT##
+
+
+##POST_CONTENT##
+
+
+Öffnen Sie den Forenbereich über den folgenden Link:
+##DETAILS_LINK##
+
+__________________________________________________________________________________________
+
+Um das Forenbereichs-Abonnement abzubestellen verwenden Sie bitte diesen Link:
+##UNSUBSCRIBE_LINK##
+
+Um alle Abonnements abzubestellen verwenden Sie bitte diesen Link:
+##UNSUBSCRIBE_ALL_LINK##
+TEXT;
 
 ?>

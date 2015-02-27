@@ -112,51 +112,79 @@
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_POSTS'] = 'with posts';
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_HELLO']            = "Hello %s,\r\n\r\n";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_SUBJECT']   = "Your subscribed thread on '%2\$s' (%1\$s)";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_SUBJECT'] = "Your subscribed forum on '%2\$s' (%1\$s)";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_END'] =
-        "\r\nTo open the thread use the following link:\r\n%1\$s" .
-        "\r\n\r\n__________________________________________________________________________________________\r\n" .
-        "\r\nTo unsubscribe from the thread please use this link:\r\n%3\$s\r\n" .
-        "\r\nTo cancel all subscriptions please use this link:\r\n%5\$s\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_HELLO']            = "Hello %s,\r\n\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_END'] =
+//        "\r\nTo open the thread use the following link:\r\n%1\$s" .
+//        "\r\n\r\n__________________________________________________________________________________________\r\n" .
+//        "\r\nTo unsubscribe from the thread please use this link:\r\n%3\$s\r\n" .
+//        "\r\nTo cancel all subscriptions please use this link:\r\n%5\$s\r\n";
+//
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_END'] =
+//        "\r\nTo open the forum use the following link:\r\n%2\$s" .
+//        "\r\n\r\n__________________________________________________________________________________________\r\n" .
+//        "\r\nTo unsubscribe from the forum use this link:\r\n%4\$s\r\n" .
+//        "\r\nTo cancel all subscriptions please use this link:\r\n%5\$s\r\n";
+//
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_NEW']              = 'New post';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_NEW_INTRO']        = "member '%4\$s' added a new post to your subscribed thread '%3\$s' in forum '%2\$s' with subject '%5\$s'.\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_EDIT']             = 'Post edited';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_EDIT_INTRO']       = "member '%4\$s' edited a post in your subscribed thread '%3\$s' in forum '%2\$s' with subject '%5\$s'.\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_DELETE']           = 'Post deleted';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_DELETE_INTRO']     = "member '%4\$s' deleted a post in your subscribed thread '%3\$s' in forum '%2\$s' with subject '%5\$s'.\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_DELTHREAD']        = 'Thread deleted';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_DELTHREAD_INTRO']  = "member '%4\$s' deleted your subscribed thread '%3\$s' in forum '%2\$s'.\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_MOVETHREAD']       = 'Thread moved';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_MOVETHREAD_INTRO'] = "member '%4\$s' moved your subscribed thread '%3\$s' from forum '%6\$s' to forum '%2\$s'.\r\n";
+//
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_NEW']              = 'New post';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_NEW_INTRO']        = "member '%4\$s' added a new post to thread '%3\$s' in your subscribed forum '%2\$s' with subject '%5\$s'.\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_EDIT']             = 'Post edited';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_EDIT_INTRO']       = "member '%4\$s' edited a post in thread '%3\$s' in your subscribed forum '%2\$s' with subject '%5\$s'.\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_DELETE']           = 'Post deleted';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_DELETE_INTRO']     = "member '%4\$s' deleted a post in thread '%3\$s' in your subscribed forum '%2\$s' with subject '%5\$s'.\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_DELTHREAD']        = 'Thread deleted';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_DELTHREAD_INTRO']  = "member '%4\$s' deleted thread '%3\$s' in your subscribed forum '%2\$s'.\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_MOVETHREAD']       = 'Thread moved';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_MOVETHREAD_INTRO'] = "member '%4\$s' moved thread '%3\$s' from forum '%6\$s' to forum '%2\$s'.\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_NEWTHREAD_INTRO']  = "member '%4\$s' added a new thread '%3\$s' in your subscribed forum '%2\$s'.\r\n";
+//
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_LINK'] = "Link: '%s' (%s)\r\n";
+//
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_TEXT'] =
+//        "------------------------------------------------------------------------------------------\r\n" .
+//        "%s\r\n" .
+//        "------------------------------------------------------------------------------------------\r\n";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_END'] =
-        "\r\nTo open the forum use the following link:\r\n%2\$s" .
-        "\r\n\r\n__________________________________________________________________________________________\r\n" .
-        "\r\nTo unsubscribe from the forum use this link:\r\n%4\$s\r\n" .
-        "\r\nTo cancel all subscriptions please use this link:\r\n%5\$s\r\n";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_NEW']              = 'New post';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_NEW_INTRO']        = "member '%4\$s' added a new post to your subscribed thread '%3\$s' in forum '%2\$s' with subject '%5\$s'.\r\n";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_EDIT']             = 'Post edited';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_EDIT_INTRO']       = "member '%4\$s' edited a post in your subscribed thread '%3\$s' in forum '%2\$s' with subject '%5\$s'.\r\n";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_DELETE']           = 'Post deleted';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_DELETE_INTRO']     = "member '%4\$s' deleted a post in your subscribed thread '%3\$s' in forum '%2\$s' with subject '%5\$s'.\r\n";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_DELTHREAD']        = 'Thread deleted';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_DELTHREAD_INTRO']  = "member '%4\$s' deleted your subscribed thread '%3\$s' in forum '%2\$s'.\r\n";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_MOVETHREAD']       = 'Thread moved';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_MOVETHREAD_INTRO'] = "member '%4\$s' moved your subscribed thread '%3\$s' from forum '%6\$s' to forum '%2\$s'.\r\n";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_NEW']              = 'New post';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_NEW_INTRO']        = "member '%4\$s' added a new post to thread '%3\$s' in your subscribed forum '%2\$s' with subject '%5\$s'.\r\n";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_EDIT']             = 'Post edited';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_EDIT_INTRO']       = "member '%4\$s' edited a post in thread '%3\$s' in your subscribed forum '%2\$s' with subject '%5\$s'.\r\n";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_DELETE']           = 'Post deleted';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_DELETE_INTRO']     = "member '%4\$s' deleted a post in thread '%3\$s' in your subscribed forum '%2\$s' with subject '%5\$s'.\r\n";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_DELTHREAD']        = 'Thread deleted';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_DELTHREAD_INTRO']  = "member '%4\$s' deleted thread '%3\$s' in your subscribed forum '%2\$s'.\r\n";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_MOVETHREAD']       = 'Thread moved';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_MOVETHREAD_INTRO'] = "member '%4\$s' moved thread '%3\$s' from forum '%6\$s' to forum '%2\$s'.\r\n";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_NEWTHREAD_INTRO']  = "member '%4\$s' added a new thread '%3\$s' in your subscribed forum '%2\$s'.\r\n";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_LINK'] = "Link: '%s' (%s)\r\n";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_TEXT'] =
-        "------------------------------------------------------------------------------------------\r\n" .
-        "%s\r\n" .
-        "------------------------------------------------------------------------------------------\r\n";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_POST_PRE'] = "";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_POST'] = "created a post";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_POST'] = "edited a post";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_POST'] = "deleted a post";
+
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_POST_WITH_SUBJECT'] = "created a post with subject '%s'";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_POST_WITH_SUBJECT'] = "edited a post with subject '%s'";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_POST_WITH_SUBJECT'] = "deleted a post with subject'%s'";
+
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_THREAD_PRE'] = "";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD'] = "created a thead";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_THREAD'] = "edited a thread";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD'] = "deleted a thread";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD'] = "moved a thread";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD_WITH_SUBJECT'] = "created a thead with subject '%s'";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_THREAD_WITH_SUBJECT'] = "edited a thead with subject '%s'";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD_WITH_SUBJECT'] = "deleted a thead with subject '%s'";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD_WITH_SUBJECT'] = "moved a thread from '%s' to '%s'";
+
+
+
+
+
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_THREAD_LINK_SUCCESS']   = 'Subscription of thread "%s" of member "%s" has been canceled!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_THREAD_LINK_FAILED']    = 'Error unsubscribing from thread!';

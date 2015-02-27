@@ -117,18 +117,19 @@
             }
             // initialize used Javascript Libraries and CSS files
             C4GJQueryGUI::initializeLibraries(
-                true,                                            // add c4gJQuery GUI Core LIB
-                ($this->c4g_forum_jquery_lib == true),            // add JQuery
-                ($this->c4g_forum_jqui_lib == true),            // add JQuery UI
-                ($this->c4g_forum_comf_navigation == 'TREE'),    // add Tree Control
-                ($this->c4g_forum_jqtable_lib == true),            // add Table Control
-                ($this->c4g_forum_jqhistory_lib == true),        // add history.js
-                ($this->c4g_forum_jqtooltip_lib == true),        // add simple tooltip
-                ($this->c4g_forum_enable_maps == true),         // add C4GMaps
-                $useGoogleMaps,                                    // add C4GMaps - include Google Maps Javascript?
-                ($this->c4g_forum_enable_maps == true),         // add C4GMaps Feature Editor
+                true,                                               // add c4gJQuery GUI Core LIB
+                ($this->c4g_forum_jquery_lib == true),              // add JQuery
+                ($this->c4g_forum_jqui_lib == true),                // add JQuery UI
+                ($this->c4g_forum_comf_navigation == 'TREE'),       // add Tree Control
+                ($this->c4g_forum_jqtable_lib == true),             // add Table Control
+                ($this->c4g_forum_jqhistory_lib == true),           // add history.js
+                ($this->c4g_forum_jqtooltip_lib == true),           // add simple tooltip
+                ($this->c4g_forum_enable_maps == true),             // add C4GMaps
+                $useGoogleMaps,                                     // add C4GMaps - include Google Maps Javascript?
+                ($this->c4g_forum_enable_maps == true),             // add C4GMaps Feature Editor
                 ($this->c4g_forum_bbcodes == true),
-                ($this->c4g_forum_jqscrollpane_lib == true));   // add jScrollPane
+                ($this->c4g_forum_jqscrollpane_lib == true)         // add jScrollPane
+            );
 
             //Override JQuery UI Default Theme CSS if defined
             if ($this->c4g_forum_uitheme_css_src) {
@@ -169,6 +170,18 @@
                 $request = 'initnav';
             }
             $data['initData'] = $this->generateAjax($request);
+
+            // save forum url for linkbuilding in ajaxrequests
+            $aTmpData = $this->Session->getData();
+            if(stristr($aTmpData['referer']['current'],"/con4gis_core/api/") === false) {
+                $aTmpData['current_forum_url'] = $aTmpData['referer']['current'];
+                $this->Session->setData($aTmpData);
+            }else{
+                $aTmpData['referer']['last'] = $aTmpData['current_forum_url'];
+                $aTmpData['referer']['current'] = $aTmpData['current_forum_url'];
+                $this->Session->setData($aTmpData);
+            }
+
 
             $data['div'] = 'c4g_forum';
             switch ($this->c4g_forum_comf_navigation) {
@@ -1368,6 +1381,21 @@
         {
 
             $thread = $this->helper->getThreadAndForumNameFromDB($threadId);
+
+            $sLastPost = "";
+            if($this->c4g_forum_show_last_post_on_new) {
+                $posts  = $this->helper->getPostsOfThreadFromDB($threadId, true);
+                if (!empty($posts)) {
+                    $aPost     = $posts[0];
+                    $sLastPost = "<h3>" . $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST'] . "</h3>";
+                    $sLastPost .= $this->generatePostAsHtml($aPost, false, true);
+                    $sLastPost .= "<br>";
+                    $sLastPost .= "<h3>" . $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST'] . "</h3>";
+                }
+            }
+
+
+
             list($access, $message) = $this->checkPermission($thread['forumid']);
             if (!$access) {
                 return $this->getPermissionDenied($message);
@@ -1395,7 +1423,9 @@
                 $sSite .= "/";
             }
 
-            $data = '<div class="c4gForumNewPost">' .
+            $data = $sLastPost;
+
+            $data .= '<div class="c4gForumNewPost">' .
                     '<div class="c4gForumNewPostSubject">' .
                     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBJECT'] . ':<br/>' .
                     '<input name="subject" value="' . $thread['threadname'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="100" /><br />' .
@@ -2837,14 +2867,17 @@
          *
          * @return string
          */
-        public function getTagForm($sDivName, $aPost, $sForumId)
+        public function getTagForm($sDivName, $aPost, $sForumId, $label = false)
         {
 
+            if($label === false){
+                $label = $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'];
+            }
             $aTags       = $this->getTagsRecursivByParent($aPost['forumid']);
             $sHtml = "";
             if(!empty($aTags)) {
                 $sHtml = "<div class=\"" . $sDivName . "\">";
-                $sHtml .= $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'] . ':<br/>';
+                $sHtml .= $label . ':<br/>';
                 $sHtml .= "<select name=\"tags\" class=\"formdata c4g_tags\" multiple=\"multiple\" style='width:100%;' data-placeholder='" . $GLOBALS['TL_LANG']['C4G_FORUM']['SELECT_TAGS_PLACEHOLDER'] . "'>";
                 foreach ($aTags as $sTag) {
 
@@ -2863,7 +2896,7 @@
             return $sHtml;
         }
 
-        private function getTagsRecursivByParent($sForumId){
+        public function getTagsRecursivByParent($sForumId){
             $sReturn = "";
             $aTagsResult = \Contao\Database::getInstance()->prepare("SELECT tags, pid FROM tl_c4g_forum WHERE id = %s")->execute($sForumId);
             $aTags       = $aTagsResult->row();
@@ -2895,7 +2928,7 @@
         {
 
             return
-                ($GLOBALS['c4g_maps_extension']['installed']) &&
+                ($GLOBALS['con4gis_maps_extension']['installed']) &&
                 ($this->c4g_forum_enable_maps);
         }
 
@@ -3390,7 +3423,7 @@
                 $mapData['pickGeo_initzoom'] = 14;
 
                 $mapData['geocoding']     = true;
-                $mapData['geocoding_url'] = 'system/modules/c4g_maps/C4GNominatim.php';
+                $mapData['geocoding_url'] = 'system/modules/con4gis_maps/C4GNominatim.php';
                 $mapData['geocoding_div'] = 'c4gForumPostMapGeocoding';
 
                 $mapData['div'] = 'c4gForumPostMap';
@@ -3620,8 +3653,17 @@
                     '<div>' .
                     '<input type="checkbox" id="onlyThreads" name="onlyThreads" class="formdata ui-corner-all" /><label for="onlyThreads">' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_ONLYTHREADS'] . '</label><br/>' .
                     '<input type="checkbox" id="wholeWords" name="wholeWords" class="formdata ui-corner-all" /><label for="wholeWords">' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_WHOLEWORDS'] . '</label>' .
-                    '</div>' .
-                    '<br /> ' .
+                    '</div>' ;
+
+            // show tag field in search form
+            if($this->c4g_forum_use_tags_in_search == "1"){
+                $aTags = $this->getTagForm("search_tags",array("forumid" => $forumId,"tags" => array()),$forumId);
+                $data .= '<br /><div>';
+                $data .= $aTags;
+                $data .= '</div><br />';
+            }
+
+            $data .= '<br /> ' .
                     $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_LBL_SEARCH_ALL_THEMES'] . ' ';
             $data .= $this->helper->getForumsAsHTMLDropdownMenuFromDB($this->c4g_forum_startforum, $forumId, ' - ');
 
@@ -3718,7 +3760,7 @@
             }
 
             //prompt a message if search-field is empty
-            if (!$this->putVars['search']) {
+            if (!$this->putVars['search'] && !$this->putVars['tags']) {
                 $return['usermessage'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCH_MESSAGE_NO_SEARCH_ENTRY'];
 
                 return $return;
@@ -4507,6 +4549,9 @@
                     if (isset($values[2])) {
                         $return = $this->search($values[1], $values[2]);
                     } else {
+                        if(!isset($this->putVars['tags'])){
+                            $this->putVars['tags'] = array();
+                        }
                         $return = $this->search($values[1],
                                                 array(
                                                     "searchLocation"    => $this->putVars['searchLocation'],
@@ -4518,6 +4563,7 @@
                                                     "timeDirection"     => $this->putVars['timeDirection'],
                                                     "timePeriod"        => $this->putVars['timePeriod'],
                                                     "timeUnit"          => $this->putVars['timeUnit'],
+                                                    "tags"          => $this->putVars['tags'],
                                                 )
                         );
                     }
@@ -4602,10 +4648,30 @@
 
 
         /**
+         * @return bool|string
+         */
+        public function getForumPageUrl(){
+            $id = $this->c4g_forum_sitemap_root;
+            $sFrontendUrl = false;
+            if(!empty($id)){
+                $oPage =\Contao\PageModel::findPublishedById($id);
+                if (version_compare(VERSION, '3.1', '<')) {
+                    $sFrontendUrl = $this->Environment->url;
+                } else {
+                    $sFrontendUrl = $this->Environment->url . TL_PATH . '/';
+                }
+                $sFrontendUrl .= $this->getFrontendUrl($oPage->row());
+            }
+            return $sFrontendUrl;
+        }
+
+
+        /**
          * function is called by every Ajax requests
          */
         public function generateAjax($request = null)
         {
+            global $objPage;
 
             // auf die benutzerdefinierte Fehlerbehandlung umstellen
             $old_error_handler = set_error_handler("c4gForumErrorHandler");
@@ -4638,10 +4704,11 @@
                 $this->initMembers();
                 $session = $this->Session->getData();
                 if (version_compare(VERSION, '3.1', '<')) {
-                    $frontendUrl = $this->Environment->url . $session['referer']['current'];
+                    $frontendUrl = $this->Environment->url . $session['current_forum_url'];
                 } else {
-                    $frontendUrl = $this->Environment->url . TL_PATH . '/' . $session['referer']['current'];
+                    $frontendUrl = $this->Environment->url . TL_PATH . '/' . $session['current_forum_url'];
                 }
+
                 $this->helper = new C4GForumHelper($this->Database, $this->Environment, $this->User, $this->headline,
                                                    $frontendUrl, $this->c4g_forum_show_realname);
 

@@ -23,6 +23,7 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_THREAD']              = 'Neues Thema';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST']                    = 'Beitrag';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POSTS']                   = 'Beiträge';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST']                = 'Letzter Beitrag';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST']                = 'Neuer Beitrag';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_PREVIEW']        = 'Vorschau - Neuer Beitrag';
     $GLOBALS['TL_LANG']['C4G_FORUM']['ALL_POSTS']               = 'Alle';
@@ -110,51 +111,72 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_SUCCESS']      = 'Forenbereich erfolgreich abonniert.';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_ONLY_THREADS'] = 'nur bei neuen Themen benachrichtigen';
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_HELLO']            = "Hallo %s,\r\n\r\n";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_SUBJECT']   = "Ihr abonniertes Thema auf '%2\$s' (%1\$s)";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_SUBJECT'] = "Ihr abonnierter Forenbereich auf '%2\$s' (%1\$s)";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_END'] =
-        "\r\nÖffnen Sie das Thema über den folgenden Link:\r\n%1\$s" .
-        "\r\n\r\n__________________________________________________________________________________________\r\n" .
-        "\r\nUm das Themen-Abonnement abzubestellen verwenden Sie bitte diesen Link:\r\n%3\$s\r\n" .
-        "\r\nUm alle Abonnements abzubestellen verwenden Sie bitte diesen Link:\r\n%5\$s\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_HELLO']            = "Hallo %s,\r\n\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_END'] =
+//        "\r\nÖffnen Sie das Thema über den folgenden Link:\r\n%1\$s" .
+//        "\r\n\r\n__________________________________________________________________________________________\r\n" .
+//        "\r\nUm das Themen-Abonnement abzubestellen verwenden Sie bitte diesen Link:\r\n%3\$s\r\n" .
+//        "\r\nUm alle Abonnements abzubestellen verwenden Sie bitte diesen Link:\r\n%5\$s\r\n";
+//
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_END'] =
+//        "\r\nÖffnen Sie den Forenbereich über den folgenden Link:\r\n%2\$s" .
+//        "\r\n\r\n__________________________________________________________________________________________\r\n" .
+//        "\r\nUm das Forenbereichs-Abonnement abzubestellen verwenden Sie bitte diesen Link:\r\n%4\$s\r\n" .
+//        "\r\nUm alle Abonnements abzubestellen verwenden Sie bitte diesen Link:\r\n%5\$s\r\n";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_END'] =
-        "\r\nÖffnen Sie den Forenbereich über den folgenden Link:\r\n%2\$s" .
-        "\r\n\r\n__________________________________________________________________________________________\r\n" .
-        "\r\nUm das Forenbereichs-Abonnement abzubestellen verwenden Sie bitte diesen Link:\r\n%4\$s\r\n" .
-        "\r\nUm alle Abonnements abzubestellen verwenden Sie bitte diesen Link:\r\n%5\$s\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_NEW']              = 'Neuer Beitrag';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_NEW_INTRO']        = "das Mitglied '%4\$s' hat in Ihrem abonnierten Thema '%3\$s' im Forenbereich '%2\$s' einen neuen Beitrag mit dem Betreff '%5\$s' erstellt.\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_EDIT']             = 'Beitrag geändert';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_EDIT_INTRO']       = "das Mitglied '%4\$s' hat in Ihrem abonnierten Thema '%3\$s' im Forenbereich '%2\$s' einen Beitrag mit dem Betreff '%5\$s' geändert.\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_DELETE']           = 'Beitrag gelöscht';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_DELETE_INTRO']     = "das Mitglied '%4\$s' hat in Ihrem abonnierten Thema '%3\$s' im Forenbereich '%2\$s' einen Beitrag mit dem Betreff '%5\$s' gelöscht.\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_DELTHREAD']        = 'Thema gelöscht';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_DELTHREAD_INTRO']  = "das Mitglied '%4\$s' hat Ihr abonniertes Thema '%3\$s' im Forenbereich '%2\$s' gelöscht.\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_MOVETHREAD']       = 'Thema verschoben';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_MOVETHREAD_INTRO'] = "das Mitglied '%4\$s' hat Ihr abonniertes Thema '%3\$s' aus Forenbereich '%6\$s' in den Forenbereich '%2\$s' verschoben.\r\n";
+//
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_NEW']              = 'Neuer Beitrag';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_NEW_INTRO']        = "das Mitglied '%4\$s' hat in Ihrem abonnierten Forenbereich '%2\$s' im Thema '%3\$s' einen neuen Beitrag mit dem Betreff '%5\$s' erstellt.\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_EDIT']             = 'Beitrag geändert';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_EDIT_INTRO']       = "das Mitglied '%4\$s' hat in Ihrem abonnierten Forenbereich '%2\$s' im Thema '%3\$s' einen Beitrag mit dem Betreff '%5\$s' geändert.\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_DELETE']           = 'Beitrag gelöscht';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_DELETE_INTRO']     = "das Mitglied '%4\$s' hat in Ihrem abonnierten Forenbereich '%2\$s' im Thema '%3\$s' einen Beitrag mit dem Betreff '%5\$s' gelöscht.\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_DELTHREAD']        = 'Thema gelöscht';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_DELTHREAD_INTRO']  = "das Mitglied '%4\$s' hat in Ihrem abonnierten Forenbereich '%2\$s' das Thema '%3\$s' gelöscht.\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_MOVETHREAD']       = 'Thema verschoben';
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_MOVETHREAD_INTRO'] = "das Mitglied '%4\$s' hat Thema '%3\$s' aus Forenbereich '%6\$s' in den Forenbereich '%2\$s' verschoben.\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_NEWTHREAD_INTRO']  = "das Mitglied '%4\$s' hat das Thema '%3\$s' in Ihrem abonnierten Forenbereich '%2\$s' neu angelegt.\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_LINK'] = "Link: '%s' (%s)\r\n";
+//    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_TEXT'] =
+//        "------------------------------------------------------------------------------------------\r\n" .
+//        "%s\r\n" .
+//        "------------------------------------------------------------------------------------------\r\n";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_NEW']              = 'Neuer Beitrag';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_NEW_INTRO']        = "das Mitglied '%4\$s' hat in Ihrem abonnierten Thema '%3\$s' im Forenbereich '%2\$s' einen neuen Beitrag mit dem Betreff '%5\$s' erstellt.\r\n";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_EDIT']             = 'Beitrag geändert';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_EDIT_INTRO']       = "das Mitglied '%4\$s' hat in Ihrem abonnierten Thema '%3\$s' im Forenbereich '%2\$s' einen Beitrag mit dem Betreff '%5\$s' geändert.\r\n";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_DELETE']           = 'Beitrag gelöscht';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_DELETE_INTRO']     = "das Mitglied '%4\$s' hat in Ihrem abonnierten Thema '%3\$s' im Forenbereich '%2\$s' einen Beitrag mit dem Betreff '%5\$s' gelöscht.\r\n";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_DELTHREAD']        = 'Thema gelöscht';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_DELTHREAD_INTRO']  = "das Mitglied '%4\$s' hat Ihr abonniertes Thema '%3\$s' im Forenbereich '%2\$s' gelöscht.\r\n";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_MOVETHREAD']       = 'Thema verschoben';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_MOVETHREAD_INTRO'] = "das Mitglied '%4\$s' hat Ihr abonniertes Thema '%3\$s' aus Forenbereich '%6\$s' in den Forenbereich '%2\$s' verschoben.\r\n";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_NEW']              = 'Neuer Beitrag';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_NEW_INTRO']        = "das Mitglied '%4\$s' hat in Ihrem abonnierten Forenbereich '%2\$s' im Thema '%3\$s' einen neuen Beitrag mit dem Betreff '%5\$s' erstellt.\r\n";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_EDIT']             = 'Beitrag geändert';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_EDIT_INTRO']       = "das Mitglied '%4\$s' hat in Ihrem abonnierten Forenbereich '%2\$s' im Thema '%3\$s' einen Beitrag mit dem Betreff '%5\$s' geändert.\r\n";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_DELETE']           = 'Beitrag gelöscht';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_DELETE_INTRO']     = "das Mitglied '%4\$s' hat in Ihrem abonnierten Forenbereich '%2\$s' im Thema '%3\$s' einen Beitrag mit dem Betreff '%5\$s' gelöscht.\r\n";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_DELTHREAD']        = 'Thema gelöscht';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_DELTHREAD_INTRO']  = "das Mitglied '%4\$s' hat in Ihrem abonnierten Forenbereich '%2\$s' das Thema '%3\$s' gelöscht.\r\n";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_MOVETHREAD']       = 'Thema verschoben';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_MOVETHREAD_INTRO'] = "das Mitglied '%4\$s' hat Thema '%3\$s' aus Forenbereich '%6\$s' in den Forenbereich '%2\$s' verschoben.\r\n";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_NEWTHREAD_INTRO']  = "das Mitglied '%4\$s' hat das Thema '%3\$s' in Ihrem abonnierten Forenbereich '%2\$s' neu angelegt.\r\n";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_LINK'] = "Link: '%s' (%s)\r\n";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_POST_PRE'] = "einen";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_POST'] = "Beitrag erstellt";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_POST'] = "Beitrag bearbeitet";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_POST'] = "Beitrag gelöscht";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_TEXT'] =
-        "------------------------------------------------------------------------------------------\r\n" .
-        "%s\r\n" .
-        "------------------------------------------------------------------------------------------\r\n";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_POST_WITH_SUBJECT'] = "Beitrag mit dem Betreff '%s' erstellt";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_POST_WITH_SUBJECT'] = "Beitrag mit dem Betreff '%s' bearbeitet";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_POST_WITH_SUBJECT'] = "Beitrag mit dem Betreff '%s' gelöscht";
+
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_THREAD_PRE'] = "ein";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD'] = "Thema erstellt";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_THREAD'] = "Thema bearbeitet";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD'] = "Thema gelöscht";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD'] = "Thema verschoben";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD_WITH_SUBJECT'] = "Thema erstellt";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_THREAD_WITH_SUBJECT'] = "Thema mit dem Betreff '%s' bearbeitet";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD_WITH_SUBJECT'] = "Thema mit dem Betreff '%s' gelöscht";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD_WITH_SUBJECT'] = "Thema aus Forenbereich '%s' in den Forenbereich '%s' verschoben";
+
+
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_THREAD_LINK_SUCCESS']   = 'Das Abonnement des Themas "%s" des Mitgliedes "%s" wurde beendet!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_THREAD_LINK_FAILED']    = 'Fehler beim Beenden des Themen-Abonnements!';

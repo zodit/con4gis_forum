@@ -951,18 +951,34 @@ class C4GForumHelper extends System
 			// no search terms left? try to prepare without stripping stopwords...
 			$search = C4GUtils::compressDataSetForSearch($searchParam['search'], false);
 		}
+
+
+
+		//explode searchstring
+		$searchParam['search'] = explode(' ', $search);
+		$searchParam['search'] = array_filter($searchParam['search']);
+
+        $bFilterByTags = false;
+        $bTagsOnly = false;
+        // add tags to searchwords if present
+        if(isset($searchParam['tags'])){
+            if(!empty($searchParam['tags'])){
+                $bFilterByTags = true;
+                if(empty($searchParam['search'])){
+                    $bTagsOnly = true;
+                }
+            }
+        }
+
 		//check if still empty
-		if($search == ''){
+		if(empty($searchParam['search']) && !$bTagsOnly){
 			$GLOBALS['c4gForumSearchParamCache']['search'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHRESULTPAGE_SEARCHTAGERROR'];
 			return array();
 		}
 
-		//explode searchstring
-		$searchParam['search'] = explode(' ', $search);
-
 		//removes duplicates
 		$searchParam['search'] = array_unique($searchParam['search']);
-
+		$searchParam['search'] = array_filter($searchParam['search']);
 		//check if author exists and get his id
 		if($searchParam['author'] != ''){
 			$authorId = $this->Database->prepare(
@@ -974,6 +990,7 @@ class C4GForumHelper extends System
 				return array();
 			}
 		}
+
 
 		//create a typeset
 		$typeSet = array();
@@ -990,9 +1007,13 @@ class C4GForumHelper extends System
 		$inDescriptions = true;
 		$typeSet[] = "'threaddesc'";
 
+        if($bTagsOnly){
+            $typeSet = array("'tag'");
+        }else{
+            $typeSet[] = "'tag'";
+        }
+
 		$typeSet = implode(', ', $typeSet);
-
-
 
 		//create wordIdSet
 		$wordIdSet = array();
@@ -1009,6 +1030,7 @@ class C4GForumHelper extends System
 			if($wordIds == null){
 				continue;
 			}
+
 			//TODO
 			//add word-id to set
 			//$wordIdSet[] = $wordId;
@@ -1016,10 +1038,36 @@ class C4GForumHelper extends System
 				$wordIdSet[] = $wordId;
 			}
 		}
+
+        if($bTagsOnly){
+            foreach($searchParam['tags'] as $searchWord){
+                //check wordlength
+                if(strlen($searchWord) > 32){
+                    $searchWord = substr($searchWord, 0, 32);
+                }
+
+                //TODO check
+                //search word-id
+                $wordIds = $this->fetchIndexIdForWord($searchWord, ($searchParam['searchWholeWords']=='true'));
+                if($wordIds == null){
+                    continue;
+                }
+
+                //TODO
+                //add word-id to set
+                //$wordIdSet[] = $wordId;
+                foreach ($wordIds as $wordId){
+                    $wordIdSet[] = $wordId;
+                }
+            }
+        }
 		//end the search if no word was found
 		if(empty($wordIdSet)){
 			return array();
 		}
+
+
+
 		$wordIdSet = implode(', ', $wordIdSet);
 
 		$hits = array();
@@ -1041,7 +1089,15 @@ class C4GForumHelper extends System
 					$postSet[] = $indexResult['id'];
 					$countSave[$indexResult['id']] = $indexResult['count'];
 					unset($indexResults[$key]);
-				}
+				}else{
+                    if($bFilterByTags){
+                        if($indexResult['type'] == 'tag'){
+                            $postSet[] = $indexResult['id'];
+                            $countSave[$indexResult['id']] = $indexResult['count'];
+                            unset($indexResults[$key]);
+                        }
+                    }
+                }
 			}
 			if(!empty($postSet)){
 				$postSet = implode(', ', $postSet);
@@ -1055,6 +1111,7 @@ class C4GForumHelper extends System
 						"WHERE id IN( " . $postSet . " ) ".$sqlAuthor
 						)->executeUncached();
 				$postResults = $postResults->fetchAllAssoc();
+
 
 				foreach($postResults as &$postResult){
 					$postResult['count'] = $countSave[$postResult['id']];
@@ -1150,9 +1207,11 @@ class C4GForumHelper extends System
 				break;
 		}
 
+
 		//finally get what we were looking for
 		$results = $this->Database->prepare(
-				"SELECT a.id,a.pid AS forumid,a.name,a.threaddesc," . $sqlAuthor . ",a.creation,a.sort,a.posts,".
+				"SELECT a.id,a.pid AS forumid,a.name,a.threaddesc," . $sqlAuthor . ",a.creation,a.sort,a.posts, CONCAT(
+(SELECT GROUP_CONCAT(tags) FROM tl_c4g_forum_post WHERE pid = a.id ) ) AS tags,".
 				"c.creation AS lastPost, " . $sqlLastUser . " AS lastUsername ".
 				"FROM tl_c4g_forum_thread a ".
 				"LEFT JOIN tl_member b ON b.id = a.author ".
@@ -1165,18 +1224,34 @@ class C4GForumHelper extends System
 					->limit(500)
 					->execute();
 		$results = $results->fetchAllAssoc();
-
-		foreach($results as $key => &$result){
-			// check permission of user to see the found thread
-			if (!$this->checkPermission($result['forumid'],'threadlist') ||
+        echo "<pre>";
+        var_dump($results);
+        foreach($results as $key => &$result){
+            if($bFilterByTags){
+                $resultTags = explode(",",$result['tags']);
+                $resultTags = array_map('trim',$resultTags);
+                $aIntersect = array_intersect($resultTags, $searchParam['tags']);
+                if(empty($aIntersect)){
+                    unset($results[$key]);
+                    continue;
+                }
+            }
+            else {
+                //add counts to the result as we need it for sorting
+                $result['hits'] = $hits[$result['id']];
+            }
+            // check permission of user to see the found thread
+            if (!$this->checkPermission($result['forumid'],'threadlist') ||
 				!$this->checkPermission($result['forumid'],'search')) {
-				unset($results[$key]);
-			}
-			else {
-				//add counts to the result as we need it for sorting
-				$result['hits'] = $hits[$result['id']];
-			}
+                unset($results[$key]);
+            }
 		}
+
+echo "<pre>";
+var_dump($results);
+die();
+
+
 
 		//return the results
 		return $results;
@@ -1434,6 +1509,18 @@ class C4GForumHelper extends System
 				"WHERE a.id=?")
 				->executeUncached($threadId)->fetchAssoc();
 	}
+	/**
+	 *
+	 * @param int $threadId
+	 */
+	public function getThreadAndForumNameAndMailTextFromDBUncached($threadId)
+	{
+		return $this->Database->prepare(
+				"SELECT a.name AS threadname, b.name AS forumname,b.mail_subscription_text as mail, a.pid AS forumid FROM tl_c4g_forum_thread a ".
+				"INNER JOIN tl_c4g_forum b ON b.id = a.pid ".
+				"WHERE a.id=?")
+				->executeUncached($threadId)->fetchAssoc();
+	}
 
 
 	/**
@@ -1650,9 +1737,13 @@ class C4GForumHelper extends System
 		}
 		if ($loc_geox!=NULL) {
 			$set['loc_geox'] = C4GUtils::secure_ugc($loc_geox);
+		} else {
+			$set['loc_geox'] = '';
 		}
 		if ($loc_geoy!=NULL) {
 			$set['loc_geoy'] = C4GUtils::secure_ugc($loc_geoy);
+		} else {
+			$set['loc_geoy'] = '';
 		}
 		if ($locstyle!=NULL) {
 			$set['locstyle'] = $locstyle;
@@ -1666,7 +1757,6 @@ class C4GForumHelper extends System
 		// if ($loc_osm_id!=NULL) {
 			$set['loc_osm_id'] = C4GUtils::secure_ugc($loc_osm_id);
 		// }
-
 		if ($loc_data_content!=NULL && $loc_data_content!='') {
 			$set['loc_data_type'] = 'geojson';
 			$set['loc_data_content'] = C4GUtils::secure_ugc($loc_data_content);
@@ -2416,7 +2506,7 @@ class C4GForumHelper extends System
 	 */
 	public function getGuestRightList() {
 		$return = $this->getGuestDefaultRights();
-		if ($GLOBALS['c4g_maps_extension']['installed']) {
+		if ($GLOBALS['con4gis_maps_extension']['installed']) {
 			$return[] = 'mapview';
 		}
 		return $return;
@@ -2427,7 +2517,7 @@ class C4GForumHelper extends System
 	 */
 	public function getRightList() {
 		$return = $this->getAdminDefaultRights();
-		if ($GLOBALS['c4g_maps_extension']['installed']) {
+		if ($GLOBALS['con4gis_maps_extension']['installed']) {
 			$return[] = 'mapview';
 			$return[] = 'mapedit';
 			$return[] = 'mapextend';
