@@ -601,19 +601,15 @@
                         $this->helper->checkThreadname($thread['name']),
                         $lastUsername,
                         $this->helper->getDateTimeString($lastPost),
-                        $lastPost,
-                        // hidden column for sorting
+                        $lastPost, // hidden column for sorting
                         $thread['username'],
                         $this->helper->getDateTimeString($thread['creation']),
-                        $thread['creation'],
-                        // hidden column for sorting
+                        $thread['creation'], // hidden column for sorting
                         $thread['posts'],
-                        $thread['sort'],
-                        // hidden column for sorting
-                        999 - $thread['sort'],
-                        // hidden column for sorting
-                        $tooltip
-                    );    // hidden column for tooltip
+                        $thread['sort'], // hidden column for sorting
+                        999 - $thread['sort'], // hidden column for sorting
+                        $tooltip // hidden column for tooltip
+                    );
                 }
             }
 
@@ -3447,7 +3443,7 @@
 
                 }
 
-                $mapData['geocoding_url']         = 'system/modules/c4g_maps/C4GNominatim.php';
+                $mapData['geocoding_url']         = 'system/modules/con4gis_maps/C4GNominatim.php';
                 $mapData['geosearch']             = true;
                 $mapData['geosearch_div']         = 'c4gForumPostMapGeosearch';
                 $mapData['geosearch_zoomto']      = 14;
@@ -3658,9 +3654,11 @@
             // show tag field in search form
             if($this->c4g_forum_use_tags_in_search == "1"){
                 $aTags = $this->getTagForm("search_tags",array("forumid" => $forumId,"tags" => array()),$forumId);
-                $data .= '<br /><div>';
-                $data .= $aTags;
-                $data .= '</div><br />';
+                if (!empty($aTags)) {
+                    $data .= '<br /><div>';
+                    $data .= $aTags;
+                    $data .= '</div><br />';
+                }
             }
 
             $data .= '<br /> ' .
