@@ -159,31 +159,24 @@
 //        "------------------------------------------------------------------------------------------\r\n";
 
 
-
-
-
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_POST_PRE'] = "";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_POST'] = "created a post";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_POST_PRE']  = "";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_POST']  = "created a post";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_POST'] = "edited a post";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_POST'] = "deleted a post";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_POST']  = "deleted a post";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_POST_WITH_SUBJECT'] = "created a post with subject '%s'";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_POST_WITH_SUBJECT']  = "created a post with subject '%s'";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_POST_WITH_SUBJECT'] = "edited a post with subject '%s'";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_POST_WITH_SUBJECT'] = "deleted a post with subject'%s'";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_POST_WITH_SUBJECT']  = "deleted a post with subject'%s'";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_THREAD_PRE'] = "";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD'] = "created a thead";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_THREAD'] = "edited a thread";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD'] = "deleted a thread";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD'] = "moved a thread";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD_WITH_SUBJECT'] = "created a thead with subject '%s'";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_THREAD_PRE']               = "";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD']               = "created a thead";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_THREAD']              = "edited a thread";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD']               = "deleted a thread";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD']              = "moved a thread";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD_WITH_SUBJECT']  = "created a thead with subject '%s'";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_THREAD_WITH_SUBJECT'] = "edited a thead with subject '%s'";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD_WITH_SUBJECT'] = "deleted a thead with subject '%s'";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD_WITH_SUBJECT']  = "deleted a thead with subject '%s'";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD_WITH_SUBJECT'] = "moved a thread from '%s' to '%s'";
-
-
-
-
 
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_THREAD_LINK_SUCCESS']   = 'Subscription of thread "%s" of member "%s" has been canceled!';
@@ -288,10 +281,12 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['LATESTTHREADS_HEADLINE'] = 'Latest threads';
 
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['DELETED_USER']        = '"Former User"';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['RATING']        = 'Rating';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['STAR'] = "Star";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] = "Stars";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DELETED_USER'] = '"Former User"';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['RATING']       = 'Rating';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['STAR']         = "Star";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['STARS']        = "Stars";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['RESET_RATING'] = "Reset rating";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['RESET_RATING']     = "Reset rating";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_MULTIPLE'] = "Ratings";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_SINGLE']   = "Rating";
 ?>

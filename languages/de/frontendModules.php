@@ -23,7 +23,7 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_THREAD']              = 'Neues Thema';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST']                    = 'Beitrag';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POSTS']                   = 'Beiträge';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST']                = 'Letzter Beitrag';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST']               = 'Letzter Beitrag';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST']                = 'Neuer Beitrag';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_PREVIEW']        = 'Vorschau - Neuer Beitrag';
     $GLOBALS['TL_LANG']['C4G_FORUM']['ALL_POSTS']               = 'Alle';
@@ -156,26 +156,24 @@
 //        "------------------------------------------------------------------------------------------\r\n";
 
 
-
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_POST_PRE'] = "einen";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_POST'] = "Beitrag erstellt";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_POST_PRE']  = "einen";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_POST']  = "Beitrag erstellt";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_POST'] = "Beitrag bearbeitet";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_POST'] = "Beitrag gelöscht";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_POST']  = "Beitrag gelöscht";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_POST_WITH_SUBJECT'] = "Beitrag mit dem Betreff '%s' erstellt";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_POST_WITH_SUBJECT']  = "Beitrag mit dem Betreff '%s' erstellt";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_POST_WITH_SUBJECT'] = "Beitrag mit dem Betreff '%s' bearbeitet";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_POST_WITH_SUBJECT'] = "Beitrag mit dem Betreff '%s' gelöscht";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_POST_WITH_SUBJECT']  = "Beitrag mit dem Betreff '%s' gelöscht";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_THREAD_PRE'] = "ein";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD'] = "Thema erstellt";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_THREAD'] = "Thema bearbeitet";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD'] = "Thema gelöscht";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD'] = "Thema verschoben";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD_WITH_SUBJECT'] = "Thema erstellt";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_THREAD_PRE']               = "ein";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD']               = "Thema erstellt";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_THREAD']              = "Thema bearbeitet";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD']               = "Thema gelöscht";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD']              = "Thema verschoben";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD_WITH_SUBJECT']  = "Thema erstellt";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_THREAD_WITH_SUBJECT'] = "Thema mit dem Betreff '%s' bearbeitet";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD_WITH_SUBJECT'] = "Thema mit dem Betreff '%s' gelöscht";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD_WITH_SUBJECT']  = "Thema mit dem Betreff '%s' gelöscht";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD_WITH_SUBJECT'] = "Thema aus Forenbereich '%s' in den Forenbereich '%s' verschoben";
-
 
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_THREAD_LINK_SUCCESS']   = 'Das Abonnement des Themas "%s" des Mitgliedes "%s" wurde beendet!';
@@ -278,11 +276,13 @@
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['LATESTTHREADS_HEADLINE'] = 'Neue Themen';
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['DELETED_USER']        = '"Gelöschter Nutzer"';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['RATING']        = 'Bewertung';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['STAR'] = "Stern";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] = "Sterne";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DELETED_USER'] = '"Gelöschter Nutzer"';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['RATING']       = 'Bewertung';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['STAR']         = "Stern";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['STARS']        = "Sterne";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['RESET_RATING'] = "Bewertung zurücksetzen";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['RESET_RATING']     = "Bewertung zurücksetzen";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_MULTIPLE'] = "Bewertungen";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_SINGLE']   = "Bewertung";
 
 ?>

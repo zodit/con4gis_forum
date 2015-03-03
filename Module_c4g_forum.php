@@ -483,27 +483,41 @@
             );
 
 
-//            if (!$this->c4g_forum_rating_enabled) {
-//                array_insert($data['aoColumnDefs'], 1, array(
-//                                                      array(
-//                                                          'sTitle'                => $GLOBALS['TL_LANG']['C4G_FORUM']['RATING'],
-//                                                          "sWidth"                => '30%',
-//                                                          "aDataSort"             => array(1),
-//                                                          "aTargets"              => array(1),
-//                                                          "c4gMinTableSizeWidths" => array(
-//                                                              array(
-//                                                                  "tsize" => 500,
-//                                                                  "width" => '50%'
-//                                                              ),
-//                                                              array(
-//                                                                  "tsize" => 0,
-//                                                                  "width" => ''
-//                                                              )
-//                                                          )
-//                                                      )
-//                                                  )
-//                );
-//            }
+            if ($this->c4g_forum_rating_enabled) {
+
+                foreach($data['aoColumnDefs'] as $key => $item){
+                    if($key > 0){
+                        if(isset($data['aoColumnDefs'][$key]['aTargets'])) {
+                            if(is_array($data['aoColumnDefs'][$key]['aTargets'])) {
+                                foreach ($data['aoColumnDefs'][$key]['aTargets'] as $i => $val) {
+                                    $data['aoColumnDefs'][$key]['aTargets'][$i] += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                array_insert($data['aoColumnDefs'], 1, array(
+                                                      array(
+                                                          'sTitle'                => $GLOBALS['TL_LANG']['C4G_FORUM']['RATING'],
+                                                          "sWidth"                => '20%',
+                                                          "aDataSort"             => array(1),
+                                                          "aTargets"              => array(1),
+                                                          "c4gMinTableSizeWidths" => array(
+                                                              array(
+                                                                  "tsize" => 200,
+                                                                  "width" => '25%'
+                                                              ),
+                                                              array(
+                                                                  "tsize" => 0,
+                                                                  "width" => ''
+                                                              )
+                                                          )
+                                                      )
+                                                  )
+                );
+
+            }
 
             if ($this->c4g_forum_table_jqui_layout) {
                 $data['bJQueryUI'] = true;
@@ -635,30 +649,31 @@
                     );    // hidden column for tooltip
 
 
-//                    if (!$this->c4g_forum_rating_enabled) {
-//
-//
-//                        $rating  = $this->getRating4Thread($thread);
-//                        $sRating = "";
-//                        if (!empty($rating)) {
-//                            $sRating = '
-//                                <div class="rating_wrapper">
-//                                    <fieldset class="rating_static">
-//                                        <span id="staticStar5" ' . (($rating == "5") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar5" title="5 stars"></label>
-//                                        <span id="staticStar45" ' . (($rating == "4.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar45" title="4.5 stars"></label>
-//                                        <span id="staticStar4" ' . (($rating == "4") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar4" title="4 stars"></label>
-//                                        <span id="staticStar35" ' . (($rating == "3.5") ? " class=\"checked\"" : "") . ' ></span><label class="half" for="staticStar35" title="3.5 stars"></label>
-//                                        <span id="staticStar3" ' . (($rating == "3") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar3" title="3 stars"></label>
-//                                        <span id="staticStar25" ' . (($rating == "2.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar25" title="2.5 stars"></label>
-//                                        <span id="staticStar2" ' . (($rating == "2") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar2" title="2 stars"></label>
-//                                        <span id="staticStar15" ' . (($rating == "1.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar15" title="1.5 stars"></label>
-//                                        <span id="staticStar1" ' . (($rating == "1") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar1" title="1 stars"></label>
-//                                        <span id="staticStar05" ' . (($rating == "0.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar05" title="0.5 stars"></label>
-//                                    </fieldset><span class="score">&#216 (' . $rating . ')</spa>
-//                                </div>';
-//                        }
-//                        array_insert($aaData, 1, $sRating);
-//                    }
+                    if ($this->c4g_forum_rating_enabled) {
+
+
+                        $aRating  = $this->getRating4Thread($thread,true);
+                        $rating = $aRating['rating'];
+                        $sRating = "";
+                        if (!empty($rating)) {
+                            $sRating = '
+                                <div class="rating_wrapper">
+                                    <fieldset class="rating_static">
+                                        <span id="staticStar5" ' . (($rating == "5") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar5" title="5 stars"></label>
+                                        <span id="staticStar45" ' . (($rating == "4.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar45" title="4.5 stars"></label>
+                                        <span id="staticStar4" ' . (($rating == "4") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar4" title="4 stars"></label>
+                                        <span id="staticStar35" ' . (($rating == "3.5") ? " class=\"checked\"" : "") . ' ></span><label class="half" for="staticStar35" title="3.5 stars"></label>
+                                        <span id="staticStar3" ' . (($rating == "3") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar3" title="3 stars"></label>
+                                        <span id="staticStar25" ' . (($rating == "2.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar25" title="2.5 stars"></label>
+                                        <span id="staticStar2" ' . (($rating == "2") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar2" title="2 stars"></label>
+                                        <span id="staticStar15" ' . (($rating == "1.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar15" title="1.5 stars"></label>
+                                        <span id="staticStar1" ' . (($rating == "1") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar1" title="1 stars"></label>
+                                        <span id="staticStar05" ' . (($rating == "0.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar05" title="0.5 stars"></label>
+                                    </fieldset><br><span class="score">&#216 ' . $rating . '&nbsp;&nbsp;('.$aRating['overall'].' '.(($aRating['overall'] > 1)?$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_MULTIPLE']:$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_SINGLE']).')</spa>
+                                </div>';
+                        }
+                        array_insert($aaData, 1, $sRating);
+                    }
 
                     $data['aaData'][] = $aaData;
 
@@ -821,13 +836,13 @@
          *
          * @return float|int
          */
-        public function getRating4Thread($aThread)
+        public function getRating4Thread($aThread, $bWithOverall = false)
         {
 
             $rating = 0;
             $posts  = $this->helper->getPostsOfThreadFromDB($aThread['id']);
 
-            $sSql    = "SELECT SUM(rating) as total, COUNT(id) as cnt FROM tl_c4g_forum_post WHERE pid = ?";
+            $sSql    = "SELECT SUM(rating) as total, COUNT(id) as cnt FROM tl_c4g_forum_post WHERE pid = ? AND rating > 0";
             $oRes    = \Database::getInstance()->prepare($sSql)->execute($aThread['id']);
             $aResult = $oRes->fetchAssoc();
             if (!empty($aResult)) {
@@ -835,6 +850,13 @@
                 $rating *= 2;
                 $rating = round($rating);
                 $rating = $rating / 2;
+            }
+
+            if($bWithOverall === true){
+                $rating = array(
+                    "rating" => $rating,
+                    "overall" => $aResult['cnt']
+                );
             }
 
             return $rating;
@@ -963,6 +985,7 @@
                 $linkClass    = "";
                 $mainDivClass = "c4gForumPost c4gForumPostNoJqui";
             }
+
             $data = '<div class="' . $mainDivClass . '"><div class="c4gForumPostHeader' . $divClass . $triggerClass . '">';
             if ($singlePost) {
                 if ($post['post_number'] > 1) {
@@ -4112,6 +4135,46 @@
                     "aTargets"    => array(13)
                 ),
             );
+
+
+            if ($this->c4g_forum_rating_enabled) {
+
+                foreach($data['aoColumnDefs'] as $key => $item){
+                    if($key > 0){
+                        if(isset($data['aoColumnDefs'][$key]['aTargets'])) {
+                            if(is_array($data['aoColumnDefs'][$key]['aTargets'])) {
+                                foreach ($data['aoColumnDefs'][$key]['aTargets'] as $i => $val) {
+                                    $data['aoColumnDefs'][$key]['aTargets'][$i] += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                array_insert($data['aoColumnDefs'], 1, array(
+                                                      array(
+                                                          'sTitle'                => $GLOBALS['TL_LANG']['C4G_FORUM']['RATING'],
+                                                          "sWidth"                => '20%',
+                                                          "aDataSort"             => array(1),
+                                                          "aTargets"              => array(1),
+                                                          "c4gMinTableSizeWidths" => array(
+                                                              array(
+                                                                  "tsize" => 200,
+                                                                  "width" => '25%'
+                                                              ),
+                                                              array(
+                                                                  "tsize" => 200,
+                                                                  "width" => '25%'
+                                                              )
+                                                          )
+                                                      )
+                                                  )
+                );
+
+            }
+
+
+
             if ($this->c4g_forum_table_jqui_layout) {
                 $data['bJQueryUI'] = true;
             }
@@ -4177,7 +4240,7 @@
                     $tooltip .= ' [...]';
                 }
 
-                $data['aaData'][] = array(
+                $aaData = array(
                     $threadAction,
                     $this->helper->checkThreadname($thread['name']),
                     $this->helper->getForumNameForThread($thread['id']),
@@ -4197,6 +4260,36 @@
                     $thread['hits'],
                     $tooltip
                 );    // hidden column for tooltip
+
+
+
+                if ($this->c4g_forum_rating_enabled) {
+                    $aRating  = $this->getRating4Thread($thread,true);
+                    $rating = $aRating['rating'];
+                    $sRating = "";
+                    if (!empty($rating)) {
+                        $sRating = '
+                                <div class="rating_wrapper">
+                                    <fieldset class="rating_static">
+                                        <span id="staticStar5" ' . (($rating == "5") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar5" title="5 stars"></label>
+                                        <span id="staticStar45" ' . (($rating == "4.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar45" title="4.5 stars"></label>
+                                        <span id="staticStar4" ' . (($rating == "4") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar4" title="4 stars"></label>
+                                        <span id="staticStar35" ' . (($rating == "3.5") ? " class=\"checked\"" : "") . ' ></span><label class="half" for="staticStar35" title="3.5 stars"></label>
+                                        <span id="staticStar3" ' . (($rating == "3") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar3" title="3 stars"></label>
+                                        <span id="staticStar25" ' . (($rating == "2.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar25" title="2.5 stars"></label>
+                                        <span id="staticStar2" ' . (($rating == "2") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar2" title="2 stars"></label>
+                                        <span id="staticStar15" ' . (($rating == "1.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar15" title="1.5 stars"></label>
+                                        <span id="staticStar1" ' . (($rating == "1") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar1" title="1 stars"></label>
+                                        <span id="staticStar05" ' . (($rating == "0.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar05" title="0.5 stars"></label>
+                                    </fieldset><br><span class="score">&#216 ' . $rating . '&nbsp;&nbsp;('.$aRating['overall'].' '.(($aRating['overall'] > 1)?$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_MULTIPLE']:$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_SINGLE']).')</spa>
+                                </div>';
+                    }
+                    array_insert($aaData, 1, $sRating);
+                }
+
+
+
+                $data['aaData'][] = $aaData;
             }
 
             $forum = $this->helper->getForumFromDB($forumId);
