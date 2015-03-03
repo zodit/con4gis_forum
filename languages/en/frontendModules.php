@@ -287,4 +287,11 @@
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['LATESTTHREADS_HEADLINE'] = 'Latest threads';
 
+
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DELETED_USER']        = '"Former User"';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['RATING']        = 'Rating';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['STAR'] = "Star";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] = "Stars";
+
+    $GLOBALS['TL_LANG']['C4G_FORUM']['RESET_RATING'] = "Reset rating";
 ?>

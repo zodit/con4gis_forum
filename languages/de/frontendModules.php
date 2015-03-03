@@ -278,4 +278,11 @@
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['LATESTTHREADS_HEADLINE'] = 'Neue Themen';
 
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DELETED_USER']        = '"Gelöschter Nutzer"';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['RATING']        = 'Bewertung';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['STAR'] = "Stern";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] = "Sterne";
+
+    $GLOBALS['TL_LANG']['C4G_FORUM']['RESET_RATING'] = "Bewertung zurücksetzen";
+
 ?>

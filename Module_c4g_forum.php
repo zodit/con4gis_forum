@@ -173,11 +173,11 @@
 
             // save forum url for linkbuilding in ajaxrequests
             $aTmpData = $this->Session->getData();
-            if(stristr($aTmpData['referer']['current'],"/con4gis_core/api/") === false) {
+            if (stristr($aTmpData['referer']['current'], "/con4gis_core/api/") === false) {
                 $aTmpData['current_forum_url'] = $aTmpData['referer']['current'];
                 $this->Session->setData($aTmpData);
-            }else{
-                $aTmpData['referer']['last'] = $aTmpData['current_forum_url'];
+            } else {
+                $aTmpData['referer']['last']    = $aTmpData['current_forum_url'];
                 $aTmpData['referer']['current'] = $aTmpData['current_forum_url'];
                 $this->Session->setData($aTmpData);
             }
@@ -211,7 +211,7 @@
             $aToolbarButtons = explode(",", $this->c4g_forum_bbcodes_editor_toolbaritems);
 
 
-            $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.css';
+            $GLOBALS['TL_CSS'][]        = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.css';
             $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.jquery.min.js';
 
             if ($this->c4g_forum_editor === "ck") {
@@ -481,6 +481,30 @@
                     "aTargets"    => array(11)
                 ),
             );
+
+
+//            if (!$this->c4g_forum_rating_enabled) {
+//                array_insert($data['aoColumnDefs'], 1, array(
+//                                                      array(
+//                                                          'sTitle'                => $GLOBALS['TL_LANG']['C4G_FORUM']['RATING'],
+//                                                          "sWidth"                => '30%',
+//                                                          "aDataSort"             => array(1),
+//                                                          "aTargets"              => array(1),
+//                                                          "c4gMinTableSizeWidths" => array(
+//                                                              array(
+//                                                                  "tsize" => 500,
+//                                                                  "width" => '50%'
+//                                                              ),
+//                                                              array(
+//                                                                  "tsize" => 0,
+//                                                                  "width" => ''
+//                                                              )
+//                                                          )
+//                                                      )
+//                                                  )
+//                );
+//            }
+
             if ($this->c4g_forum_table_jqui_layout) {
                 $data['bJQueryUI'] = true;
             }
@@ -553,14 +577,13 @@
                 }
 
 
-
-                switch($this->c4g_forum_tooltip){
+                switch ($this->c4g_forum_tooltip) {
                     case "title_first_post":
-                        $tooltip = $this->helper->getFirstPostLimitedTextOfThreadFromDB($thread['id'], 250,true);
+                        $tooltip = $this->helper->getFirstPostLimitedTextOfThreadFromDB($thread['id'], 250, true);
                         $tooltip = preg_replace('/\[[^\[\]]*\]/i', '', $tooltip);
                         break;
                     case "title_last_post":
-                        $tooltip = $this->helper->getLastPostLimitedTextOfThreadFromDB($thread['id'], 250,true);
+                        $tooltip = $this->helper->getLastPostLimitedTextOfThreadFromDB($thread['id'], 250, true);
                         $tooltip = preg_replace('/\[[^\[\]]*\]/i', '', $tooltip);
                         break;
                     case "body_first_post":
@@ -596,26 +619,53 @@
                     // for search engines: only show threadnames
                     $plainHtmlData .= $this->helper->checkThreadname($thread['name']) . '<br/>';
                 } else {
-                    $data['aaData'][] = array(
+                    $aaData = array(
                         $threadAction,
                         $this->helper->checkThreadname($thread['name']),
                         $lastUsername,
                         $this->helper->getDateTimeString($lastPost),
-                        $lastPost,
-                        // hidden column for sorting
+                        $lastPost, // hidden column for sorting
                         $thread['username'],
                         $this->helper->getDateTimeString($thread['creation']),
-                        $thread['creation'],
-                        // hidden column for sorting
+                        $thread['creation'], // hidden column for sorting
                         $thread['posts'],
-                        $thread['sort'],
-                        // hidden column for sorting
-                        999 - $thread['sort'],
-                        // hidden column for sorting
-                        $tooltip
+                        $thread['sort'], // hidden column for sorting
+                        (999 - $thread['sort']), // hidden column for sorting
+                        $tooltip // hidden column for tooltip
                     );    // hidden column for tooltip
+
+
+//                    if (!$this->c4g_forum_rating_enabled) {
+//
+//
+//                        $rating  = $this->getRating4Thread($thread);
+//                        $sRating = "";
+//                        if (!empty($rating)) {
+//                            $sRating = '
+//                                <div class="rating_wrapper">
+//                                    <fieldset class="rating_static">
+//                                        <span id="staticStar5" ' . (($rating == "5") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar5" title="5 stars"></label>
+//                                        <span id="staticStar45" ' . (($rating == "4.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar45" title="4.5 stars"></label>
+//                                        <span id="staticStar4" ' . (($rating == "4") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar4" title="4 stars"></label>
+//                                        <span id="staticStar35" ' . (($rating == "3.5") ? " class=\"checked\"" : "") . ' ></span><label class="half" for="staticStar35" title="3.5 stars"></label>
+//                                        <span id="staticStar3" ' . (($rating == "3") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar3" title="3 stars"></label>
+//                                        <span id="staticStar25" ' . (($rating == "2.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar25" title="2.5 stars"></label>
+//                                        <span id="staticStar2" ' . (($rating == "2") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar2" title="2 stars"></label>
+//                                        <span id="staticStar15" ' . (($rating == "1.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar15" title="1.5 stars"></label>
+//                                        <span id="staticStar1" ' . (($rating == "1") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar1" title="1 stars"></label>
+//                                        <span id="staticStar05" ' . (($rating == "0.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar05" title="0.5 stars"></label>
+//                                    </fieldset><span class="score">&#216 (' . $rating . ')</spa>
+//                                </div>';
+//                        }
+//                        array_insert($aaData, 1, $sRating);
+//                    }
+
+                    $data['aaData'][] = $aaData;
+
+
                 }
             }
+
 
             $buttons = $this->addDefaultButtons(array(), $id);
             $buttons = $this->addForumButtons($buttons, $id);
@@ -767,6 +817,31 @@
 
 
         /**
+         * @param $aThread
+         *
+         * @return float|int
+         */
+        public function getRating4Thread($aThread)
+        {
+
+            $rating = 0;
+            $posts  = $this->helper->getPostsOfThreadFromDB($aThread['id']);
+
+            $sSql    = "SELECT SUM(rating) as total, COUNT(id) as cnt FROM tl_c4g_forum_post WHERE pid = ?";
+            $oRes    = \Database::getInstance()->prepare($sSql)->execute($aThread['id']);
+            $aResult = $oRes->fetchAssoc();
+            if (!empty($aResult)) {
+                $rating = $aResult['total'] / $aResult['cnt'];
+                $rating *= 2;
+                $rating = round($rating);
+                $rating = $rating / 2;
+            }
+
+            return $rating;
+        }
+
+
+        /**
          * @param $thread
          *
          * @return string
@@ -779,23 +854,49 @@
                     $data = '<div class="c4gForumThreadHeader c4gGuiAccordion ui-widget ui-widget-header ui-corner-all">';
                     $data .= '<h3><a href="#">' . $GLOBALS['TL_LANG']['C4G_FORUM']['THREADDESC'] . '</a></h3>';
                     $data .= '<div class="c4gForumThreadHeaderDesc">' .
-                             $thread['threaddesc'] .
-                             '</div>';
-                    $data .= '</div>';
+                             $thread['threaddesc'];
 
-                    return $data;
+                    if ($this->c4g_forum_rating_enabled) {
+
+                        $rating = $this->getRating4Thread($thread);
+
+                        if (!empty($rating)) {
+
+                            $data .= '
+                                <div class="rating_wrapper">
+                                    <fieldset class="rating_static">
+                                        <span id="staticStar5" ' . (($rating == "5") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar5" title="5 stars"></label>
+                                        <span id="staticStar45" ' . (($rating == "4.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar45" title="4.5 stars"></label>
+                                        <span id="staticStar4" ' . (($rating == "4") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar4" title="4 stars"></label>
+                                        <span id="staticStar35" ' . (($rating == "3.5") ? " class=\"checked\"" : "") . ' ></span><label class="half" for="staticStar35" title="3.5 stars"></label>
+                                        <span id="staticStar3" ' . (($rating == "3") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar3" title="3 stars"></label>
+                                        <span id="staticStar25" ' . (($rating == "2.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar25" title="2.5 stars"></label>
+                                        <span id="staticStar2" ' . (($rating == "2") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar2" title="2 stars"></label>
+                                        <span id="staticStar15" ' . (($rating == "1.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar15" title="1.5 stars"></label>
+                                        <span id="staticStar1" ' . (($rating == "1") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar1" title="1 stars"></label>
+                                        <span id="staticStar05" ' . (($rating == "0.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar05" title="0.5 stars"></label>
+                                    </fieldset><span class="score">&#216 (' . $rating . ')</spa>
+                                </div>';
+
+                        }
+
+                    }
+
+
+                    $data .= '</div>';
+                    $data .= '</div>';
                 } else {
                     $data = '<div class="c4gForumThreadHeader c4gForumThreadHeaderNoJqui">';
                     $data .= '<h2>' . $GLOBALS['TL_LANG']['C4G_FORUM']['THREADDESC'] . '</h2>';
                     $data .= '<div class="c4gForumThreadHeaderDesc">' .
-                             $thread['threaddesc'] .
-                             '</div>';
+                             $thread['threaddesc'];
+
+                    $data .= '</div>';
                     $data .= '</div><hr>';
-
-                    return $data;
-
                 }
 
+
+                return $data;
             } else {
                 return '';
             }
@@ -817,12 +918,12 @@
         {
 
             if (!empty($post['tags'])) {
-                $post['tags'] = explode(", ",$post['tags']);
+                $post['tags'] = explode(", ", $post['tags']);
             }
 
             //$collapse = $this->c4g_forum_collapsible_posts;
-            $last  = false;
-            $first = false;
+            $last               = false;
+            $first              = false;
             $targetClass        = '';
             $triggerClass       = '';
             $triggerTargetClass = '';
@@ -961,6 +1062,31 @@
                 $data .= '<span class="c4g_forum_post_head_tags">' . sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_TAGS'], implode(", ", $post['tags'])) . '</span><br>';
             }
 
+
+            if ($this->c4g_forum_rating_enabled) {
+
+                if (!empty($post['rating'])) {
+
+                    $data .= '
+                    <div class="rating_wrapper">
+                        <fieldset class="rating_static">
+                            <span id="staticStar5" ' . (($post['rating'] == "5") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar5" title="5 stars"></label>
+                            <span id="staticStar45" ' . (($post['rating'] == "4.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar45" title="4.5 stars"></label>
+                            <span id="staticStar4" ' . (($post['rating'] == "4") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar4" title="4 stars"></label>
+                            <span id="staticStar35" ' . (($post['rating'] == "3.5") ? " class=\"checked\"" : "") . ' ></span><label class="half" for="staticStar35" title="3.5 stars"></label>
+                            <span id="staticStar3" ' . (($post['rating'] == "3") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar3" title="3 stars"></label>
+                            <span id="staticStar25" ' . (($post['rating'] == "2.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar25" title="2.5 stars"></label>
+                            <span id="staticStar2" ' . (($post['rating'] == "2") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar2" title="2 stars"></label>
+                            <span id="staticStar15" ' . (($post['rating'] == "1.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar15" title="1.5 stars"></label>
+                            <span id="staticStar1" ' . (($post['rating'] == "1") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar1" title="1 stars"></label>
+                            <span id="staticStar05" ' . (($post['rating'] == "0.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar05" title="0.5 stars"></label>
+                        </fieldset><span class="score">(' . $post['rating'] . ')</spa>
+                    </div>';
+
+                }
+            }
+
+
             if ($this->c4g_forum_posts_jqui) {
                 $divClass = " ui-widget ui-widget-content ui-corner-bottom";
             } else {
@@ -979,7 +1105,10 @@
                 '</div>' .
                 '<div class="c4gForumPostText' . $divClass . $targetClass . '">' .
                 $text .
-                '</div>';
+                '';
+
+
+            $data .= '</div>';
 
             if ($post['edit_count']) {
                 $data .=
@@ -992,8 +1121,10 @@
             if (!$this->c4g_forum_posts_jqui) {
                 $data .= '<hr>';
             }
+
             $data .=
                 '</div>';
+
 
             return $data;
         }
@@ -1305,23 +1436,23 @@
 
             if ($this->c4g_forum_editor === "bb") {
                 $editorId = ' id="editor"';
-            }elseif ($this->c4g_forum_editor === "ck") {
+            } elseif ($this->c4g_forum_editor === "ck") {
                 $editorId = ' id="ckeditor"';
-            }else{
+            } else {
                 $editorId = '';
             }
 
             $aPost = array(
                 "forumid" => $forumId,
-                "tags" => array()
+                "tags"    => array()
             );
 
             $sServerName = \Environment::get("serverName");
             $sHttps      = \Environment::get("https");
             $path        = \Environment::get("path");
-            $sProtocol = !empty($sHttps) ? 'https://' : 'http://';
-            $sSite     = $sProtocol . $sServerName . $path;
-            if(substr($sSite,-1,1) != "/"){
+            $sProtocol   = !empty($sHttps) ? 'https://' : 'http://';
+            $sSite       = $sProtocol . $sServerName . $path;
+            if (substr($sSite, -1, 1) != "/") {
                 $sSite .= "/";
             }
 
@@ -1329,12 +1460,12 @@
             $data .= $this->getTagForm('c4gForumNewThreadPostTags', $aPost, 'newthread');
             $data .= '<div class="c4gForumNewThreadContent">' .
                      $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
-                     '<input type="hidden" name="uploadEnv" value="'.$sSite.'">' .
+                     '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
                      '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea><br/>' .
                      '</div>';
             $data .= $this->getPostlinkForForm('c4gForumNewThreadPostLink', $forumId, 'newthread', '', '');
-            $data .= $this->getPostMapEntryForForm('c4gForumNewThreadMapData', $forumId, 'newthread', '', '', '', '', '', '', '','');
+            $data .= $this->getPostMapEntryForForm('c4gForumNewThreadMapData', $forumId, 'newthread', '', '', '', '', '', '', '', '');
 
             $data .= '</div>';
 
@@ -1373,7 +1504,7 @@
 
         /**
          * @param int $threadId
-         * @param $parentDialog
+         * @param     $parentDialog
          *
          * @return array
          */
@@ -1383,8 +1514,8 @@
             $thread = $this->helper->getThreadAndForumNameFromDB($threadId);
 
             $sLastPost = "";
-            if($this->c4g_forum_show_last_post_on_new) {
-                $posts  = $this->helper->getPostsOfThreadFromDB($threadId, true);
+            if ($this->c4g_forum_show_last_post_on_new) {
+                $posts = $this->helper->getPostsOfThreadFromDB($threadId, true);
                 if (!empty($posts)) {
                     $aPost     = $posts[0];
                     $sLastPost = "<h3>" . $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST'] . "</h3>";
@@ -1395,7 +1526,6 @@
             }
 
 
-
             list($access, $message) = $this->checkPermission($thread['forumid']);
             if (!$access) {
                 return $this->getPermissionDenied($message);
@@ -1403,40 +1533,62 @@
             $editorId = '';
             if ($this->c4g_forum_editor === "bb") {
                 $editorId = ' id="editor"';
-            }elseif ($this->c4g_forum_editor === "ck") {
+            } elseif ($this->c4g_forum_editor === "ck") {
                 $editorId = ' id="ckeditor"';
-            }else{
+            } else {
                 $editorId = '';
             }
 
             $aPost = array(
                 "forumid" => $thread['forumid'],
-                "tags" => array()
+                "tags"    => array()
             );
 
             $sServerName = \Environment::get("serverName");
             $sHttps      = \Environment::get("https");
             $path        = \Environment::get("path");
-            $sProtocol = !empty($sHttps) ? 'https://' : 'http://';
-            $sSite     = $sProtocol . $sServerName . $path;
-            if(substr($sSite,-1,1) != "/"){
+            $sProtocol   = !empty($sHttps) ? 'https://' : 'http://';
+            $sSite       = $sProtocol . $sServerName . $path;
+            if (substr($sSite, -1, 1) != "/") {
                 $sSite .= "/";
             }
 
             $data = $sLastPost;
 
             $data .= '<div class="c4gForumNewPost">' .
-                    '<div class="c4gForumNewPostSubject">' .
-                    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBJECT'] . ':<br/>' .
-                    '<input name="subject" value="' . $thread['threadname'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="100" /><br />' .
-                    '</div>';
+                     '<div class="c4gForumNewPostSubject">' .
+                     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBJECT'] . ':<br/>' .
+                     '<input name="subject" value="' . $thread['threadname'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="100" /><br />' .
+                     '</div>';
             $data .= $this->getTagForm('c4gForumNewPostPostTags', $aPost, 'newpost');
-            $data .='<div class="c4gForumNewPostContent">' .
-                    $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
-                    '<input type="hidden" name="uploadEnv" value="'.$sSite.'">' .
-                    '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
-                    '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea>' .
-                    '</div>';
+
+            if ($this->c4g_forum_rating_enabled) {
+                // Rating stars
+                $data .= '<div class="rating_wrapper">
+                            <input type="hidden" name="rating" value="' . $post['rating'] . '" id="rating" class="formdata">
+                            <label>' . $GLOBALS['TL_LANG']['C4G_FORUM']['RATING'] . '</label><br>
+                            <fieldset class="rating">
+                                <input type="radio" id="star5" name="_rating" value="5" /><label class="full" for="star5" title="5 ' . $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] . '"></label>
+                                <input type="radio" id="star4half" name="_rating" value="4.5" /><label class="half" for="star4half" title="4.5 ' . $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] . '"></label>
+                                <input type="radio" id="star4" name="_rating" value="4" /><label class="full" for="star4" title="4 ' . $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] . '"></label>
+                                <input type="radio" id="star3half" name="_rating" value="3.5" /><label class="half" for="star3half" title="3.5 ' . $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] . '"></label>
+                                <input type="radio" id="star3" name="_rating" value="3" /><label class="full" for="star3" title="' . $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] . '"></label>
+                                <input type="radio" id="star2half" name="_rating" value="2.5" /><label class="half" for="star2half" title="2.5 ' . $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] . '"></label>
+                                <input type="radio" id="star2" name="_rating" value="2" /><label class="full" for="star2" title="2 ' . $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] . '"></label>
+                                <input type="radio" id="star1half" name="_rating" value="1.5" /><label class="half" for="star1half" title="1.5 ' . $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] . '"></label>
+                                <input type="radio" id="star1" name="_rating" value="1" /><label class="full" for="star1" title="1 ' . $GLOBALS['TL_LANG']['C4G_FORUM']['STAR'] . '"></label>
+                                <input type="radio" id="starhalf" name="_rating" value="0.5" /><label class="half" for="starhalf" title="0.5 ' . $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] . '"></label>
+                            </fieldset><span class="reset_rating"><button onclick="resetRating();">' . $GLOBALS['TL_LANG']['C4G_FORUM']['RESET_RATING'] . '</button></span></div><script>function resetRating(){ jQuery("input[name=\'_rating\']").removeAttr(\'checked\');jQuery("#rating").val(0); };jQuery(document).ready(function(){jQuery("input[name=\'_rating\']").on("click",function(){jQuery("#rating").val(jQuery("input[name=\'_rating\']:checked").val())})});</script>
+            ';
+            }
+
+
+            $data .= '<div class="c4gForumNewPostContent">' .
+                     $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
+                     '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
+                     '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
+                     '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea>' .
+                     '</div>';
 
             $data .= $this->getPostlinkForForm('c4gForumNewPostPostLink', $thread['forumid'], 'newpost', '', '');
             $locstyle = "";
@@ -1506,8 +1658,16 @@
 
                 return $return;
             }
+
+
+            if (!isset($this->putVars['rating'])) {
+                $this->putVars['rating'] = 0;
+            } elseif (empty($this->putVars['rating'])) {
+                $this->putVars['rating'] = 0;
+            }
+
             $this->putVars['osmId'] = $this->putVars['osmIdType'] . '.' . $this->putVars['osmId'];
-            $result                 = $this->helper->insertPostIntoDB($threadId, $this->User->id, $this->putVars['subject'], $this->putVars['post'], $this->putVars['tags'],
+            $result                 = $this->helper->insertPostIntoDB($threadId, $this->User->id, $this->putVars['subject'], $this->putVars['post'], $this->putVars['tags'], $this->putVars['rating'],
                                                                       $this->putVars['linkname'], $this->putVars['linkurl'], $this->putVars['geox'], $this->putVars['geoy'],
                                                                       $this->putVars['locstyle'], $this->putVars['label'], $this->putVars['tooltip'], $this->putVars['geodata'], $this->putVars['osmId']);
 
@@ -1671,7 +1831,7 @@
                 $threaddesc = '';
             }
 
-            $result = $this->helper->insertThreadIntoDB($forumId, $this->putVars['thread'], $this->User->id, $threaddesc, $sort, $this->putVars['post'],$this->putVars['tags'],
+            $result = $this->helper->insertThreadIntoDB($forumId, $this->putVars['thread'], $this->User->id, $threaddesc, $sort, $this->putVars['post'], $this->putVars['tags'],
                                                         $this->putVars['linkname'], $this->putVars['linkurl'], $this->putVars['geox'], $this->putVars['geoy'], $this->putVars['locstyle'],
                                                         $this->putVars['label'], $this->putVars['tooltip'], $this->putVars['geodata'], $this->putVars['osmId']);
 
@@ -2725,11 +2885,22 @@
 
                 return $return;
             }
-            $this->putVars['osmId'] = $this->putVars['osmIdType'] . '.' . $this->putVars['osmId'];
-            $this->putVars['tags']  = \Contao\Input::xssClean($this->putVars['tags']);
-            $result                 = $this->helper->updatePostDB($post, $this->User->id, $this->putVars['subject'], $this->putVars['tags'], $this->putVars['post'],
-                                                                  $this->putVars['linkname'], $this->putVars['linkurl'], $this->putVars['geox'], $this->putVars['geoy'],
-                                                                  $this->putVars['locstyle'], $this->putVars['label'], $this->putVars['tooltip'], $this->putVars['geodata'], $this->putVars['osmId']);
+
+            if (!isset($this->putVars['rating'])) {
+                $this->putVars['rating'] = 0;
+            } else {
+                if (empty($this->putVars['rating'])) {
+                    $this->putVars['rating'] = 0;
+                }
+            }
+
+
+            $this->putVars['osmId']  = $this->putVars['osmIdType'] . '.' . $this->putVars['osmId'];
+            $this->putVars['tags']   = \Contao\Input::xssClean($this->putVars['tags']);
+            $this->putVars['rating'] = \Contao\Input::xssClean($this->putVars['rating']);
+            $result                  = $this->helper->updatePostDB($post, $this->User->id, $this->putVars['subject'], $this->putVars['tags'], $this->putVars['rating'], $this->putVars['post'],
+                                                                   $this->putVars['linkname'], $this->putVars['linkurl'], $this->putVars['geox'], $this->putVars['geoy'],
+                                                                   $this->putVars['locstyle'], $this->putVars['label'], $this->putVars['tooltip'], $this->putVars['geodata'], $this->putVars['osmId']);
 
 
             if (!$result) {
@@ -2870,12 +3041,12 @@
         public function getTagForm($sDivName, $aPost, $sForumId, $label = false)
         {
 
-            if($label === false){
+            if ($label === false) {
                 $label = $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'];
             }
-            $aTags       = $this->getTagsRecursivByParent($aPost['forumid']);
+            $aTags = $this->getTagsRecursivByParent($aPost['forumid']);
             $sHtml = "";
-            if(!empty($aTags)) {
+            if (!empty($aTags)) {
                 $sHtml = "<div class=\"" . $sDivName . "\">";
                 $sHtml .= $label . ':<br/>';
                 $sHtml .= "<select name=\"tags\" class=\"formdata c4g_tags\" multiple=\"multiple\" style='width:100%;' data-placeholder='" . $GLOBALS['TL_LANG']['C4G_FORUM']['SELECT_TAGS_PLACEHOLDER'] . "'>";
@@ -2896,23 +3067,26 @@
             return $sHtml;
         }
 
-        public function getTagsRecursivByParent($sForumId){
-            $sReturn = "";
+
+        public function getTagsRecursivByParent($sForumId)
+        {
+
+            $sReturn     = "";
             $aTagsResult = \Contao\Database::getInstance()->prepare("SELECT tags, pid FROM tl_c4g_forum WHERE id = %s")->execute($sForumId);
             $aTags       = $aTagsResult->row();
-            if(!empty($aTags['tags'])){
-                $sReturn =  $aTags['tags'];
-            }else{
-                if($aTags['pid'] != '0'){
+            if (!empty($aTags['tags'])) {
+                $sReturn = $aTags['tags'];
+            } else {
+                if ($aTags['pid'] != '0') {
                     $sReturn = $this->getTagsRecursivByParent($aTags['pid']);
                 }
             }
             $aReturn = explode(",", $sReturn);
-            if(empty($aReturn)){
+            if (empty($aReturn)) {
                 $aReturn = array();
             }
-            if(count($aReturn) === 1){
-                if($aReturn[0] === ''){
+            if (count($aReturn) === 1) {
+                if ($aReturn[0] === '') {
                     $aReturn = array();
                 }
             }
@@ -3102,9 +3276,10 @@
 
             $dialogId = 'editpost' . $postId;
             $posts    = $this->helper->getPostFromDB($postId);
-            $post     = $posts[0];
+
+            $post = $posts[0];
             if (!empty($post['tags'])) {
-                $post['tags'] = explode(", ",$post['tags']);
+                $post['tags'] = explode(", ", $post['tags']);
             }
             if ($post['authorid'] == $this->User->id) {
                 $action        = 'editownpostdialog';
@@ -3119,9 +3294,9 @@
             $editorId = '';
             if ($this->c4g_forum_editor === "bb") {
                 $editorId = ' id="editor"';
-            }elseif ($this->c4g_forum_editor === "ck") {
+            } elseif ($this->c4g_forum_editor === "ck") {
                 $editorId = ' id="ckeditor"';
-            }else{
+            } else {
                 $editorId = '';
             }
 
@@ -3129,9 +3304,9 @@
             $sServerName = \Environment::get("serverName");
             $sHttps      = \Environment::get("https");
             $path        = \Environment::get("path");
-            $sProtocol = !empty($sHttps) ? 'https://' : 'http://';
-            $sSite     = $sProtocol . $sServerName . $path;
-            if(substr($sSite,-1,1) != "/"){
+            $sProtocol   = !empty($sHttps) ? 'https://' : 'http://';
+            $sSite       = $sProtocol . $sServerName . $path;
+            if (substr($sSite, -1, 1) != "/") {
                 $sSite .= "/";
             }
 
@@ -3145,9 +3320,30 @@
                      '</div>';
             $data .= $this->getTagForm('c4gForumEditPostTags', $post, $dialogId);
 
+            if ($this->c4g_forum_rating_enabled) {
+                // Rating stars
+                $data .= '<div class="rating_wrapper">
+                            <input type="hidden" name="rating" value="' . $post['rating'] . '" id="rating" class="formdata">
+                            <label>' . $GLOBALS['TL_LANG']['C4G_FORUM']['RATING'] . '</label><br>
+                            <fieldset class="rating">
+                                <input type="radio" id="star5" name="_rating" value="5" ' . (($post['rating'] == 5) ? " checked" : "") . '/><label class="full" for="star5" title="5 ' . $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] . '"></label>
+                                <input type="radio" id="star4half" name="_rating" value="4.5" ' . (($post['rating'] == 4.5) ? " checked" : "") . '/><label class="half" for="star4half" title="4.5 ' . $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] . '"></label>
+                                <input type="radio" id="star4" name="_rating" value="4" ' . (($post['rating'] == 4) ? " checked" : "") . '/><label class="full" for="star4" title="4 ' . $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] . '"></label>
+                                <input type="radio" id="star3half" name="_rating" value="3.5" ' . (($post['rating'] == 3.5) ? " checked" : "") . '/><label class="half" for="star3half" title="3.5 ' . $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] . '"></label>
+                                <input type="radio" id="star3" name="_rating" value="3" ' . (($post['rating'] == 3) ? " checked" : "") . '/><label class="full" for="star3" title="' . $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] . '"></label>
+                                <input type="radio" id="star2half" name="_rating" value="2.5" ' . (($post['rating'] == 2.5) ? " checked" : "") . '/><label class="half" for="star2half" title="2.5 ' . $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] . '"></label>
+                                <input type="radio" id="star2" name="_rating" value="2" ' . (($post['rating'] == 2) ? " checked" : "") . '/><label class="full" for="star2" title="2 ' . $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] . '"></label>
+                                <input type="radio" id="star1half" name="_rating" value="1.5" ' . (($post['rating'] == 1.5) ? " checked" : "") . '/><label class="half" for="star1half" title="1.5 ' . $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] . '"></label>
+                                <input type="radio" id="star1" name="_rating" value="1" ' . (($post['rating'] == 1) ? " checked" : "") . '/><label class="full" for="star1" title="1 ' . $GLOBALS['TL_LANG']['C4G_FORUM']['STAR'] . '"></label>
+                                <input type="radio" id="starhalf" name="_rating" value="0.5" ' . (($post['rating'] == 0.5) ? " checked" : "") . '/><label class="half" for="starhalf" title="0.5 ' . $GLOBALS['TL_LANG']['C4G_FORUM']['STARS'] . '"></label>
+                            </fieldset><span class="reset_rating"><button onclick="resetRating();">' . $GLOBALS['TL_LANG']['C4G_FORUM']['RESET_RATING'] . '</button></span></div><script>function resetRating(){ jQuery("input[name=\'_rating\']").removeAttr(\'checked\');jQuery("#rating").val(0); };jQuery(document).ready(function(){jQuery("input[name=\'_rating\']").on("click",function(){jQuery("#rating").val(jQuery("input[name=\'_rating\']:checked").val())})});</script>
+            ';
+            }
+
+
             $data .= '<div class="c4gForumEditPostContent">' .
                      $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
-                     '<input type="hidden" name="uploadEnv" value="'.$sSite.'">' .
+                     '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
                      '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all">' . strip_tags($post['text']) . '</textarea>' .
                      '</div>';
@@ -3653,18 +3849,18 @@
                     '<div>' .
                     '<input type="checkbox" id="onlyThreads" name="onlyThreads" class="formdata ui-corner-all" /><label for="onlyThreads">' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_ONLYTHREADS'] . '</label><br/>' .
                     '<input type="checkbox" id="wholeWords" name="wholeWords" class="formdata ui-corner-all" /><label for="wholeWords">' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_WHOLEWORDS'] . '</label>' .
-                    '</div>' ;
+                    '</div>';
 
             // show tag field in search form
-            if($this->c4g_forum_use_tags_in_search == "1"){
-                $aTags = $this->getTagForm("search_tags",array("forumid" => $forumId,"tags" => array()),$forumId);
+            if ($this->c4g_forum_use_tags_in_search == "1") {
+                $aTags = $this->getTagForm("search_tags", array("forumid" => $forumId, "tags" => array()), $forumId);
                 $data .= '<br /><div>';
                 $data .= $aTags;
                 $data .= '</div><br />';
             }
 
             $data .= '<br /> ' .
-                    $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_LBL_SEARCH_ALL_THEMES'] . ' ';
+                     $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_LBL_SEARCH_ALL_THEMES'] . ' ';
             $data .= $this->helper->getForumsAsHTMLDropdownMenuFromDB($this->c4g_forum_startforum, $forumId, ' - ');
 
             $data .= ' <span onClick="return false" class="c4gGuiTooltip" style="text-decoration:none; cursor:help" title="' . nl2br(C4GUtils::secure_ugc($GLOBALS['TL_LANG']['C4G_FORUM']['SEARCH_HELPTEXT_AREA'])) . '">(?)</span>' .
@@ -4064,9 +4260,12 @@
                     "bVisible"    => false,
                     "bSearchable" => false,
                     "aTargets"    => array(0)
-                ),
-                array(
-                    'sTitle'                => $GLOBALS['TL_LANG']['C4G_FORUM']['THREAD'],
+                )
+            );
+
+            if ($this->c4g_forum_rating_enabled) {
+                $data['aoColumnDefs'][] = array(
+                    'sTitle'                => $GLOBALS['TL_LANG']['C4G_FORUM']['RATING'],
                     "sWidth"                => '30%',
                     "aDataSort"             => array(1),
                     "aTargets"              => array(1),
@@ -4080,79 +4279,98 @@
                             "width" => ''
                         )
                     )
-                ),
-                array(
-                    'sTitle'   => $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHRESULTPAGE_DATATABLE_AREA'],
-                    "sWidth"   => '20%',
-                    "aTargets" => array(2)
-                ),
-                array(
-                    'sTitle'          => $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_AUTHOR_SHORT'],
-                    "aDataSort"       => array(
-                        3,
-                        5
+                );
+            }
+
+
+            $data['aoColumnDefs'][] = array(
+                'sTitle'                => $GLOBALS['TL_LANG']['C4G_FORUM']['THREAD'],
+                "sWidth"                => '30%',
+                "aDataSort"             => array(1),
+                "aTargets"              => array(1),
+                "c4gMinTableSizeWidths" => array(
+                    array(
+                        "tsize" => 500,
+                        "width" => '50%'
                     ),
-                    "bSearchable"     => false,
-                    "aTargets"        => array(3),
-                    "c4gMinTableSize" => 700
-                ),
-                array(
-                    'sTitle'          => $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST_SHORT'],
-                    "aDataSort"       => array(5),
-                    "bSearchable"     => false,
-                    "asSorting"       => array(
-                        'desc',
-                        'asc'
-                    ),
-                    "aTargets"        => array(4),
-                    "c4gMinTableSize" => 700
-                ),
-                array(
-                    "bVisible"    => false,
-                    "bSearchable" => false,
-                    "aTargets"    => array(5)
-                ),
-                array(
-                    'sTitle'          => $GLOBALS['TL_LANG']['C4G_FORUM']['AUTHOR'],
-                    "aDataSort"       => array(
-                        6,
-                        8
-                    ),
-                    "bSearchable"     => false,
-                    "aTargets"        => array(6),
-                    "c4gMinTableSize" => 500
-                ),
-                array(
-                    'sTitle'          => $GLOBALS['TL_LANG']['C4G_FORUM']['CREATED_ON'],
-                    "aDataSort"       => array(8),
-                    "asSorting"       => array(
-                        'desc',
-                        'asc'
-                    ),
-                    "bSearchable"     => false,
-                    "aTargets"        => array(7),
-                    "c4gMinTableSize" => 500
-                ),
-                array(
-                    "bVisible"    => false,
-                    "bSearchable" => false,
-                    "aTargets"    => array(8)
-                ),
-                array(
-                    'sTitle'      => '#',
-                    "asSorting"   => array(
-                        'desc',
-                        'asc'
-                    ),
-                    "bSearchable" => false,
-                    "aTargets"    => array(9)
-                ),
-                array(
-                    "bVisible"    => false,
-                    "bSearchable" => false,
-                    "aTargets"    => array(10)
-                ),
+                    array(
+                        "tsize" => 0,
+                        "width" => ''
+                    )
+                )
             );
+            $data['aoColumnDefs'][] = array(
+                'sTitle'   => $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHRESULTPAGE_DATATABLE_AREA'],
+                "sWidth"   => '20%',
+                "aTargets" => array(2)
+            );
+            $data['aoColumnDefs'][] = array(
+                'sTitle'          => $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_AUTHOR_SHORT'],
+                "aDataSort"       => array(
+                    3,
+                    5
+                ),
+                "bSearchable"     => false,
+                "aTargets"        => array(3),
+                "c4gMinTableSize" => 700
+            );
+            $data['aoColumnDefs'][] = array(
+                'sTitle'          => $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST_SHORT'],
+                "aDataSort"       => array(5),
+                "bSearchable"     => false,
+                "asSorting"       => array(
+                    'desc',
+                    'asc'
+                ),
+                "aTargets"        => array(4),
+                "c4gMinTableSize" => 700
+            );
+            $data['aoColumnDefs'][] = array(
+                "bVisible"    => false,
+                "bSearchable" => false,
+                "aTargets"    => array(5)
+            );
+            $data['aoColumnDefs'][] = array(
+                'sTitle'          => $GLOBALS['TL_LANG']['C4G_FORUM']['AUTHOR'],
+                "aDataSort"       => array(
+                    6,
+                    8
+                ),
+                "bSearchable"     => false,
+                "aTargets"        => array(6),
+                "c4gMinTableSize" => 500
+            );
+            $data['aoColumnDefs'][] = array(
+                'sTitle'          => $GLOBALS['TL_LANG']['C4G_FORUM']['CREATED_ON'],
+                "aDataSort"       => array(8),
+                "asSorting"       => array(
+                    'desc',
+                    'asc'
+                ),
+                "bSearchable"     => false,
+                "aTargets"        => array(7),
+                "c4gMinTableSize" => 500
+            );
+            $data['aoColumnDefs'][] = array(
+                "bVisible"    => false,
+                "bSearchable" => false,
+                "aTargets"    => array(8)
+            );
+            $data['aoColumnDefs'][] = array(
+                'sTitle'      => '#',
+                "asSorting"   => array(
+                    'desc',
+                    'asc'
+                ),
+                "bSearchable" => false,
+                "aTargets"    => array(9)
+            );
+            $data['aoColumnDefs'][] = array(
+                "bVisible"    => false,
+                "bSearchable" => false,
+                "aTargets"    => array(10)
+            );
+
             if ($this->c4g_forum_table_jqui_layout) {
                 $data['bJQueryUI'] = true;
             }
@@ -4216,7 +4434,9 @@
                     $tooltip = substr($tooltip, 0, strrpos($tooltip, ' '));
                     $tooltip .= ' [...]';
                 }
-                $data['aaData'][] = array(
+
+
+                $aaData = array(
                     $threadAction,
                     $this->helper->checkThreadname($thread['name']),
                     $this->helper->getForumNameForThread($thread['id']),
@@ -4231,7 +4451,39 @@
                     $thread['posts'],
                     $tooltip
                 );    // hidden column for tooltip
+
+
+                if ($this->c4g_forum_rating_enabled) {
+
+
+                    $rating  = $this->getRating4Thread($thread);
+                    $sRating = "";
+                    if (!empty($rating)) {
+                        $sRating = '
+                                <div class="rating_wrapper">
+                                    <fieldset class="rating_static">
+                                        <span id="staticStar5" ' . (($rating == "5") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar5" title="5 stars"></label>
+                                        <span id="staticStar45" ' . (($rating == "4.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar45" title="4.5 stars"></label>
+                                        <span id="staticStar4" ' . (($rating == "4") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar4" title="4 stars"></label>
+                                        <span id="staticStar35" ' . (($rating == "3.5") ? " class=\"checked\"" : "") . ' ></span><label class="half" for="staticStar35" title="3.5 stars"></label>
+                                        <span id="staticStar3" ' . (($rating == "3") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar3" title="3 stars"></label>
+                                        <span id="staticStar25" ' . (($rating == "2.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar25" title="2.5 stars"></label>
+                                        <span id="staticStar2" ' . (($rating == "2") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar2" title="2 stars"></label>
+                                        <span id="staticStar15" ' . (($rating == "1.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar15" title="1.5 stars"></label>
+                                        <span id="staticStar1" ' . (($rating == "1") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar1" title="1 stars"></label>
+                                        <span id="staticStar05" ' . (($rating == "0.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar05" title="0.5 stars"></label>
+                                    </fieldset><span class="score">&#216 (' . $rating . ')</spa>
+                                </div>';
+
+                    }
+
+
+                    array_insert($aaData, 1, $sRating);
+                }
+
+                $data['aaData'][] = $aaData;
             }
+
 
             $forum = $this->helper->getForumFromDB($forumId);
 
@@ -4549,7 +4801,7 @@
                     if (isset($values[2])) {
                         $return = $this->search($values[1], $values[2]);
                     } else {
-                        if(!isset($this->putVars['tags'])){
+                        if (!isset($this->putVars['tags'])) {
                             $this->putVars['tags'] = array();
                         }
                         $return = $this->search($values[1],
@@ -4563,7 +4815,7 @@
                                                     "timeDirection"     => $this->putVars['timeDirection'],
                                                     "timePeriod"        => $this->putVars['timePeriod'],
                                                     "timeUnit"          => $this->putVars['timeUnit'],
-                                                    "tags"          => $this->putVars['tags'],
+                                                    "tags"              => $this->putVars['tags'],
                                                 )
                         );
                     }
@@ -4650,11 +4902,13 @@
         /**
          * @return bool|string
          */
-        public function getForumPageUrl(){
-            $id = $this->c4g_forum_sitemap_root;
+        public function getForumPageUrl()
+        {
+
+            $id           = $this->c4g_forum_sitemap_root;
             $sFrontendUrl = false;
-            if(!empty($id)){
-                $oPage =\Contao\PageModel::findPublishedById($id);
+            if (!empty($id)) {
+                $oPage = \Contao\PageModel::findPublishedById($id);
                 if (version_compare(VERSION, '3.1', '<')) {
                     $sFrontendUrl = $this->Environment->url;
                 } else {
@@ -4662,6 +4916,7 @@
                 }
                 $sFrontendUrl .= $this->getFrontendUrl($oPage->row());
             }
+
             return $sFrontendUrl;
         }
 
@@ -4671,6 +4926,7 @@
          */
         public function generateAjax($request = null)
         {
+
             global $objPage;
 
             // auf die benutzerdefinierte Fehlerbehandlung umstellen
@@ -4691,7 +4947,7 @@
                     $this->Session->setData($session);
                 }
             }
-            if(empty($this->c4g_forum_language)){
+            if (empty($this->c4g_forum_language)) {
                 $this->c4g_forum_language = $GLOBALS['TL_LANGUAGE'];
             }
 
