@@ -1056,9 +1056,11 @@
             $posts  = $this->helper->getPostFromDB($id);
             $thread = $this->helper->getThreadFromDB($posts[0]['threadid']);
             $data   = $this->generateThreadHeaderAsHtml($thread);
+            $data .= '<div class="c4gPostList">';
             foreach ($posts as $post) {
                 $data .= $this->generatePostAsHtml($post, true);
             }
+            $data .= "</div>";
 
             list($access, $message) = $this->checkPermission($post['forumid']);
             if (!$access) {
@@ -1154,9 +1156,13 @@
             $posts  = $this->helper->getPostsOfThreadFromDB($id, ($this->c4g_forum_postsort != 'UP'));
             $thread = $this->helper->getThreadFromDB($id);
             $data   = $this->generateThreadHeaderAsHtml($thread);
+            $data .= '<ul class="c4gPostList">';
             foreach ($posts as $post) {
+                $data .= "<li>";
                 $data .= $this->generatePostAsHtml($post, false);
+                $data .= "</li>";
             }
+            $data .= "</ul>";
 
             list($access, $message) = $this->checkPermission($thread['forumid']);
             if (!$access) {
