@@ -173,11 +173,11 @@
 
             // save forum url for linkbuilding in ajaxrequests
             $aTmpData = $this->Session->getData();
-            if(stristr($aTmpData['referer']['current'],"/con4gis_core/api/") === false) {
+            if (stristr($aTmpData['referer']['current'], "/con4gis_core/api/") === false) {
                 $aTmpData['current_forum_url'] = $aTmpData['referer']['current'];
                 $this->Session->setData($aTmpData);
-            }else{
-                $aTmpData['referer']['last'] = $aTmpData['current_forum_url'];
+            } else {
+                $aTmpData['referer']['last']    = $aTmpData['current_forum_url'];
                 $aTmpData['referer']['current'] = $aTmpData['current_forum_url'];
                 $this->Session->setData($aTmpData);
             }
@@ -211,7 +211,7 @@
             $aToolbarButtons = explode(",", $this->c4g_forum_bbcodes_editor_toolbaritems);
 
 
-            $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.css';
+            $GLOBALS['TL_CSS'][]        = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.css';
             $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.jquery.min.js';
 
             if ($this->c4g_forum_editor === "ck") {
@@ -553,14 +553,13 @@
                 }
 
 
-
-                switch($this->c4g_forum_tooltip){
+                switch ($this->c4g_forum_tooltip) {
                     case "title_first_post":
-                        $tooltip = $this->helper->getFirstPostLimitedTextOfThreadFromDB($thread['id'], 250,true);
+                        $tooltip = $this->helper->getFirstPostLimitedTextOfThreadFromDB($thread['id'], 250, true);
                         $tooltip = preg_replace('/\[[^\[\]]*\]/i', '', $tooltip);
                         break;
                     case "title_last_post":
-                        $tooltip = $this->helper->getLastPostLimitedTextOfThreadFromDB($thread['id'], 250,true);
+                        $tooltip = $this->helper->getLastPostLimitedTextOfThreadFromDB($thread['id'], 250, true);
                         $tooltip = preg_replace('/\[[^\[\]]*\]/i', '', $tooltip);
                         break;
                     case "body_first_post":
@@ -817,12 +816,12 @@
         {
 
             if (!empty($post['tags'])) {
-                $post['tags'] = explode(", ",$post['tags']);
+                $post['tags'] = explode(", ", $post['tags']);
             }
 
             //$collapse = $this->c4g_forum_collapsible_posts;
-            $last  = false;
-            $first = false;
+            $last               = false;
+            $first              = false;
             $targetClass        = '';
             $triggerClass       = '';
             $triggerTargetClass = '';
@@ -1156,13 +1155,12 @@
             $posts  = $this->helper->getPostsOfThreadFromDB($id, ($this->c4g_forum_postsort != 'UP'));
             $thread = $this->helper->getThreadFromDB($id);
             $data   = $this->generateThreadHeaderAsHtml($thread);
-            $data .= '<ul class="c4gPostList">';
+            $data .= '<div id="pagination"></div>
+<div class="c4gPostList">';
             foreach ($posts as $post) {
-                $data .= "<li>";
                 $data .= $this->generatePostAsHtml($post, false);
-                $data .= "</li>";
             }
-            $data .= "</ul>";
+            $data .= "</div>";
 
             list($access, $message) = $this->checkPermission($thread['forumid']);
             if (!$access) {
@@ -1311,23 +1309,23 @@
 
             if ($this->c4g_forum_editor === "bb") {
                 $editorId = ' id="editor"';
-            }elseif ($this->c4g_forum_editor === "ck") {
+            } elseif ($this->c4g_forum_editor === "ck") {
                 $editorId = ' id="ckeditor"';
-            }else{
+            } else {
                 $editorId = '';
             }
 
             $aPost = array(
                 "forumid" => $forumId,
-                "tags" => array()
+                "tags"    => array()
             );
 
             $sServerName = \Environment::get("serverName");
             $sHttps      = \Environment::get("https");
             $path        = \Environment::get("path");
-            $sProtocol = !empty($sHttps) ? 'https://' : 'http://';
-            $sSite     = $sProtocol . $sServerName . $path;
-            if(substr($sSite,-1,1) != "/"){
+            $sProtocol   = !empty($sHttps) ? 'https://' : 'http://';
+            $sSite       = $sProtocol . $sServerName . $path;
+            if (substr($sSite, -1, 1) != "/") {
                 $sSite .= "/";
             }
 
@@ -1335,12 +1333,12 @@
             $data .= $this->getTagForm('c4gForumNewThreadPostTags', $aPost, 'newthread');
             $data .= '<div class="c4gForumNewThreadContent">' .
                      $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
-                     '<input type="hidden" name="uploadEnv" value="'.$sSite.'">' .
+                     '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
                      '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea><br/>' .
                      '</div>';
             $data .= $this->getPostlinkForForm('c4gForumNewThreadPostLink', $forumId, 'newthread', '', '');
-            $data .= $this->getPostMapEntryForForm('c4gForumNewThreadMapData', $forumId, 'newthread', '', '', '', '', '', '', '','');
+            $data .= $this->getPostMapEntryForForm('c4gForumNewThreadMapData', $forumId, 'newthread', '', '', '', '', '', '', '', '');
 
             $data .= '</div>';
 
@@ -1379,7 +1377,7 @@
 
         /**
          * @param int $threadId
-         * @param $parentDialog
+         * @param     $parentDialog
          *
          * @return array
          */
@@ -1389,8 +1387,8 @@
             $thread = $this->helper->getThreadAndForumNameFromDB($threadId);
 
             $sLastPost = "";
-            if($this->c4g_forum_show_last_post_on_new) {
-                $posts  = $this->helper->getPostsOfThreadFromDB($threadId, true);
+            if ($this->c4g_forum_show_last_post_on_new) {
+                $posts = $this->helper->getPostsOfThreadFromDB($threadId, true);
                 if (!empty($posts)) {
                     $aPost     = $posts[0];
                     $sLastPost = "<h3>" . $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST'] . "</h3>";
@@ -1401,7 +1399,6 @@
             }
 
 
-
             list($access, $message) = $this->checkPermission($thread['forumid']);
             if (!$access) {
                 return $this->getPermissionDenied($message);
@@ -1409,40 +1406,40 @@
             $editorId = '';
             if ($this->c4g_forum_editor === "bb") {
                 $editorId = ' id="editor"';
-            }elseif ($this->c4g_forum_editor === "ck") {
+            } elseif ($this->c4g_forum_editor === "ck") {
                 $editorId = ' id="ckeditor"';
-            }else{
+            } else {
                 $editorId = '';
             }
 
             $aPost = array(
                 "forumid" => $thread['forumid'],
-                "tags" => array()
+                "tags"    => array()
             );
 
             $sServerName = \Environment::get("serverName");
             $sHttps      = \Environment::get("https");
             $path        = \Environment::get("path");
-            $sProtocol = !empty($sHttps) ? 'https://' : 'http://';
-            $sSite     = $sProtocol . $sServerName . $path;
-            if(substr($sSite,-1,1) != "/"){
+            $sProtocol   = !empty($sHttps) ? 'https://' : 'http://';
+            $sSite       = $sProtocol . $sServerName . $path;
+            if (substr($sSite, -1, 1) != "/") {
                 $sSite .= "/";
             }
 
             $data = $sLastPost;
 
             $data .= '<div class="c4gForumNewPost">' .
-                    '<div class="c4gForumNewPostSubject">' .
-                    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBJECT'] . ':<br/>' .
-                    '<input name="subject" value="' . $thread['threadname'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="100" /><br />' .
-                    '</div>';
+                     '<div class="c4gForumNewPostSubject">' .
+                     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBJECT'] . ':<br/>' .
+                     '<input name="subject" value="' . $thread['threadname'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="100" /><br />' .
+                     '</div>';
             $data .= $this->getTagForm('c4gForumNewPostPostTags', $aPost, 'newpost');
-            $data .='<div class="c4gForumNewPostContent">' .
-                    $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
-                    '<input type="hidden" name="uploadEnv" value="'.$sSite.'">' .
-                    '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
-                    '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea>' .
-                    '</div>';
+            $data .= '<div class="c4gForumNewPostContent">' .
+                     $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
+                     '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
+                     '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
+                     '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea>' .
+                     '</div>';
 
             $data .= $this->getPostlinkForForm('c4gForumNewPostPostLink', $thread['forumid'], 'newpost', '', '');
             $locstyle = "";
@@ -1677,7 +1674,7 @@
                 $threaddesc = '';
             }
 
-            $result = $this->helper->insertThreadIntoDB($forumId, $this->putVars['thread'], $this->User->id, $threaddesc, $sort, $this->putVars['post'],$this->putVars['tags'],
+            $result = $this->helper->insertThreadIntoDB($forumId, $this->putVars['thread'], $this->User->id, $threaddesc, $sort, $this->putVars['post'], $this->putVars['tags'],
                                                         $this->putVars['linkname'], $this->putVars['linkurl'], $this->putVars['geox'], $this->putVars['geoy'], $this->putVars['locstyle'],
                                                         $this->putVars['label'], $this->putVars['tooltip'], $this->putVars['geodata'], $this->putVars['osmId']);
 
@@ -1827,12 +1824,11 @@
 
             $forums = $this->helper->getForumsFromDB($parentId);
             if (count($forums) == 0) {
-
                 return array(
                     "breadcrumb"     => $this->getBreadcrumb($parentId),
                     "contenttype"    => "html",
                     "contentoptions" => array("scrollable" => false),
-                    "contentdata"    => sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['NO_ACTIVE_FORUMS'], $parentId)
+                    "contentdata"    => sprintf("JO" . $GLOBALS['TL_LANG']['C4G_FORUM']['NO_ACTIVE_FORUMS'], $parentId)
                 );
 
             }
@@ -2876,12 +2872,12 @@
         public function getTagForm($sDivName, $aPost, $sForumId, $label = false)
         {
 
-            if($label === false){
+            if ($label === false) {
                 $label = $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'];
             }
-            $aTags       = $this->getTagsRecursivByParent($aPost['forumid']);
+            $aTags = $this->getTagsRecursivByParent($aPost['forumid']);
             $sHtml = "";
-            if(!empty($aTags)) {
+            if (!empty($aTags)) {
                 $sHtml = "<div class=\"" . $sDivName . "\">";
                 $sHtml .= $label . ':<br/>';
                 $sHtml .= "<select name=\"tags\" class=\"formdata c4g_tags\" multiple=\"multiple\" style='width:100%;' data-placeholder='" . $GLOBALS['TL_LANG']['C4G_FORUM']['SELECT_TAGS_PLACEHOLDER'] . "'>";
@@ -2902,23 +2898,26 @@
             return $sHtml;
         }
 
-        public function getTagsRecursivByParent($sForumId){
-            $sReturn = "";
+
+        public function getTagsRecursivByParent($sForumId)
+        {
+
+            $sReturn     = "";
             $aTagsResult = \Contao\Database::getInstance()->prepare("SELECT tags, pid FROM tl_c4g_forum WHERE id = %s")->execute($sForumId);
             $aTags       = $aTagsResult->row();
-            if(!empty($aTags['tags'])){
-                $sReturn =  $aTags['tags'];
-            }else{
-                if($aTags['pid'] != '0'){
+            if (!empty($aTags['tags'])) {
+                $sReturn = $aTags['tags'];
+            } else {
+                if ($aTags['pid'] != '0') {
                     $sReturn = $this->getTagsRecursivByParent($aTags['pid']);
                 }
             }
             $aReturn = explode(",", $sReturn);
-            if(empty($aReturn)){
+            if (empty($aReturn)) {
                 $aReturn = array();
             }
-            if(count($aReturn) === 1){
-                if($aReturn[0] === ''){
+            if (count($aReturn) === 1) {
+                if ($aReturn[0] === '') {
                     $aReturn = array();
                 }
             }
@@ -3110,7 +3109,7 @@
             $posts    = $this->helper->getPostFromDB($postId);
             $post     = $posts[0];
             if (!empty($post['tags'])) {
-                $post['tags'] = explode(", ",$post['tags']);
+                $post['tags'] = explode(", ", $post['tags']);
             }
             if ($post['authorid'] == $this->User->id) {
                 $action        = 'editownpostdialog';
@@ -3125,9 +3124,9 @@
             $editorId = '';
             if ($this->c4g_forum_editor === "bb") {
                 $editorId = ' id="editor"';
-            }elseif ($this->c4g_forum_editor === "ck") {
+            } elseif ($this->c4g_forum_editor === "ck") {
                 $editorId = ' id="ckeditor"';
-            }else{
+            } else {
                 $editorId = '';
             }
 
@@ -3135,9 +3134,9 @@
             $sServerName = \Environment::get("serverName");
             $sHttps      = \Environment::get("https");
             $path        = \Environment::get("path");
-            $sProtocol = !empty($sHttps) ? 'https://' : 'http://';
-            $sSite     = $sProtocol . $sServerName . $path;
-            if(substr($sSite,-1,1) != "/"){
+            $sProtocol   = !empty($sHttps) ? 'https://' : 'http://';
+            $sSite       = $sProtocol . $sServerName . $path;
+            if (substr($sSite, -1, 1) != "/") {
                 $sSite .= "/";
             }
 
@@ -3153,7 +3152,7 @@
 
             $data .= '<div class="c4gForumEditPostContent">' .
                      $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
-                     '<input type="hidden" name="uploadEnv" value="'.$sSite.'">' .
+                     '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
                      '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all">' . strip_tags($post['text']) . '</textarea>' .
                      '</div>';
@@ -3659,18 +3658,18 @@
                     '<div>' .
                     '<input type="checkbox" id="onlyThreads" name="onlyThreads" class="formdata ui-corner-all" /><label for="onlyThreads">' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_ONLYTHREADS'] . '</label><br/>' .
                     '<input type="checkbox" id="wholeWords" name="wholeWords" class="formdata ui-corner-all" /><label for="wholeWords">' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_WHOLEWORDS'] . '</label>' .
-                    '</div>' ;
+                    '</div>';
 
             // show tag field in search form
-            if($this->c4g_forum_use_tags_in_search == "1"){
-                $aTags = $this->getTagForm("search_tags",array("forumid" => $forumId,"tags" => array()),$forumId);
+            if ($this->c4g_forum_use_tags_in_search == "1") {
+                $aTags = $this->getTagForm("search_tags", array("forumid" => $forumId, "tags" => array()), $forumId);
                 $data .= '<br /><div>';
                 $data .= $aTags;
                 $data .= '</div><br />';
             }
 
             $data .= '<br /> ' .
-                    $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_LBL_SEARCH_ALL_THEMES'] . ' ';
+                     $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_LBL_SEARCH_ALL_THEMES'] . ' ';
             $data .= $this->helper->getForumsAsHTMLDropdownMenuFromDB($this->c4g_forum_startforum, $forumId, ' - ');
 
             $data .= ' <span onClick="return false" class="c4gGuiTooltip" style="text-decoration:none; cursor:help" title="' . nl2br(C4GUtils::secure_ugc($GLOBALS['TL_LANG']['C4G_FORUM']['SEARCH_HELPTEXT_AREA'])) . '">(?)</span>' .
@@ -4555,7 +4554,7 @@
                     if (isset($values[2])) {
                         $return = $this->search($values[1], $values[2]);
                     } else {
-                        if(!isset($this->putVars['tags'])){
+                        if (!isset($this->putVars['tags'])) {
                             $this->putVars['tags'] = array();
                         }
                         $return = $this->search($values[1],
@@ -4569,7 +4568,7 @@
                                                     "timeDirection"     => $this->putVars['timeDirection'],
                                                     "timePeriod"        => $this->putVars['timePeriod'],
                                                     "timeUnit"          => $this->putVars['timeUnit'],
-                                                    "tags"          => $this->putVars['tags'],
+                                                    "tags"              => $this->putVars['tags'],
                                                 )
                         );
                     }
@@ -4656,11 +4655,13 @@
         /**
          * @return bool|string
          */
-        public function getForumPageUrl(){
-            $id = $this->c4g_forum_sitemap_root;
+        public function getForumPageUrl()
+        {
+
+            $id           = $this->c4g_forum_sitemap_root;
             $sFrontendUrl = false;
-            if(!empty($id)){
-                $oPage =\Contao\PageModel::findPublishedById($id);
+            if (!empty($id)) {
+                $oPage = \Contao\PageModel::findPublishedById($id);
                 if (version_compare(VERSION, '3.1', '<')) {
                     $sFrontendUrl = $this->Environment->url;
                 } else {
@@ -4668,6 +4669,7 @@
                 }
                 $sFrontendUrl .= $this->getFrontendUrl($oPage->row());
             }
+
             return $sFrontendUrl;
         }
 
@@ -4677,6 +4679,7 @@
          */
         public function generateAjax($request = null)
         {
+
             global $objPage;
 
             // auf die benutzerdefinierte Fehlerbehandlung umstellen
@@ -4697,7 +4700,7 @@
                     $this->Session->setData($session);
                 }
             }
-            if(empty($this->c4g_forum_language)){
+            if (empty($this->c4g_forum_language)) {
                 $this->c4g_forum_language = $GLOBALS['TL_LANGUAGE'];
             }
 

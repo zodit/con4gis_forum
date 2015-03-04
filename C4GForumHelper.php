@@ -332,6 +332,7 @@ class C4GForumHelper extends System
 	 */
 	public function getForumsFromDB($id, $children = false, $flat = false, $idField = 'pid')
 	{
+
 		switch( $this->show_realname ){
 			case 'FF':
 				$sqlLastUser = 'm.firstname';
@@ -364,12 +365,14 @@ class C4GForumHelper extends System
 			"GROUP BY a.id ".
 		    "ORDER BY a.sorting"
 	 						)->execute(1, $id, 1);
+
 		$return = array();
 	 	$forumArr = $forums->fetchAllAssoc();
 	 	$flatArray = array();
  		foreach ($forumArr as $key=>&$value) {
  			if ($this->checkPermissionWithData('visible', $value['member_groups'], $value['admin_groups'],
  			  											  $value['guest_rights'], $value['member_rights'], $value['admin_rights'])) {
+
 	 			if ($children) {
 
 	 				if ($value['subforums']>0) {
