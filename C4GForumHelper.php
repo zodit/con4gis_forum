@@ -978,7 +978,9 @@ class C4GForumHelper extends System
 
 		//removes duplicates
 		$searchParam['search'] = array_unique($searchParam['search']);
+		//and everything that is not "true"
 		$searchParam['search'] = array_filter($searchParam['search']);
+
 		//check if author exists and get his id
 		if($searchParam['author'] != ''){
 			$authorId = $this->Database->prepare(
@@ -1210,8 +1212,7 @@ class C4GForumHelper extends System
 
 		//finally get what we were looking for
 		$results = $this->Database->prepare(
-				"SELECT a.id,a.pid AS forumid,a.name,a.threaddesc," . $sqlAuthor . ",a.creation,a.sort,a.posts, CONCAT(
-(SELECT GROUP_CONCAT(tags) FROM tl_c4g_forum_post WHERE pid = a.id ) ) AS tags,".
+				"SELECT a.id,a.pid AS forumid,a.name,a.threaddesc," . $sqlAuthor . ",a.creation,a.sort,a.posts, CONCAT((SELECT GROUP_CONCAT(tags) FROM tl_c4g_forum_post WHERE pid = a.id ) ) AS tags,".
 				"c.creation AS lastPost, " . $sqlLastUser . " AS lastUsername ".
 				"FROM tl_c4g_forum_thread a ".
 				"LEFT JOIN tl_member b ON b.id = a.author ".
@@ -1223,9 +1224,8 @@ class C4GForumHelper extends System
 				)
 					->limit(500)
 					->execute();
-		$results = $results->fetchAllAssoc();
-        echo "<pre>";
-        var_dump($results);
+			  $results = $results->fetchAllAssoc();
+
         foreach($results as $key => &$result){
             if($bFilterByTags){
                 $resultTags = explode(",",$result['tags']);
@@ -1246,12 +1246,6 @@ class C4GForumHelper extends System
                 unset($results[$key]);
             }
 		}
-
-echo "<pre>";
-var_dump($results);
-die();
-
-
 
 		//return the results
 		return $results;

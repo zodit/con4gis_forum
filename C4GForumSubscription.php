@@ -267,22 +267,22 @@ class C4GForumSubscription
 					$sPerm = 'subscribethread';
 				}
 
-                $sActionType = "POST";
+        $sActionType = "POST";
 
-                $aMailData = array(
-                    "USERNAME" => "",
-                    "RESPONSIBLE_USERNAME" => "",
-                    "ACTION_NAME" => "",
-                    "ACTION_PRE" => "",
-                    "ACTION_NAME_WITH_SUBJECT" => "",
-                    "FORUMNAME" => "",
-                    "THREADNAME" => "",
-                    "POST_SUBJECT" => "",
-                    "POST_CONTENT" => "",
-                    "DETAILS_LINK" => "",
-                    "UNSUBSCRIBE_LINK" => "",
-                    "UNSUBSCRIBE_ALL_LINK" => "",
-                );
+        $aMailData = array(
+            "USERNAME" => "",
+            "RESPONSIBLE_USERNAME" => "",
+            "ACTION_NAME" => "",
+            "ACTION_PRE" => "",
+            "ACTION_NAME_WITH_SUBJECT" => "",
+            "FORUMNAME" => "",
+            "THREADNAME" => "",
+            "POST_SUBJECT" => "",
+            "POST_CONTENT" => "",
+            "DETAILS_LINK" => "",
+            "UNSUBSCRIBE_LINK" => "",
+            "UNSUBSCRIBE_ALL_LINK" => "",
+        );
 
 				// check if subscriber still has permission to get subscription mails
 				if ($this->helper->checkPermission($thread['forumid'], $sPerm, $subscriber['memberId'])) {
@@ -325,7 +325,7 @@ class C4GForumSubscription
 							break;
 					}
 
-                    $aMailData['ACTION_PRE'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_'.$sActionType.'_PRE'];
+          $aMailData['ACTION_PRE'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_'.$sActionType.'_PRE'];
 
 					$data = array();
 					$data['command'] = 'sendmail';
@@ -338,16 +338,15 @@ class C4GForumSubscription
 					}
 
 					$data['subject'] = sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_'.$sType.'_MAIL_SUBJECT'],
-							$subjectAddition,
-							$GLOBALS['TL_CONFIG']['websiteTitle'],
-							$thread['forumname'],
-							$thread['threadname'] );
+					$subjectAddition,
+					$GLOBALS['TL_CONFIG']['websiteTitle'],
+					$thread['forumname'],
+					$thread['threadname'] );
 
-
-                    $aMailData['USERNAME'] = $subscriber['username'];
-                    $aMailData['RESPONSIBLE_USERNAME'] = $this->User->username;
-                    $aMailData['FORUMNAME'] = $thread['forumname'];
-                    $aMailData['THREADNAME'] = $thread['threadname'];
+          $aMailData['USERNAME'] = $subscriber['username'];
+          $aMailData['RESPONSIBLE_USERNAME'] = $this->User->username;
+          $aMailData['FORUMNAME'] = $thread['forumname'];
+          $aMailData['THREADNAME'] = $thread['threadname'];
 
 
 					// umformatierung BBC-Quotes
@@ -378,25 +377,26 @@ class C4GForumSubscription
 					// entferne BBCodes
 					$this->MailCache ['post'] = preg_replace('/\[[^\[\]]*\]/i', '', $this->MailCache ['post']);
 
-                    // set post subject and content
-                    $aMailData['POST_SUBJECT'] = $this->MailCache ['subject'];
-                    $aMailData['POST_CONTENT'] = $this->MailCache ['post'];
+          // set post subject and content
+          $aMailData['POST_SUBJECT'] = $this->MailCache ['subject'];
+          $aMailData['POST_CONTENT'] = $this->MailCache ['post'];
 
-                    // building links
-                    if($sType == "SUBFORUM"){
+          // building links
+          if($sType == "SUBFORUM"){
 
-                        $aMailData['DETAILS_LINK'] = $this->helper->getUrlForForum( $thread['forumid'] );
-                        $aMailData['UNSUBSCRIBE_LINK'] = $this->generateUnsubscribeLinkSubforum( $thread['forumid'], $subscriber['email'] );
-                        $aMailData['UNSUBSCRIBE_ALL_LINK'] = $this->generateUnsubscribeLinkAll( $subscriber['email'] );
+              $aMailData['DETAILS_LINK'] = $this->helper->getUrlForForum( $thread['forumid'] );
+              $aMailData['UNSUBSCRIBE_LINK'] = $this->generateUnsubscribeLinkSubforum( $thread['forumid'], $subscriber['email'] );
+              $aMailData['UNSUBSCRIBE_ALL_LINK'] = $this->generateUnsubscribeLinkAll( $subscriber['email'] );
 
-                    }else{
+          }else{
 
-                        $aMailData['DETAILS_LINK'] = $this->helper->getUrlForThread( $threadId,$thread['forumid'] );
-                        $aMailData['UNSUBSCRIBE_LINK'] = $this->generateUnsubscribeLinkThread( $threadId, $subscriber['email'] );
-                        $aMailData['UNSUBSCRIBE_ALL_LINK'] = $this->generateUnsubscribeLinkAll( $subscriber['email'] );
-                    }
+              $aMailData['DETAILS_LINK'] = $this->helper->getUrlForThread( $threadId,$thread['forumid'] );
+              $aMailData['UNSUBSCRIBE_LINK'] = $this->generateUnsubscribeLinkThread( $threadId, $subscriber['email'] );
+              $aMailData['UNSUBSCRIBE_ALL_LINK'] = $this->generateUnsubscribeLinkAll( $subscriber['email'] );
+          }
 
-                    $data['text'] = $this->parseMailText($thread['mail'],$aMailData);
+          $mailText = trim($thread['mail']) ?: $GLOBALS['TL_LANG']['tl_c4g_forum']['default_subscription_text'];
+          $data['text'] = $this->parseMailText($mailText, $aMailData);
 
 					$data['to'] = $subscriber['email'];
 
