@@ -1812,11 +1812,11 @@
          *
          * @return array
          */
-        public function getForumInBoxes($parentId)
+        public function getForumInBoxes($parentId, $bDisableCheck = false)
         {
 
             $forums = $this->helper->getForumsFromDB($parentId);
-            if (count($forums) == 0) {
+            if (count($forums) == 0 && $bDisableCheck === false) {
 
                 return array(
                     "breadcrumb"     => $this->getBreadcrumb($parentId),
@@ -1825,7 +1825,11 @@
                     "contentdata"    => sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['NO_ACTIVE_FORUMS'], $parentId)
                 );
 
+            }elseif(count($forums) == 0 && $bDisableCheck === true){
+                return array();
             }
+
+
             $addClass = "";
             if ($this->c4g_forum_boxes_center) {
                 $addClass = " c4gGuiCenterDiv";
@@ -4406,7 +4410,10 @@
                     $return = $this->generateForumTree();
                     break;
                 case 'forumbox':
-                    $return = $this->getForumInBoxes($values[1]);
+                    $return = $this->getForumInBoxes($values[1],true);
+                    if(count($return) <= 0){
+                        $return = $this->getForumInTable($values[1], $values[2]);
+                    }
                     break;
                 case 'forumintro':
                     $return = $this->getForumintro($values[1]);
