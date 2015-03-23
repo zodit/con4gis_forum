@@ -809,7 +809,7 @@ class C4GForumHelper extends System
 
 		//compress data
         if($type == "tag" || $type == "threadtag"){
-            $dataSet = C4GUtils::compressDataSetForSearch($dataSet,false,true,true);
+            $dataSet = C4GUtils::compressDataSetForSearch($dataSet,false,true,true,true);
             $dataSet = explode(',',$dataSet);
             $dataSet = array_map("trim",$dataSet);
         }else{
@@ -949,7 +949,7 @@ class C4GForumHelper extends System
 		$search = C4GUtils::compressDataSetForSearch($searchParam['search']);
 		if($search == ''){
 			// no search terms left? try to prepare without stripping stopwords...
-			$search = C4GUtils::compressDataSetForSearch($searchParam['search'], false);
+			$search = C4GUtils::compressDataSetForSearch($searchParam['search'], false,true,true,true);
 		}
 
 
