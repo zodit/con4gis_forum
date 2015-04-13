@@ -1260,16 +1260,18 @@
                 $iPerPage = (!empty($this->c4g_forum_pagination_perpage))?$this->c4g_forum_pagination_perpage: 10;
                 $sPaginatorFormat = (!empty($this->c4g_forum_pagination_format))?$this->c4g_forum_pagination_format: '[< ncn >]';
 
+                $sFirst = $GLOBALS['TL_LANG']['tl_c4g_forum']['pagination']['first'];
+                $sLast = $GLOBALS['TL_LANG']['tl_c4g_forum']['pagination']['last'];
 
                 $sPagination = <<<JSPAGINATE
 
-                <div class="pagination bottompagination"></div>
+                <div class="c4g_pagination bottompagination"></div>
                 <script>
                     jQuery(document).ready(function(){
                         var prev = {start: 0, stop: 0},
                             cont = jQuery('.c4gForumPost');
 
-                        var Paging = jQuery(".pagination").paging(cont.length, {
+                        var Paging = jQuery(".c4g_pagination").paging(cont.length, {
                             format: '{$sPaginatorFormat}',
                             perpage: $iPerPage,
                             lapping: 0,
@@ -1289,16 +1291,16 @@
                                 var sUrl = 'http://' + window.location.hostname + window.location.pathname + window.location.search;
                                 switch (type) {
                                 case 'block': // n and c
-                                    var isActiveClass = (this.page == this.value)?"active":"";
-                                    return '<a href="'+sUrl+'#'+this.value+'" class="'+isActiveClass+'">' + this.value + '</a>';
+                                    var isActiveClass = (this.page == this.value)?"ui-state-highlight ":"";
+                                    return '<a href="'+sUrl+'#'+this.value+'" class="'+isActiveClass+' ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">' + this.value + '</a>';
                                 case 'next': // >
-                                    return '<a href="'+sUrl+'#'+this.value+'">&gt;</a>';
+                                    return '<a href="'+sUrl+'#'+this.value+'" class=" ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">&gt;</a>';
                                 case 'prev': // <
-                                    return '<a href="'+sUrl+'#'+this.value+'">&lt;</a>';
+                                    return '<a href="'+sUrl+'#'+this.value+'" class=" ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">&lt;</a>';
                                 case 'first': // [
-                                    return '<a href="'+sUrl+'#'+this.value+'">first</a>';
+                                    return '<a href="'+sUrl+'#'+this.value+'" class=" ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">$sFirst</a>';
                                 case 'last': // ]
-                                    return '<a href="'+sUrl+'#'+this.value+'">last</a>';
+                                    return '<a href="'+sUrl+'#'+this.value+'" class=" ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">$sLast</a>';
                                 }
                             }
                         });
