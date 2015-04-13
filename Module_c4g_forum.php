@@ -1252,6 +1252,72 @@
                 );
             }
 
+            if($this->c4g_forum_pagination_active == "1") {
+
+                $GLOBALS['TL_JAVASCRIPT'][] = "/system/modules/con4gis_forum/html/js/jquery.pagination.min.js";
+                $GLOBALS['TL_JAVASCRIPT'][] = "/system/modules/con4gis_forum/html/js/jquery.hashchange.min.js";
+
+                $iPerPage = (!empty($this->c4g_forum_pagination_perpage))?$this->c4g_forum_pagination_perpage: 10;
+                $sPaginatorFormat = (!empty($this->c4g_forum_pagination_format))?$this->c4g_forum_pagination_format: '[< ncn >]';
+
+
+                $sPagination = <<<JSPAGINATE
+
+                <div class="pagination bottompagination"></div>
+                <script>
+                    jQuery(document).ready(function(){
+                        var prev = {start: 0, stop: 0},
+                            cont = jQuery('.c4gForumPost');
+
+                        var Paging = jQuery(".pagination").paging(cont.length, {
+                            format: '{$sPaginatorFormat}',
+                            perpage: $iPerPage,
+                            lapping: 0,
+                            page: null, // we await hashchange() event
+                            onSelect: function (page) {
+
+                                var data = this.slice;
+
+                                cont.slice(prev[0], prev[1]).css('display', 'none');
+                                cont.slice(data[0], data[1]).fadeIn("slow");
+
+                                prev = data;
+
+                                return true; // locate!
+                            },
+                            onFormat: function (type) {
+                                var sUrl = 'http://' + window.location.hostname + window.location.pathname + window.location.search;
+                                switch (type) {
+                                case 'block': // n and c
+                                    var isActiveClass = (this.page == this.value)?"active":"";
+                                    return '<a href="'+sUrl+'#'+this.value+'" class="'+isActiveClass+'">' + this.value + '</a>';
+                                case 'next': // >
+                                    return '<a href="'+sUrl+'#'+this.value+'">&gt;</a>';
+                                case 'prev': // <
+                                    return '<a href="'+sUrl+'#'+this.value+'">&lt;</a>';
+                                case 'first': // [
+                                    return '<a href="'+sUrl+'#'+this.value+'">first</a>';
+                                case 'last': // ]
+                                    return '<a href="'+sUrl+'#'+this.value+'">last</a>';
+                                }
+                            }
+                        });
+                        Paging.setPage(1);
+                        jQuery(window).hashchange(function() {
+
+                            if (window.location.hash)
+                                Paging.setPage(window.location.hash.substr(1));
+                            else
+                                Paging.setPage(1); // we dropped the initial page selection and need to run it manually
+                        });
+
+                        jQuery(window).hashchange();
+                    });
+                </script>
+JSPAGINATE;
+                $data .= html_entity_decode($sPagination);
+            }
+
             $return = array(
                 "dialogstate"   => "forum:" . $thread['forumid'] . ";readthread:" . $id,
                 "dialogtype"    => "html",

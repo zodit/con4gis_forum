@@ -218,6 +218,11 @@
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb_legend'] = 'Breadcrumb';
 
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_active'] = array("Activate pagination", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_format'] = array("Paginator-Format", "See <a onclick='window.open(this.href);return false;' href='http://www.xarg.org/2011/09/jquery-pagination-revised'>http://www.xarg.org/2011/09/jquery-pagination-revised</a>");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_perpage'] = array("Entries per page", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_legend'] = 'Forum - Pagination';
+
     /**
      * References
      */

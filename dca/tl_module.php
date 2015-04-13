@@ -27,6 +27,7 @@
         '{c4g_forum_comf_lib_legend:hide},c4g_forum_jquery_lib,c4g_forum_jqtable_lib,c4g_forum_jqhistory_lib,c4g_forum_jqtooltip_lib,c4g_forum_jqscrollpane_lib;' .
         '{c4g_forum_comf_sitemap_legend:hide},c4g_forum_sitemap;' .
         '{c4g_forum_tags_legend},c4g_forum_use_tags_in_search;' .
+        '{c4g_forum_pagination_legend},c4g_forum_pagination_active,c4g_forum_pagination_perpage,c4g_forum_pagination_format;' .
         '{protected_legend:hide},protected;' .
         '{expert_legend:hide},guests,cssID,space';
 
@@ -83,6 +84,32 @@
         'exclude'   => true,
         'default'   => true,
         'inputType' => 'checkbox'
+    );
+
+
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_pagination_active'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_active'],
+        'exclude'   => true,
+        'default'   => true,
+        'inputType' => 'checkbox'
+    );
+
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_pagination_perpage'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_perpage'],
+        'exclude'   => true,
+        'default'   => true,
+        'inputType' => 'text',
+        'eval' => array('maxlength' => 3)
+    );
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_pagination_format'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_format'],
+        'exclude'   => true,
+        'default'   => true,
+        'inputType' => 'text',
+        'eval' => array('maxlength' => 255)
     );
 
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_comf_navigation'] = array
