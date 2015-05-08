@@ -195,9 +195,6 @@
                     }
                 }
             }
-echo "<pre>";
-var_dump($data);
-die();
 
             return $data;
         }
