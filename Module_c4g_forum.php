@@ -152,7 +152,7 @@
             $GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/html/css/c4gForum.css';
             //$GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/html/css/bbcodes.css';
             $data['id']      = $this->id;
-            $data['ajaxUrl'] = "system/modules/con4gis_core/api/c4g_forum_ajax";
+            $data['ajaxUrl'] = "system/modules/con4gis_core/api/index.php/c4g_forum_ajax";
             // $data['ajaxData'] = "action=fmd&id=".$this->id."&language=".$GLOBALS['TL_LANGUAGE']."&page=".$objPage->id;
             $data['ajaxData'] = $this->id;
 
@@ -173,7 +173,7 @@
 
             // save forum url for linkbuilding in ajaxrequests
             $aTmpData = $this->Session->getData();
-            if(stristr($aTmpData['referer']['current'],"/con4gis_core/api/") === false) {
+            if(stristr($aTmpData['referer']['current'],"/con4gis_core/api/index.php") === false) {
                 $aTmpData['current_forum_url'] = $aTmpData['referer']['current'];
                 $this->Session->setData($aTmpData);
             }else{
