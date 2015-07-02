@@ -1217,9 +1217,11 @@
             $posts  = $this->helper->getPostFromDB($id);
             $thread = $this->helper->getThreadFromDB($posts[0]['threadid']);
             $data   = $this->generateThreadHeaderAsHtml($thread);
+            $data .= '<div class="c4gPostList">';
             foreach ($posts as $post) {
                 $data .= $this->generatePostAsHtml($post, true);
             }
+            $data .= "</div>";
 
             list($access, $message) = $this->checkPermission($post['forumid']);
             if (!$access) {
@@ -1315,9 +1317,12 @@
             $posts  = $this->helper->getPostsOfThreadFromDB($id, ($this->c4g_forum_postsort != 'UP'));
             $thread = $this->helper->getThreadFromDB($id);
             $data   = $this->generateThreadHeaderAsHtml($thread);
+            $data .= '<div id="pagination"></div>
+<div class="c4gPostList">';
             foreach ($posts as $post) {
                 $data .= $this->generatePostAsHtml($post, false);
             }
+            $data .= "</div>";
 
             list($access, $message) = $this->checkPermission($thread['forumid']);
             if (!$access) {
@@ -1591,6 +1596,12 @@
                      '<input name="subject" value="' . $thread['threadname'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="100" /><br />' .
                      '</div>';
             $data .= $this->getTagForm('c4gForumNewPostPostTags', $aPost, 'newpost');
+            $data .= '<div class="c4gForumNewPostContent">' .
+                     $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
+                     '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
+                     '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
+                     '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea>' .
+                     '</div>';
 
             if ($this->c4g_forum_rating_enabled) {
                 // Rating stars
@@ -2011,12 +2022,11 @@
 
             $forums = $this->helper->getForumsFromDB($parentId);
             if (count($forums) == 0 && $bDisableCheck === false) {
-
                 return array(
                     "breadcrumb"     => $this->getBreadcrumb($parentId),
                     "contenttype"    => "html",
                     "contentoptions" => array("scrollable" => false),
-                    "contentdata"    => sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['NO_ACTIVE_FORUMS'], $parentId)
+                    "contentdata"    => sprintf("JO" . $GLOBALS['TL_LANG']['C4G_FORUM']['NO_ACTIVE_FORUMS'], $parentId)
                 );
 
             }elseif(count($forums) == 0 && $bDisableCheck === true){
@@ -3078,11 +3088,19 @@
             if ($label === false) {
                 $label = $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'];
             }
+<<<<<<< .mine
             $aTags = $this->getTagsRecursivByParent($aPost['forumid']);
             $aTagsChilds       = $this->getTagsRecursivByChildren($aPost['forumid']);
 
             $aTags = array_unique(array_merge($aTags,$aTagsChilds));
 
+=======
+            $aTags = $this->getTagsRecursivByParent($aPost['forumid']);
+
+
+
+
+>>>>>>> .theirs
             $sHtml = "";
             if (!empty($aTags)) {
                 $sHtml = "<div class=\"" . $sDivName . "\">";
@@ -3112,6 +3130,7 @@
             $sReturn     = "";
             $aTagsResult = \Contao\Database::getInstance()->prepare("SELECT tags, pid FROM tl_c4g_forum WHERE id = %s")->execute($sForumId);
             $aTags       = $aTagsResult->row();
+<<<<<<< .mine
             if (!empty($aTags['tags'])) {
                 $sReturn = $aTags['tags'];
             } else {
@@ -3145,15 +3164,50 @@
                 $sReturn =  $aTags['tags'];
             }else{
                 if($aTags['pid'] != '0'){
+=======
+            if (!empty($aTags['tags'])) {
+                $sReturn = $aTags['tags'];
+            } else {
+                if ($aTags['pid'] != '0') {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> .theirs
                     $sReturn = $this->getTagsRecursivByChildren($aTags['id']);
                 }
             }
             $aReturn = explode(",", $sReturn);
-            if(empty($aReturn)){
+            if (empty($aReturn)) {
                 $aReturn = array();
             }
-            if(count($aReturn) === 1){
-                if($aReturn[0] === ''){
+            if (count($aReturn) === 1) {
+                if ($aReturn[0] === '') {
                     $aReturn = array();
                 }
             }
@@ -3919,6 +3973,7 @@
                     '</div>';
 
             // show tag field in search form
+<<<<<<< .mine
             if ($this->c4g_forum_use_tags_in_search == "1") {
                 $aTags = $this->getTagForm("search_tags", array("forumid" => $forumId, "tags" => array()), $forumId);
                 if (!empty($aTags)) {
@@ -3926,6 +3981,15 @@
                     $data .= $aTags;
                     $data .= '</div><br />';
                 }
+=======
+            if ($this->c4g_forum_use_tags_in_search == "1") {
+                $aTags = $this->getTagForm("search_tags", array("forumid" => $forumId, "tags" => array()), $forumId);
+                $data .= '<br /><div>';
+                $data .= $aTags;
+                $data .= '</div><br />';
+
+
+>>>>>>> .theirs
             }
 
             $data .= '<br /> ' .

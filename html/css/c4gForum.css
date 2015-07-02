@@ -171,6 +171,11 @@
 	width: 150px;
 }
 
+#pagination a,
+#pagination span,
+#pagination em{
+    margin-right:5px;
+}
 /**
 * RATING
 */
