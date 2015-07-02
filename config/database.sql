@@ -141,6 +141,7 @@ CREATE TABLE `tl_c4g_forum_post` (
   `locstyle` int(10) unsigned NOT NULL default '0',  
   `loc_label` varchar(100) NOT NULL default '',
   `loc_tooltip` varchar(100) NOT NULL default '',
+  `rating` double NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `pid` (`pid`),
 --  FULLTEXT KEY `text` (`text`)
@@ -205,6 +206,7 @@ CREATE TABLE `tl_module` (
   `c4g_forum_breadcrumb` char(1) NOT NULL default '1',  
   `c4g_forum_hide_intropages` char(1) NOT NULL default '',
   `c4g_forum_show_last_post_on_new` char(1) NOT NULL default '',
+  `c4g_forum_rating_enabled` char(1) NOT NULL default '',
   `c4g_forum_jumpTo` int(10) unsigned NOT NULL default '0',
   `c4g_forum_language` char(5) NOT NULL default '',  
   `c4g_forum_bbcodes` char(1) NOT NULL default '1',  
