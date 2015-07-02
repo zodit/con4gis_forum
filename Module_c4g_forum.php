@@ -3079,6 +3079,10 @@
                 $label = $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'];
             }
             $aTags = $this->getTagsRecursivByParent($aPost['forumid']);
+            $aTagsChilds       = $this->getTagsRecursivByChildren($aPost['forumid']);
+
+            $aTags = array_unique(array_merge($aTags,$aTagsChilds));
+
             $sHtml = "";
             if (!empty($aTags)) {
                 $sHtml = "<div class=\"" . $sDivName . "\">";
@@ -3121,6 +3125,35 @@
             }
             if (count($aReturn) === 1) {
                 if ($aReturn[0] === '') {
+                    $aReturn = array();
+                }
+            }
+
+            return $aReturn;
+        }
+
+
+
+        public function getTagsRecursivByChildren($sForumId){
+            $sReturn = "";
+            $aTagsResult = \Contao\Database::getInstance()->prepare("SELECT tags, pid FROM tl_c4g_forum WHERE pid = %s")->execute($sForumId);
+            $aTags       = $aTagsResult->row();
+            if(empty($aTags)){
+                return array();
+            }
+            if(!empty($aTags['tags'])){
+                $sReturn =  $aTags['tags'];
+            }else{
+                if($aTags['pid'] != '0'){
+                    $sReturn = $this->getTagsRecursivByChildren($aTags['id']);
+                }
+            }
+            $aReturn = explode(",", $sReturn);
+            if(empty($aReturn)){
+                $aReturn = array();
+            }
+            if(count($aReturn) === 1){
+                if($aReturn[0] === ''){
                     $aReturn = array();
                 }
             }
