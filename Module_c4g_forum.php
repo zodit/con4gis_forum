@@ -1445,7 +1445,7 @@
                                 return true; // locate!
                             },
                             onFormat: function (type) {
-                                var sUrl = 'http://' + window.location.hostname + window.location.pathname + window.location.search;
+                                var sUrl = 'http://' + window.location.host + window.location.pathname + window.location.search;
                                 switch (type) {
                                 case 'block': // n and c
                                     var isActiveClass = (this.page == this.value)?"ui-state-highlight ":"";
