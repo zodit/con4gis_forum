@@ -643,18 +643,10 @@
                         $this->helper->getDateTimeString($thread['creation']),
                         $thread['creation'], // hidden column for sorting
                         $thread['posts'],
-<<<<<<< .mine
-                        $thread['sort'], // hidden column for sorting
-                        999 - $thread['sort'], // hidden column for sorting
-                        $tooltip // hidden column for tooltip
-                    );
-=======
                         $thread['sort'], // hidden column for sorting
                         (999 - $thread['sort']), // hidden column for sorting
                         $tooltip // hidden column for tooltip
                     );    // hidden column for tooltip
->>>>>>> .theirs
-
 
                     if ($this->c4g_forum_rating_enabled) {
 
@@ -1596,12 +1588,6 @@
                      '<input name="subject" value="' . $thread['threadname'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="100" /><br />' .
                      '</div>';
             $data .= $this->getTagForm('c4gForumNewPostPostTags', $aPost, 'newpost');
-            $data .= '<div class="c4gForumNewPostContent">' .
-                     $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
-                     '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
-                     '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
-                     '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea>' .
-                     '</div>';
 
             if ($this->c4g_forum_rating_enabled) {
                 // Rating stars
@@ -3088,19 +3074,12 @@
             if ($label === false) {
                 $label = $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'];
             }
-<<<<<<< .mine
+
             $aTags = $this->getTagsRecursivByParent($aPost['forumid']);
             $aTagsChilds       = $this->getTagsRecursivByChildren($aPost['forumid']);
 
             $aTags = array_unique(array_merge($aTags,$aTagsChilds));
 
-=======
-            $aTags = $this->getTagsRecursivByParent($aPost['forumid']);
-
-
-
-
->>>>>>> .theirs
             $sHtml = "";
             if (!empty($aTags)) {
                 $sHtml = "<div class=\"" . $sDivName . "\">";
@@ -3130,7 +3109,7 @@
             $sReturn     = "";
             $aTagsResult = \Contao\Database::getInstance()->prepare("SELECT tags, pid FROM tl_c4g_forum WHERE id = %s")->execute($sForumId);
             $aTags       = $aTagsResult->row();
-<<<<<<< .mine
+
             if (!empty($aTags['tags'])) {
                 $sReturn = $aTags['tags'];
             } else {
@@ -3164,41 +3143,6 @@
                 $sReturn =  $aTags['tags'];
             }else{
                 if($aTags['pid'] != '0'){
-=======
-            if (!empty($aTags['tags'])) {
-                $sReturn = $aTags['tags'];
-            } else {
-                if ($aTags['pid'] != '0') {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
                     $sReturn = $this->getTagsRecursivByChildren($aTags['id']);
                 }
             }
@@ -3973,7 +3917,6 @@
                     '</div>';
 
             // show tag field in search form
-<<<<<<< .mine
             if ($this->c4g_forum_use_tags_in_search == "1") {
                 $aTags = $this->getTagForm("search_tags", array("forumid" => $forumId, "tags" => array()), $forumId);
                 if (!empty($aTags)) {
@@ -3981,15 +3924,6 @@
                     $data .= $aTags;
                     $data .= '</div><br />';
                 }
-=======
-            if ($this->c4g_forum_use_tags_in_search == "1") {
-                $aTags = $this->getTagForm("search_tags", array("forumid" => $forumId, "tags" => array()), $forumId);
-                $data .= '<br /><div>';
-                $data .= $aTags;
-                $data .= '</div><br />';
-
-
->>>>>>> .theirs
             }
 
             $data .= '<br /> ' .
@@ -5314,5 +5248,3 @@
 
         }
     }
-
-?>
