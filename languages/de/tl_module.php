@@ -212,6 +212,11 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageHeight'] = array("Maximale Bildhöhe", "Angabe in Pixel");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_use_tags_in_search'] = array("Schlagworte in Suchmaske anzeigen", "");
 
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_active'] = array("Pagination aktivieren", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_format'] = array("Paginator-Format", "Siehe <a onclick='window.open(this.href);return false;' href='http://www.xarg.org/2011/09/jquery-pagination-revised'>http://www.xarg.org/2011/09/jquery-pagination-revised</a>");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_perpage'] = array("Einträge pro Seite", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_legend'] = 'Diskussionsforum - Pagination';
+
 
     /**
      * Legend

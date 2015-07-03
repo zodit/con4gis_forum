@@ -175,6 +175,7 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['fail']				= array("FEHLER: ",
 
 
 
+
     $GLOBALS['TL_LANG']['tl_c4g_forum']['default_subscription_text'] = <<<TEXT
 Hallo ##USERNAME##,
 
