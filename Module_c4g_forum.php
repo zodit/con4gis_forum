@@ -157,12 +157,8 @@
             $data['ajaxData'] = $this->id;
 
             $size = deserialize($this->c4g_forum_size, true);
-            if ($size[0] != 0) {
-                $data['width'] = $size[0] . $size[2];
-            }
-            if ($size[1] != 0) {
-                $data['height'] = $size[1] . $size[2];
-            }
+            $data['width'] = ($size[0] != 0) ? $size[0] . $size[2] : 'auto';
+            $data['height'] = ($size[1] != 0) ? $size[1] . $size[2] : 'auto';
 
             if ($_GET['state']) {
                 $request = $_GET['state'];
@@ -225,9 +221,8 @@
             }
 
 
-            if (!$this->c4g_forum_breadcrumb_jqui_layout) {
-                $data['breadcrumbDelim'] = '>';
-            }
+            $data['breadcrumbDelim'] = $this->c4g_forum_breadcrumb_jqui_layout ? '' : '>';
+
             if (($this->action == 'readthread') ||
                 ($this->action == 'forum') ||
                 ($this->action == 'forumbox')
