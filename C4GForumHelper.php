@@ -1711,6 +1711,9 @@ class C4GForumHelper extends System
             $set['tags'] = implode(", ",$tags);
         }
 
+		if(empty($rating)){
+			$rating = 0;
+		}
         $set['rating'] = $rating;
 
 
