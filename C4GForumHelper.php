@@ -1797,6 +1797,9 @@ class C4GForumHelper extends System
             $set['tags'] = implode(", ",$tags);
         }
 
+		if(empty($rating)){
+			$rating = 0;
+		}
         $set['rating'] = $rating;
 
 		$objUpdateStmt = $this->Database->prepare("UPDATE tl_c4g_forum_post %s WHERE id=?")
