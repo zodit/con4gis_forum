@@ -1711,6 +1711,10 @@ class C4GForumHelper extends System
             $set['tags'] = implode(", ",$tags);
         }
 
+		if(empty($rating)){
+			$rating = 0;
+		}
+
         $set['rating'] = $rating;
 
 
@@ -2833,6 +2837,7 @@ class C4GForumHelper extends System
 			$eMail->subject = $data['subject'];
 			$eMail->text = $data['text'];
 			$eMail->sendTo($data['to']);
+
 			unset($eMail);
 		} catch ( Swift_RfcComplianceException $e ) {
 			return false;
