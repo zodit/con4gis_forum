@@ -3526,7 +3526,6 @@ JSPAGINATE;
          */
         public function editThreadDialog($threadId)
         {
-
             $dialogId = 'editthread' . $threadId;
             $thread   = $this->helper->getThreadFromDB($threadId);
             if ($thread['author'] == $this->User->id) {
@@ -3539,13 +3538,15 @@ JSPAGINATE;
             }
 
             $data = $this->getThreadDescForForm('c4gForumEditThreadDesc', $thread['forumid'], 'editthread', $thread['threaddesc']);
+
             $data .= '<div class="c4gForumEditThread">' .
                      '<div class="c4gForumEditThreadName">' .
                      $GLOBALS['TL_LANG']['C4G_FORUM']['THREAD'] . ':<br/>' .
-                     '<input name="thread" value="' . $thread['name'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="100" /><br />' .
-                     $data .= '</div>';
+                     '<input name="thread" value="' . $thread['name'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="100" /><br />';
+            $data .= '</div>';
             $data .= $this->getThreadSortForForm('c4gForumEditThreadSort', $thread['forumid'], 'editthread', $thread['sort']);
             $data .= '</div>';
+
 
             $return = array(
                 "dialogtype"    => "html",
