@@ -210,6 +210,12 @@
             $GLOBALS['TL_CSS'][]        = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.css';
             $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.jquery.min.js';
 
+            if($this->c4g_forum_bbcodes != "1") {
+                $GLOBALS['TL_HEAD'][] = "<script>var ckRemovePlugins = 'bbcode';</script>";
+            }else{
+                $GLOBALS['TL_HEAD'][] = "<script>var ckRemovePlugins = '';</script>";
+            }
+
             if ($this->c4g_forum_editor === "ck") {
                 $GLOBALS['TL_HEAD'][]       = "<script>var ckEditorItems = ['" . implode("','", $aToolbarButtons) . "'];</script>";
                 $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/ckeditor/ckeditor.js';
@@ -1121,14 +1127,17 @@
                 $divClass .= ' BBCode-Area';
                 //$text = preg_replace('#<br? ?/>#', '', $text);
                 //$text = $bbcode->Parse($text);
+            }else{
+                $text = html_entity_decode($text);
             }
+
+
 
             $data .=
                 '</div>' .
                 '<div class="c4gForumPostText' . $divClass . $targetClass . '">' .
                 $text .
                 '';
-
 
             $data .= '</div>';
 

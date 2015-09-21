@@ -1714,7 +1714,6 @@ class C4GForumHelper extends System
 		if(empty($rating)){
 			$rating = 0;
 		}
-
         $set['rating'] = $rating;
 
 
