@@ -20,13 +20,14 @@
      */
     $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum'] =
         '{title_legend},name,headline,type;' .
-        '{c4g_forum_comf_general_legend},c4g_forum_size,c4g_forum_scroll,c4g_forum_startforum,c4g_forum_comf_navigation,c4g_forum_threadclick,c4g_forum_show_realname,c4g_forum_postsort,c4g_forum_collapsible_posts,c4g_forum_breadcrumb,c4g_forum_hide_intropages,c4g_forum_jumpTo,c4g_forum_language,c4g_forum_tooltip,c4g_forum_show_last_post_on_new;' .
+        '{c4g_forum_comf_general_legend},c4g_forum_size,c4g_forum_scroll,c4g_forum_startforum,c4g_forum_comf_navigation,c4g_forum_threadclick,c4g_forum_show_realname,c4g_forum_postsort,c4g_forum_collapsible_posts,c4g_forum_breadcrumb,c4g_forum_hide_intropages,c4g_forum_jumpTo,c4g_forum_language,c4g_forum_tooltip,c4g_forum_show_last_post_on_new,c4g_forum_rating_enabled;' .
         '{c4g_forum_comf_bbcodes_legend:hide},c4g_forum_bbcodes;' .
         '{c4g_forum_comf_boxes_legend:hide},c4g_forum_boxes_text,c4g_forum_boxes_subtext,c4g_forum_boxes_lastpost,c4g_forum_boxes_center;' .
         '{c4g_forum_comf_jqui_legend:hide},c4g_forum_jqui;' .
         '{c4g_forum_comf_lib_legend:hide},c4g_forum_jquery_lib,c4g_forum_jqtable_lib,c4g_forum_jqhistory_lib,c4g_forum_jqtooltip_lib,c4g_forum_jqscrollpane_lib;' .
         '{c4g_forum_comf_sitemap_legend:hide},c4g_forum_sitemap;' .
         '{c4g_forum_tags_legend},c4g_forum_use_tags_in_search;' .
+        '{c4g_forum_pagination_legend},c4g_forum_pagination_active,c4g_forum_pagination_perpage,c4g_forum_pagination_format;' .
         '{protected_legend:hide},protected;' .
         '{expert_legend:hide},guests,cssID,space';
 
@@ -83,6 +84,32 @@
         'exclude'   => true,
         'default'   => true,
         'inputType' => 'checkbox'
+    );
+
+
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_pagination_active'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_active'],
+        'exclude'   => true,
+        'default'   => true,
+        'inputType' => 'checkbox'
+    );
+
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_pagination_perpage'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_perpage'],
+        'exclude'   => true,
+        'default'   => true,
+        'inputType' => 'text',
+        'eval' => array('maxlength' => 3)
+    );
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_pagination_format'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_format'],
+        'exclude'   => true,
+        'default'   => true,
+        'inputType' => 'text',
+        'eval' => array('maxlength' => 255)
     );
 
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_comf_navigation'] = array
@@ -149,6 +176,13 @@
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_hide_intropages'] = array
     (
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_hide_intropages'],
+        'exclude'   => true,
+        'default'   => '',
+        'inputType' => 'checkbox',
+    );
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_rating_enabled'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_rating_enabled'],
         'exclude'   => true,
         'default'   => '',
         'inputType' => 'checkbox',
@@ -245,7 +279,7 @@
     (
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems'],
         'exclude'   => true,
-        'default'   => 'Cut,Copy,Paste,PasteText,PasteFromWord,-,Undo,Redo,TextColor,Bold,Italic,Underline,Strike,Subscript,Superscript,-,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,-,RemoveFormat,NumberedList,BulletedList,Link,Unlink,Anchor,Image,FileUpload,Table,Smiley',
+        'default'   => 'Cut,Copy,Paste,PasteText,PasteFromWord,-,Undo,Redo,TextColor,Bold,Italic,Underline,Strike,Subscript,Superscript,-,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,-,RemoveFormat,NumberedList,BulletedList,Link,Unlink,Anchor,Image,Youtube,FileUpload,Table,Smiley',
         'inputType' => 'text',
         'eval'      => array('class' => '', 'style' => 'width:662px')
     );

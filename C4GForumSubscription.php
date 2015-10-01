@@ -99,15 +99,18 @@ class C4GForumSubscription
 
 
 	/**
-	 *
 	 * Give back subscribers of a given forum id from DB as array.
-	 * @param int $threadId
-	 * @param int $thread_only
-	 */
+     *
+     * @param $forumId
+     * @param $all
+     *
+     * @return mixed
+     */
 	public function getForumSubscribersFromDB($forumId, $all)
 	{
+
 		if ($all){
-			return $this->Database->prepare(
+            $aReturn = $this->Database->prepare(
 					"SELECT a.member AS memberId, b.email AS email, b.username as username, 1 AS type ".
 					"FROM tl_c4g_forum_subforum_subscription a ".
 					"LEFT JOIN tl_member b ON b.id = a.member ".
@@ -115,29 +118,49 @@ class C4GForumSubscription
 					->execute($forumId)->fetchAllAssoc();
 		}
 		else {
-			return $this->Database->prepare(
+            $aReturn =  $this->Database->prepare(
 					"SELECT a.member AS memberId, b.email AS email, b.username as username, 1 as type ".
 					"FROM tl_c4g_forum_subforum_subscription a ".
 					"LEFT JOIN tl_member b ON b.id = a.member ".
 					"WHERE a.pid = ? AND a.thread_only = 0")
 					->execute($forumId)->fetchAllAssoc();
 		}
+
+
+        foreach($aReturn as $key => $aItem){
+            if(empty($aReturn[$key]['username'])){
+                $aReturn[$key]['username'] = $GLOBALS['TL_LANG']['C4G_FORUM']['DELETED_USER'];
+            }
+        }
+
+        return $aReturn;
 	}
 
 	/**
-	 *
 	 * Give back all subscribers of a given thread id from DB as array.
-	 * @param int $threadId
-	 */
+     *
+     * @param $threadId
+     *
+     * @return mixed
+     */
 	public function getThreadSubscribersFromDB($threadId)
 	{
 
-		return $this->Database->prepare(
+		$aReturn = $this->Database->prepare(
 				"SELECT a.member AS memberId, b.email AS email, b.username as username, 0 as type ".
 				"FROM tl_c4g_forum_thread_subscription a ".
 				"LEFT JOIN tl_member b ON b.id = a.member ".
 				"WHERE a.pid = ?")
 				->execute($threadId)->fetchAllAssoc();
+
+        foreach($aReturn as $key => $aItem){
+            if(empty($aReturn[$key]['username'])){
+                $aReturn[$key]['username'] = $GLOBALS['TL_LANG']['C4G_FORUM']['DELETED_USER'];
+            }
+        }
+
+        return $aReturn;
+
 	}
 
 	/**
@@ -267,6 +290,8 @@ class C4GForumSubscription
 					$sPerm = 'subscribethread';
 				}
 
+
+
         $sActionType = "POST";
 
         $aMailData = array(
@@ -325,7 +350,9 @@ class C4GForumSubscription
 							break;
 					}
 
-          $aMailData['ACTION_PRE'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_'.$sActionType.'_PRE'];
+          			$aMailData['ACTION_PRE'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_'.$sActionType.'_PRE'];
+
+					System::log('[C4G] '.$aMailData['ACTION_NAME']." in \"".$thread['forumname']."\": ".$thread['threadname'], __METHOD__, TL_GENERAL);
 
 					$data = array();
 					$data['command'] = 'sendmail';

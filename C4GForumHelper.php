@@ -332,6 +332,7 @@ class C4GForumHelper extends System
 	 */
 	public function getForumsFromDB($id, $children = false, $flat = false, $idField = 'pid')
 	{
+
 		switch( $this->show_realname ){
 			case 'FF':
 				$sqlLastUser = 'm.firstname';
@@ -364,12 +365,14 @@ class C4GForumHelper extends System
 			"GROUP BY a.id ".
 		    "ORDER BY a.sorting"
 	 						)->execute(1, $id, 1);
+
 		$return = array();
 	 	$forumArr = $forums->fetchAllAssoc();
 	 	$flatArray = array();
  		foreach ($forumArr as $key=>&$value) {
  			if ($this->checkPermissionWithData('visible', $value['member_groups'], $value['admin_groups'],
  			  											  $value['guest_rights'], $value['member_rights'], $value['admin_rights'])) {
+
 	 			if ($children) {
 
 	 				if ($value['subforums']>0) {
@@ -531,7 +534,16 @@ class C4GForumHelper extends System
 				"LEFT JOIN tl_member d ON d.id = c.author ".
 				"WHERE a.pid = ? ")
 	 			->execute($forumId);
-		return $threads->fetchAllAssoc();
+
+
+        $aThreads = $threads->fetchAllAssoc();
+        foreach($aThreads as $key => $aThread){
+            if(empty($aThreads[$key]['username'])){
+                $aThreads[$key]['username'] = $GLOBALS['TL_LANG']['C4G_FORUM']['DELETED_USER'];
+            }
+        }
+
+		return $aThreads;
 	}
 
 	/**
@@ -585,28 +597,16 @@ class C4GForumHelper extends System
 				->limit(100)
 				->execute();
 
-		return $threads->fetchAllAssoc();
+        $aThreads = $threads->fetchAllAssoc();
+        foreach($aThreads as $key => $aThread){
+            if(empty($aThreads[$key]['username'])){
+                $aThreads[$key]['username'] = $GLOBALS['TL_LANG']['C4G_FORUM']['DELETED_USER'];
+            }
+        }
+
+        return $aThreads;
 	}
 
-
-
-	/**
-	 * //@TODO DELETE?!
-	 * @param int $forumId
-	 */
-// 	public function searchThreadsFromDB($forumId, $search)
-// 	{
-// 		$threads = $this->Database->prepare(
-// 				"SELECT a.id,a.name,a.threaddesc,b.username,a.creation,a.sort,a.posts,".
-// 				"c.creation AS lastPost, d.username AS lastUsername ".
-// 				"FROM tl_c4g_forum_thread a ".
-// 				"LEFT JOIN tl_member b ON b.id = a.author ".
-// 				"LEFT JOIN tl_c4g_forum_post c ON c.id = a.last_post_id ".
-// 				"LEFT JOIN tl_member d ON d.id = c.author ".
-// 				"WHERE a.pid = ? AND a.name LIKE ? ")
-// 				->execute($forumId, '%'.$search.'%');
-// 		return $threads->fetchAllAssoc();
-// 	}
 
 	/**
 	 * does just what you think it would do
@@ -809,7 +809,7 @@ class C4GForumHelper extends System
 
 		//compress data
         if($type == "tag" || $type == "threadtag"){
-            $dataSet = C4GUtils::compressDataSetForSearch($dataSet,false,true,true);
+            $dataSet = C4GUtils::compressDataSetForSearch($dataSet,false,true,true,true);
             $dataSet = explode(',',$dataSet);
             $dataSet = array_map("trim",$dataSet);
         }else{
@@ -949,7 +949,7 @@ class C4GForumHelper extends System
 		$search = C4GUtils::compressDataSetForSearch($searchParam['search']);
 		if($search == ''){
 			// no search terms left? try to prepare without stripping stopwords...
-			$search = C4GUtils::compressDataSetForSearch($searchParam['search'], false);
+			$search = C4GUtils::compressDataSetForSearch($searchParam['search'], false,true,true,true);
 		}
 
 
@@ -1227,6 +1227,11 @@ class C4GForumHelper extends System
 			  $results = $results->fetchAllAssoc();
 
         foreach($results as $key => &$result){
+
+            if(empty($results[$key]['username'])){
+                $results[$key]['username'] = $GLOBALS['TL_LANG']['C4G_FORUM']['DELETED_USER'];
+            }
+
             if($bFilterByTags){
                 $resultTags = explode(",",$result['tags']);
                 $resultTags = array_map('trim',$resultTags);
@@ -1246,6 +1251,7 @@ class C4GForumHelper extends System
                 unset($results[$key]);
             }
 		}
+
 
 		//return the results
 		return $results;
@@ -1298,7 +1304,13 @@ class C4GForumHelper extends System
 
 		$thread = $this->Database->prepare($select)
 	 			->execute($threadId);
-		return $thread->fetchAssoc();
+
+        $aThread = $thread->fetchAssoc();
+        if(empty($aThread['username'])){
+            $aThread['username'] = $GLOBALS['TL_LANG']['C4G_FORUM']['DELETED_USER'];
+        }
+
+		return $aThread;
 	}
 
 	/**
@@ -1339,7 +1351,14 @@ class C4GForumHelper extends System
 				"LEFT JOIN tl_member d ON d.id = c.author ".
 				"WHERE a.id = ? "
 				)->execute($threadId);
-		return $thread->fetchAssoc();
+
+
+        $aThread = $thread->fetchAssoc();
+        if(empty($aThread['username'])){
+            $aThread['username'] = $GLOBALS['TL_LANG']['C4G_FORUM']['DELETED_USER'];
+        }
+
+		return $aThread;
 	}
 
 	/**
@@ -1373,7 +1392,7 @@ class C4GForumHelper extends System
 				$sqlEditUser = 'e.username';
 				break;
 		}
-		$select = "SELECT a.id,a.pid AS threadid," . $sqlAuthor . ",a.author AS authorid,a.creation,a.subject,a.text,c.name AS threadname, c.author AS threadauthor, d.name AS forumname,d.id AS forumid, ".
+		$select = "SELECT a.id,a.pid AS threadid," . $sqlAuthor . ",a.author AS authorid,a.creation,a.subject,a.text,c.name AS threadname, c.author AS threadauthor, d.name AS forumname,d.id AS forumid, a.rating, ".
 		                 "a.post_number, c.posts, a.edit_count, " . $sqlEditUser . " AS edit_username, a.edit_last_time, a.linkname, a.linkurl, d.link_newwindow,".
 		                 "a.loc_geox, a.loc_geoy, a.loc_data_type, a.loc_data_content, a.locstyle, a.loc_label, a.loc_tooltip, a.loc_osm_id, a.tags, ".
 		                 "d.map_label, d.map_tooltip, d.map_popup, d.map_link ".
@@ -1393,7 +1412,15 @@ class C4GForumHelper extends System
 			    $select . " WHERE a.id = ? ")
 	 			->execute($postId);
 		}
-		return $posts->fetchAllAssoc();
+        $aPosts = $posts->fetchAllAssoc();
+
+        foreach($aPosts as $key => $aPost) {
+            if (empty($aPosts[$key]['username'])) {
+                $aPosts[$key]['username'] = $GLOBALS['TL_LANG']['C4G_FORUM']['DELETED_USER'];
+            }
+        }
+
+		return $aPosts;
 	}
 
 	/**
@@ -1641,7 +1668,7 @@ class C4GForumHelper extends System
          *
          * @return bool
          */
-        protected function insertPostIntoDBInternal($threadId, $userId, $subject, $post, $tags, $forumId, $post_number, $linkname, $linkurl, $loc_geox, $loc_geoy, $locstyle, $loc_label, $loc_tooltip, $loc_data_content, $loc_osm_id)
+        protected function insertPostIntoDBInternal($threadId, $userId, $subject, $post, $tags, $rating = 0, $forumId, $post_number, $linkname, $linkurl, $loc_geox, $loc_geoy, $locstyle, $loc_label, $loc_tooltip, $loc_data_content, $loc_osm_id)
 	{
 		$set = array();
 		$set['pid'] = $threadId;
@@ -1684,6 +1711,13 @@ class C4GForumHelper extends System
             $set['tags'] = implode(", ",$tags);
         }
 
+		if(empty($rating)){
+			$rating = 0;
+		}
+        $set['rating'] = $rating;
+
+
+
 		$objInsertStmt = $this->Database->prepare("INSERT INTO tl_c4g_forum_post %s")
 										->set($set)
 										->execute();
@@ -1715,7 +1749,7 @@ class C4GForumHelper extends System
 	 * @param string $label
 	 * @param string $tooltip
 	 */
-	public function updatePostDB($post, $userId, $subject,$tags, $postText, $linkname, $linkurl, $loc_geox, $loc_geoy, $locstyle, $loc_label, $loc_tooltip, $loc_data_content, $loc_osm_id)
+	public function updatePostDB($post, $userId, $subject,$tags,$rating = 0, $postText, $linkname, $linkurl, $loc_geox, $loc_geoy, $locstyle, $loc_label, $loc_tooltip, $loc_data_content, $loc_osm_id)
 	{
 		$set = array();
 		$set['text'] = nl2br(C4GUtils::secure_ugc($postText));
@@ -1765,6 +1799,11 @@ class C4GForumHelper extends System
         if(!empty($tags)) {
             $set['tags'] = implode(", ",$tags);
         }
+
+		if(empty($rating)){
+			$rating = 0;
+		}
+        $set['rating'] = $rating;
 
 		$objUpdateStmt = $this->Database->prepare("UPDATE tl_c4g_forum_post %s WHERE id=?")
 										->set($set)
@@ -1926,7 +1965,7 @@ class C4GForumHelper extends System
 	 * @param string $loc_tooltip
 	 * @throws Exception
 	 */
-	public function insertPostIntoDB($threadId, $userId, $subject, $post, $tags, $linkname, $linkurl, $loc_geox, $loc_geoy, $locstyle, $loc_label, $loc_tooltip, $loc_data_content, $loc_osm_id)
+	public function insertPostIntoDB($threadId, $userId, $subject, $post, $tags, $rating = 0, $linkname, $linkurl, $loc_geox, $loc_geoy, $locstyle, $loc_label, $loc_tooltip, $loc_data_content, $loc_osm_id)
 	{
 		$this->Database->beginTransaction();
 		try {
@@ -1934,7 +1973,7 @@ class C4GForumHelper extends System
 		   		"SELECT a.pid AS forum_id, a.posts AS threadposts, b.posts AS forumposts, b.threads AS forumthreads ".
 		   		"FROM tl_c4g_forum_thread a, tl_c4g_forum b WHERE ".
 		   		"a.id=? AND b.id = a.pid")->execute($threadId);
-			$result = $this->insertPostIntoDBInternal($threadId, $userId, $subject, $post, $tags, $thread->forum_id, $thread->threadposts + 1,
+			$result = $this->insertPostIntoDBInternal($threadId, $userId, $subject, $post, $tags, $rating, $thread->forum_id, $thread->threadposts + 1,
 													  $linkname, $linkurl, $loc_geox, $loc_geoy, $locstyle, $loc_label, $loc_tooltip, $loc_data_content, $loc_osm_id);
 			if (!$result)
 			{
@@ -1999,7 +2038,7 @@ class C4GForumHelper extends System
          * @return bool
          * @throws \Exception
          */
-        public function insertThreadIntoDB($forumId, $threadname, $userId, $threaddesc, $sort, $post, $tags, $linkname, $linkurl, $geox, $geoy, $locstyle, $label, $tooltip, $geodata, $loc_osm_id )
+        public function insertThreadIntoDB($forumId, $threadname, $userId, $threaddesc, $sort, $post, $tags,$rating = 0, $linkname, $linkurl, $geox, $geoy, $locstyle, $label, $tooltip, $geodata, $loc_osm_id )
 	{
 		$this->Database->beginTransaction();
 		try {
@@ -2032,7 +2071,7 @@ class C4GForumHelper extends System
 			$savePost = ($post || $linkname || $linkurl);
 
 			if ($savePost) {
-				$result = $this->insertPostIntoDBInternal($objInsertStmt->insertId, $userId, $threadname, $post,$tags, $forumId, 1, $linkname, $linkurl, $geox, $geoy, $locstyle, $label, $tooltip, $geodata, $loc_osm_id);
+				$result = $this->insertPostIntoDBInternal($objInsertStmt->insertId, $userId, $threadname, $post,$tags, $rating, $forumId, 1, $linkname, $linkurl, $geox, $geoy, $locstyle, $label, $tooltip, $geodata, $loc_osm_id);
 				if (!$result)
 				{
 					$this->Database->rollbackTransaction();
@@ -2797,6 +2836,7 @@ class C4GForumHelper extends System
 			$eMail->subject = $data['subject'];
 			$eMail->text = $data['text'];
 			$eMail->sendTo($data['to']);
+
 			unset($eMail);
 		} catch ( Swift_RfcComplianceException $e ) {
 			return false;

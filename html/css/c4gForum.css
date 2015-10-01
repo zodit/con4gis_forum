@@ -1,3 +1,5 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
 .mod_c4g_forum, .c4gGuiDialogWrapper {
 	padding: 2px;
 }
@@ -52,7 +54,7 @@
 	left: 50%;
 	width: 100%;
 	text-align: center;
-	font-size: 80%;	
+	font-size: 80%;
 	z-index: 2;
 }
 
@@ -62,7 +64,7 @@
 	height: 100%;
 	z-index: 1;
 	opacity: 0.5;
-	
+
 }
 
 .c4gForumBoxLastPost {
@@ -95,12 +97,12 @@
 	text-shadow: 1px 1px 1px #000;
 }
 
-.c4gForumPost .ui-button .ui-button-text, .c4gForumThread .ui-button .ui-button-text, 
+.c4gForumPost .ui-button .ui-button-text, .c4gForumThread .ui-button .ui-button-text,
 .c4gForumEditPost .ui-button .ui-button-text, .c4gForumEditThread .ui-button .ui-button-text  {
 	line-height: 1.0;
 }
 
-.c4gForumNewPostSubject input, .c4gForumNewThreadName input, 
+.c4gForumNewPostSubject input, .c4gForumNewThreadName input,
 .c4gForumEditPostSubject input, .c4gForumEditThreadName input  {
 	width: 100%;
 }
@@ -143,20 +145,20 @@
 
 .c4gGuiDialogContentNoJqui, .c4gGuiDialogButtonsNoJqui {
 	padding-left: 10px;
-	padding-right: 10px;	
+	padding-right: 10px;
 }
 
 .c4gGuiDialogContent {
 	margin-top: 10px;
 	margin-bottom: 10px;
-	
+
 }
 .c4gForumPostMap {
 	height: 300px;
 	width: 300px;
 }
 
-.olPopup, .olPopup a { 
+.olPopup, .olPopup a {
 	color: #000000;
 }
 
@@ -169,3 +171,130 @@
 	width: 150px;
 }
 
+.c4g_pagination{
+    margin: 5px 0;
+}
+
+.c4g_pagination a{
+    min-width: 16px;
+    height: 16px;
+    padding: 5px;
+    text-decoration: none;
+    margin-right: 2px;
+}
+#pagination a,
+#pagination span,
+#pagination em{
+    margin-right:5px;
+}
+/**
+* RATING
+*/
+
+
+fieldset, label {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 20px;
+}
+
+h1 {
+    font-size: 1.5em;
+    margin: 10px;
+}
+
+/****** Style Star Rating Widget *****/
+
+
+
+.reset_rating{
+    display:inline-block;
+    padding-top: 13px;
+    padding-left: 10px;
+}
+
+
+.rating ,
+.rating_static {
+    border: none;
+    float: left;
+    padding:0 !important;
+}
+.rating_wrapper .score{
+    padding-top:8px;
+    padding-left:6px;
+    display:inline-block;
+    color:#aaa;
+    font-size: 10px;
+}
+
+.rating > input {
+    display: none;
+}
+
+.rating > label:before ,
+.rating_static > label:before {
+    margin: 4px;
+    font-size: 2.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+}
+
+.rating_static > label:before {
+    font-size: 1.25em;
+}
+
+.rating > .half:before ,
+.rating_static > .half:before {
+    content: "\f089";
+    position: absolute;
+}
+
+.rating > label ,
+.rating_static > label {
+    color: #ddd;
+    float: right;
+    width:auto !important;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label {
+    color: #2c3e50;
+}
+
+
+
+.rating_static > span.checked ~ label, /* show gold star when clicked */
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label {
+    color: #2c3e50;
+}
+
+
+.rating_static > span.checked ~ label{
+    color: #6d98c5;
+}
+
+
+
+/* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label {
+    color: #6d98c5;
+}
+
+
+.rating_wrapper{
+    overflow: hidden;
+}

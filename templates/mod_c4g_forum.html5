@@ -1,11 +1,12 @@
 <?php
 
-echo '<div class="'.$this->class.' block"'.$this->cssID; 
-if ($this->style): 
+echo '<div class="'.$this->class.' block"'.$this->cssID;
+if ($this->style):
   echo 'style="'.$this->style.'"';
-endif; 
+endif;
 echo '>';
 ?>
+
 
 <script>
 
@@ -35,12 +36,13 @@ if (typeof(jQuery)=='undefined') {
 			echo "navPanel: true";
 		}
 		else {
-			echo "navPanel: false";			
+			echo "navPanel: false";
 		}
 		echo "});";
 		?>
+
 	});
-}	
+}
 })();
 </script>
 <div id="<?php echo $this->c4gdata['div']; ?>"></div>

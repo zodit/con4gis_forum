@@ -172,6 +172,9 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['fail']				= array("ERROR: ",
 																"Timeout while creating the Index!");
 
 
+
+
+
 $GLOBALS['TL_LANG']['tl_c4g_forum']['default_subscription_text'] = <<<TEXT
 Hello ##USERNAME##,
 

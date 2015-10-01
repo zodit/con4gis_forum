@@ -90,7 +90,7 @@ class C4GUtils {
      *
      * @return mixed|string
      */
-	public static function compressDataSetForSearch($rawDataSet, $stripStopwords = true,$bPreserveComma = false, $bPreserveNumbers = false)
+	public static function compressDataSetForSearch($rawDataSet, $stripStopwords = true,$bPreserveComma = false, $bPreserveNumbers = false, $bPreserveHyphen = false)
 	{
             $dSearch = array(
                 '#ß#',
@@ -102,8 +102,8 @@ class C4GUtils {
                 '#Ú|ú|Ù|ù|Û|û#',
                 '#É|é|È|è|Ê|ê#',
                 '#Í|í|Ì|ì|Î|î#',
-                ($bPreserveComma === false)?'#([/.,+-]*\s)#':'#([/.+-]*\s)#',
-                ($bPreserveNumbers === false)?($bPreserveComma === false)?'#([^A-Za-z])#':'#([^A-Za-z,])#':($bPreserveComma === false)?'#([^A-Za-z0-9])#':'#([^A-Za-z0-9,])#',
+                ($bPreserveComma === false)?'#([/.,+'.(($bPreserveHyphen === false)?'-':'').']*\s)#':'#([/.+'.(($bPreserveHyphen === false)?'-':'').']*\s)#',
+                ($bPreserveNumbers === false)?($bPreserveComma === false)?'#([^A-Za-z'.(($bPreserveHyphen === false)?'':'-').'])#':'#([^A-Za-z,'.(($bPreserveHyphen === false)?'':'-').'])#':($bPreserveComma === false)?'#([^A-Za-z0-9'.(($bPreserveHyphen === false)?'':'-').'])#':'#([^A-Za-z0-9,'.(($bPreserveHyphen === false)?'':'-').'])#',
                 '# +#'
             );
 		$dReplace = array(
