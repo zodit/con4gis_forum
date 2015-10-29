@@ -298,3 +298,11 @@ h1 {
 .rating_wrapper{
     overflow: hidden;
 }
+
+
+
+/* jScrollPane */
+/* prevent horizontal scroll bar for dialogs in jScrollPane */
+.jspPane * {
+    box-sizing: border-box;
+}
