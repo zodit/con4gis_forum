@@ -21,6 +21,7 @@
 }
 
 .c4gForumBox {
+    box-sizing: border-box;
 	margin-right: 10px;
 	margin-bottom: 10px;
 	width: 170px;
