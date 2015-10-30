@@ -136,12 +136,16 @@
                 if (version_compare(VERSION, '3.2', '>=')) {
                     // Contao 3.2.x Format
                     $objFile                            = FilesModel::findByUuid($this->c4g_forum_uitheme_css_src);
-                    $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
+                    if (!empty($objFile)) {
+                        $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
+                    }
                 } else {
                     if (is_numeric($this->c4g_forum_uitheme_css_src)) {
                         // Contao 3.x Format
                         $objFile                            = FilesModel::findByPk($this->c4g_forum_uitheme_css_src);
-                        $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
+                        if (!empty($objFile)) {
+                            $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
+                        }
                     } else {
                         // Contao 2 Format
                         $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $this->c4g_forum_uitheme_css_src;
