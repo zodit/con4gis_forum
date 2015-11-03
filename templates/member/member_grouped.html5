@@ -25,10 +25,10 @@
         <?php endif; ?>
 
         <?php if ($this->forum): ?>
-            <fielset>
+            <fieldset>
                 <legend>Forum</legend>
                 <?php echo implode('', $this->forum); ?>
-            </fielset>
+            </fieldset>
         <?php endif; ?>
 
         <?php if ($this->address): ?>

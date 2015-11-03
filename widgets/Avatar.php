@@ -72,6 +72,11 @@ class Avatar extends \Widget implements \uploadable
 	{
 		$strUploadTo = 'system/tmp';
 
+		// No file specified
+		if (!isset($_FILES[$this->strName]['name'][0])) {
+			return;
+		}
+
 		// Specify the target folder in the DCA (eval)
 		if (isset($this->arrConfiguration['uploadFolder']))
 		{
