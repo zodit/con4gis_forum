@@ -29,6 +29,7 @@ ClassLoader::addClasses(array
 	// Models
     'C4gForumPost'                => 'system/modules/con4gis_forum/models/C4gForumPost.php',
     'C4gForumMember'              => 'system/modules/con4gis_forum/models/C4gForumMember.php',
+    'C4gForumSession'             => 'system/modules/con4gis_forum/models/C4gForumSession.php',
 
 	// Modules
 	'C4gForumAjaxApi'             => 'system/modules/con4gis_forum/modules/api/C4gForumAjaxApi.php',

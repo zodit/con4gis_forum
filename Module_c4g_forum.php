@@ -1162,6 +1162,10 @@
                 $oUserDataTemplate->aMemberLinks = array_filter($aMemberLinks);
             }
 
+            // Online status.
+            $bIsOnline = C4gForumSession::getOnlineStatusByMemberId($iAuthorId, $this->c4g_forum_member_online_time);
+            $oUserDataTemplate->bIsOnline = $bIsOnline;
+
             // Store generated template in a variable for later usage.
             $sUserData = $oUserDataTemplate->parse();
 

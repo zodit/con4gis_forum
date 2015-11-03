@@ -166,6 +166,19 @@
 	max-width: 100%;
 }
 
+.c4g_forum_post_user_data .online_status {
+	border-radius: 50%;
+	display: inline-block;
+	height: 8px;
+	margin-left: 5px;
+	padding: 0;
+	width: 8px;
+}
+
+.c4g_forum_post_user_data .online_status.online {
+	background: limegreen;
+}
+
 /* User links */
 .user_social_links {
 	list-style-type: none;

@@ -20,7 +20,7 @@
      */
     $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum'] =
         '{title_legend},name,headline,type;' .
-        '{c4g_forum_comf_general_legend},c4g_forum_size,c4g_forum_scroll,c4g_forum_startforum,c4g_forum_comf_navigation,c4g_forum_threadclick,c4g_forum_show_realname,c4g_forum_postsort,c4g_forum_collapsible_posts,c4g_forum_breadcrumb,c4g_forum_hide_intropages,c4g_forum_jumpTo,c4g_forum_language,c4g_forum_tooltip,c4g_forum_show_last_post_on_new,c4g_forum_rating_enabled,c4g_forum_avatar_size;' .
+        '{c4g_forum_comf_general_legend},c4g_forum_size,c4g_forum_scroll,c4g_forum_startforum,c4g_forum_comf_navigation,c4g_forum_threadclick,c4g_forum_show_realname,c4g_forum_postsort,c4g_forum_collapsible_posts,c4g_forum_breadcrumb,c4g_forum_hide_intropages,c4g_forum_jumpTo,c4g_forum_language,c4g_forum_tooltip,c4g_forum_show_last_post_on_new,c4g_forum_rating_enabled,c4g_forum_avatar_size,c4g_forum_member_online_time;' .
         '{c4g_forum_comf_bbcodes_legend:hide},c4g_forum_bbcodes;' .
         '{c4g_forum_comf_boxes_legend:hide},c4g_forum_boxes_text,c4g_forum_boxes_subtext,c4g_forum_boxes_lastpost,c4g_forum_boxes_center;' .
         '{c4g_forum_comf_jqui_legend:hide},c4g_forum_jqui;' .
@@ -196,6 +196,16 @@
         'eval'      => array('rgxp' => 'digit')
     );
 
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_member_online_time'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_member_online_time'],
+        'exclude'   => true,
+        'default'   => '500',
+        'inputType' => 'text',
+        'eval'      => array('rgxp' => 'digit', 'maxlength' => 5)
+    );
+
+
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_show_last_post_on_new'] = array
     (
     	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_last_post_on_new'],
@@ -219,7 +229,7 @@
         'exclude'   => true,
         'default'   => '',
         'inputType' => 'text',
-        'eval'      => array('maxlength' => 5, "style" => 'width: 100px')
+        'eval'      => array('maxlength' => 10, "style" => 'width: 100px')
     );
 
 
