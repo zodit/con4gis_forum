@@ -207,9 +207,12 @@
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_last_post_on_new'] = array("Beim Neuanlegen letzten Post anzeigen", "");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_rating_enabled'] = array("Bewertungen aktivieren", "Zeigt ein fünf Sterne Bewertungssystem beim schreiben von Beiträgen an.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_post_count'] = array("Beitragszahl anzeigen", "Zeige die Anzahl der Beiträge unter dem Autorennamen an.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_avatars'] = array("Avatare anzeigen", "Aktiviere die Mitglieder-Avatare.");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_avatar_size'] = array("Avatar-Größe (Breite, Höhe)", "Die Breite und Höhe der User-Avatare.");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_online_status'] = array("Online-Status anzeigen", "Zeige den Online-Status des Mitgliedes neben seinem Namen an.");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_member_online_time'] = array("Online-Zeit (in Sekunden)", "Die Zeit, die ein Mitglied ohne Aktionen im Frontend als angemeldet dargestellt werden soll.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_ranks'] = array("Mitglieder-Ränge anzeigen", "Zeige für die Mitglieder deren Rang an.");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_member_ranks']  = array("Mitglieder-Ränge", "Tragen Sie die Mitgliederränge in Abhängigkeit der Zahl an Mindestposts ein.");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_rank_min']      = array("Mindest-Posts", "Mindestanzahl an Posts für diesen Rang.");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_rank_name']     = array("Rang-Name", "Die Bezeichnung des Rangs.");

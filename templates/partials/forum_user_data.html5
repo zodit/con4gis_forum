@@ -6,7 +6,9 @@
         <img class="user_image" src="<?php echo $this->sAvatarImage; ?>" alt="<?php echo $this->sUserName; ?>">
     <?php endif; ?>
     <p class="user_data_statistics">
-        <?php echo $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']; ?>: <?php echo $this->iUserPostsCount; ?>
+        <?php if ($this->iUserPostCount): ?>
+            <?php echo $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']; ?>: <?php echo $this->iUserPostCount; ?>
+        <?php endif; ?>
     </p>
 
     <?php if (!empty($this->aMemberLinks)): ?>

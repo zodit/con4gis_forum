@@ -1141,16 +1141,20 @@
             // Get member object from post author.
             $iAuthorId = $post['authorid'];
             $oMember = \Contao\MemberModel::findOneBy('id', $iAuthorId);
-            $iUserPostCount = C4gForumPost::getMemberPostsCountById($iAuthorId);
+            if ($this->c4g_forum_show_post_count) {
+                $iUserPostCount = C4gForumPost::getMemberPostsCountById($iAuthorId);
+            }
 
             // Create a new frontend template for the user's data.
             $oUserDataTemplate = new \Contao\FrontendTemplate('forum_user_data');
 
             // Get different member properties and hand them over to the user data template.
             $oUserDataTemplate->sUserName = $oMember->username;
-            $oUserDataTemplate->iUserPostsCount = $iUserPostCount;
-            $sImage = C4GForumHelper::getAvatarByMemberId($iAuthorId, deserialize($this->c4g_forum_avatar_size));
-            $oUserDataTemplate->sAvatarImage = $sImage;
+            $oUserDataTemplate->iUserPostCount = $iUserPostCount;
+            if ($this->c4g_forum_show_avatars) {
+                $sImage = C4GForumHelper::getAvatarByMemberId($iAuthorId, deserialize($this->c4g_forum_avatar_size));
+                $oUserDataTemplate->sAvatarImage = $sImage;
+            }
 
             // Get all fields from the tl_member DCA that are marked with the memberLink eval key.
             foreach ($GLOBALS['TL_DCA']['tl_member']['fields'] as $sKey => $aField) {
@@ -1172,14 +1176,16 @@
 
 
             // Get member rank by language and member post count.
-            $aUserRanks = deserialize($this->c4g_forum_member_ranks);
-            $sUserRank = '';
-            foreach ($aUserRanks as $aUserRank) {
-                if ($iUserPostCount >= $aUserRank['rank_min'] && $this->c4g_forum_language === $aUserRank['rank_language']) {
-                    $sUserRank = $aUserRank['rank_name'];
+            if ($this->c4g_forum_show_ranks) {
+                $aUserRanks = deserialize($this->c4g_forum_member_ranks);
+                $sUserRank = '';
+                foreach ($aUserRanks as $aUserRank) {
+                    if ($iUserPostCount >= $aUserRank['rank_min'] && $this->c4g_forum_language === $aUserRank['rank_language']) {
+                        $sUserRank = $aUserRank['rank_name'];
+                    }
                 }
+                $oUserDataTemplate->sUserRank = $sUserRank;
             }
-            $oUserDataTemplate->sUserRank = $sUserRank;
 
             // Store generated template in a variable for later usage.
             $sUserData = $oUserDataTemplate->parse();

@@ -180,6 +180,12 @@
 	background: limegreen;
 }
 
+/* User rank */
+.user_rank {
+	display: block;
+	margin-bottom: 3px;
+}
+
 /* User links */
 .user_social_links {
 	list-style-type: none;
