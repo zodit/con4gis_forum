@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Usethe "memberLink" key in the eval array to indicate this field as a member link field, e. g. homepage, facebook, twitter.
+ * This key is used in the member data generation for the forum to get all member links as output them.
+ */
+
 $GLOBALS['TL_DCA']['tl_member']['palettes']['default'] = str_replace(
     '{groups_legend}',
     '{forum_member_legend},memberImage,memberSignature,memberPosts,memberHomepageLink,memberFacebookLink,memberTwitterLink,memberGooglePlusLink;{groups_legend}',
@@ -32,7 +37,7 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['memberHomepageLink'] = array
     'exclude'                 => true,
     'search'                  => true,
     'inputType'               => 'text',
-    'eval'                    => array('rgxp'=>'url', 'decodeEntities'=>true, 'maxlength'=>255, 'fieldType'=>'radio', 'feEditable' => true, 'feViewable' => true, 'feGroup' => 'forum', 'tl_class'=>'clr w50'),
+    'eval'                    => array('rgxp'=>'url', 'decodeEntities'=>true, 'maxlength'=>255, 'fieldType'=>'radio', 'feEditable' => true, 'feViewable' => true, 'feGroup' => 'forum', 'memberLink' => true, 'tl_class'=>'clr w50'),
     'sql'                     => "varchar(255) NOT NULL default ''"
 );
 
@@ -42,7 +47,7 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['memberFacebookLink'] = array
     'exclude'                 => true,
     'search'                  => true,
     'inputType'               => 'text',
-    'eval'                    => array('rgxp'=>'url', 'decodeEntities'=>true, 'maxlength'=>255, 'fieldType'=>'radio', 'feEditable' => true, 'feViewable' => true, 'feGroup' => 'forum', 'tl_class'=>'w50'),
+    'eval'                    => array('rgxp'=>'url', 'decodeEntities'=>true, 'maxlength'=>255, 'fieldType'=>'radio', 'feEditable' => true, 'feViewable' => true, 'feGroup' => 'forum', 'memberLink' => true, 'tl_class'=>'w50'),
     'sql'                     => "varchar(255) NOT NULL default ''"
 );
 
@@ -52,7 +57,7 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['memberTwitterLink'] = array
     'exclude'                 => true,
     'search'                  => true,
     'inputType'               => 'text',
-    'eval'                    => array('rgxp'=>'url', 'decodeEntities'=>true, 'maxlength'=>255, 'fieldType'=>'radio', 'feEditable' => true, 'feViewable' => true, 'feGroup' => 'forum', 'tl_class'=>'clr w50'),
+    'eval'                    => array('rgxp'=>'url', 'decodeEntities'=>true, 'maxlength'=>255, 'fieldType'=>'radio', 'feEditable' => true, 'feViewable' => true, 'feGroup' => 'forum', 'memberLink' => true, 'tl_class'=>'clr w50'),
     'sql'                     => "varchar(255) NOT NULL default ''"
 );
 
@@ -62,7 +67,7 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['memberGooglePlusLink'] = array
     'exclude'                 => true,
     'search'                  => true,
     'inputType'               => 'text',
-    'eval'                    => array('rgxp'=>'url', 'decodeEntities'=>true, 'maxlength'=>255, 'fieldType'=>'radio', 'feEditable' => true, 'feViewable' => true, 'feGroup' => 'forum', 'tl_class'=>'w50'),
+    'eval'                    => array('rgxp'=>'url', 'decodeEntities'=>true, 'maxlength'=>255, 'fieldType'=>'radio', 'feEditable' => true, 'feViewable' => true, 'feGroup' => 'forum', 'memberLink' => true, 'tl_class'=>'w50'),
     'sql'                     => "varchar(255) NOT NULL default ''"
 );
 

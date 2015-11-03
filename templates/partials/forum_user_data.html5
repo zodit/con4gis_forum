@@ -7,4 +7,12 @@
     <p class="user_data_statistics">
         <?php echo $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']; ?>: <?php echo $this->iUserPostsCount; ?>
     </p>
+
+    <?php if (!empty($this->aMemberLinks)): ?>
+    <ul class="user_social_links">
+        <?php foreach ($this->aMemberLinks as $sLinkType => $sMemberLink): ?>
+            <li class="<?php echo $sLinkType; ?>"><a href="<?php echo $sMemberLink; ?>" target="_blank"><?php echo $GLOBALS['TL_LANG']['C4G_FORUM'][$sLinkType]; ?></a></li>
+        <?php endforeach; ?>
+    </ul>
+    <?php endif; ?>
 </div>

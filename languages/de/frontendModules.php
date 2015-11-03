@@ -73,6 +73,10 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_LINK_NEWWINDOW'] = 'Link: <a href="%s" target="_blank">%s</a>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_EDIT_INFO']             = '<b %s>%s</b> Mal geändert, zuletzt am <b %s>%s</b> von <b %s>%s</b>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']                 = 'Beiträge';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['memberHomepageLink']         = 'Homepage';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['memberFacebookLink']         = 'Facebook';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['memberTwitterLink']          = 'Twitter';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['memberGooglePlusLink']       = 'Google+';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_THREAD_TITLE'] = 'Neues Thema im Bereich "%s"';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_TITLE']   = 'Neuer Beitrag im Thema "%s" (Forenbereich "%s")';

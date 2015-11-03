@@ -1151,6 +1151,17 @@
             $sImage = C4GForumHelper::getAvatarByMemberId($iAuthorId, deserialize($this->c4g_forum_avatar_size));
             $oUserDataTemplate->sAvatarImage = $sImage;
 
+            // Get all fields from the tl_member DCA that are marked with the memberLink eval key.
+            foreach ($GLOBALS['TL_DCA']['tl_member']['fields'] as $sKey => $aField) {
+                if ($aField['eval']['memberLink']) {
+                    $aMemberLinks[$sKey] = $oMember->$sKey;
+                }
+            }
+            // Remove empty values with "array_filter()" from aMemberLinks-array before handing it over to the template.
+            if (is_array($aMemberLinks)) {
+                $oUserDataTemplate->aMemberLinks = array_filter($aMemberLinks);
+            }
+
             // Store generated template in a variable for later usage.
             $sUserData = $oUserDataTemplate->parse();
 
