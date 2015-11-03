@@ -158,7 +158,7 @@
 .c4g_forum_post_user_data .user_name {
 	display: block;
 	font-size: 1.2em;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 
 .c4g_forum_post_user_data .user_image {
@@ -168,6 +168,7 @@
 
 .c4g_forum_post_user_data .online_status {
 	border-radius: 50%;
+	cursor: default;
 	display: inline-block;
 	height: 8px;
 	margin-left: 5px;

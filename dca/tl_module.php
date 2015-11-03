@@ -20,7 +20,7 @@
      */
     $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum'] =
         '{title_legend},name,headline,type;' .
-        '{c4g_forum_comf_general_legend},c4g_forum_size,c4g_forum_scroll,c4g_forum_startforum,c4g_forum_comf_navigation,c4g_forum_threadclick,c4g_forum_show_realname,c4g_forum_postsort,c4g_forum_collapsible_posts,c4g_forum_breadcrumb,c4g_forum_hide_intropages,c4g_forum_jumpTo,c4g_forum_language,c4g_forum_tooltip,c4g_forum_show_last_post_on_new,c4g_forum_rating_enabled,c4g_forum_avatar_size,c4g_forum_member_online_time;' .
+        '{c4g_forum_comf_general_legend},c4g_forum_size,c4g_forum_scroll,c4g_forum_startforum,c4g_forum_comf_navigation,c4g_forum_threadclick,c4g_forum_show_realname,c4g_forum_postsort,c4g_forum_collapsible_posts,c4g_forum_breadcrumb,c4g_forum_hide_intropages,c4g_forum_jumpTo,c4g_forum_language,c4g_forum_tooltip,c4g_forum_show_last_post_on_new,c4g_forum_rating_enabled,c4g_forum_avatar_size,c4g_forum_show_online_status,c4g_forum_member_ranks;' .
         '{c4g_forum_comf_bbcodes_legend:hide},c4g_forum_bbcodes;' .
         '{c4g_forum_comf_boxes_legend:hide},c4g_forum_boxes_text,c4g_forum_boxes_subtext,c4g_forum_boxes_lastpost,c4g_forum_boxes_center;' .
         '{c4g_forum_comf_jqui_legend:hide},c4g_forum_jqui;' .
@@ -40,12 +40,14 @@
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_bbcodes';
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_jqui';
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_sitemap';
+    $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_show_online_status';
     $GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][] = array('tl_module_c4g_forum', 'updateDCA');
 
     $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_tags']    = 'c4g_forum_sitemap_filename,c4g_forum_use_tags_in_search';
     $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_jqui']    = 'c4g_forum_jqui_lib,c4g_forum_uitheme_css_src,c4g_forum_dialogsize,c4g_forum_dialogs_embedded,c4g_forum_embdialogs_jqui,c4g_forum_breadcrumb_jqui_layout,c4g_forum_buttons_jqui_layout,c4g_forum_table_jqui_layout,c4g_forum_posts_jqui,c4g_forum_boxes_jqui_layout,c4g_forum_enable_scrollpane';
     $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_bbcodes'] = 'c4g_forum_editor, c4g_forum_bbcodes_editor_imguploadpath, c4g_forum_bbcodes_editor_fileuploadpath, c4g_forum_bbcodes_editor_toolbaritems, c4g_forum_bbcodes_editor_uploadTypes,c4g_forum_bbcodes_editor_maxFileSize,c4g_forum_bbcodes_editor_imageWidth, c4g_forum_bbcodes_editor_imageHeight'; //, c4g_forum_bbcodes_smileys,c4g_forum_bbcodes_smileys_url,c4g_forum_bbcodes_autourl';
     $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_sitemap'] = 'c4g_forum_sitemap_filename,c4g_forum_sitemap_contents';
+    $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_show_online_status'] = 'c4g_forum_member_online_time';
 
     /***
      * Fields - General
@@ -196,6 +198,15 @@
         'eval'      => array('rgxp' => 'digit')
     );
 
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_show_online_status'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_online_status'],
+        'exclude'   => true,
+        'default'   => true,
+        'inputType' => 'checkbox',
+        'eval'      => array('submitOnChange' => true)
+    );
+
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_member_online_time'] = array
     (
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_member_online_time'],
@@ -203,6 +214,42 @@
         'default'   => '500',
         'inputType' => 'text',
         'eval'      => array('rgxp' => 'digit', 'maxlength' => 5)
+    );
+
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_member_ranks'] = array
+    (
+        'label'			=> &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_member_ranks'],
+        'exclude' 		=> true,
+        'inputType'     => 'multiColumnWizard',
+        'eval' 			=> array
+        (
+            'columnFields' => array
+            (
+                'rank_min' => array
+                (
+                    'label'                 => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_rank_min'],
+                    'exclude'               => true,
+                    'inputType'             => 'text',
+                    'eval' 			        => array('rgxp' => 'digit', 'style' => 'width: 100px')
+                ),
+                'rank_name' => array
+                (
+                    'label'                 => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_rank_name'],
+                    'exclude'               => true,
+                    'inputType'             => 'text',
+                    'eval' 			        => array('style' => 'width: 100px')
+                ),
+                'rank_language' => array
+                (
+                    'label'                 => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_rank_language'],
+                    'exclude'               => true,
+                    'inputType'             => 'select',
+                    'options'               => System::getLanguages(),
+                    'eval'                  => array('chosen' => true, 'style' => 'width: 120px')
+
+                )
+            )
+        )
     );
 
 

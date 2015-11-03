@@ -208,6 +208,13 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_last_post_on_new'] = array("Beim Neuanlegen letzten Post anzeigen", "");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_rating_enabled'] = array("Bewertungen aktivieren", "Zeigt ein fünf Sterne Bewertungssystem beim schreiben von Beiträgen an.");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_avatar_size'] = array("Avatar-Größe (Breite, Höhe)", "Die Breite und Höhe der User-Avatare.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_online_status'] = array("Online-Status anzeigen", "Zeige den Online-Status des Mitgliedes neben seinem Namen an.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_member_online_time'] = array("Online-Zeit (in Sekunden)", "Die Zeit, die ein Mitglied ohne Aktionen im Frontend als angemeldet dargestellt werden soll.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_member_ranks']  = array("Mitglieder-Ränge", "Tragen Sie die Mitgliederränge in Abhängigkeit der Zahl an Mindestposts ein.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_rank_min']      = array("Mindest-Posts", "Mindestanzahl an Posts für diesen Rang.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_rank_name']     = array("Rang-Name", "Die Bezeichnung des Rangs.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_rank_language'] = array("Sprache", "Die Sprache des Rangs.");
+
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_uploadTypes'] = array("Erlaubte Dateitypen", "Kommasepariert, ohne Punkt");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_maxFileSize'] = array("Maximale Dateigröße", "Angabe in Byte: 1 kB = 1024 Byte, 1 MB = 1048576 Byte");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageWidth']  = array("Maximale Bildbreite", "Angabe in Pixel");

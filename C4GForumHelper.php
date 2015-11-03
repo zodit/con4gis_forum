@@ -321,7 +321,6 @@ class C4GForumHelper extends System
 
 
 	/**
-	 * Return the path of an avatar image by the member's id.
 	 *
 	 * @param $iMemberId
 	 * @param array $aSize
