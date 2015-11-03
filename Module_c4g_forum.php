@@ -1128,19 +1128,52 @@
             $text = $post['text'];
             // Handle BBCodes, if activated
             if ($this->c4g_forum_bbcodes) {
-                $divClass .= ' BBCode-Area';
+                $textClass .= ' BBCode-Area';
                 //$text = preg_replace('#<br? ?/>#', '', $text);
                 //$text = $bbcode->Parse($text);
             }else{
                 $text = html_entity_decode($text);
             }
 
+            /**
+             * Member data
+             */
+            // Get member object from post author.
+            $iAuthorId = $post['authorid'];
+            $oMember = \Contao\MemberModel::findOneBy('id', $iAuthorId);
 
+            // Create a new frontend template for the user's data.
+            $oUserDataTemplate = new \Contao\FrontendTemplate('forum_user_data');
 
+            // Get different member properties and hand them over to the user data template.
+            $oUserDataTemplate->sUserName = $oMember->username;
+            $oUserDataTemplate->iUserPostsCount = C4gForumPost::getMemberPostsCountById($iAuthorId);
+            $sImage = C4GForumHelper::getAvatarByMemberId($iAuthorId, deserialize($this->c4g_forum_avatar_size));
+            $oUserDataTemplate->sAvatarImage = $sImage;
+
+            // Store generated template in a variable for later usage.
+            $sUserData = $oUserDataTemplate->parse();
+
+            // Get the members signature and store it inside a variable for later usage.
+            $sSignature = $oMember->memberSignature;
+            $sSignatureArea = '';
+            if (!empty($sSignature)) {
+                $sSignatureArea = '<div class="signature_wrapper"><hr>' . $sSignature . '</div>';
+            }
+            /**
+             * Member data end
+             */
+
+            // Include the former generated member information in the forum's post body.
             $data .=
                 '</div>' .
-                '<div class="c4gForumPostText' . $divClass . $targetClass . '">' .
-                $text .
+                '<div class="c4gForumPostBody' . $divClass . $targetClass . '">' .
+                    $sUserData .
+                    '<div class="c4gForumPostText' . $textClass . '">' .
+                    $text .
+                    '</div>' .
+                    $sSignatureArea .
+                '</div>' .
                 '';
 
             $data .= '</div>';
@@ -1153,6 +1186,9 @@
                             'class="c4g_forum_post_head_edit_author"', $post['edit_username']) .
                     '</div>';
             }
+
+
+
             if (!$this->c4g_forum_posts_jqui) {
                 $data .= '<hr>';
             }

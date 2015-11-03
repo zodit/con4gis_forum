@@ -44,6 +44,16 @@ array_insert( $GLOBALS['BE_MOD']['con4gis'], 5, array
 ));
 
 /**
+ * Add frontend form field for memberImage (Avatar)
+ */
+$GLOBALS['TL_FFL']['avatar'] = 'Avatar';
+
+/**
+ * Add backend form field for memberImage (Avatar)
+ */
+$GLOBALS['BE_FFL']['avatar'] = 'Avatar';
+
+/**
  * Hooks
  */
 $GLOBALS['TL_HOOKS']['removeOldFeeds'][] = array('C4GForumHelper','removeOldFeedsHook');

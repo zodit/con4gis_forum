@@ -320,6 +320,25 @@ class C4GForumHelper extends System
 	}
 
 
+	/**
+	 * Return the path of an avatar image by the member's id.
+	 *
+	 * @param $iMemberId
+	 * @param array $aSize
+	 * @return null|string
+	 */
+	public static function getAvatarByMemberId($iMemberId, $aSize = array(100, 100))
+	{
+		$aSize[0] = ($aSize[0] > 0) ? $aSize[0] : 100;
+		$aSize[1] = ($aSize[1] > 0) ? $aSize[1] : 100;
+
+		$aImage = deserialize(C4gForumMember::getAvatarByMemberId($iMemberId));
+		$sImage = $aImage[0];
+		$sImagePath = \Contao\Image::get($sImage, $aSize[0], $aSize[1], 'center_center');
+
+		return $sImagePath;
+	}
+
 
 	/**
 	 *
