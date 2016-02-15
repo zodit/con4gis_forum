@@ -962,15 +962,13 @@ class C4GForumHelper extends System
 		$inHeadlines = false;
 		$inDescriptions = false;
 
-		$GLOBALS['c4gForumSearchParamCache']['search'] = $searchParam['search'];
+		$GLOBALS['c4gForumSearchParamCache']['search'] = "<div>".$GLOBALS['TL_LANG']['C4G_FORUM']['SEARCH_TERM'].": <b>".$searchParam['search']."</b></div>";
 		//prepare searchstring
 		$search = C4GUtils::compressDataSetForSearch($searchParam['search']);
 		if($search == ''){
 			// no search terms left? try to prepare without stripping stopwords...
 			$search = C4GUtils::compressDataSetForSearch($searchParam['search'], false,true,true,true);
 		}
-
-
 
 		//explode searchstring
 		$searchParam['search'] = explode(' ', $search);
@@ -982,8 +980,10 @@ class C4GForumHelper extends System
         if(isset($searchParam['tags'])){
             if(!empty($searchParam['tags'])){
                 $bFilterByTags = true;
-                if(empty($searchParam['search'])){
+				$GLOBALS['c4gForumSearchParamCache']['search'] .= "<div>". $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'].":<b> ".implode(', ',$searchParam['tags'])."</b></div>";
+                if(empty($searchParam['search']) || $searchParam['onlyTags'] == "true"){
                     $bTagsOnly = true;
+					$GLOBALS['c4gForumSearchParamCache']['search'] = "<div>".$GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'].": <b>".implode(', ',$searchParam['tags'])."</b></div>";
                 }
             }
         }

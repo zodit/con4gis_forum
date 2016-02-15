@@ -385,3 +385,17 @@ h1 {
 .jspPane * {
     box-sizing: border-box;
 }
+
+
+label.search-label{
+	width: inherit;
+}
+
+.search-results{
+	padding:5px;
+}
+
+.search-results div{
+	margin-top:4px;
+	margin-bottom:4px;
+}

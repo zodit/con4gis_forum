@@ -153,6 +153,14 @@
                 }
             }
 
+
+            /**
+             * change rating star color
+             */
+            if(!empty($this->c4g_forum_rating_color)) {
+                $GLOBALS ['TL_HEAD'] [] = '<style>.rating_static > span.checked ~ label{color:#' . $this->c4g_forum_rating_color . ' !important;}</style>';
+            }
+
             $GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/html/css/c4gForum.css';
             //$GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/html/css/bbcodes.css';
             $data['id']      = $this->id;
@@ -659,7 +667,6 @@
                     );    // hidden column for tooltip
 
                     if ($this->c4g_forum_rating_enabled) {
-
 
                         $aRating  = $this->getRating4Thread($thread,true);
                         $rating = $aRating['rating'];
@@ -3233,6 +3240,7 @@ JSPAGINATE;
                 $sHtml = "<div class=\"" . $sDivName . "\">";
                 $sHtml .= $label . ':<br/>';
                 $sHtml .= "<select name=\"tags\" class=\"formdata c4g_tags\" multiple=\"multiple\" style='width:100%;' data-placeholder='" . $GLOBALS['TL_LANG']['C4G_FORUM']['SELECT_TAGS_PLACEHOLDER'] . "'>";
+
                 foreach ($aTags as $sTag) {
 
                     $sHtml .= "<option";
@@ -3242,6 +3250,7 @@ JSPAGINATE;
                     $sHtml .= ">" . $sTag . "</option>";
                 }
                 $sHtml .= "</select>";
+                $sHtml .= '<br/><input type="checkbox" id="onlyTags" name="onlyTags" class="formdata ui-corner-all" value="1"/><label for="onlyTags" class="search-label">' . $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS_CHECKBOX'] . '</label><br/>';
                 $sHtml .= "</div>";
 
                 $sHtml .= "<script>jQuery(document).ready(function(){jQuery('.c4g_tags').chosen();});</script>";
@@ -4061,8 +4070,8 @@ JSPAGINATE;
                     '<br/> ' .
 
                     '<div>' .
-                    '<input type="checkbox" id="onlyThreads" name="onlyThreads" class="formdata ui-corner-all" /><label for="onlyThreads">' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_ONLYTHREADS'] . '</label><br/>' .
-                    '<input type="checkbox" id="wholeWords" name="wholeWords" class="formdata ui-corner-all" /><label for="wholeWords">' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_WHOLEWORDS'] . '</label>' .
+                    '<input type="checkbox" id="onlyThreads" name="onlyThreads" class="formdata ui-corner-all" /><label for="onlyThreads" class="search-label">' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_ONLYTHREADS'] . '</label><br/>' .
+                    '<input type="checkbox" id="wholeWords" name="wholeWords" class="formdata ui-corner-all" /><label for="wholeWords" class="search-label">' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_WHOLEWORDS'] . '</label>' .
                     '</div>';
 
             // show tag field in search form
@@ -4504,8 +4513,8 @@ JSPAGINATE;
                     "clickAction"   => true
                 ),
                 "state"          => $action . ";searchDialog:" . $forumId,
-                "headline"       => '<div class="ui-widget-header"><center>' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHRESULTPAGE_HEADLINE'] . '</center></div>' .
-                                    '<div class="ui-widget-content"><center>' . $GLOBALS['c4gForumSearchParamCache']['search'] . ' </center></div>',
+                "headline"       => '<div class="ui-widget-header search-results">' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHRESULTPAGE_HEADLINE'] . '</div>' .
+                                    '<div class="ui-widget-content search-results">' . $GLOBALS['c4gForumSearchParamCache']['search'] . ' </div>',
                 "buttons"        => array(
                     array(
                         "id"   => 'searchDialog:' . $forumId,
@@ -5105,6 +5114,7 @@ JSPAGINATE;
                                                     "timePeriod"        => $this->putVars['timePeriod'],
                                                     "timeUnit"          => $this->putVars['timeUnit'],
                                                     "tags"              => $this->putVars['tags'],
+                                                    "onlyTags"              => $this->putVars['onlyTags'],
                                                 )
                         );
                     }

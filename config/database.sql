@@ -210,6 +210,7 @@ CREATE TABLE `tl_module` (
   `c4g_forum_hide_intropages` char(1) NOT NULL default '',
   `c4g_forum_show_last_post_on_new` char(1) NOT NULL default '',
   `c4g_forum_rating_enabled` char(1) NOT NULL default '',
+  `c4g_forum_rating_color` varchar(64) NOT NULL default '',
   `c4g_forum_show_post_count` char(1) NOT NULL default '',
   `c4g_forum_show_avatars` char(1) NOT NULL default '',
   `c4g_forum_avatar_size` varchar(255) NOT NULL default '',

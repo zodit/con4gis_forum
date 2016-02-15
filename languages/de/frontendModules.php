@@ -16,6 +16,8 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['FORUM']                   = 'Forum';
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREAD']                  = 'Thema';
     $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS']                    = 'Tags/Schlagworte';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCH_TERM']                    = 'Suchbegriff';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS_CHECKBOX']                    = 'Nur Tags durchsuchen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SELECT_TAGS_PLACEHOLDER'] = 'Ein oder mehrere Tags/Schlagworte wählen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS']                 = 'Themen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUM']                = 'Forenbereich';
