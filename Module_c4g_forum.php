@@ -3915,8 +3915,8 @@ JSPAGINATE;
                 $mapData = \c4g\Maps\MapDataConfigurator::prepareMapData($this, $this->Database);
                 if (($post['loc_geox'] != '') && ($post['loc_geoy'] != '')) {
                     $mapData['calc_extent'] = 'CENTERZOOM';
-                    $mapData['center']['lat'] = $post['loc_geox'];
-                    $mapData['center']['lon'] = $post['loc_geoy'];
+                    $mapData['center']['lon'] = $post['loc_geox'];
+                    $mapData['center']['lat'] = $post['loc_geoy'];
                     $mapData['center']['zoom'] = 14;
                 } else {
                     // $mapData['calc_extent']    = 'ID';
