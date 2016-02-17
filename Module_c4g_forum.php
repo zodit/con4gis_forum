@@ -3737,50 +3737,88 @@ JSPAGINATE;
 
             $this->c4g_map_id                    = $forum['map_id'];
             C4GForumHelper::$postIdToIgnoreInMap = $postId;
-            $mapData                             = C4GMaps::prepareMapData($this, $this->Database, null, true);
-            if ($forum['map_type'] == 'PICK') {
 
-                // GEO Picker
-                $mapData['pickGeo']          = true;
-                $mapData['pickGeo_xCoord']   = '#c4gForumPostMapEntryGeoX';
-                $mapData['pickGeo_yCoord']   = '#c4gForumPostMapEntryGeoY';
-                $mapData['pickGeo_initzoom'] = 14;
+            if (version_compare($GLOBALS['con4gis_maps_extension']['version'], '3.0', '<')) {
+                // con4gis-Maps 1/2
+                $mapData = C4GMaps::prepareMapData($this, $this->Database, null, true);
+                if ($forum['map_type'] == 'PICK') {
+                    // GEO Picker
+                    $mapData['pickGeo']          = true;
+                    $mapData['pickGeo_xCoord']   = '#c4gForumPostMapEntryGeoX';
+                    $mapData['pickGeo_yCoord']   = '#c4gForumPostMapEntryGeoY';
+                    $mapData['pickGeo_initzoom'] = 14;
 
-                $mapData['geocoding']     = true;
-                $mapData['geocoding_url'] = 'system/modules/con4gis_maps/C4GNominatim.php';
-                $mapData['geocoding_div'] = 'c4gForumPostMapGeocoding';
+                    $mapData['geocoding']     = true;
+                    $mapData['geocoding_url'] = 'system/modules/con4gis_maps/C4GNominatim.php';
+                    $mapData['geocoding_div'] = 'c4gForumPostMapGeocoding';
 
-                $mapData['div'] = 'c4gForumPostMap';
-                $data .= '<div id="c4gForumPostMapGeocoding" class="c4gForumPostMapGeocoding"></div>';
-                $data .= '<div id="c4gForumPostMap" class="c4gForumPostMap mod_c4g_maps"></div>';
-            } else {
+                    $mapData['div'] = 'c4gForumPostMap';
+                    $data .= '<div id="c4gForumPostMapGeocoding" class="c4gForumPostMapGeocoding"></div>';
+                    $data .= '<div id="c4gForumPostMap" class="c4gForumPostMap mod_c4g_maps"></div>';
+                } else {
+                    // Feature Editor
+                    $mapData['editor']        = true;
+                    $mapData['editor_labels'] = $GLOBALS['TL_LANG']['c4g_maps']['editor_labels'];
+                    $mapData['editor_field']  = '#c4gForumPostMapEntryGeodata';
+                    switch ($forum['map_type']) {
+                        case 'EDIT1' :
+                            $mapData['editor_types'] = array('polygon');
+                            break;
+                        case 'EDIT2' :
+                            $mapData['editor_types'] = array('path');
+                            break;
+                        default:
+                    }
 
-                // Feature Editor
-                $mapData['editor']        = true;
-                $mapData['editor_labels'] = $GLOBALS['TL_LANG']['c4g_maps']['editor_labels'];
-                $mapData['editor_field']  = '#c4gForumPostMapEntryGeodata';
-                switch ($forum['map_type']) {
-                    case 'EDIT1' :
-                        $mapData['editor_types'] = array('polygon');
-                        break;
-                    case 'EDIT2' :
-                        $mapData['editor_types'] = array('path');
-                        break;
-                    default:
+                    $mapData['geocoding_url']         = 'system/modules/con4gis_maps/C4GNominatim.php';
+                    $mapData['geosearch']             = true;
+                    $mapData['geosearch_div']         = 'c4gForumPostMapGeosearch';
+                    $mapData['geosearch_zoomto']      = 14;
+                    $mapData['geosearch_zoombounds']  = true;
+                    $mapData['geosearch_attribution'] = true;
 
-
+                    $mapData['div'] = 'c4gForumPostMap';
+                    $data .= '<div id="c4gForumPostMapGeosearch" class="c4gForumPostMapGeosearch"></div>';
+                    $data .= '<div id="c4gForumPostMap" class="c4gForumPostMap mod_c4g_maps"></div>';
                 }
+            } else {
+                // con4gis-Maps 3
+                $mapData = \c4g\Maps\MapDataConfigurator::prepareMapData($this, $this->Database);
+                if ($forum['map_type'] == 'PICK') {
+                    // GEO Picker
+                    $mapData['geopicker'] = array
+                    (
+                        'type' => 'frontend',
+                        'input_geo_x' => '[name="geox"]',
+                        'input_geo_y' => '[name="geoy"]'
+                    );
 
-                $mapData['geocoding_url']         = 'system/modules/con4gis_maps/C4GNominatim.php';
-                $mapData['geosearch']             = true;
-                $mapData['geosearch_div']         = 'c4gForumPostMapGeosearch';
-                $mapData['geosearch_zoomto']      = 14;
-                $mapData['geosearch_zoombounds']  = true;
-                $mapData['geosearch_attribution'] = true;
+                    $mapData['mapDiv'] = 'c4gForumPostMap';
+                    $mapData['addIdToDiv'] = false;
+                    $data .= '<div id="c4gForumPostMapGeocoding" class="c4gForumPostMapGeocoding"></div>';
+                    $data .= '<div id="c4gForumPostMap" class="c4gForumPostMap mod_c4g_maps"></div>';
+                } else {
+                    // Feature Editor
+                    $mapData['editor']        = true;
+                    $mapData['editor_labels'] = $GLOBALS['TL_LANG']['c4g_maps']['editor_labels'];
+                    $mapData['editor_field']  = '#c4gForumPostMapEntryGeodata';
+                    // switch ($forum['map_type']) {
+                    //     case 'EDIT1' :
+                    //         $mapData['editor_types'] = array('polygon');
+                    //         break;
+                    //     case 'EDIT2' :
+                    //         $mapData['editor_types'] = array('path');
+                    //         break;
+                    //     default:
+                    // }
 
-                $mapData['div'] = 'c4gForumPostMap';
-                $data .= '<div id="c4gForumPostMapGeosearch" class="c4gForumPostMapGeosearch"></div>';
-                $data .= '<div id="c4gForumPostMap" class="c4gForumPostMap mod_c4g_maps"></div>';
+                    $mapData['geosearch']['enable']   = true;
+
+                    $mapData['mapDiv'] = 'c4gForumPostMap';
+                    $mapData['addIdToDiv'] = false;
+                    $data .= '<div id="c4gForumPostMapGeosearch" class="c4gForumPostMapGeosearch"></div>';
+                    $data .= '<div id="c4gForumPostMap" class="c4gForumPostMap mod_c4g_maps"></div>';
+                }
             }
 
             if ($add) {
@@ -3859,18 +3897,34 @@ JSPAGINATE;
             $locations        = array();
             $locations[]      = $this->helper->getMapLocationForPost($post);
 
-            $mapData = C4GMaps::prepareMapData($this, $this->Database, $locations);
-            if (($post['loc_geox'] != '') && ($post['loc_geoy'] != '')) {
-                $mapData['calc_extent'] = 'CENTERZOOM';
-                $mapData['center_geox'] = $post['loc_geox'];
-                $mapData['center_geoy'] = $post['loc_geoy'];
-                $mapData['zoom']        = 14;
+            if (version_compare($GLOBALS['con4gis_maps_extension']['version'], '3.0', '<')) {
+                // con4gis-Maps 1/2
+                $mapData = C4GMaps::prepareMapData($this, $this->Database, $locations);
+                if (($post['loc_geox'] != '') && ($post['loc_geoy'] != '')) {
+                    $mapData['calc_extent'] = 'CENTERZOOM';
+                    $mapData['center_geox'] = $post['loc_geox'];
+                    $mapData['center_geoy'] = $post['loc_geoy'];
+                    $mapData['zoom']        = 14;
+                } else {
+                    $mapData['calc_extent']    = 'ID';
+                    $mapData['calc_extent_id'] = $locations[0]['id'];
+                }
+                $mapData['div'] = 'c4gForumPostMap';
             } else {
-                $mapData['calc_extent']    = 'ID';
-                $mapData['calc_extent_id'] = $locations[0]['id'];
+                // con4gis-Maps 3
+                $mapData = \c4g\Maps\MapDataConfigurator::prepareMapData($this, $this->Database);
+                if (($post['loc_geox'] != '') && ($post['loc_geoy'] != '')) {
+                    $mapData['calc_extent'] = 'CENTERZOOM';
+                    $mapData['center']['lat'] = $post['loc_geox'];
+                    $mapData['center']['lon'] = $post['loc_geoy'];
+                    $mapData['center']['zoom'] = 14;
+                } else {
+                    // $mapData['calc_extent']    = 'ID';
+                    // $mapData['calc_extent_id'] = $locations[0]['id'];
+                }
+                $mapData['mapDiv'] = 'c4gForumPostMap';
+                $mapData['addIdToDiv'] = false;
             }
-
-            $mapData['div'] = 'c4gForumPostMap';
             $data           = '<div id="c4gForumPostMap" class="c4gForumPostMap mod_c4g_maps"></div>';
 
             $return = array(
@@ -3919,9 +3973,19 @@ JSPAGINATE;
 
             $this->c4g_map_id = $forum['map_id'];
             $locations        = $this->helper->getMapLocationsForForum($forumId);
-            $mapData          = C4GMaps::prepareMapData($this, $this->Database, $locations);
 
-            $mapData['div'] = 'c4gForumPostMap';
+            if (version_compare($GLOBALS['con4gis_maps_extension']['version'], '3.0', '<')) {
+                // con4gis-Maps 1/2
+                $mapData = C4GMaps::prepareMapData($this, $this->Database, $locations);
+                $mapData['div'] = 'c4gForumPostMap';
+            } else {
+                // con4gis-Maps 3
+                $mapData = \c4g\Maps\MapDataConfigurator::prepareMapData($this, $this->Database);
+                $mapData['mapDiv'] = 'c4gForumPostMap';
+                $mapData['addIdToDiv'] = false;
+            }
+
+
             $data           = '<div id="c4gForumPostMap" class="c4gForumPostMap mod_c4g_maps"></div>';
 
             $return = array(
