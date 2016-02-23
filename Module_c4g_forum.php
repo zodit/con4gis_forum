@@ -1194,6 +1194,7 @@
                 $oUserDataTemplate->sUserRank = $sUserRank;
             }
 
+
             // Store generated template in a variable for later usage.
             $sUserData = $oUserDataTemplate->parse();
 

@@ -287,13 +287,14 @@
                     'label'                 => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_rank_language'],
                     'exclude'               => true,
                     'inputType'             => 'select',
-                    'options'               => System::getLanguages(),
+                    'options'               => \System::getLanguages(),
                     'eval'                  => array('chosen' => true, 'style' => 'width: 120px')
 
                 )
             )
         )
     );
+
 
 
 

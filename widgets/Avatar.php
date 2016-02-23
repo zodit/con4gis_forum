@@ -113,16 +113,17 @@ class Avatar extends \Widget implements \uploadable
 			$iMemberId = $this->currentRecord;
 		}
 
+
 		// Generate an image tag with the member's avatar.
 		$sImage = C4GForumHelper::getAvatarByMemberId($iMemberId);
 		if ($sImage) {
 			$sReturn = '<img src="' . $sImage . '">';
 		}
-
 		// Only return the uploader when used in the frontend.
 		if (TL_MODE === 'FE') {
 			$sReturn .= ltrim($this->objUploader->generateMarkup());
 		}
+
 		return $sReturn;
 	}
 
