@@ -120,9 +120,9 @@ class Avatar extends \Widget implements \uploadable
 			$sReturn = '<img src="' . $sImage . '">';
 		}
 		// Only return the uploader when used in the frontend.
-		if (TL_MODE === 'FE') {
+//		if (TL_MODE === 'FE') {
 			$sReturn .= ltrim($this->objUploader->generateMarkup());
-		}
+//		}
 
 		return $sReturn;
 	}
