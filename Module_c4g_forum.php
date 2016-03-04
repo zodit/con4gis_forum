@@ -1640,11 +1640,16 @@ JSPAGINATE;
             }
 
 
+            $sCurrentSite = strtok(\Environment::get('httpReferer'),'?');
+            $sCurrentSiteHashed = md5($sCurrentSite . \Config::get('encryptionKey'));
+
             $data .= $this->getTagForm('c4gForumNewThreadPostTags', $aPost, 'newthread');
             $data .= '<div class="c4gForumNewThreadContent">' .
                      $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
                      '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
                      '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
+                     '<input type="hidden" name="site" class="formdata" value="' . $sCurrentSite . '">' .
+                     '<input type="hidden" name="hsite" class="formdata" value="' . $sCurrentSiteHashed . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea><br/>' .
                      '</div>';
             $data .= $this->getPostlinkForForm('c4gForumNewThreadPostLink', $forumId, 'newthread', '', '');
@@ -1732,6 +1737,13 @@ JSPAGINATE;
             $path        = \Environment::get("path");
             $sProtocol   = !empty($sHttps) ? 'https://' : 'http://';
             $sSite       = $sProtocol . $sServerName . $path;
+            $sCurrentSite = strtok(\Environment::get('httpReferer'),'?');
+            if(empty($sCurrentSite)){
+                $sCurrentSite = strtok($sSite . $_SERVER['REQUEST_URI'],'?');
+            }
+
+            $sCurrentSiteHashed = md5($sCurrentSite . \Config::get('encryptionKey'));
+
             if (substr($sSite, -1, 1) != "/") {
                 $sSite .= "/";
             }
@@ -1769,6 +1781,8 @@ JSPAGINATE;
             $data .= '<div class="c4gForumNewPostContent">' .
                      $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
                      '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
+                     '<input type="hidden" name="site" class="formdata" value="' . $sCurrentSite . '">' .
+                     '<input type="hidden" name="hsite" class="formdata" value="' . $sCurrentSiteHashed . '">' .
                      '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea>' .
                      '</div>';
@@ -1825,6 +1839,17 @@ JSPAGINATE;
          */
         public function sendPost($threadId)
         {
+
+            $sUrl = $this->putVars['site'];
+            $sHashedUrl = $this->putVars['hsite'];
+            $sUrlCheckValue =  md5($sUrl . \Config::get('encryptionKey'));
+
+
+            if($sUrlCheckValue !== $sHashedUrl) {
+                $return ['usermessage'] = $GLOBALS['TL_LANG']['C4G_FORUM']['ERROR_SAVE_POST'];
+                return $return;
+            }
+
 
             $forumId = $this->helper->getForumIdForThread($threadId);
             list($access, $message) = $this->checkPermission($forumId);
@@ -3478,9 +3503,15 @@ JSPAGINATE;
         {
 
             if ($this->helper->checkPermission($forumid, 'threaddesc')) {
+
+                $sCurrentSite = strtok(\Environment::get('httpReferer'),'?');
+                $sCurrentSiteHashed = md5($sCurrentSite . \Config::get('encryptionKey'));
+
                 return
                     '<div class="' . $divname . '">' .
                     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADDESC'] . ':<br/>' .
+                    '<input type="hidden" name="site" class="formdata" value="' . $sCurrentSite . '">' .
+                    '<input type="hidden" name="hsite" class="formdata" value="' . $sCurrentSiteHashed . '">' .
                     '<textarea name="threaddesc" id="' . $dialogId . '_threaddesc" class="formdata ui-corner-all" cols="80" rows="3">' . strip_tags($desc) . '</textarea><br />' .
                     '</div>';
             } else {
@@ -3563,11 +3594,15 @@ JSPAGINATE;
             ';
             }
 
+            $sCurrentSite = strtok(\Environment::get('httpReferer'),'?');
+            $sCurrentSiteHashed = md5($sCurrentSite . \Config::get('encryptionKey'));
 
             $data .= '<div class="c4gForumEditPostContent">' .
                      $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
                      '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
                      '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
+                     '<input type="hidden" name="site" class="formdata" value="' . $sCurrentSite . '">' .
+                     '<input type="hidden" name="hsite" class="formdata" value="' . $sCurrentSiteHashed . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all">' . strip_tags($post['text']) . '</textarea>' .
                      '</div>';
 
