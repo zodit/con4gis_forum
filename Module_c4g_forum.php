@@ -73,6 +73,8 @@
          */
         protected $dialogs_jqui = true;
 
+        static $url = "";
+
 
         /**
          * Display a wildcard in the back end
@@ -861,7 +863,7 @@
             $sSql    = "SELECT SUM(rating) as total, COUNT(id) as cnt FROM tl_c4g_forum_post WHERE pid = ? AND rating > 0";
             $oRes    = \Database::getInstance()->prepare($sSql)->execute($aThread['id']);
             $aResult = $oRes->fetchAssoc();
-            if (!empty($aResult)) {
+            if (!empty($aResult) && $aResult['cnt'] > 0) {
                 $rating = $aResult['total'] / $aResult['cnt'];
                 $rating *= 2;
                 $rating = round($rating);
@@ -1844,12 +1846,10 @@ JSPAGINATE;
             $sHashedUrl = $this->putVars['hsite'];
             $sUrlCheckValue =  md5($sUrl . \Config::get('encryptionKey'));
 
-
             if($sUrlCheckValue !== $sHashedUrl) {
                 $return ['usermessage'] = $GLOBALS['TL_LANG']['C4G_FORUM']['ERROR_SAVE_POST'];
                 return $return;
             }
-
 
             $forumId = $this->helper->getForumIdForThread($threadId);
             list($access, $message) = $this->checkPermission($forumId);
@@ -1898,8 +1898,7 @@ JSPAGINATE;
                     $this->helper->subscription->MailCache ['post']     = $this->putVars['post'];
                     $this->helper->subscription->MailCache ['linkname'] = $this->putVars['linkname'];
                     $this->helper->subscription->MailCache ['linkurl']  = $this->putVars['linkurl'];
-                    $cronjob                                            = $this->helper->subscription->sendSubscriptionEMail(
-                        array_merge($threadSubscribers, $forumSubscribers), $threadId, 'new');
+                    $cronjob                                            = $this->helper->subscription->sendSubscriptionEMail(array_merge($threadSubscribers, $forumSubscribers), $threadId, 'new', $sUrl);
                     if ($cronjob) {
                         $return['cronexec'] = $cronjob;
                     }
@@ -2008,6 +2007,15 @@ JSPAGINATE;
         public function sendThread($forumId)
         {
 
+            $sUrl = $this->putVars['site'];
+            $sHashedUrl = $this->putVars['hsite'];
+            $sUrlCheckValue =  md5($sUrl . \Config::get('encryptionKey'));
+
+            if($sUrlCheckValue !== $sHashedUrl) {
+                $return ['usermessage'] = $GLOBALS['TL_LANG']['C4G_FORUM']['ERROR_SAVE_POST'];
+                return $return;
+            }
+
             list($access, $message) = $this->checkPermission($forumId);
             if (!$access) {
                 return $this->getPermissionDenied($message);
@@ -2058,7 +2066,7 @@ JSPAGINATE;
                     $this->helper->subscription->MailCache ['linkname'] = $this->putVars['linkname'];
                     $this->helper->subscription->MailCache ['linkurl']  = $this->putVars['linkurl'];
                     $cronjob                                            =
-                        $this->helper->subscription->sendSubscriptionEMail($forumSubscribers, $result['thread_id'], 'newThread');
+                        $this->helper->subscription->sendSubscriptionEMail($forumSubscribers, $result['thread_id'], 'newThread', $sUrl);
                     if ($cronjob) {
                         $return['cronexec'][] = $cronjob;
                     }

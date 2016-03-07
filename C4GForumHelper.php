@@ -2786,8 +2786,12 @@ class C4GForumHelper extends System
 	 * @param int $forumId
 	 * @param int $urlType 0=forum, 1=forumbox, 2=forumintro
 	 */
-	public function getUrlForForum($forumId,$urlType=0)
+	public function getUrlForForum($forumId,$urlType=0, $sUrl=false)
 	{
+		if($sUrl !== false){
+			$this->frontendUrl = $sUrl;
+		}
+
 		switch ($urlType) {
 			case 1:
 				$action = 'forumbox';
@@ -2805,8 +2809,11 @@ class C4GForumHelper extends System
 	 * @param int $threadId
 	 * @param int $forumId
 	 */
-	public function getUrlForThread($threadId,$forumId=0)
+	public function getUrlForThread($threadId,$forumId=0, $sUrl=false)
 	{
+		if($sUrl !== false){
+			$this->frontendUrl = $sUrl;
+		}
 		if ($forumId==0)
 		{
 			$data = $this->Database->prepare(
@@ -2820,8 +2827,11 @@ class C4GForumHelper extends System
 	/**
 	 * @param int $postId
 	 */
-	public function getUrlForPost($postId)
+	public function getUrlForPost($postId, $sUrl=false)
 	{
+		if($sUrl !== false){
+			$this->frontendUrl = $sUrl;
+		}
 		$data = $this->Database->prepare(
 				"SELECT forum_id FROM tl_c4g_forum_post WHERE id=?")
 				->execute($postId);
@@ -2879,6 +2889,7 @@ class C4GForumHelper extends System
 				switch ($data['command']) {
 					case 'sendmail' :
 						$this->sendMail($data);
+                        @unlink($strPath);
 						break;
 					case 'create_sitemap' :
 						$this->createXMLSitemap($data);
