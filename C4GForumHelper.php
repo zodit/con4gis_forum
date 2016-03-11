@@ -320,6 +320,24 @@ class C4GForumHelper extends System
 	}
 
 
+	/**
+	 *
+	 * @param $iMemberId
+	 * @param array $aSize
+	 * @return null|string
+	 */
+	public static function getAvatarByMemberId($iMemberId, $aSize = array(100, 100))
+	{
+		$aSize[0] = ($aSize[0] > 0) ? $aSize[0] : 100;
+		$aSize[1] = ($aSize[1] > 0) ? $aSize[1] : 100;
+
+		$aImage = deserialize(C4gForumMember::getAvatarByMemberId($iMemberId));
+		$sImage = $aImage[0];
+		$sImagePath = \Contao\Image::get($sImage, $aSize[0], $aSize[1], 'center_center');
+
+		return $sImagePath;
+	}
+
 
 	/**
 	 *
@@ -944,15 +962,13 @@ class C4GForumHelper extends System
 		$inHeadlines = false;
 		$inDescriptions = false;
 
-		$GLOBALS['c4gForumSearchParamCache']['search'] = $searchParam['search'];
+		$GLOBALS['c4gForumSearchParamCache']['search'] = "<div>".$GLOBALS['TL_LANG']['C4G_FORUM']['SEARCH_TERM'].": <b>".$searchParam['search']."</b></div>";
 		//prepare searchstring
 		$search = C4GUtils::compressDataSetForSearch($searchParam['search']);
 		if($search == ''){
 			// no search terms left? try to prepare without stripping stopwords...
 			$search = C4GUtils::compressDataSetForSearch($searchParam['search'], false,true,true,true);
 		}
-
-
 
 		//explode searchstring
 		$searchParam['search'] = explode(' ', $search);
@@ -964,8 +980,10 @@ class C4GForumHelper extends System
         if(isset($searchParam['tags'])){
             if(!empty($searchParam['tags'])){
                 $bFilterByTags = true;
-                if(empty($searchParam['search'])){
+				$GLOBALS['c4gForumSearchParamCache']['search'] .= "<div>". $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'].":<b> ".implode(', ',$searchParam['tags'])."</b></div>";
+                if(empty($searchParam['search']) || $searchParam['onlyTags'] == "true"){
                     $bTagsOnly = true;
+					$GLOBALS['c4gForumSearchParamCache']['search'] = "<div>".$GLOBALS['TL_LANG']['C4G_FORUM']['TAGS'].": <b>".implode(', ',$searchParam['tags'])."</b></div>";
                 }
             }
         }
@@ -1711,6 +1729,9 @@ class C4GForumHelper extends System
             $set['tags'] = implode(", ",$tags);
         }
 
+		if(empty($rating)){
+			$rating = 0;
+		}
         $set['rating'] = $rating;
 
 
@@ -1797,6 +1818,9 @@ class C4GForumHelper extends System
             $set['tags'] = implode(", ",$tags);
         }
 
+		if(empty($rating)){
+			$rating = 0;
+		}
         $set['rating'] = $rating;
 
 		$objUpdateStmt = $this->Database->prepare("UPDATE tl_c4g_forum_post %s WHERE id=?")
@@ -2762,8 +2786,12 @@ class C4GForumHelper extends System
 	 * @param int $forumId
 	 * @param int $urlType 0=forum, 1=forumbox, 2=forumintro
 	 */
-	public function getUrlForForum($forumId,$urlType=0)
+	public function getUrlForForum($forumId,$urlType=0, $sUrl=false)
 	{
+		if($sUrl !== false){
+			$this->frontendUrl = $sUrl;
+		}
+
 		switch ($urlType) {
 			case 1:
 				$action = 'forumbox';
@@ -2781,8 +2809,11 @@ class C4GForumHelper extends System
 	 * @param int $threadId
 	 * @param int $forumId
 	 */
-	public function getUrlForThread($threadId,$forumId=0)
+	public function getUrlForThread($threadId,$forumId=0, $sUrl=false)
 	{
+		if($sUrl !== false){
+			$this->frontendUrl = $sUrl;
+		}
 		if ($forumId==0)
 		{
 			$data = $this->Database->prepare(
@@ -2796,8 +2827,11 @@ class C4GForumHelper extends System
 	/**
 	 * @param int $postId
 	 */
-	public function getUrlForPost($postId)
+	public function getUrlForPost($postId, $sUrl=false)
 	{
+		if($sUrl !== false){
+			$this->frontendUrl = $sUrl;
+		}
 		$data = $this->Database->prepare(
 				"SELECT forum_id FROM tl_c4g_forum_post WHERE id=?")
 				->execute($postId);
@@ -2830,6 +2864,7 @@ class C4GForumHelper extends System
 			$eMail->subject = $data['subject'];
 			$eMail->text = $data['text'];
 			$eMail->sendTo($data['to']);
+
 			unset($eMail);
 		} catch ( Swift_RfcComplianceException $e ) {
 			return false;
@@ -2854,6 +2889,7 @@ class C4GForumHelper extends System
 				switch ($data['command']) {
 					case 'sendmail' :
 						$this->sendMail($data);
+                        @unlink($strPath);
 						break;
 					case 'create_sitemap' :
 						$this->createXMLSitemap($data);

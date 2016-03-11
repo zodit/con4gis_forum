@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * Contao Open Source CMS
@@ -18,7 +18,7 @@
  * Global settings
  */
 $GLOBALS['con4gis_forum_extension']['installed']    = true;
-$GLOBALS['con4gis_forum_extension']['version']      = '1.1.1';
+$GLOBALS['con4gis_forum_extension']['version']      = '1.2.0';
 
 /**
  * Frontend modules
@@ -42,6 +42,16 @@ array_insert( $GLOBALS['BE_MOD']['con4gis'], 5, array
  		'icon'	 		=> 'system/modules/con4gis_forum/html/forumicon.png'
 	)
 ));
+
+/**
+ * Add frontend form field for memberImage (Avatar)
+ */
+$GLOBALS['TL_FFL']['avatar'] = 'Avatar';
+
+/**
+ * Add backend form field for memberImage (Avatar)
+ */
+$GLOBALS['BE_FFL']['avatar'] = 'Avatar';
 
 /**
  * Hooks
