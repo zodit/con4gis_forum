@@ -73,6 +73,8 @@
          */
         protected $dialogs_jqui = true;
 
+        static $url = "";
+
 
         /**
          * Display a wildcard in the back end
@@ -136,17 +138,29 @@
                 if (version_compare(VERSION, '3.2', '>=')) {
                     // Contao 3.2.x Format
                     $objFile                            = FilesModel::findByUuid($this->c4g_forum_uitheme_css_src);
-                    $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
+                    if (!empty($objFile)) {
+                        $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
+                    }
                 } else {
                     if (is_numeric($this->c4g_forum_uitheme_css_src)) {
                         // Contao 3.x Format
                         $objFile                            = FilesModel::findByPk($this->c4g_forum_uitheme_css_src);
-                        $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
+                        if (!empty($objFile)) {
+                            $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
+                        }
                     } else {
                         // Contao 2 Format
                         $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $this->c4g_forum_uitheme_css_src;
                     }
                 }
+            }
+
+
+            /**
+             * change rating star color
+             */
+            if(!empty($this->c4g_forum_rating_color)) {
+                $GLOBALS ['TL_HEAD'] [] = '<style>.rating_static > span.checked ~ label{color:#' . $this->c4g_forum_rating_color . ' !important;}</style>';
             }
 
             $GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/html/css/c4gForum.css';
@@ -656,7 +670,6 @@
 
                     if ($this->c4g_forum_rating_enabled) {
 
-
                         $aRating  = $this->getRating4Thread($thread,true);
                         $rating = $aRating['rating'];
                         $sRating = "";
@@ -850,7 +863,7 @@
             $sSql    = "SELECT SUM(rating) as total, COUNT(id) as cnt FROM tl_c4g_forum_post WHERE pid = ? AND rating > 0";
             $oRes    = \Database::getInstance()->prepare($sSql)->execute($aThread['id']);
             $aResult = $oRes->fetchAssoc();
-            if (!empty($aResult)) {
+            if (!empty($aResult) && $aResult['cnt'] > 0) {
                 $rating = $aResult['total'] / $aResult['cnt'];
                 $rating *= 2;
                 $rating = round($rating);
@@ -1124,19 +1137,89 @@
             $text = $post['text'];
             // Handle BBCodes, if activated
             if ($this->c4g_forum_bbcodes) {
-                $divClass .= ' BBCode-Area';
+                $textClass .= ' BBCode-Area';
                 //$text = preg_replace('#<br? ?/>#', '', $text);
                 //$text = $bbcode->Parse($text);
             }else{
                 $text = html_entity_decode($text);
             }
 
+            /**
+             * Member data
+             */
+            // Get member object from post author.
+            $iAuthorId = $post['authorid'];
+            $oMember = \Contao\MemberModel::findOneBy('id', $iAuthorId);
+            if ($this->c4g_forum_show_post_count) {
+                $iUserPostCount = C4gForumPost::getMemberPostsCountById($iAuthorId);
+            }
+
+            // Create a new frontend template for the user's data.
+            $oUserDataTemplate = new \Contao\FrontendTemplate('forum_user_data');
+
+            // Get different member properties and hand them over to the user data template.
+            $oUserDataTemplate->sUserName = $oMember->username;
+            $oUserDataTemplate->iUserPostCount = $iUserPostCount;
+            if ($this->c4g_forum_show_avatars) {
+                $sImage = C4GForumHelper::getAvatarByMemberId($iAuthorId, deserialize($this->c4g_forum_avatar_size));
+                $oUserDataTemplate->sAvatarImage = $sImage;
+            }
+
+            // Get all fields from the tl_member DCA that are marked with the memberLink eval key.
+            foreach ($GLOBALS['TL_DCA']['tl_member']['fields'] as $sKey => $aField) {
+                if ($aField['eval']['memberLink']) {
+                    $aMemberLinks[$sKey] = $oMember->$sKey;
+                }
+            }
+            // Remove empty values with "array_filter()" from aMemberLinks-array before handing it over to the template.
+            if (is_array($aMemberLinks)) {
+                $oUserDataTemplate->aMemberLinks = array_filter($aMemberLinks);
+            }
+
+            // Online status.
+            if ($this->c4g_forum_show_online_status) {
+                $bIsOnline = C4gForumSession::getOnlineStatusByMemberId($iAuthorId, $this->c4g_forum_member_online_time);
+                $oUserDataTemplate->bShowOnlineStatus = true;
+                $oUserDataTemplate->bIsOnline = $bIsOnline;
+            }
 
 
+            // Get member rank by language and member post count.
+            if ($this->c4g_forum_show_ranks) {
+                $aUserRanks = deserialize($this->c4g_forum_member_ranks);
+                $sUserRank = '';
+                foreach ($aUserRanks as $aUserRank) {
+                    if ($iUserPostCount >= $aUserRank['rank_min'] && $this->c4g_forum_language === $aUserRank['rank_language']) {
+                        $sUserRank = $aUserRank['rank_name'];
+                    }
+                }
+                $oUserDataTemplate->sUserRank = $sUserRank;
+            }
+
+
+            // Store generated template in a variable for later usage.
+            $sUserData = $oUserDataTemplate->parse();
+
+            // Get the members signature and store it inside a variable for later usage.
+            $sSignature = $oMember->memberSignature;
+            $sSignatureArea = '';
+            if (!empty($sSignature)) {
+                $sSignatureArea = '<div class="signature_wrapper"><hr>' . $sSignature . '</div>';
+            }
+            /**
+             * Member data end
+             */
+
+            // Include the former generated member information in the forum's post body.
             $data .=
                 '</div>' .
-                '<div class="c4gForumPostText' . $divClass . $targetClass . '">' .
-                $text .
+                '<div class="c4gForumPostBody' . $divClass . $targetClass . '">' .
+                    $sUserData .
+                    '<div class="c4gForumPostText' . $textClass . '">' .
+                    $text .
+                    '</div>' .
+                    $sSignatureArea .
+                '</div>' .
                 '';
 
             $data .= '</div>';
@@ -1149,6 +1232,9 @@
                             'class="c4g_forum_post_head_edit_author"', $post['edit_username']) .
                     '</div>';
             }
+
+
+
             if (!$this->c4g_forum_posts_jqui) {
                 $data .= '<hr>';
             }
@@ -1556,11 +1642,16 @@ JSPAGINATE;
             }
 
 
+            $sCurrentSite = strtok(\Environment::get('httpReferer'),'?');
+            $sCurrentSiteHashed = md5($sCurrentSite . \Config::get('encryptionKey'));
+
             $data .= $this->getTagForm('c4gForumNewThreadPostTags', $aPost, 'newthread');
             $data .= '<div class="c4gForumNewThreadContent">' .
                      $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
                      '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
                      '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
+                     '<input type="hidden" name="site" class="formdata" value="' . $sCurrentSite . '">' .
+                     '<input type="hidden" name="hsite" class="formdata" value="' . $sCurrentSiteHashed . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea><br/>' .
                      '</div>';
             $data .= $this->getPostlinkForForm('c4gForumNewThreadPostLink', $forumId, 'newthread', '', '');
@@ -1648,6 +1739,13 @@ JSPAGINATE;
             $path        = \Environment::get("path");
             $sProtocol   = !empty($sHttps) ? 'https://' : 'http://';
             $sSite       = $sProtocol . $sServerName . $path;
+            $sCurrentSite = strtok(\Environment::get('httpReferer'),'?');
+            if(empty($sCurrentSite)){
+                $sCurrentSite = strtok($sSite . $_SERVER['REQUEST_URI'],'?');
+            }
+
+            $sCurrentSiteHashed = md5($sCurrentSite . \Config::get('encryptionKey'));
+
             if (substr($sSite, -1, 1) != "/") {
                 $sSite .= "/";
             }
@@ -1685,6 +1783,8 @@ JSPAGINATE;
             $data .= '<div class="c4gForumNewPostContent">' .
                      $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
                      '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
+                     '<input type="hidden" name="site" class="formdata" value="' . $sCurrentSite . '">' .
+                     '<input type="hidden" name="hsite" class="formdata" value="' . $sCurrentSiteHashed . '">' .
                      '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea>' .
                      '</div>';
@@ -1742,6 +1842,15 @@ JSPAGINATE;
         public function sendPost($threadId)
         {
 
+            $sUrl = $this->putVars['site'];
+            $sHashedUrl = $this->putVars['hsite'];
+            $sUrlCheckValue =  md5($sUrl . \Config::get('encryptionKey'));
+
+            if($sUrlCheckValue !== $sHashedUrl) {
+                $return ['usermessage'] = $GLOBALS['TL_LANG']['C4G_FORUM']['ERROR_SAVE_POST'];
+                return $return;
+            }
+
             $forumId = $this->helper->getForumIdForThread($threadId);
             list($access, $message) = $this->checkPermission($forumId);
             if (!$access) {
@@ -1789,8 +1898,7 @@ JSPAGINATE;
                     $this->helper->subscription->MailCache ['post']     = $this->putVars['post'];
                     $this->helper->subscription->MailCache ['linkname'] = $this->putVars['linkname'];
                     $this->helper->subscription->MailCache ['linkurl']  = $this->putVars['linkurl'];
-                    $cronjob                                            = $this->helper->subscription->sendSubscriptionEMail(
-                        array_merge($threadSubscribers, $forumSubscribers), $threadId, 'new');
+                    $cronjob                                            = $this->helper->subscription->sendSubscriptionEMail(array_merge($threadSubscribers, $forumSubscribers), $threadId, 'new', $sUrl);
                     if ($cronjob) {
                         $return['cronexec'] = $cronjob;
                     }
@@ -1899,6 +2007,15 @@ JSPAGINATE;
         public function sendThread($forumId)
         {
 
+            $sUrl = $this->putVars['site'];
+            $sHashedUrl = $this->putVars['hsite'];
+            $sUrlCheckValue =  md5($sUrl . \Config::get('encryptionKey'));
+
+            if($sUrlCheckValue !== $sHashedUrl) {
+                $return ['usermessage'] = $GLOBALS['TL_LANG']['C4G_FORUM']['ERROR_SAVE_POST'];
+                return $return;
+            }
+
             list($access, $message) = $this->checkPermission($forumId);
             if (!$access) {
                 return $this->getPermissionDenied($message);
@@ -1949,7 +2066,7 @@ JSPAGINATE;
                     $this->helper->subscription->MailCache ['linkname'] = $this->putVars['linkname'];
                     $this->helper->subscription->MailCache ['linkurl']  = $this->putVars['linkurl'];
                     $cronjob                                            =
-                        $this->helper->subscription->sendSubscriptionEMail($forumSubscribers, $result['thread_id'], 'newThread');
+                        $this->helper->subscription->sendSubscriptionEMail($forumSubscribers, $result['thread_id'], 'newThread', $sUrl);
                     if ($cronjob) {
                         $return['cronexec'][] = $cronjob;
                     }
@@ -3157,6 +3274,7 @@ JSPAGINATE;
                 $sHtml = "<div class=\"" . $sDivName . "\">";
                 $sHtml .= $label . ':<br/>';
                 $sHtml .= "<select name=\"tags\" class=\"formdata c4g_tags\" multiple=\"multiple\" style='width:100%;' data-placeholder='" . $GLOBALS['TL_LANG']['C4G_FORUM']['SELECT_TAGS_PLACEHOLDER'] . "'>";
+
                 foreach ($aTags as $sTag) {
 
                     $sHtml .= "<option";
@@ -3166,6 +3284,7 @@ JSPAGINATE;
                     $sHtml .= ">" . $sTag . "</option>";
                 }
                 $sHtml .= "</select>";
+                $sHtml .= '<br/><input type="checkbox" id="onlyTags" name="onlyTags" class="formdata ui-corner-all" value="1"/><label for="onlyTags" class="search-label">' . $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS_CHECKBOX'] . '</label><br/>';
                 $sHtml .= "</div>";
 
                 $sHtml .= "<script>jQuery(document).ready(function(){jQuery('.c4g_tags').chosen();});</script>";
@@ -3392,9 +3511,15 @@ JSPAGINATE;
         {
 
             if ($this->helper->checkPermission($forumid, 'threaddesc')) {
+
+                $sCurrentSite = strtok(\Environment::get('httpReferer'),'?');
+                $sCurrentSiteHashed = md5($sCurrentSite . \Config::get('encryptionKey'));
+
                 return
                     '<div class="' . $divname . '">' .
                     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADDESC'] . ':<br/>' .
+                    '<input type="hidden" name="site" class="formdata" value="' . $sCurrentSite . '">' .
+                    '<input type="hidden" name="hsite" class="formdata" value="' . $sCurrentSiteHashed . '">' .
                     '<textarea name="threaddesc" id="' . $dialogId . '_threaddesc" class="formdata ui-corner-all" cols="80" rows="3">' . strip_tags($desc) . '</textarea><br />' .
                     '</div>';
             } else {
@@ -3477,11 +3602,15 @@ JSPAGINATE;
             ';
             }
 
+            $sCurrentSite = strtok(\Environment::get('httpReferer'),'?');
+            $sCurrentSiteHashed = md5($sCurrentSite . \Config::get('encryptionKey'));
 
             $data .= '<div class="c4gForumEditPostContent">' .
                      $GLOBALS['TL_LANG']['C4G_FORUM']['POST'] . ':<br/>' .
                      '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
                      '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
+                     '<input type="hidden" name="site" class="formdata" value="' . $sCurrentSite . '">' .
+                     '<input type="hidden" name="hsite" class="formdata" value="' . $sCurrentSiteHashed . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all">' . strip_tags($post['text']) . '</textarea>' .
                      '</div>';
 
@@ -3747,50 +3876,88 @@ JSPAGINATE;
 
             $this->c4g_map_id                    = $forum['map_id'];
             C4GForumHelper::$postIdToIgnoreInMap = $postId;
-            $mapData                             = C4GMaps::prepareMapData($this, $this->Database, null, true);
-            if ($forum['map_type'] == 'PICK') {
 
-                // GEO Picker
-                $mapData['pickGeo']          = true;
-                $mapData['pickGeo_xCoord']   = '#c4gForumPostMapEntryGeoX';
-                $mapData['pickGeo_yCoord']   = '#c4gForumPostMapEntryGeoY';
-                $mapData['pickGeo_initzoom'] = 14;
+            if (version_compare($GLOBALS['con4gis_maps_extension']['version'], '3.0', '<')) {
+                // con4gis-Maps 1/2
+                $mapData = C4GMaps::prepareMapData($this, $this->Database, null, true);
+                if ($forum['map_type'] == 'PICK') {
+                    // GEO Picker
+                    $mapData['pickGeo']          = true;
+                    $mapData['pickGeo_xCoord']   = '#c4gForumPostMapEntryGeoX';
+                    $mapData['pickGeo_yCoord']   = '#c4gForumPostMapEntryGeoY';
+                    $mapData['pickGeo_initzoom'] = 14;
 
-                $mapData['geocoding']     = true;
-                $mapData['geocoding_url'] = 'system/modules/con4gis_maps/C4GNominatim.php';
-                $mapData['geocoding_div'] = 'c4gForumPostMapGeocoding';
+                    $mapData['geocoding']     = true;
+                    $mapData['geocoding_url'] = 'system/modules/con4gis_maps/C4GNominatim.php';
+                    $mapData['geocoding_div'] = 'c4gForumPostMapGeocoding';
 
-                $mapData['div'] = 'c4gForumPostMap';
-                $data .= '<div id="c4gForumPostMapGeocoding" class="c4gForumPostMapGeocoding"></div>';
-                $data .= '<div id="c4gForumPostMap" class="c4gForumPostMap mod_c4g_maps"></div>';
-            } else {
+                    $mapData['div'] = 'c4gForumPostMap';
+                    $data .= '<div id="c4gForumPostMapGeocoding" class="c4gForumPostMapGeocoding"></div>';
+                    $data .= '<div id="c4gForumPostMap" class="c4gForumPostMap mod_c4g_maps"></div>';
+                } else {
+                    // Feature Editor
+                    $mapData['editor']        = true;
+                    $mapData['editor_labels'] = $GLOBALS['TL_LANG']['c4g_maps']['editor_labels'];
+                    $mapData['editor_field']  = '#c4gForumPostMapEntryGeodata';
+                    switch ($forum['map_type']) {
+                        case 'EDIT1' :
+                            $mapData['editor_types'] = array('polygon');
+                            break;
+                        case 'EDIT2' :
+                            $mapData['editor_types'] = array('path');
+                            break;
+                        default:
+                    }
 
-                // Feature Editor
-                $mapData['editor']        = true;
-                $mapData['editor_labels'] = $GLOBALS['TL_LANG']['c4g_maps']['editor_labels'];
-                $mapData['editor_field']  = '#c4gForumPostMapEntryGeodata';
-                switch ($forum['map_type']) {
-                    case 'EDIT1' :
-                        $mapData['editor_types'] = array('polygon');
-                        break;
-                    case 'EDIT2' :
-                        $mapData['editor_types'] = array('path');
-                        break;
-                    default:
+                    $mapData['geocoding_url']         = 'system/modules/con4gis_maps/C4GNominatim.php';
+                    $mapData['geosearch']             = true;
+                    $mapData['geosearch_div']         = 'c4gForumPostMapGeosearch';
+                    $mapData['geosearch_zoomto']      = 14;
+                    $mapData['geosearch_zoombounds']  = true;
+                    $mapData['geosearch_attribution'] = true;
 
-
+                    $mapData['div'] = 'c4gForumPostMap';
+                    $data .= '<div id="c4gForumPostMapGeosearch" class="c4gForumPostMapGeosearch"></div>';
+                    $data .= '<div id="c4gForumPostMap" class="c4gForumPostMap mod_c4g_maps"></div>';
                 }
+            } else {
+                // con4gis-Maps 3
+                $mapData = \c4g\Maps\MapDataConfigurator::prepareMapData($this, $this->Database);
+                if ($forum['map_type'] == 'PICK') {
+                    // GEO Picker
+                    $mapData['geopicker'] = array
+                    (
+                        'type' => 'frontend',
+                        'input_geo_x' => '[name="geox"]',
+                        'input_geo_y' => '[name="geoy"]'
+                    );
 
-                $mapData['geocoding_url']         = 'system/modules/con4gis_maps/C4GNominatim.php';
-                $mapData['geosearch']             = true;
-                $mapData['geosearch_div']         = 'c4gForumPostMapGeosearch';
-                $mapData['geosearch_zoomto']      = 14;
-                $mapData['geosearch_zoombounds']  = true;
-                $mapData['geosearch_attribution'] = true;
+                    $mapData['mapDiv'] = 'c4gForumPostMap';
+                    $mapData['addIdToDiv'] = false;
+                    $data .= '<div id="c4gForumPostMapGeocoding" class="c4gForumPostMapGeocoding"></div>';
+                    $data .= '<div id="c4gForumPostMap" class="c4gForumPostMap mod_c4g_maps"></div>';
+                } else {
+                    // Feature Editor
+                    $mapData['editor']        = true;
+                    $mapData['editor_labels'] = $GLOBALS['TL_LANG']['c4g_maps']['editor_labels'];
+                    $mapData['editor_field']  = '#c4gForumPostMapEntryGeodata';
+                    // switch ($forum['map_type']) {
+                    //     case 'EDIT1' :
+                    //         $mapData['editor_types'] = array('polygon');
+                    //         break;
+                    //     case 'EDIT2' :
+                    //         $mapData['editor_types'] = array('path');
+                    //         break;
+                    //     default:
+                    // }
 
-                $mapData['div'] = 'c4gForumPostMap';
-                $data .= '<div id="c4gForumPostMapGeosearch" class="c4gForumPostMapGeosearch"></div>';
-                $data .= '<div id="c4gForumPostMap" class="c4gForumPostMap mod_c4g_maps"></div>';
+                    $mapData['geosearch']['enable']   = true;
+
+                    $mapData['mapDiv'] = 'c4gForumPostMap';
+                    $mapData['addIdToDiv'] = false;
+                    $data .= '<div id="c4gForumPostMapGeosearch" class="c4gForumPostMapGeosearch"></div>';
+                    $data .= '<div id="c4gForumPostMap" class="c4gForumPostMap mod_c4g_maps"></div>';
+                }
             }
 
             if ($add) {
@@ -3869,18 +4036,34 @@ JSPAGINATE;
             $locations        = array();
             $locations[]      = $this->helper->getMapLocationForPost($post);
 
-            $mapData = C4GMaps::prepareMapData($this, $this->Database, $locations);
-            if (($post['loc_geox'] != '') && ($post['loc_geoy'] != '')) {
-                $mapData['calc_extent'] = 'CENTERZOOM';
-                $mapData['center_geox'] = $post['loc_geox'];
-                $mapData['center_geoy'] = $post['loc_geoy'];
-                $mapData['zoom']        = 14;
+            if (version_compare($GLOBALS['con4gis_maps_extension']['version'], '3.0', '<')) {
+                // con4gis-Maps 1/2
+                $mapData = C4GMaps::prepareMapData($this, $this->Database, $locations);
+                if (($post['loc_geox'] != '') && ($post['loc_geoy'] != '')) {
+                    $mapData['calc_extent'] = 'CENTERZOOM';
+                    $mapData['center_geox'] = $post['loc_geox'];
+                    $mapData['center_geoy'] = $post['loc_geoy'];
+                    $mapData['zoom']        = 14;
+                } else {
+                    $mapData['calc_extent']    = 'ID';
+                    $mapData['calc_extent_id'] = $locations[0]['id'];
+                }
+                $mapData['div'] = 'c4gForumPostMap';
             } else {
-                $mapData['calc_extent']    = 'ID';
-                $mapData['calc_extent_id'] = $locations[0]['id'];
+                // con4gis-Maps 3
+                $mapData = \c4g\Maps\MapDataConfigurator::prepareMapData($this, $this->Database);
+                if (($post['loc_geox'] != '') && ($post['loc_geoy'] != '')) {
+                    $mapData['calc_extent'] = 'CENTERZOOM';
+                    $mapData['center']['lon'] = $post['loc_geox'];
+                    $mapData['center']['lat'] = $post['loc_geoy'];
+                    $mapData['center']['zoom'] = 14;
+                } else {
+                    // $mapData['calc_extent']    = 'ID';
+                    // $mapData['calc_extent_id'] = $locations[0]['id'];
+                }
+                $mapData['mapDiv'] = 'c4gForumPostMap';
+                $mapData['addIdToDiv'] = false;
             }
-
-            $mapData['div'] = 'c4gForumPostMap';
             $data           = '<div id="c4gForumPostMap" class="c4gForumPostMap mod_c4g_maps"></div>';
 
             $return = array(
@@ -3929,9 +4112,19 @@ JSPAGINATE;
 
             $this->c4g_map_id = $forum['map_id'];
             $locations        = $this->helper->getMapLocationsForForum($forumId);
-            $mapData          = C4GMaps::prepareMapData($this, $this->Database, $locations);
 
-            $mapData['div'] = 'c4gForumPostMap';
+            if (version_compare($GLOBALS['con4gis_maps_extension']['version'], '3.0', '<')) {
+                // con4gis-Maps 1/2
+                $mapData = C4GMaps::prepareMapData($this, $this->Database, $locations);
+                $mapData['div'] = 'c4gForumPostMap';
+            } else {
+                // con4gis-Maps 3
+                $mapData = \c4g\Maps\MapDataConfigurator::prepareMapData($this, $this->Database);
+                $mapData['mapDiv'] = 'c4gForumPostMap';
+                $mapData['addIdToDiv'] = false;
+            }
+
+
             $data           = '<div id="c4gForumPostMap" class="c4gForumPostMap mod_c4g_maps"></div>';
 
             $return = array(
@@ -3985,8 +4178,8 @@ JSPAGINATE;
                     '<br/> ' .
 
                     '<div>' .
-                    '<input type="checkbox" id="onlyThreads" name="onlyThreads" class="formdata ui-corner-all" /><label for="onlyThreads">' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_ONLYTHREADS'] . '</label><br/>' .
-                    '<input type="checkbox" id="wholeWords" name="wholeWords" class="formdata ui-corner-all" /><label for="wholeWords">' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_WHOLEWORDS'] . '</label>' .
+                    '<input type="checkbox" id="onlyThreads" name="onlyThreads" class="formdata ui-corner-all" /><label for="onlyThreads" class="search-label">' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_ONLYTHREADS'] . '</label><br/>' .
+                    '<input type="checkbox" id="wholeWords" name="wholeWords" class="formdata ui-corner-all" /><label for="wholeWords" class="search-label">' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_WHOLEWORDS'] . '</label>' .
                     '</div>';
 
             // show tag field in search form
@@ -4428,8 +4621,8 @@ JSPAGINATE;
                     "clickAction"   => true
                 ),
                 "state"          => $action . ";searchDialog:" . $forumId,
-                "headline"       => '<div class="ui-widget-header"><center>' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHRESULTPAGE_HEADLINE'] . '</center></div>' .
-                                    '<div class="ui-widget-content"><center>' . $GLOBALS['c4gForumSearchParamCache']['search'] . ' </center></div>',
+                "headline"       => '<div class="ui-widget-header search-results">' . $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHRESULTPAGE_HEADLINE'] . '</div>' .
+                                    '<div class="ui-widget-content search-results">' . $GLOBALS['c4gForumSearchParamCache']['search'] . ' </div>',
                 "buttons"        => array(
                     array(
                         "id"   => 'searchDialog:' . $forumId,
@@ -5029,6 +5222,7 @@ JSPAGINATE;
                                                     "timePeriod"        => $this->putVars['timePeriod'],
                                                     "timeUnit"          => $this->putVars['timeUnit'],
                                                     "tags"              => $this->putVars['tags'],
+                                                    "onlyTags"              => $this->putVars['onlyTags'],
                                                 )
                         );
                     }
