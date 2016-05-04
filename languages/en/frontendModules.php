@@ -43,7 +43,7 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST']               = 'Edit post';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_PREVIEW']       = 'Preview - Edit post';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_POST_CHANGES']       = 'Save changes to post';
-
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']              = 'Post count';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_AUTHOR_SHORT'] = 'Last';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST_SHORT']   = 'Last on';
     $GLOBALS['TL_LANG']['C4G_FORUM']['AUTHOR']            = 'Author';
