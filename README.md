@@ -1,11 +1,17 @@
 con4gis-Forum
 =============
 
-Part of the GIS-kit *con4gis*
+Part of the Contao GIS-kit *con4gis*.
 
-- [ ] con4gis-Maps3 https://github.com/Kuestenschmiede/con4gis_maps3
-- [ ] con4gis-Tracking https://github.com/Kuestenschmiede/con4gis_tracking
-- [ ] app4gis [Playstore-link](https://play.google.com/store/apps/details?id=org.con4gis.app4gis_tracking)
-- [x] con4gis-Forum
-- [ ] con4gis-Groups https://github.com/Kuestenschmiede/con4gis_groups
-- [ ] con4gis-Core https://github.com/Kuestenschmiede/con4gis_core
+Powerful forum extension for Contao. Useful as standalone forum for discussions, for making entries in con4gis-Maps and
+other things like ratings.
+
+**Requires:**
+- [Contao](https://github.com/contao/core) (***LTS 3.5.x***)
+- [con4gis_core](https://github.com/Kuestenschmiede/con4gis_core) (***1.3.x***)
+
+**Extendable:**
+- [con4gis_groups](https://github.com/Kuestenschmiede/con4gis_groups) (***1.1.x***)
+
+**Links:**
+- https://con4gis.org
