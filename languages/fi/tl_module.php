@@ -24,7 +24,7 @@
     );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_scroll']            = array(
         'Scrollattavan alueen koko threadlistassa (leveys, koko)',
-        'Jätä tyhjäksi jos et halua scrollbareja.'
+        'Jätä tyhjäksi jos et halua vierityspalkkia.'
     );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_startforum']        = array(
         'alkuperä',
@@ -255,7 +255,7 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['FORUMS']  = 'Julkiset foorumit';
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['INTROS']  = 'Julkiset foorumit - Introsivut';
 
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip']                           = array("Tooltip for threadlist", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip']                           = array("Tootip for threadlist", "");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['title_first_post'] = "Ensimmäisen viestin otsikko";
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['title_last_post']  = "Viimeisimmän viestin otsikko";
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['body_first_post']  = "Ensimmäisen viestin sisältö";
