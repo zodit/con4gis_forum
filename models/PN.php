@@ -411,7 +411,7 @@
 
 
         /**
-         *
+         * @param $sUrl
          */
         public function send($sUrl){
             $this->_save(false);
@@ -426,7 +426,7 @@
             if($update === false) {
                 $sSql = "INSERT INTO " . self::$sTable . " (recipient_id, sender_id, subject, message, status, dt_created) VALUES (?,?,?,?,?,?);";
                 \Database::getInstance()->prepare($sSql)->execute($this->getRecipientId(), $this->getSenderId(), $this->getSubject(), $this->getMessage(), $this->getStatus(), $this->getDtCreated());
-            }else{*
+            }else{
                 $sSql = "UPDATE " . self::$sTable . " SET recipient_id = ?, sender_id = ?, subject = ?, message = ?, status = ?, dt_created = ? WHERE id = ?;";
                 \Database::getInstance()->prepare($sSql)->execute($this->getRecipientId(), $this->getSenderId(), $this->getSubject(), $this->getMessage(), $this->getStatus(), $this->getDtCreated(), $this->getId());
             }
@@ -451,7 +451,7 @@
 
 
         /**
-         *
+         * @param string $sUrl
          */
         private function notifyRecipient($sUrl = ""){
             \System::loadLanguageFile('tl_c4g_pn');
