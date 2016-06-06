@@ -27,6 +27,7 @@ array_insert( $GLOBALS['FE_MOD']['con4gis'], 6, array
 (
 	'c4g_forum' 				=> 'Module_c4g_forum',
 	'c4g_forum_breadcrumb' 		=> 'Module_c4g_forum_breadcrumb',
+	'c4g_pn' 					=> 'Con4Gis\PnCenter',
 )
 );
 

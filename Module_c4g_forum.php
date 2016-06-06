@@ -1158,6 +1158,7 @@
             $oUserDataTemplate = new \Contao\FrontendTemplate('forum_user_data');
 
             // Get different member properties and hand them over to the user data template.
+            $oUserDataTemplate->iUserId = $oMember->id;
             $oUserDataTemplate->sUserName = $oMember->username;
             $oUserDataTemplate->iUserPostCount = $iUserPostCount;
             if ($this->c4g_forum_show_avatars) {

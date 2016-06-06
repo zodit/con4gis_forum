@@ -1,0 +1,40 @@
+<div id="modal-compose">
+
+        <div class="formbody">
+
+
+
+        </div>
+    </form>
+
+
+    <form name="frmCompose" id="frmCompose" onsubmit="C4gPn.sendMessage(this);return false;">
+        <div class="formbody">
+            <?php if($this->recipient_id != ""):?>
+                <input type="hidden" name="recipient_id" placeholder="recipient_id" value="<?php echo $this->recipient_id;?>">
+            <?php else: ?>
+                <div>
+                    <label for="recipient"><?php echo $GLOBALS['TL_LANG']['tl_c4g_pn']['recipient'];?></label>
+                    <input type="text" name="recipient" class="text" placeholder="Username" value="">
+                </div>
+            <?php endif; ?>
+            <div class="mandatory">
+                <label for="subject" class="mandatory">
+                    <span class="invisible">Mandatory field</span> <?php echo $GLOBALS['TL_LANG']['tl_c4g_pn']['subject'];?><span class="mandatory">*</span>
+                </label>
+                <input type="text" name="subject" class="text" placeholder="<?php echo $GLOBALS['TL_LANG']['tl_c4g_pn']['subject'];?>" value="<?php echo $this->subject;?>">
+            </div>
+            <div>
+                <label for="message" class="mandatory">
+                    <span class="invisible">Mandatory field</span> <?php echo $GLOBALS['TL_LANG']['tl_c4g_pn']['message'];?><span class="mandatory">*</span>
+                </label>
+                <textarea name="message" id="ckeditor" placeholder="message"></textarea>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+<script>
+    C4gPn.initCKEditor();
+</script>

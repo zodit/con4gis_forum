@@ -1,0 +1,48 @@
+.unread td{
+    font-weight: bold;
+}
+
+#modal-inbox{
+    padding:0;
+}
+
+.mod_c4g_pn .blockbody a{
+    display:block;
+    margin-bottom:15px;
+    margin-top:12px;
+    text-decoration: none;
+    margin-left:10px;
+}
+
+.mod_c4g_pn .blockhead{
+    font-size: 1.2em;
+}
+
+.mod_c4g_pn .blockbody hr{
+    background: #ddd;
+    height:1px;
+    border: none;
+
+}
+
+#modal-view,
+#modal-compose
+{
+    background: #efefef;
+}
+
+
+#modal-view .subtitle{
+    font-style: italic;
+    color:#aaa;
+}
+
+#modal-view #message-pane{
+    display: block;
+    margin:0;
+    margin-top:10px;
+    min-height:260px;
+    padding:10px;
+    border: 1px solid #ccc;
+    background: #fff;
+}

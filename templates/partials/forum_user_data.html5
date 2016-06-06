@@ -11,6 +11,12 @@
         <?php endif; ?>
     </p>
 
+    <?php if(true): ?>
+        <p class="user_data_pn">
+            <a href="#" onclick="C4gPn.sendMessageTo('<?php echo $this->iUserId;?>');return false;">PN schreiben</a>
+        </p>
+    <?php endif; ?>
+
     <?php if (!empty($this->aMemberLinks)): ?>
     <ul class="user_social_links">
         <?php foreach ($this->aMemberLinks as $sLinkType => $sMemberLink): ?>
