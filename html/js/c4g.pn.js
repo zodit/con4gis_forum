@@ -38,6 +38,7 @@
             title = title || "";
             var minWidth = 800;
             var minHeight = 400;
+            console.log(data);
 
             var aButtons = [
                 {
@@ -47,6 +48,7 @@
                     },
                     click: function () {
                         $(this).dialog("close");
+                        $('#modal-' + type).remove();
                     }
 
                     // Uncommenting the following line would hide the text,
@@ -93,8 +95,9 @@
                             primary: "ui-icon-arrowreturnthick-1-w"
                         },
                         click: function () {
+                            var sSubject = 'RE: ' + $('.subject').text();
+                            _sendMessageTo(data.sid, sSubject, sSubject);
                             $(this).dialog("close");
-                            _sendMessageTo(data.sid, 'RE: ' + $('.subject').text());
                         }
                     });
             }
@@ -155,7 +158,7 @@
                 data: data,
                 success: function (response) {
                     if (response.success !== true) {
-                        alert(response.message);
+                        alert(C4GLANG.send_error);
                     } else {
                         // console.log(response);
                         $('#modal-compose').dialog('close');
@@ -168,9 +171,10 @@
          * @param frm
          * @private
          */
-        var _sendMessageTo = function (iUserId, subject) {
+        var _sendMessageTo = function (iUserId, subject, title) {
             subject = subject || "";
-            _openModal('compose', {recipient_id: iUserId, subject: subject});
+            title = title || "";
+            _openModal('compose', {recipient_id: iUserId, subject: subject},title);
         };
 
 

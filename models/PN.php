@@ -420,15 +420,46 @@
 
 
         /**
+         * @return bool
+         */
+        private function validate(){
+            $bResult = true;
+
+            if(empty($this->getMessage())){
+                $bResult = false;
+            }
+
+            if(empty($this->getRecipientId())){
+                $bResult = false;
+            }
+
+            if(empty($this->getSubject())){
+                $bResult = false;
+            }
+
+            if(empty($this->getSenderId())){
+                $bResult = false;
+            }
+
+            return $bResult;
+        }
+
+
+        /**
          * @param bool $update
+         * @throws \Exception
          */
         private function _save($update = false){
-            if($update === false) {
-                $sSql = "INSERT INTO " . self::$sTable . " (recipient_id, sender_id, subject, message, status, dt_created) VALUES (?,?,?,?,?,?);";
-                \Database::getInstance()->prepare($sSql)->execute($this->getRecipientId(), $this->getSenderId(), $this->getSubject(), $this->getMessage(), $this->getStatus(), $this->getDtCreated());
+            if($this->validate()) {
+                if ($update === false) {
+                    $sSql = "INSERT INTO " . self::$sTable . " (recipient_id, sender_id, subject, message, status, dt_created) VALUES (?,?,?,?,?,?);";
+                    \Database::getInstance()->prepare($sSql)->execute($this->getRecipientId(), $this->getSenderId(), $this->getSubject(), $this->getMessage(), $this->getStatus(), $this->getDtCreated());
+                } else {
+                    $sSql = "UPDATE " . self::$sTable . " SET recipient_id = ?, sender_id = ?, subject = ?, message = ?, status = ?, dt_created = ? WHERE id = ?;";
+                    \Database::getInstance()->prepare($sSql)->execute($this->getRecipientId(), $this->getSenderId(), $this->getSubject(), $this->getMessage(), $this->getStatus(), $this->getDtCreated(), $this->getId());
+                }
             }else{
-                $sSql = "UPDATE " . self::$sTable . " SET recipient_id = ?, sender_id = ?, subject = ?, message = ?, status = ?, dt_created = ? WHERE id = ?;";
-                \Database::getInstance()->prepare($sSql)->execute($this->getRecipientId(), $this->getSenderId(), $this->getSubject(), $this->getMessage(), $this->getStatus(), $this->getDtCreated(), $this->getId());
+                throw new \Exception("validation_error");
             }
         }
 
@@ -440,6 +471,8 @@
         private static function getMemberById($id){
             return \Database::getInstance()->prepare('SELECT id, firstname, lastname, email, username FROM tl_member WHERE id= ?;')->execute($id)->fetchAssoc();
         }
+
+
         /**
          * @param $sUsername
          * @return array|false
@@ -476,6 +509,7 @@
             $this->_save(true);
         }
 
+
         /**
          *
          */
@@ -487,6 +521,4 @@
                 return false;
             }
         }
-
-
     }

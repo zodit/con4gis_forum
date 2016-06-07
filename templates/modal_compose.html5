@@ -33,8 +33,7 @@
         </div>
     </form>
 
-
+    <script>
+        C4gPn.initCKEditor();
+    </script>
 </div>
-<script>
-    C4gPn.initCKEditor();
-</script>

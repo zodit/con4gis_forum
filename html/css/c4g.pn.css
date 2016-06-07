@@ -46,3 +46,9 @@
     border: 1px solid #ccc;
     background: #fff;
 }
+
+
+p.user_data_pn a{
+    text-decoration: none;
+    font-size: 10px;
+}

@@ -11,9 +11,9 @@
         <?php endif; ?>
     </p>
 
-    <?php if(true): ?>
+    <?php if($this->c4g_forum_show_pn_button): ?>
         <p class="user_data_pn">
-            <a href="#" onclick="C4gPn.sendMessageTo('<?php echo $this->iUserId;?>');return false;">PN schreiben</a>
+            <a href="#" onclick="C4gPn.sendMessageTo('<?php echo $this->iUserId;?>','','<?php echo $GLOBALS['TL_LANG']['tl_c4g_pn']['profile_compose_title']." ".$this->sUserName; ?>');return false;"><?php echo $this->pn_label;?></a>
         </p>
     <?php endif; ?>
 

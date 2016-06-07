@@ -54,6 +54,7 @@
             $sJsLang = '
             <script>
                 var C4GLANG = {
+                    send_error: "'.$GLOBALS['TL_LANG']['tl_c4g_pn']['send_error'].'",
                     send: "'.$GLOBALS['TL_LANG']['tl_c4g_pn']['send'].'",
                     delete: "'.$GLOBALS['TL_LANG']['tl_c4g_pn']['delete'].'",
                     close: "'.$GLOBALS['TL_LANG']['tl_c4g_pn']['close'].'",

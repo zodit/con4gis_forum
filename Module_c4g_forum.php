@@ -957,6 +957,8 @@
         public function generatePostAsHtml($post, $singlePost, $preview = false)
         {
 
+            \System::loadLanguageFile('tl_c4g_pn');
+
             if (!empty($post['tags'])) {
                 $post['tags'] = explode(", ", $post['tags']);
             }
@@ -1159,6 +1161,9 @@
 
             // Get different member properties and hand them over to the user data template.
             $oUserDataTemplate->iUserId = $oMember->id;
+
+            $oUserDataTemplate->c4g_forum_show_pn_button = ($this->c4g_forum_show_pn_button == '1');
+            $oUserDataTemplate->pn_label = $GLOBALS['TL_LANG']['tl_c4g_pn']['profile_compose'];
             $oUserDataTemplate->sUserName = $oMember->username;
             $oUserDataTemplate->iUserPostCount = $iUserPostCount;
             if ($this->c4g_forum_show_avatars) {

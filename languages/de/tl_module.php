@@ -76,6 +76,7 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems']   = array('WYSIWYG-Editor Toolbar Schaltfächen', '');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_ckeditor']                      = array('Neuen WYSIWYG-Editor verwenden', '');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor']                        = array('WYSIWYG-Editor', '');
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_pn_button']                        = array('Button für Persönliche Nachrichten im Profil anzeigen', '');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor_option']['ck']           = "Neuen WYSIWYG-Editor verwenden";
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor_option']['bb']           = "Alten WYSIWYG-Editor verwenden";
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor_option']['no']           = "Keinen WYSIWYG-Editor verwenden";
