@@ -13,20 +13,38 @@
             <?php if($this->recipient_id != ""):?>
                 <input type="hidden" name="recipient_id" placeholder="recipient_id" value="<?php echo $this->recipient_id;?>">
             <?php else: ?>
-                <div>
-                    <label for="recipient"><?php echo $GLOBALS['TL_LANG']['tl_c4g_pn']['recipient'];?></label>
+            <table>
+            <tr class="row_first">
+            <div>
+                <td class="col_0 col_first">
+                    <label for="recipient" class="mandatory">
+                        <span class="invisible">Mandatory field</span>
+                            <?php echo $GLOBALS['TL_LANG']['tl_c4g_forum_pn']['recipient'];?>
+                        <span class="mandatory">*</span>
+                    </label>
+                </td>
+                <td class="col_1 col_last">
                     <input type="text" name="recipient" class="text" placeholder="Username" value="">
-                </div>
-            <?php endif; ?>
-            <div class="mandatory">
-                <label for="subject" class="mandatory">
-                    <span class="invisible">Mandatory field</span> <?php echo $GLOBALS['TL_LANG']['tl_c4g_pn']['subject'];?><span class="mandatory">*</span>
-                </label>
-                <input type="text" name="subject" class="text" placeholder="<?php echo $GLOBALS['TL_LANG']['tl_c4g_pn']['subject'];?>" value="<?php echo $this->subject;?>">
+                </td>
             </div>
+            </tr>
+            <?php endif; ?>
+            <tr class="row_last">
+            <div class="mandatory">
+                <td class="col_0 col_first">
+                    <label for="subject" class="mandatory">
+                        <span class="invisible">Mandatory field</span> <?php echo $GLOBALS['TL_LANG']['tl_c4g_forum_pn']['subject'];?><span class="mandatory">*</span>
+                    </label>
+                </td>
+                <td class="col_1 col_last">
+                    <input type="text" name="subject" class="text" placeholder="<?php echo $GLOBALS['TL_LANG']['tl_c4g_forum_pn']['subject'];?>" value="<?php echo $this->subject;?>">
+                </td>
+            </div>
+            </tr>
+            </table>
             <div>
                 <label for="message" class="mandatory">
-                    <span class="invisible">Mandatory field</span> <?php echo $GLOBALS['TL_LANG']['tl_c4g_pn']['message'];?><span class="mandatory">*</span>
+                    <span class="invisible">Mandatory field</span> <?php echo $GLOBALS['TL_LANG']['tl_c4g_forum_pn']['message'];?><span class="mandatory">*</span>
                 </label>
                 <textarea name="message" id="ckeditor" placeholder="message"></textarea>
             </div>

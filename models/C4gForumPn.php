@@ -1,52 +1,32 @@
 <?php
-    /**
-     *
-     *          _           _                       _
-     *         | |         | |                     | |
-     *      ___| | __ _ ___| |____      _____  _ __| | _____
-     *     / __| |/ _` / __| '_ \ \ /\ / / _ \| '__| |/ / __|
-     *     \__ \ | (_| \__ \ | | \ V  V / (_) | |  |   <\__ \
-     *     |___/_|\__,_|___/_| |_|\_/\_/ \___/|_|  |_|\_\___/
-     *                                        web development
-     *
-     *     http://www.slash-works.de </> hallo@slash-works.de
-     *
-     *
-     * @author      rwollenburg
-     * @copyright   rwollenburg@slashworks
-     * @since       03.06.16 09:49
-     * @package     Core
-     *
-     */
 
-    namespace Con4Gis;
-
+namespace c4g\Forum;
 
     /**
-     * Class PN
+     * Class C4gForumPn
      *
-     * @package Con4Gis
+     * @package c4g
      */
     /**
-     * Class PN
+     * Class C4gForumPn
      *
-     * @package Con4Gis
+     * @package c4g
      */
     use Contao\Email;
     use Contao\MemberModel;
     use Contao\UserModel;
 
     /**
-     * Class PN
+     * Class C4gForumPn
      *
-     * @package Con4Gis
+     * @package c4g
      */
-    class PN{
+    class C4gForumPn{
 
         /**
          * @var string
          */
-        protected static $sTable = 'tl_c4g_pn';
+        protected static $sTable = 'tl_c4g_forum_pn';
 
         /**
          * @var
@@ -284,12 +264,12 @@
 
         /**
          * @param $id
-         * @return PN|false
+         * @return C4gForumPn|false
          */
         public static function getById($id){
             $aPn = self::getByField('id', $id)->fetchAssoc();
             self::fillUserData($aPn, true);
-            $oPn = PN::create($aPn);
+            $oPn = self::create($aPn);
             return $oPn;
         }
 
@@ -368,7 +348,7 @@
          * @return PN
          */
         public static function create($attributes){
-            $oPn = new PN();
+            $oPn = new C4gForumPn();
             foreach($attributes as $key => $value){
                 if(property_exists($oPn,$key)){
                     $oPn->{"set".ucfirst($key)}($value);
@@ -487,7 +467,7 @@
          * @param string $sUrl
          */
         private function notifyRecipient($sUrl = ""){
-            \System::loadLanguageFile('tl_c4g_pn');
+            \System::loadLanguageFile('tl_c4g_forum_pn');
 
             $aRecipient = self::getMemberById($this->getRecipientId());
             $aSender = self::getMemberById($this->getSenderId());
@@ -495,8 +475,8 @@
             $eMail = new Email();
             $eMail->from = $aSender['email'];
             $eMail->fromName = $aSender['firstname']." ".$aSender['lastname'];
-            $eMail->subject = $GLOBALS['TL_LANG']['tl_c4g_pn']['notify_subject'];
-            $eMail->html = str_replace("##LINK##",$sUrl,$GLOBALS['TL_LANG']['tl_c4g_pn']['notify_text']);
+            $eMail->subject = $GLOBALS['TL_LANG']['tl_c4g_forum_pn']['notify_subject'];
+            $eMail->html = str_replace("##LINK##",$sUrl,$GLOBALS['TL_LANG']['tl_c4g_forum_pn']['notify_text']);
             $eMail->sendTo($aRecipient['email']);
             unset($eMail);
         }

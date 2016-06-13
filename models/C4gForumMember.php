@@ -1,5 +1,7 @@
 <?php
 
+namespace c4g\Forum;
+
 /**
  * Class C4gForumMember
  */

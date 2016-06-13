@@ -12,6 +12,7 @@
      * @filesource
      */
 
+namespace c4g\Forum;
 
     /**
      * Class C4GForumSubscription

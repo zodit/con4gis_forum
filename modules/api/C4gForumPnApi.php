@@ -27,12 +27,12 @@
 
 
     // Initialize the system
-    require('../../../../system/initialize.php');
+    require(TL_ROOT . '/system/initialize.php');
 
     /**
      * Api controller.
      */
-    class ForumApi4Gis extends Frontend
+    class C4gForumPnApi extends \Frontend
     {
 
 
@@ -96,7 +96,7 @@
                     if (!empty($arrFragments[1])) {
                         $sType      = $arrFragments[1];
                         $aReturn    = array();
-                        $sClassName = "\\c4g\\Forum\\PN\\" . ucfirst($sType);
+                        $sClassName = "\\c4g\\forum\\pn\\" . ucfirst($sType);
                         if (class_exists($sClassName)) {
                             $aData = \Input::get('data');
                             
@@ -115,7 +115,7 @@
 
                 } elseif ($arrFragments[0] == "delete") {
                     $iId = $arrFragments[1];
-                    $oPn = \c4g\Forum\C4gForumPn::getById($iId);
+                    $oPn = c4g\Forum\C4gForumPn::getById($iId);
                     $res = $oPn->delete();
                     echo json_encode(array('success' => $res));
                     exit();
@@ -144,19 +144,22 @@
                     if(empty($iRecipientId) && !empty($sRecipient)) {
                         $aRecipient = \c4g\Forum\C4gForumPn::getMemberByUsername($sRecipient);
                         if(empty($aRecipient)){
-                            throw new \Exception($GLOBALS['TL_LANG']['tl_c4g_pn']['member_not_found']);
+                            throw new \Exception($GLOBALS['TL_LANG']['tl_c4g_forum_pn']['member_not_found']);
                         }
                         $iRecipientId = $aRecipient['id'];
                     }
 
                     $aData = array(
                         "subject"      => \Input::post('subject'),
-                        "message"      => \htmlentities($_POST['message']),
+                        "message"      => htmlentities($_POST['message']),
                         "sender_id"    => $this->User->id,
                         "recipient_id" => $iRecipientId,
                         "dt_created"   => time(),
                         "status"       => 0
                     );
+
+
+
 
                     $oPn = \c4g\Forum\C4gForumPn::create($aData);
                     $oPn->send($sUrl);

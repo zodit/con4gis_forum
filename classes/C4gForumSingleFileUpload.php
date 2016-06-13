@@ -1,5 +1,7 @@
 <?php
 
+namespace c4g\Forum;
+
 /**
  * Single file upload handler to return only 1 input field for a single file upload.
  *

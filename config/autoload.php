@@ -16,7 +16,7 @@
  */
 ClassLoader::addNamespaces(array
 (
-	'Con4Gis',
+	'c4g\Forum',
 ));
 
 
@@ -25,31 +25,34 @@ ClassLoader::addNamespaces(array
  */
 ClassLoader::addClasses(array
 (
-	'C4GForumBackend'             => 'system/modules/con4gis_forum/C4GForumBackend.php',
-	'C4GForumHelper'              => 'system/modules/con4gis_forum/C4GForumHelper.php',
-	'C4gForumSingleFileUpload'    => 'system/modules/con4gis_forum/C4gForumSingleFileUpload.php',
-	'C4GForumSubscription'        => 'system/modules/con4gis_forum/C4GForumSubscription.php',
-	// Lib
-	'C4GUtils'                    => 'system/modules/con4gis_forum/lib/C4GUtils.php',
+	// Classes
+	'c4g\Forum\C4GUtils'                    => 'system/modules/con4gis_forum/classes/C4GUtils.php',
+	'c4g\Forum\C4GForumBackend'             => 'system/modules/con4gis_forum/classes/C4GForumBackend.php',
+	'c4g\Forum\C4GForumHelper'              => 'system/modules/con4gis_forum/classes/C4GForumHelper.php',
+	'c4g\Forum\C4gForumSingleFileUpload'    => 'system/modules/con4gis_forum/classes/C4gForumSingleFileUpload.php',
+	'c4g\Forum\C4GForumSubscription'        => 'system/modules/con4gis_forum/classes/C4GForumSubscription.php',
+	'c4g\Forum\PN\Inbox' 		  			=> 'system/modules/con4gis_forum/classes/Inbox.php',
+	'c4g\Forum\PN\Compose' 		  			=> 'system/modules/con4gis_forum/classes/Compose.php',
+	'c4g\Forum\PN\View' 		  			=> 'system/modules/con4gis_forum/classes/View.php',
 
 	// Models
-	'C4gForumMember'              => 'system/modules/con4gis_forum/models/C4gForumMember.php',
-	'C4gForumModel'               => 'system/modules/con4gis_forum/models/C4gForumModel.php',
-	'C4gForumPost'                => 'system/modules/con4gis_forum/models/C4gForumPost.php',
-	'C4gForumSession'             => 'system/modules/con4gis_forum/models/C4gForumSession.php',
-	'Con4Gis\PN'                  => 'system/modules/con4gis_forum/models/PN.php',
-	'Module_c4g_forum'            => 'system/modules/con4gis_forum/Module_c4g_forum.php',
-	'Module_c4g_forum_breadcrumb' => 'system/modules/con4gis_forum/Module_c4g_forum_breadcrumb.php',
+	'c4g\Forum\C4gForumMember'              => 'system/modules/con4gis_forum/models/C4gForumMember.php',
+	'c4g\Forum\C4gForumModel'               => 'system/modules/con4gis_forum/models/C4gForumModel.php',
+	'c4g\Forum\C4gForumPost'                => 'system/modules/con4gis_forum/models/C4gForumPost.php',
+	'c4g\Forum\C4gForumSession'             => 'system/modules/con4gis_forum/models/C4gForumSession.php',
+	'c4g\Forum\C4gForumPn'                  => 'system/modules/con4gis_forum/models/C4gForumPn.php',
 
 	// Modules
+	'c4g\Forum\C4GForum'		            => 'system/modules/con4gis_forum/modules/C4GForum.php',
+	'c4g\Forum\C4GForumBreadcrumb' 		  	=> 'system/modules/con4gis_forum/modules/C4GForumBreadcrumb.php',
+	'c4g\Forum\C4GForumPNCenter'            => 'system/modules/con4gis_forum/modules/C4GForumPNCenter.php',
+
+	// api
 	'C4gForumAjaxApi'             => 'system/modules/con4gis_forum/modules/api/C4gForumAjaxApi.php',
-	'Con4Gis\PnCenter'            => 'system/modules/con4gis_forum/modules/frontend/PnCenter.php',
+	//'C4gForumPnApi' 	          => 'system/modules/con4gis_forum/modules/api/C4gForumPnApi.php',
 
 	// Widgets
 	'Avatar'                      => 'system/modules/con4gis_forum/widgets/Avatar.php',
-	'Con4Gis\PN\Inbox' 			=> 'system/modules/con4gis_forum/lib/Inbox.php',
-	'Con4Gis\PN\Compose' 			=> 'system/modules/con4gis_forum/lib/Compose.php',
-	'Con4Gis\PN\View' 			=> 'system/modules/con4gis_forum/lib/View.php'
 ));
 
 
@@ -64,9 +67,9 @@ TemplateLoader::addFiles(array
 	'mod_c4g_forum'            => 'system/modules/con4gis_forum/templates',
 	'mod_c4g_forum_breadcrumb' => 'system/modules/con4gis_forum/templates',
 	'mod_c4g_forum_plainhtml'  => 'system/modules/con4gis_forum/templates',
-	'mod_c4g_pncenter'         => 'system/modules/con4gis_forum/templates',
+	'mod_c4g_forum_pncenter'   => 'system/modules/con4gis_forum/templates',
 	'forum_user_data'          => 'system/modules/con4gis_forum/templates/partials',
-	'modal_inbox'          => 'system/modules/con4gis_forum/templates/',
-	'modal_compose'          => 'system/modules/con4gis_forum/templates/',
-	'modal_view_message'          => 'system/modules/con4gis_forum/templates/',
+	'modal_inbox'          	   => 'system/modules/con4gis_forum/templates/',
+	'modal_compose'            => 'system/modules/con4gis_forum/templates/',
+	'modal_view_message'       => 'system/modules/con4gis_forum/templates/',
 ));

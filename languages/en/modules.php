@@ -30,5 +30,7 @@ $GLOBALS['TL_LANG']['FMD']['c4g_forum_comfort'] 	= array('Forum (con4gis) - Comf
 															'This module allows you to integrate forums using the comfort view.');
 $GLOBALS['TL_LANG']['FMD']['c4g_forum_breadcrumb'] 	= array('Forum (con4gis) - Breadcrumb',
 															'This module allows you to integrate a forum breadcrumb on pages linked to the forum.');
+$GLOBALS['TL_LANG']['FMD']['c4g_forum_pncenter'] 	= array('Forum (con4gis) - Private messages',
+															'With this module you can integrate the private messages for your forum.');
 
 ?>

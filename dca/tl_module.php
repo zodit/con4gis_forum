@@ -37,6 +37,9 @@
         '{protected_legend:hide},protected;' .
         '{expert_legend:hide},guests,cssID,space';
 
+    $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum_pncenter'] =
+        '{title_legend},name,headline,type;';
+
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_bbcodes';
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_jqui';
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_sitemap';
@@ -434,7 +437,7 @@
     (
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_smileys_url'],
         'exclude'   => true,
-        'default'   => 'system/modules/con4gis_forum/html/images/smileys',
+        'default'   => 'system/modules/con4gis_forum/assets/images/smileys',
         'inputType' => 'text',
         'eval'      => array('maxlength' => 128, "style" => 'width: 200px')
     );

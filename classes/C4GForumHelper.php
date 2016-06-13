@@ -12,9 +12,10 @@
  * @filesource
  */
 
+namespace c4g\Forum;
 
 if (version_compare(VERSION,'3','<')) {
-	include_once "lib/C4GUtils.php";
+	include_once "classes/C4GUtils.php";
 }
 
 /**
@@ -25,7 +26,7 @@ if (version_compare(VERSION,'3','<')) {
  * @package    con4gis
  * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  */
-class C4GForumHelper extends System
+class C4GForumHelper extends \System
 {
 
 	public static $postIdToIgnoreInMap = 0;
@@ -144,7 +145,7 @@ class C4GForumHelper extends System
 	 */
 	public function getDateTimeString( $intDateTime )
 	{
-		$date = new Date($intDateTime);
+		$date = new \Date($intDateTime);
 		return $date->datim;
 	}
 
@@ -3020,7 +3021,7 @@ class C4GForumHelper extends System
 			$objSitemaps = $this->Database->execute("SELECT c4g_forum_sitemap_filename FROM tl_module WHERE type='c4g_forum' AND c4g_forum_sitemap=1 AND c4g_forum_sitemap_filename!=''");
 		}
 		else {
-			$objSitemaps = Database::getInstance()->execute("SELECT c4g_forum_sitemap_filename FROM tl_module WHERE type='c4g_forum' AND c4g_forum_sitemap=1 AND c4g_forum_sitemap_filename!=''");
+			$objSitemaps = \Database::getInstance()->execute("SELECT c4g_forum_sitemap_filename FROM tl_module WHERE type='c4g_forum' AND c4g_forum_sitemap=1 AND c4g_forum_sitemap_filename!=''");
 		}
 
 		while ($objSitemaps->next())

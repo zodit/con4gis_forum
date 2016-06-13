@@ -38,7 +38,6 @@
             title = title || "";
             var minWidth = 800;
             var minHeight = 400;
-            console.log(data);
 
             var aButtons = [
                 {
@@ -105,7 +104,7 @@
 
             $.ajax({
                 method: "GET",
-                url: "/system/modules/con4gis_forum/api/index.php/modal/" + type,
+                url: "system/modules/con4gis_forum/api/index.php/modal/" + type,
                 data: {data: data},
                 success: function (response) {
                     $("body").append(response.template);
@@ -133,7 +132,7 @@
             if (bConfirm == true) {
                 $.ajax({
                     method: "DELETE",
-                    url: "/system/modules/con4gis_forum/api/index.php/delete/" + id,
+                    url: "system/modules/con4gis_forum/api/index.php/delete/" + id,
                     success: function (response) {
                         if (response.success == true) {
                             $('#message-' + id).remove();
@@ -154,13 +153,12 @@
             data.url = document.location.href;
             $.ajax({
                 method: "POST",
-                url: "/system/modules/con4gis_forum/api/index.php/send/",
+                url: "system/modules/con4gis_forum/api/index.php/send/",
                 data: data,
                 success: function (response) {
                     if (response.success !== true) {
                         alert(C4GLANG.send_error);
                     } else {
-                        // console.log(response);
                         $('#modal-compose').dialog('close');
                     }
                 }
@@ -207,8 +205,8 @@
                 defaultLanguage: "en",
                 height:'360',
                 disableObjectResizing: true,
-                filebrowserImageUploadUrl: "/system/modules/con4gis_core/lib/imgUpload.php",
-                filebrowserUploadUrl: '/system/modules/con4gis_core/lib/fileUpload.php',
+                filebrowserImageUploadUrl: "system/modules/con4gis_core/lib/imgUpload.php",
+                filebrowserUploadUrl: 'system/modules/con4gis_core/lib/fileUpload.php',
                 // codeSnippet_languages: {
                 // }
             });
@@ -233,7 +231,7 @@
             };
             $.ajax({
                 method: "POST",
-                url: "/system/modules/con4gis_forum/api/index.php/mark",
+                url: "system/modules/con4gis_forum/api/index.php/mark",
                 data: data,
                 success: function (response) {
                     if (response.success !== true) {

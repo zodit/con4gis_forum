@@ -6,7 +6,11 @@
     padding:0;
 }
 
-.mod_c4g_pn .blockbody a{
+#modal-inbox table span {
+    display:none!important;
+}
+
+.mod_c4g_forum_pn .blockbody a{
     display:block;
     margin-bottom:15px;
     margin-top:12px;
@@ -14,11 +18,11 @@
     margin-left:10px;
 }
 
-.mod_c4g_pn .blockhead{
+.mod_c4g_forum_pn .blockhead{
     font-size: 1.2em;
 }
 
-.mod_c4g_pn .blockbody hr{
+.mod_c4g_forum_pn .blockbody hr{
     background: #ddd;
     height:1px;
     border: none;
@@ -31,6 +35,10 @@
     background: #efefef;
 }
 
+#modal-compose td input.text
+{
+    width: 250px; /*ToDo mobile optimizing*/
+}
 
 #modal-view .subtitle{
     font-style: italic;

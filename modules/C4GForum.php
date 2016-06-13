@@ -1,6 +1,6 @@
-<?php if (!defined('TL_ROOT')) {
-    die('You can not access this file directly!');
-}
+<?php
+
+namespace c4g\Forum;
 
     /**
      * Contao Open Source CMS
@@ -36,9 +36,9 @@
     }
 
     /**
-     * Class Module_c4g_forum
+     * Class C4GForum
      */
-    class Module_c4g_forum extends Module
+    class C4GForum extends \Module
     {
 
         /**
@@ -85,7 +85,7 @@
         {
 
             if (TL_MODE == 'BE') {
-                $objTemplate = new BackendTemplate('be_wildcard');
+                $objTemplate = new \BackendTemplate('be_wildcard');
 
                 $objTemplate->wildcard = '### ' . $GLOBALS['TL_LANG']['FMD']['c4g_forum'][0] . ' ###';
                 $objTemplate->title    = $this->headline;
@@ -118,7 +118,7 @@
                 $useGoogleMaps = C4GForumHelper::isGoogleMapsUsed($this->Database);
             }
             // initialize used Javascript Libraries and CSS files
-            C4GJQueryGUI::initializeLibraries(
+            \C4GJQueryGUI::initializeLibraries(
                 true,                                               // add c4gJQuery GUI Core LIB
                 ($this->c4g_forum_jquery_lib == true),              // add JQuery
                 ($this->c4g_forum_jqui_lib == true),                // add JQuery UI
@@ -137,14 +137,14 @@
             if ($this->c4g_forum_uitheme_css_src) {
                 if (version_compare(VERSION, '3.2', '>=')) {
                     // Contao 3.2.x Format
-                    $objFile                            = FilesModel::findByUuid($this->c4g_forum_uitheme_css_src);
+                    $objFile                            = \FilesModel::findByUuid($this->c4g_forum_uitheme_css_src);
                     if (!empty($objFile)) {
                         $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
                     }
                 } else {
                     if (is_numeric($this->c4g_forum_uitheme_css_src)) {
                         // Contao 3.x Format
-                        $objFile                            = FilesModel::findByPk($this->c4g_forum_uitheme_css_src);
+                        $objFile                            = \FilesModel::findByPk($this->c4g_forum_uitheme_css_src);
                         if (!empty($objFile)) {
                             $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
                         }
@@ -163,7 +163,7 @@
                 $GLOBALS ['TL_HEAD'] [] = '<style>.rating_static > span.checked ~ label{color:#' . $this->c4g_forum_rating_color . ' !important;}</style>';
             }
 
-            $GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/html/css/c4gForum.css';
+            $GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/assets/css/c4gForum.css';
             //$GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/html/css/bbcodes.css';
             $data['id']      = $this->id;
             $data['ajaxUrl'] = "system/modules/con4gis_core/api/index.php/c4g_forum_ajax";
@@ -236,8 +236,8 @@
             }
 
             if($this->c4g_forum_pagination_active == "1") {
-                $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/html/js/jquery.pagination.min.js";
-                $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/html/js/jquery.hashchange.min.js";
+                $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/assets/js/jquery.pagination.min.js";
+                $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/assets/js/jquery.hashchange.min.js";
             }
 
 
@@ -957,7 +957,7 @@
         public function generatePostAsHtml($post, $singlePost, $preview = false)
         {
 
-            \System::loadLanguageFile('tl_c4g_pn');
+            \System::loadLanguageFile('tl_c4g_forum_pn');
 
             if (!empty($post['tags'])) {
                 $post['tags'] = explode(", ", $post['tags']);
@@ -1163,7 +1163,11 @@
             $oUserDataTemplate->iUserId = $oMember->id;
 
             $oUserDataTemplate->c4g_forum_show_pn_button = ($this->c4g_forum_show_pn_button == '1');
-            $oUserDataTemplate->pn_label = $GLOBALS['TL_LANG']['tl_c4g_pn']['profile_compose'];
+            $oUserDataTemplate->pn_label = $GLOBALS['TL_LANG']['tl_c4g_forum_pn']['profile_compose'];
+
+            $sJsLang = C4GForumPNCenter::getClientLangVars();
+            $oUserDataTemplate->c4g_pn_js = $sJsLang;
+
             $oUserDataTemplate->sUserName = $oMember->username;
             $oUserDataTemplate->iUserPostCount = $iUserPostCount;
             if ($this->c4g_forum_show_avatars) {
@@ -2247,7 +2251,7 @@ JSPAGINATE;
                 }
 // TODO
 
-                $objFile               = FilesModel::findByUuid($forum['box_imagesrc']);
+                $objFile               = \FilesModel::findByUuid($forum['box_imagesrc']);
                 $forum['box_imagesrc'] = $objFile->path;
 
                 if ($forum['box_imagesrc']) { // check if bin is empty!!!!
@@ -2277,7 +2281,7 @@ JSPAGINATE;
 
 				} else if (is_numeric($forum['box_imagesrc'])) {
 					// Contao 3.x Format
-					$objFile = FilesModel::findByPk($forum['box_imagesrc']);
+					$objFile = \FilesModel::findByPk($forum['box_imagesrc']);
 					$forum['box_imagesrc'] = $objFile->path;
 				}*/
                     $data .= '<img src="' . $forum['box_imagesrc'] . '" class="' . $imgClass . '" alt="' . $forum['name'] . '">';

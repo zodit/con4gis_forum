@@ -1,4 +1,6 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
+
+namespace c4g\Forum;
 
 /**
  * Contao Open Source CMS
@@ -23,7 +25,7 @@
  * @package    con4gis
  * @author     Tobias Dobbrunz <http://www.kuestenschmiede.de>
  */
-class C4GForumBackend extends Backend
+class C4GForumBackend extends \Backend
 {
 	/**
 	 * Load the helper class

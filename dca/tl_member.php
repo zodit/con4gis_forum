@@ -11,6 +11,7 @@ $GLOBALS['TL_DCA']['tl_member']['palettes']['default'] = str_replace(
     $GLOBALS['TL_DCA']['tl_member']['palettes']['default']
 );
 
+//ToDo überarbeiten. So im Backend nicht pflegbar. Zumindest muss der Avatar gelöscht werden können, wenn man beispielsweise ein Mitglied im Backend kopiert.
 $GLOBALS['TL_DCA']['tl_member']['fields']['memberImage'] = array
 (
     'label'                   => &$GLOBALS['TL_LANG']['tl_member']['memberImage'],

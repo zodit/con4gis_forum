@@ -1,5 +1,7 @@
 <?php
 
+namespace c4g\Forum;
+
 class C4gForumSession extends \Model
 {
 
