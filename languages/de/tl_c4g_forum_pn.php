@@ -1,6 +1,6 @@
 <?php
-$GLOBALS['TL_LANG']['tl_c4g_forum_pn']['notify_subject']   = "Neue Nachricht im Forum";
-$GLOBALS['TL_LANG']['tl_c4g_forum_pn']['notify_text']      = "<p>Es wurde eine neue Nachricht hinterlassen. Klicken Sie <a href='##LINK##'>HIER</a> um in den Mitgliederbereich zu gelangen.</p>";
+$GLOBALS['TL_LANG']['tl_c4g_forum_pn']['notify_subject']   = "Es gibt neue persönliche Nachrichten.";
+$GLOBALS['TL_LANG']['tl_c4g_forum_pn']['notify_text']      = "<p>Es wurde eine neue Nachricht hinterlassen. <a href='##LINK##'>Hier klicken</a> um in den Mitgliederbereich zu gelangen.</p><p>Bitte nicht direkt auf diese E-Mail antworten.</p>";
 $GLOBALS['TL_LANG']['tl_c4g_forum_pn']['member_not_found'] = "Der angegebene Benutzer wurde nicht gefunden.";
 $GLOBALS['TL_LANG']['tl_c4g_forum_pn']['send']             = "Senden";
 $GLOBALS['TL_LANG']['tl_c4g_forum_pn']['delete']           = "Löschen";

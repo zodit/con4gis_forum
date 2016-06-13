@@ -472,9 +472,16 @@ namespace c4g\Forum;
             $aRecipient = self::getMemberById($this->getRecipientId());
             $aSender = self::getMemberById($this->getSenderId());
 
+            $data['charset'] = 'UTF-8';
+
             $eMail = new Email();
-            $eMail->from = $aSender['email'];
-            $eMail->fromName = $aSender['firstname']." ".$aSender['lastname'];
+            if ($GLOBALS ['TL_CONFIG'] ['useSMTP'] and (filter_var($GLOBALS ['TL_CONFIG'] ['smtpUser'], FILTER_VALIDATE_EMAIL))) {
+                $eMail->from = $GLOBALS ['TL_CONFIG'] ['smtpUser'];
+            } else {
+                $eMail->from = $GLOBALS ['TL_CONFIG'] ['adminEmail'];
+            }
+
+            $eMail->fromName = $aSender['username'];
             $eMail->subject = $GLOBALS['TL_LANG']['tl_c4g_forum_pn']['notify_subject'];
             $eMail->html = str_replace("##LINK##",$sUrl,$GLOBALS['TL_LANG']['tl_c4g_forum_pn']['notify_text']);
             $eMail->sendTo($aRecipient['email']);
