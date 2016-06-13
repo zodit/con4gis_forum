@@ -24,6 +24,29 @@
     </div>
 
     <!-- indexer::continue -->
-    <?php echo $this->c4g_pn_js; ?>
-    <script>if(!jQuery(document).dialog){jQuery('.mod_c4g_forum_pncenter').remove();}</script>
+    <script>
+        (function() {
+            if (typeof(jQuery)=='undefined') {
+                window.setTimeout( "document.getElementById('<?php echo $this->c4gdata['div']; ?>').innerHTML = '<h1>jQuery missing</h1>'", 500);
+                return;
+            } else {
+              jQuery(document).ready(function() {
+                    <?php if ($this->c4gdata['div']!='') {
+                        echo "jQuery('div#". $this->c4gdata['div']."' ).c4gGui({".
+                        "id: ".$this->c4gdata['id'].", ".
+                        "initData: " . $this->c4gdata['initData'] .", ".
+                        "jquiButtons: false, ".
+                        "jquiEmbeddedDialogs: false, ".
+                        "navPanel: false ".
+                        "});";
+                    }?>
+                });
+
+                if(!jQuery(document).dialog){
+                      jQuery('.mod_c4g_forum_pncenter').remove();
+                      return;
+                };
+            }})();
+    </script>
+<?php echo $this->c4g_pn_js; ?>
 <?php endif; ?>

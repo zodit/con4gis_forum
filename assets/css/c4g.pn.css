@@ -10,7 +10,7 @@
     display:none!important;
 }
 
-.mod_c4g_forum_pn .blockbody a{
+.mod_c4g_forum_pncenter .blockbody a{
     display:block;
     margin-bottom:15px;
     margin-top:12px;
@@ -18,15 +18,14 @@
     margin-left:10px;
 }
 
-.mod_c4g_forum_pn .blockhead{
+.mod_c4g_forum_pncenter .blockhead{
     font-size: 1.2em;
 }
 
-.mod_c4g_forum_pn .blockbody hr{
+.mod_c4g_forum_pncenter .blockbody hr{
     background: #ddd;
     height:1px;
     border: none;
-
 }
 
 #modal-view,
@@ -54,7 +53,6 @@
     border: 1px solid #ccc;
     background: #fff;
 }
-
 
 p.user_data_pn a{
     text-decoration: none;

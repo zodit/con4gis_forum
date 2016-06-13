@@ -77,6 +77,79 @@
             $sJsLang = $this->getClientLangVars();
 
             $this->Template->c4g_pn_js = $sJsLang;
+
+            $data = array();
+         
+            if (!$_GET['c4g_forum_fmd']) {
+                // try to get parameters from referer, if they don't exist
+                $session = $this->Session->getData();
+
+                list($urlpart, $qspart) = array_pad(explode('?', $session['referer']['current'], 2), 2, '');
+                parse_str($qspart, $qsvars);
+                if ($qsvars['c4g_forum_fmd']) {
+                    $_GET['c4g_forum_fmd'] = $qsvars['c4g_forum_fmd'];
+                }
+                if ((!$_GET['c4g_forum_forum']) && ($qsvars['c4g_forum_forum'])) {
+                    $_GET['c4g_forum_forum'] = $qsvars['c4g_forum_forum'];
+                }
+
+            }
+            $this->forumModule = $this->Database->prepare("SELECT * FROM tl_module WHERE id=?")
+                ->limit(1)
+                ->execute($_GET['c4g_forum_fmd']);
+
+            // initialize used Javascript Libraries and CSS files
+            \C4GJQueryGUI::initializeLibraries(
+                true,                                                 // add c4gJQuery GUI Core LIB
+                true,                                                 // add JQuery
+                true,                                                // add JQuery UI
+                false,                                                // add Tree Control
+                false,                                                // add Table Control
+                false,                                                // add history.js
+                false,                                                // add simple tooltip
+                false,                                                // add C4GMaps
+                false,                                                // add C4GMaps - GoogleMaps
+                false,                                                // add C4GMaps - MapsEditor
+                false,                                                // add WYSIWYG editor
+                false);                                               // add jScrollPane
+
+            $data['id']             = $this->id;
+            $data['div']            = 'mod_c4g_forum_pncenter';
+            $data['initData']       = $this->getInitData();
+
+            //Override JQuery UI Default Theme CSS if defined
+            if ($this->forumModule && $this->forumModule->c4g_forum_uitheme_css_src) {
+                if (version_compare(VERSION, '3.2', '>=')) {
+                    // Contao 3.2.x Format
+                    $objFile = \FilesModel::findByUuid($this->forumModule->c4g_forum_uitheme_css_src);
+                    $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
+
+                } else {
+                    if (is_numeric($this->forumModule->c4g_forum_uitheme_css_src)) {
+                        // Contao 3 Format
+                        $objFile = \FilesModel::findByPk($this->forumModule->c4g_forum_uitheme_css_src);
+                        $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
+                    } else {
+                        // Contao 2 Format
+                        $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $this->forumModule->c4g_forum_uitheme_css_src;
+                    }
+                }
+            }
+
+            $this->Template->c4gdata = $data;
+
+        }
+
+
+        /**
+         * @return string
+         */
+        protected function getInitData()
+        {
+
+            return json_encode(array(
+
+            ));
         }
 
 

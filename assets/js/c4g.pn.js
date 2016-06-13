@@ -36,8 +36,8 @@
         var _openModal = function (type, data, title) {
             data = data || {};
             title = title || "";
-            var minWidth = 800;
-            var minHeight = 400;
+            var minWidth = 480;
+            var minHeight = 360;
 
             var aButtons = [
                 {
@@ -59,8 +59,8 @@
 
             if (type == "compose") {
 
-                minWidth = 960;
-                minHeight = 560;
+                minWidth = 480;
+                minHeight = 360;
                 aButtons.unshift(
                     {
                         text: C4GLANG.send,
@@ -75,7 +75,7 @@
             }
             if (type == "view") {
 
-                minWidth = 960;
+                minWidth = 480;
                 minHeight = 360;
 
                 aButtons.unshift({
