@@ -36,7 +36,7 @@
 
 #modal-compose td input.text
 {
-    width: 250px; /*ToDo mobile optimizing*/
+    width: 310px;
 }
 
 #modal-view .subtitle{
