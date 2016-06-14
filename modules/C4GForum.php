@@ -519,7 +519,7 @@ namespace c4g\Forum;
                 array_insert($data['aoColumnDefs'], 1, array(
                                                       array(
                                                           'sTitle'                => $GLOBALS['TL_LANG']['C4G_FORUM']['RATING'],
-                                                          "sWidth"                => '20%',
+                                                          "sWidth"                => '10%',
                                                           "aDataSort"             => array(1),
                                                           "aTargets"              => array(1),
                                                           "c4gMinTableSizeWidths" => array(
@@ -686,7 +686,7 @@ namespace c4g\Forum;
                                         <span id="staticStar15" ' . (($rating == "1.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar15" title="1.5 stars"></label>
                                         <span id="staticStar1" ' . (($rating == "1") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar1" title="1 stars"></label>
                                         <span id="staticStar05" ' . (($rating == "0.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar05" title="0.5 stars"></label>
-                                    </fieldset><br><span class="score">&#216 ' . $rating . '&nbsp;&nbsp;('.$aRating['overall'].' '.(($aRating['overall'] > 1)?$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_MULTIPLE']:$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_SINGLE']).')</spa>
+                                    </fieldset><span class="score">&#216 ' . $rating . '&nbsp;&nbsp;('.$aRating['overall'].' '.(($aRating['overall'] > 1)?$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_MULTIPLE']:$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_SINGLE']).')</spa>
                                 </div>';
                         }
                         array_insert($aaData, 1, $sRating);
@@ -4473,7 +4473,7 @@ JSPAGINATE;
                 array_insert($data['aoColumnDefs'], 1, array(
                                                       array(
                                                           'sTitle'                => $GLOBALS['TL_LANG']['C4G_FORUM']['RATING'],
-                                                          "sWidth"                => '20%',
+                                                          "sWidth"                => '10%',
                                                           "aDataSort"             => array(1),
                                                           "aTargets"              => array(1),
                                                           "c4gMinTableSizeWidths" => array(
@@ -4600,7 +4600,7 @@ JSPAGINATE;
                                         <span id="staticStar15" ' . (($rating == "1.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar15" title="1.5 stars"></label>
                                         <span id="staticStar1" ' . (($rating == "1") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar1" title="1 stars"></label>
                                         <span id="staticStar05" ' . (($rating == "0.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar05" title="0.5 stars"></label>
-                                    </fieldset><br><span class="score">&#216 ' . $rating . '&nbsp;&nbsp;('.$aRating['overall'].' '.(($aRating['overall'] > 1)?$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_MULTIPLE']:$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_SINGLE']).')</spa>
+                                    </fieldset><span class="score">&#216 ' . $rating . '&nbsp;&nbsp;('.$aRating['overall'].' '.(($aRating['overall'] > 1)?$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_MULTIPLE']:$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_SINGLE']).')</spa>
                                 </div>';
                     }
                     array_insert($aaData, 1, $sRating);
@@ -4678,7 +4678,7 @@ JSPAGINATE;
             if ($this->c4g_forum_rating_enabled) {
                 $data['aoColumnDefs'][] = array(
                     'sTitle'                => $GLOBALS['TL_LANG']['C4G_FORUM']['RATING'],
-                    "sWidth"                => '30%',
+                    "sWidth"                => '10%',
                     "aDataSort"             => array(1),
                     "aTargets"              => array(1),
                     "c4gMinTableSizeWidths" => array(

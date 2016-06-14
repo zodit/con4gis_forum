@@ -306,23 +306,38 @@ h1 {
 
 .reset_rating{
     display:inline-block;
-    padding-top: 13px;
-    padding-left: 10px;
+    padding-top: 2px;
+    padding-left: 8px;
 }
 
 
 .rating ,
-.rating_static {
+.c4gForumPostHeader .rating_static {
     border: none;
     float: left;
     padding:0 !important;
 }
-.rating_wrapper .score{
-    padding-top:8px;
+
+.c4gForumPostHeader .rating_wrapper .score{
+    padding-top: 6px;
     padding-left:6px;
     display:inline-block;
     color:#aaa;
     font-size: 10px;
+}
+
+.c4gGuiDataTable .rating_static {
+	border: none;
+	float: left;
+	padding-top: 6px;
+}
+
+.c4gGuiDataTable .rating_wrapper .score{
+	padding-top: 12px;
+	padding-left:6px;
+	display:inline-block;
+	color:#aaa;
+	font-size: 10px;
 }
 
 .rating > input {
@@ -332,15 +347,15 @@ h1 {
 .rating > label:before ,
 .rating_static > label:before {
     margin: 4px;
-    font-size: 2.25em;
+    font-size: 1.25em;
     font-family: FontAwesome;
     display: inline-block;
     content: "\f005";
 }
 
-.rating_static > label:before {
-    font-size: 1.25em;
-}
+/*.rating_static > label:before {*/
+    /*font-size: 1.25em;*/
+/*}*/
 
 .rating > .half:before ,
 .rating_static > .half:before {
