@@ -1,25 +1,25 @@
 <?php
 
+/**
+ * con4gis - the gis-kit
+ *
+ * @version   php 5
+ * @package   con4gis
+ * @author    con4gis contributors (see "authors.txt")
+ * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @link      https://www.kuestenschmiede.de
+ */
+
 namespace c4g\Forum;
 
-    /**
-     * Class C4gForumPn
-     *
-     * @package c4g
-     */
-    /**
-     * Class C4gForumPn
-     *
-     * @package c4g
-     */
     use Contao\Email;
     use Contao\MemberModel;
     use Contao\UserModel;
 
     /**
      * Class C4gForumPn
-     *
-     * @package c4g
+     * @package c4g\Forum
      */
     class C4gForumPn{
 

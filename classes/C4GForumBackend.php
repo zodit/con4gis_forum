@@ -1,29 +1,20 @@
 <?php
+/**
+ * con4gis - the gis-kit
+ *
+ * @version   php 5
+ * @package   con4gis
+ * @author    con4gis contributors (see "authors.txt")
+ * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @link      https://www.kuestenschmiede.de
+ */
 
 namespace c4g\Forum;
 
 /**
- * Contao Open Source CMS
- *
- * @version   php 5
- * @package   con4gis
- * @author     Tobias Dobbrunz <http://www.kuestenschmiede.de>
- * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
- * @link      https://www.kuestenschmiede.de
- * @filesource
- */
-
-
-
-/**
  * Class C4GForumBackend
- *
- * Provide methods to handle backendconfigurations
- * @copyright  Küstenschmiede GmbH Software & Design 2012
- * @author     Tobias Dobbrunz <http://www.kuestenschmiede.de>
- * @package    con4gis
- * @author     Tobias Dobbrunz <http://www.kuestenschmiede.de>
+ * @package c4g\Forum
  */
 class C4GForumBackend extends \Backend
 {

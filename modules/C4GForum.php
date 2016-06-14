@@ -1,19 +1,17 @@
 <?php
 
+/**
+ * con4gis - the gis-kit
+ *
+ * @version   php 5
+ * @package   con4gis
+ * @author    con4gis contributors (see "authors.txt")
+ * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @link      https://www.kuestenschmiede.de
+ */
+
 namespace c4g\Forum;
-
-    /**
-     * Contao Open Source CMS
-     *
-     * @version   php 5
-     * @package   con4gis
-     * @author    Jürgen Witte & Tobias Dobbrunz <http://www.kuestenschmiede.de>
-     * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
-     * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
-     * @link      https://www.kuestenschmiede.de
-     * @filesource
-     */
-
 
     $GLOBALS['c4gForumErrors']           = array();
     $GLOBALS['c4gForumSearchParamCache'] = array();
@@ -37,6 +35,7 @@ namespace c4g\Forum;
 
     /**
      * Class C4GForum
+     * @package c4g\Forum
      */
     class C4GForum extends \Module
     {
