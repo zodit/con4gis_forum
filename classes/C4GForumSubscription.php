@@ -354,7 +354,7 @@ namespace c4g\Forum;
 
                         $aMailData['ACTION_PRE'] = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_' . $sActionType . '_PRE'];
 
-                        System::log('[C4G] ' . $aMailData['ACTION_NAME'] . " in \"" . $thread['forumname'] . "\": " . $thread['threadname'], __METHOD__, TL_GENERAL);
+                        \System::log('[C4G] ' . $aMailData['ACTION_NAME'] . " in \"" . $thread['forumname'] . "\": " . $thread['threadname'], __METHOD__, TL_GENERAL);
 
                         $data            = array();
                         $data['command'] = 'sendmail';
