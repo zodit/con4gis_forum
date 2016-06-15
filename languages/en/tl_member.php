@@ -16,3 +16,5 @@ $GLOBALS['TL_LANG']['tl_member']['memberHomepageLink'] = array('Homepage', 'Home
 $GLOBALS['TL_LANG']['tl_member']['memberFacebookLink'] = array('Facebook', 'Link to Facebook-Site');
 $GLOBALS['TL_LANG']['tl_member']['memberTwitterLink'] = array('Twitter', 'Link to Twitter-Site');
 $GLOBALS['TL_LANG']['tl_member']['memberGooglePlusLink'] = array('Google+', 'Link to Google+ Site');
+
+$GLOBALS['TL_LANG']['tl_member']['forum_member_legend'] = 'con4gis-Forum - Memberdata';

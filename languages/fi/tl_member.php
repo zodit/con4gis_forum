@@ -16,3 +16,5 @@ $GLOBALS['TL_LANG']['tl_member']['memberHomepageLink'] = array('Kotisivu', 'Koti
 $GLOBALS['TL_LANG']['tl_member']['memberFacebookLink'] = array('Facebook', 'Linkki Facebook-sivuun');
 $GLOBALS['TL_LANG']['tl_member']['memberTwitterLink'] = array('Twitter', 'Linkki Twitter-sivuun');
 $GLOBALS['TL_LANG']['tl_member']['memberGooglePlusLink'] = array('Google+', 'Linkki Google+ sivuun');
+
+$GLOBALS['TL_LANG']['tl_member']['forum_member_legend'] = 'con4gis-Forum - Memberdata';
