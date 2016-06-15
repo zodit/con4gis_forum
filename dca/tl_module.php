@@ -731,7 +731,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_sitemap_root'] = array
     /**
      * Class tl_module_c4g_forum
      */
-    class tl_module_c4g_forum extends Backend
+    class tl_module_c4g_forum extends \Backend
     {
 
         /**

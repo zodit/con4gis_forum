@@ -28,7 +28,7 @@ class C4gForumSingleFileUpload extends \Contao\FileUpload
      */
     public function generateMarkup()
     {
-        $sField = '<input type="file" name="' . $this->strName . '[]" class="tl_upload_field" onfocus="Backend.getScrollOffset()"><br>';
+        $sField = '<input type="file" name="' . $this->strName . '[]" class="tl_upload_field"><br>';
 
         return '<div id="upload-fields">'.$sField.'</div>';
     }

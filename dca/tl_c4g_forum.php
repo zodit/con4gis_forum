@@ -451,7 +451,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 /**
  * Class tl_c4g_forum
  */
-class tl_c4g_forum extends Backend
+class tl_c4g_forum extends \Backend
 {
 
 	/**
