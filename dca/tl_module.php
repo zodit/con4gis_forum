@@ -26,7 +26,7 @@
         '{c4g_forum_comf_sitemap_legend:hide},c4g_forum_sitemap;' .
         '{c4g_forum_tags_legend},c4g_forum_use_tags_in_search;' .
         '{c4g_forum_pagination_legend},c4g_forum_pagination_active,c4g_forum_pagination_perpage,c4g_forum_pagination_format;' .
-        '{protected_legend:hide},protected;' .
+        '{c4g_forum_comf_maps_legend},c4g_forum_enable_maps;' .
         '{expert_legend:hide},guests,cssID,space';
 
     $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum_breadcrumb'] =
@@ -44,7 +44,6 @@
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_show_avatars';
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_show_online_status';
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_show_ranks';
-    $GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][] = array('tl_module_c4g_forum', 'updateDCA');
 
     $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_tags']    = 'c4g_forum_sitemap_filename,c4g_forum_use_tags_in_search';
     $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_jqui']    = 'c4g_forum_jqui_lib,c4g_forum_uitheme_css_src,c4g_forum_dialogsize,c4g_forum_dialogs_embedded,c4g_forum_embdialogs_jqui,c4g_forum_breadcrumb_jqui_layout,c4g_forum_buttons_jqui_layout,c4g_forum_table_jqui_layout,c4g_forum_posts_jqui,c4g_forum_boxes_jqui_layout,c4g_forum_enable_scrollpane';
@@ -644,11 +643,12 @@
         'eval'      => array('tl_class' => 'w50')
     );
 
+    //ToDo integrate this per con4gis-Maps extension
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_enable_maps'] = array
     (
-        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_enable_maps'],
-        'exclude'   => true,
-        'default'   => '',
+        'label' => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_enable_maps'],
+        'exclude' => true,
+        'default' => '',
         'inputType' => 'checkbox',
     );
 
@@ -733,24 +733,6 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_sitemap_root'] = array
      */
     class tl_module_c4g_forum extends \Backend
     {
-
-        /**
-         * Update the palette information that depend on other values
-         */
-        public function updateDCA(DataContainer $dc)
-        {
-
-            // add Maps section if c4gMaps is installed
-            if ($GLOBALS['c4g_maps_extension']['installed']) {
-                $c4gMapsFields                                           = '{c4g_forum_comf_maps_legend:hide},c4g_forum_enable_maps;';
-                $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum'] =
-                    str_replace('{protected_legend', $c4gMapsFields . '{protected_legend',
-                                $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum']);
-
-            }
-        }
-
-
         public function update_sitemap($value, $dc)
         {
 
