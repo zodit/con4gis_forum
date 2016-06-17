@@ -213,6 +213,7 @@
      */
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_general_legend'] = 'Forum - General';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_bbcodes_legend'] = 'Forum - BBCodes';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_pn_legend']      = 'Forum - Personal Messaging';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_boxes_legend']   = 'Forum - Box navigation settings';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_jqui_legend']    = 'Forum - jQuery UI';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend']    = 'Forum - Maps (con4gis)';

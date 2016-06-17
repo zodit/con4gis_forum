@@ -234,6 +234,7 @@
      */
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_general_legend'] = 'Diskussionsforum - Allgemein';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_bbcodes_legend'] = 'Diskussionsforum - BBCodes';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_pn_legend']      = 'Diskussionsforum - Persönliche Nachrichten';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_boxes_legend']   = 'Diskussionsforum - Einstellungen für Kachelsicht';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_jqui_legend']    = 'Diskussionsforum - jQuery UI';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend']    = 'Diskussionsforum - Kartenanbindung (con4gis-Maps)';

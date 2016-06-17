@@ -18,15 +18,16 @@
      */
     $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum'] =
         '{title_legend},name,headline,type;' .
-        '{c4g_forum_comf_general_legend},c4g_forum_size,c4g_forum_scroll,c4g_forum_startforum,c4g_forum_comf_navigation,c4g_forum_threadclick,c4g_forum_show_realname,c4g_forum_postsort,c4g_forum_collapsible_posts,c4g_forum_breadcrumb,c4g_forum_hide_intropages,c4g_forum_jumpTo,c4g_forum_language,c4g_forum_tooltip,c4g_forum_show_last_post_on_new,c4g_forum_rating_enabled,c4g_forum_rating_color,c4g_forum_show_post_count,c4g_forum_show_avatars,c4g_forum_show_online_status,c4g_forum_show_ranks;c4g_forum_show_pn_button;' .
+        '{c4g_forum_comf_general_legend},c4g_forum_size,c4g_forum_scroll,c4g_forum_startforum,c4g_forum_comf_navigation,c4g_forum_threadclick,c4g_forum_show_realname,c4g_forum_postsort,c4g_forum_collapsible_posts,c4g_forum_breadcrumb,c4g_forum_hide_intropages,c4g_forum_jumpTo,c4g_forum_language,c4g_forum_tooltip,c4g_forum_show_last_post_on_new,c4g_forum_rating_enabled,c4g_forum_rating_color,c4g_forum_show_post_count,c4g_forum_show_avatars,c4g_forum_show_online_status,c4g_forum_show_ranks;' .
+        '{c4g_forum_comf_pn_legend:hide},c4g_forum_show_pn_button;' .
         '{c4g_forum_comf_bbcodes_legend:hide},c4g_forum_bbcodes;' .
         '{c4g_forum_comf_boxes_legend:hide},c4g_forum_boxes_text,c4g_forum_boxes_subtext,c4g_forum_boxes_lastpost,c4g_forum_boxes_center;' .
         '{c4g_forum_comf_jqui_legend:hide},c4g_forum_jqui;' .
         '{c4g_forum_comf_lib_legend:hide},c4g_forum_jquery_lib,c4g_forum_jqtable_lib,c4g_forum_jqhistory_lib,c4g_forum_jqtooltip_lib,c4g_forum_jqscrollpane_lib;' .
         '{c4g_forum_comf_sitemap_legend:hide},c4g_forum_sitemap;' .
-        '{c4g_forum_tags_legend},c4g_forum_use_tags_in_search;' .
-        '{c4g_forum_pagination_legend},c4g_forum_pagination_active,c4g_forum_pagination_perpage,c4g_forum_pagination_format;' .
-        '{c4g_forum_comf_maps_legend},c4g_forum_enable_maps;' .
+        '{c4g_forum_tags_legend:hide},c4g_forum_use_tags_in_search;' .
+        '{c4g_forum_pagination_legend:hide},c4g_forum_pagination_active,c4g_forum_pagination_perpage,c4g_forum_pagination_format;' .
+        '{c4g_forum_comf_maps_legend:hide},c4g_forum_enable_maps;' .
         '{expert_legend:hide},guests,cssID,space';
 
     $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum_breadcrumb'] =
