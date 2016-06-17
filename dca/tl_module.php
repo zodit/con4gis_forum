@@ -27,7 +27,6 @@
         '{c4g_forum_comf_sitemap_legend:hide},c4g_forum_sitemap;' .
         '{c4g_forum_tags_legend:hide},c4g_forum_use_tags_in_search;' .
         '{c4g_forum_pagination_legend:hide},c4g_forum_pagination_active,c4g_forum_pagination_perpage,c4g_forum_pagination_format;' .
-        '{c4g_forum_comf_maps_legend:hide},c4g_forum_enable_maps;' .
         '{expert_legend:hide},guests,cssID,space';
 
     $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum_breadcrumb'] =
