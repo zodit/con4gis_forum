@@ -644,15 +644,6 @@
         'eval'      => array('tl_class' => 'w50')
     );
 
-    //ToDo integrate this per con4gis-Maps extension
-    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_enable_maps'] = array
-    (
-        'label' => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_enable_maps'],
-        'exclude' => true,
-        'default' => '',
-        'inputType' => 'checkbox',
-    );
-
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_sitemap'] = array
     (
         'label'         => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap'],
