@@ -26,7 +26,7 @@
         '{c4g_forum_comf_sitemap_legend:hide},c4g_forum_sitemap;' .
         '{c4g_forum_tags_legend},c4g_forum_use_tags_in_search;' .
         '{c4g_forum_pagination_legend},c4g_forum_pagination_active,c4g_forum_pagination_perpage,c4g_forum_pagination_format;' .
-        '{c4g_forum_comf_maps_legend},c4g_forum_enable_maps;' .
+//        '{c4g_forum_comf_maps_legend},c4g_forum_enable_maps;' .
         '{expert_legend:hide},guests,cssID,space';
 
     $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum_breadcrumb'] =
@@ -644,13 +644,13 @@
     );
 
     //ToDo integrate this per con4gis-Maps extension
-    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_enable_maps'] = array
-    (
-        'label' => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_enable_maps'],
-        'exclude' => true,
-        'default' => '',
-        'inputType' => 'checkbox',
-    );
+//    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_enable_maps'] = array
+//    (
+//        'label' => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_enable_maps'],
+//        'exclude' => true,
+//        'default' => '',
+//        'inputType' => 'checkbox',
+//    );
 
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_sitemap'] = array
     (
