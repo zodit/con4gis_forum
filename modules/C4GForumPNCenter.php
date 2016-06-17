@@ -120,7 +120,7 @@
                 false,                                                // add C4GMaps
                 false,                                                // add C4GMaps - GoogleMaps
                 false,                                                // add C4GMaps - MapsEditor
-                false,                                                // add WYSIWYG editor
+                true,                                                 // add WYSIWYG editor
                 false);                                               // add jScrollPane
 
             $data['id']             = $this->id;
