@@ -2,23 +2,20 @@
     die('You cannot access this file directly!');
 }
 
-    /**
-     * Contao Open Source CMS
-     *
-     * @version    php 5
-     * @package    con4gis
-     * @author     Jürgen Witte <http://www.kuestenschmiede.de>
-     * @license    GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
-     * @copyright  Küstenschmiede GmbH Software & Design 2014 - 2015
-     * @link       https://www.kuestenschmiede.de
-     * @filesource
-     */
-
+/**
+ * con4gis - the gis-kit
+ *
+ * @version   php 5
+ * @package   con4gis
+ * @author    con4gis contributors (see "authors.txt")
+ * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @link      https://www.kuestenschmiede.de
+ */
 
     /**
      * Fields
      */
-
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_size']              = array(
         'Größe (Breite, Höhe)',
         'Größe des Bereiches, in dem das Forum dargestellt wird. Bei Eingabe von "0" oder nichts wird der Wert nicht gesetzt, und die Breite sowie die Höhe werden automatisch ermittelt.'
@@ -76,6 +73,7 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems']   = array('WYSIWYG-Editor Toolbar Schaltfächen', '');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_ckeditor']                      = array('Neuen WYSIWYG-Editor verwenden', '');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor']                        = array('WYSIWYG-Editor', '');
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_pn_button']                = array('Perönliche Nachrichten', 'Button für Persönliche Nachrichten im Profil anzeigen');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor_option']['ck']           = "Neuen WYSIWYG-Editor verwenden";
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor_option']['bb']           = "Alten WYSIWYG-Editor verwenden";
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor_option']['no']           = "Keinen WYSIWYG-Editor verwenden";
@@ -236,6 +234,7 @@
      */
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_general_legend'] = 'Diskussionsforum - Allgemein';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_bbcodes_legend'] = 'Diskussionsforum - BBCodes';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_pn_legend']      = 'Diskussionsforum - Persönliche Nachrichten';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_boxes_legend']   = 'Diskussionsforum - Einstellungen für Kachelsicht';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_jqui_legend']    = 'Diskussionsforum - jQuery UI';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend']    = 'Diskussionsforum - Kartenanbindung (con4gis-Maps)';
@@ -274,7 +273,7 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['FORUMS']  = 'Öffentliche Forenbereiche';
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['INTROS']  = 'Öffentliche Forenbereiche - Einstiegsseiten';
 
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip']                           = array("Tootip für die Themenliste", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip']                           = array("Tooltip für die Themenliste", "");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['title_first_post'] = "Titel des ersten Beitrags";
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['title_last_post']  = "Titel des letzten Beitrags";
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['body_first_post']  = "Inhalt des ersten Beitrags";

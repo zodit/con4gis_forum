@@ -1,6 +1,17 @@
 <?php
 
 /**
+ * con4gis - the gis-kit
+ *
+ * @version   php 5
+ * @package   con4gis
+ * @author    con4gis contributors (see "authors.txt")
+ * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @link      https://www.kuestenschmiede.de
+ */
+
+/**
  * Usethe "memberLink" key in the eval array to indicate this field as a member link field, e. g. homepage, facebook, twitter.
  * This key is used in the member data generation for the forum to get all member links as output them.
  */
@@ -16,8 +27,9 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['memberImage'] = array
     'label'                   => &$GLOBALS['TL_LANG']['tl_member']['memberImage'],
     'exclude'                 => true,
     'inputType'               => 'avatar',
+    'load_callback'           => array(array('tl_member_dca', 'setUploadFolder')),
     'save_callback'           => array(array('tl_member_dca', 'handleMemberImage')),
-    'eval'                    => array('filesOnly'=>true, 'multiple' => false, 'fieldType'=>'radio', 'feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'forum', 'storeFile' => true, 'uploadFolder' => 'files/userimages', 'tl_class'=>'clr'),
+    'eval'                    => array('filesOnly'=>true, 'multiple' => false, 'fieldType'=>'radio', 'feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'forum', 'storeFile' => true, 'uploadFolder' => 'files/userimages/xxx', 'tl_class'=>'clr'),
     'sql'                     => "mediumtext NULL"
 );
 
@@ -72,6 +84,9 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['memberGooglePlusLink'] = array
 );
 
 
+/**
+ * Class tl_member_dca
+ */
 class tl_member_dca extends \Contao\Backend
 {
 
@@ -97,12 +112,30 @@ class tl_member_dca extends \Contao\Backend
             $iMemberId = $dc->id;
         }
 
-        if (empty($varValue)) {
-            $sImagePathFromDatabase = C4gForumMember::getAvatarByMemberId($iMemberId);
-            return $sImagePathFromDatabase;
+        $sImagePathFromDatabase = \c4g\Forum\C4gForumMember::getAvatarByMemberId($iMemberId);
+        if (empty(deserialize($varValue)) && (!empty($sImagePathFromDatabase))) {
+            if ($sImagePathFromDatabase) {
+                $varValue = $sImagePathFromDatabase;
+            }
         }
 
         return $varValue;
+    }
+
+    /**
+     * @param $dc
+     * @return string
+     */
+    public function setUploadFolder($varValue, $dc)
+    {
+        $uploadFolder = "files/userimages/";
+        $iMemberId = $dc->id;
+
+        if ($iMemberId > 0) {
+            $uploadFolder = $uploadFolder.'user_'.$iMemberId;
+        }
+
+        $GLOBALS['TL_DCA']['tl_member']['fields']['memberImage']['eval']['uploadFolder'] = $uploadFolder;
     }
 
 }

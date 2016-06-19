@@ -2,18 +2,16 @@
     die('You can not access this file directly!');
 }
 
-    /**
-     * Contao Open Source CMS
-     *
-     * @version    php 5
-     * @package    con4gis
-     * @author     Jürgen Witte <http://www.kuestenschmiede.de>
-     * @license    GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
-     * @copyright  Küstenschmiede GmbH Software & Design 2014 - 2015
-     * @link       https://www.kuestenschmiede.de
-     * @filesource
-     */
-
+/**
+ * con4gis - the gis-kit
+ *
+ * @version   php 5
+ * @package   con4gis
+ * @author    con4gis contributors (see "authors.txt")
+ * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @link      https://www.kuestenschmiede.de
+ */
 
     /***
      * Palettes
@@ -21,14 +19,14 @@
     $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum'] =
         '{title_legend},name,headline,type;' .
         '{c4g_forum_comf_general_legend},c4g_forum_size,c4g_forum_scroll,c4g_forum_startforum,c4g_forum_comf_navigation,c4g_forum_threadclick,c4g_forum_show_realname,c4g_forum_postsort,c4g_forum_collapsible_posts,c4g_forum_breadcrumb,c4g_forum_hide_intropages,c4g_forum_jumpTo,c4g_forum_language,c4g_forum_tooltip,c4g_forum_show_last_post_on_new,c4g_forum_rating_enabled,c4g_forum_rating_color,c4g_forum_show_post_count,c4g_forum_show_avatars,c4g_forum_show_online_status,c4g_forum_show_ranks;' .
+        '{c4g_forum_comf_pn_legend:hide},c4g_forum_show_pn_button;' .
         '{c4g_forum_comf_bbcodes_legend:hide},c4g_forum_bbcodes;' .
         '{c4g_forum_comf_boxes_legend:hide},c4g_forum_boxes_text,c4g_forum_boxes_subtext,c4g_forum_boxes_lastpost,c4g_forum_boxes_center;' .
         '{c4g_forum_comf_jqui_legend:hide},c4g_forum_jqui;' .
         '{c4g_forum_comf_lib_legend:hide},c4g_forum_jquery_lib,c4g_forum_jqtable_lib,c4g_forum_jqhistory_lib,c4g_forum_jqtooltip_lib,c4g_forum_jqscrollpane_lib;' .
         '{c4g_forum_comf_sitemap_legend:hide},c4g_forum_sitemap;' .
-        '{c4g_forum_tags_legend},c4g_forum_use_tags_in_search;' .
-        '{c4g_forum_pagination_legend},c4g_forum_pagination_active,c4g_forum_pagination_perpage,c4g_forum_pagination_format;' .
-        '{protected_legend:hide},protected;' .
+        '{c4g_forum_tags_legend:hide},c4g_forum_use_tags_in_search;' .
+        '{c4g_forum_pagination_legend:hide},c4g_forum_pagination_active,c4g_forum_pagination_perpage,c4g_forum_pagination_format;' .
         '{expert_legend:hide},guests,cssID,space';
 
     $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum_breadcrumb'] =
@@ -37,13 +35,15 @@
         '{protected_legend:hide},protected;' .
         '{expert_legend:hide},guests,cssID,space';
 
+    $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum_pncenter'] =
+        '{title_legend},name,headline,type;';
+
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_bbcodes';
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_jqui';
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_sitemap';
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_show_avatars';
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_show_online_status';
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_show_ranks';
-    $GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][] = array('tl_module_c4g_forum', 'updateDCA');
 
     $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_tags']    = 'c4g_forum_sitemap_filename,c4g_forum_use_tags_in_search';
     $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_jqui']    = 'c4g_forum_jqui_lib,c4g_forum_uitheme_css_src,c4g_forum_dialogsize,c4g_forum_dialogs_embedded,c4g_forum_embdialogs_jqui,c4g_forum_breadcrumb_jqui_layout,c4g_forum_buttons_jqui_layout,c4g_forum_table_jqui_layout,c4g_forum_posts_jqui,c4g_forum_boxes_jqui_layout,c4g_forum_enable_scrollpane';
@@ -96,6 +96,14 @@
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_pagination_active'] = array
     (
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_active'],
+        'exclude'   => true,
+        'default'   => true,
+        'inputType' => 'checkbox'
+    );
+
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_show_pn_button'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_pn_button'],
         'exclude'   => true,
         'default'   => true,
         'inputType' => 'checkbox'
@@ -426,7 +434,7 @@
     (
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_smileys_url'],
         'exclude'   => true,
-        'default'   => 'system/modules/con4gis_forum/html/images/smileys',
+        'default'   => 'system/modules/con4gis_forum/assets/images/smileys',
         'inputType' => 'text',
         'eval'      => array('maxlength' => 128, "style" => 'width: 200px')
     );
@@ -635,14 +643,6 @@
         'eval'      => array('tl_class' => 'w50')
     );
 
-    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_enable_maps'] = array
-    (
-        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_enable_maps'],
-        'exclude'   => true,
-        'default'   => '',
-        'inputType' => 'checkbox',
-    );
-
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_sitemap'] = array
     (
         'label'         => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap'],
@@ -721,32 +721,9 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_sitemap_root'] = array
 
     /**
      * Class tl_module_c4g_forum
-     *
-     * @copyright  Küstenschmiede GmbH Software & Design 2012
-     * @author     Jürgen Witte <http://www.kuestenschmiede.de>
-     * @package    con4gis
-     * @author     Jürgen Witte <http://www.kuestenschmiede.de>
      */
-    class tl_module_c4g_forum extends Backend
+    class tl_module_c4g_forum extends \Backend
     {
-
-        /**
-         * Update the palette information that depend on other values
-         */
-        public function updateDCA(DataContainer $dc)
-        {
-
-            // add Maps section if c4gMaps is installed
-            if ($GLOBALS['c4g_maps_extension']['installed']) {
-                $c4gMapsFields                                           = '{c4g_forum_comf_maps_legend:hide},c4g_forum_enable_maps;';
-                $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum'] =
-                    str_replace('{protected_legend', $c4gMapsFields . '{protected_legend',
-                                $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum']);
-
-            }
-        }
-
-
         public function update_sitemap($value, $dc)
         {
 

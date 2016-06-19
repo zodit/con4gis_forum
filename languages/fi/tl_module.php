@@ -2,18 +2,16 @@
     die('You cannot access this file directly!');
 }
 
-    /**
-     * Contao Open Source CMS
-     *
-     * @version    php 5
-     * @package    con4gis
-     * @author     Joona Ilomäki
-     * @license    GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
-     * @copyright  Küstenschmiede GmbH Software & Design 2014 - 2016
-     * @link       https://www.kuestenschmiede.de
-     * @filesource
-     */
-
+/**
+ * con4gis - the gis-kit
+ *
+ * @version   php 5
+ * @package   con4gis
+ * @author    con4gis contributors (see "authors.txt")
+ * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @link      https://www.kuestenschmiede.de
+ */
 
     /**
      * Fields
@@ -24,7 +22,7 @@
     );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_scroll']            = array(
         'Scrollattavan alueen koko threadlistassa (leveys, koko)',
-        'Jätä tyhjäksi jos et halua scrollbareja.'
+        'Jätä tyhjäksi jos et halua vierityspalkkia.'
     );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_startforum']        = array(
         'alkuperä',
@@ -76,7 +74,7 @@
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_rating_enabled'] = array("Ota käyttöön arvostelu", "Ottaa käyttöön viiden tähden arvostelusysteemin kun viestejä kirjoitetaan.");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_rating_color'] = array("Arvostelutähtien väri", "Vaihtaa arvostelutähtien värin. Oletus: global tekstin väri");
-
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_pn_button']                = array('Private messages','Show button for private messages');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor']                = array('Käytä WYSIWYG-Editoria', 'VAROITUS: Tämä ominaisuus toimii vain sulautetuilla foorumeilla!');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems']   = array('WYSIWYG-Editori tooltip napit', '');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath']  = array('Kuvan latauskansio', 'Päätä minne ladatut kuvat pitäisi varastoida');
@@ -213,6 +211,7 @@
      */
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_general_legend'] = 'Foorumi - Yleinen';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_bbcodes_legend'] = 'Foorumi - BBCodes';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_pn_legend']      = 'Foorumi - Personal Messaging';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_boxes_legend']   = 'Foorumi - Boksi navigaatio asetukset';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_jqui_legend']    = 'Foorumi - jQuery UI';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend']    = 'Foorumi - Kartat (con4gis)';

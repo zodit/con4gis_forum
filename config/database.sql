@@ -215,6 +215,7 @@ CREATE TABLE `tl_module` (
   `c4g_forum_show_avatars` char(1) NOT NULL default '',
   `c4g_forum_avatar_size` varchar(255) NOT NULL default '',
   `c4g_forum_show_online_status` char(1) NOT NULL default '',
+  `c4g_forum_show_pn_button` char(1) NOT NULL default '',
   `c4g_forum_member_online_time` int(10) unsigned NOT NULL default '300',
   `c4g_forum_show_ranks` char(1) NOT NULL default '',
   `c4g_forum_member_ranks` blob NULL,

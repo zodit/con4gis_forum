@@ -1,17 +1,15 @@
 <?php
 
-    /**
-     * Contao Open Source CMS
-     *
-     * @version    php 5
-     * @package    con4gis
-     * @author     Joona Ilomäki
-     * @license    GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
-     * @copyright  Küstenschmiede GmbH Software & Design 2014 - 2016
-     * @link       https://www.kuestenschmiede.de
-     * @filesource
-     */
-
+/**
+ * con4gis - the gis-kit
+ *
+ * @version   php 5
+ * @package   con4gis
+ * @author    con4gis contributors (see "authors.txt")
+ * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @link      https://www.kuestenschmiede.de
+ */
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['FORUM']                   = 'Foorumi';
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREAD']                  = 'Thread';
@@ -43,8 +41,8 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST']               = 'Muokkaa viestiä';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_PREVIEW']       = 'Ennakkonäkymä - Muokkaa viestiä';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_POST_CHANGES']       = 'Tallenna muutokset postiin';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']              = 'Viestien määrä määrä';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_AUTHOR_SHORT'] = 'Viimeksi';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']              = 'Viestien määrä';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_AUTHOR_SHORT'] = 'Viimeisin';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST_SHORT']   = 'Viimeksi';
     $GLOBALS['TL_LANG']['C4G_FORUM']['AUTHOR']            = 'Tekijä';
     $GLOBALS['TL_LANG']['C4G_FORUM']['CREATED_ON']        = 'Luotu';
@@ -66,8 +64,8 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_SEARCH']     = 'Pikahaku';
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_NOTFOUND']   = 'Threadeja ei löytynyt kyseisellä haulla';
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_COUNT']          = ' Post <b %s>#%d</b> of <b %s>%d</b> ';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_CREATED']        = 'Luonut <b %s>%s</b> on <b %s>%s</b>';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_COUNT']          = ' Viesti <b %s>#%d</b><b %s>%d</b> ';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_CREATED']        = 'Luonut <b %s>%s</b><b %s>%s</b>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_SUBJECT']        = '<b %s>Aihe:</b> <span %s>%s</span>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_LINK']           = 'Linkki: <a href="%s">%s</a>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_LINK_NEWWINDOW'] = 'Linkki: <a href="%s" target="_blank">%s</a>';
@@ -97,8 +95,8 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_THREAD_ERROR']   = 'Virhe poistaessa threadia!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_THREAD_SUCCESS'] = 'Thread poistettu onnistuneesti.';
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_TEXT']                  = 'Subscribe thread <b>%s</b> of forum <b>%s</b> via email?';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_TEXT']                = 'Tilaa foorumi <b>%s</b> via email?';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_TEXT']                  = 'Tilaa thread <b>%s</b> foorumilta <b>%s</b> sähköpostin kautta?';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_TEXT']                = 'Tilaa foorumi <b>%s</b> sähköpostin kautta?';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_SUBSCRIPTION_CANCEL'] = 'Peruuta tilaus foorumista <b>%s</b>?';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_SUBSCRIPTION_CANCEL']   = 'Peruuta tilaus <b>%s</b> foorumilta <b>%s</b> ?';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_CANCEL']                = 'Peruuta tilaus';

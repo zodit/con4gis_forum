@@ -85,7 +85,7 @@ class Avatar extends \Widget implements \uploadable
 			// Add user-based subfolder to target folder to prevent overwriting files with duplicate names.
 			if (TL_MODE === 'FE') {
 				$this->import('frontenduser');
-				$strUploadTo .= '/user_' . $this->frontenduser->id;
+				$strUploadTo = 'files/userimages/user_' . $this->frontenduser->id;
 			}
 
 			// Create the folder if it does not exist.
@@ -113,16 +113,13 @@ class Avatar extends \Widget implements \uploadable
 			$iMemberId = $this->currentRecord;
 		}
 
-
 		// Generate an image tag with the member's avatar.
 		$sImage = C4GForumHelper::getAvatarByMemberId($iMemberId);
 		if ($sImage) {
 			$sReturn = '<img src="' . $sImage . '">';
 		}
-		// Only return the uploader when used in the frontend.
-//		if (TL_MODE === 'FE') {
-			$sReturn .= ltrim($this->objUploader->generateMarkup());
-//		}
+
+		$sReturn .= ltrim($this->objUploader->generateMarkup());
 
 		return $sReturn;
 	}

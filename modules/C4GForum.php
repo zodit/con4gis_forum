@@ -1,19 +1,17 @@
-<?php if (!defined('TL_ROOT')) {
-    die('You can not access this file directly!');
-}
+<?php
 
-    /**
-     * Contao Open Source CMS
-     *
-     * @version   php 5
-     * @package   con4gis
-     * @author    Jürgen Witte & Tobias Dobbrunz <http://www.kuestenschmiede.de>
-     * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
-     * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
-     * @link      https://www.kuestenschmiede.de
-     * @filesource
-     */
+/**
+ * con4gis - the gis-kit
+ *
+ * @version   php 5
+ * @package   con4gis
+ * @author    con4gis contributors (see "authors.txt")
+ * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @link      https://www.kuestenschmiede.de
+ */
 
+namespace c4g\Forum;
 
     $GLOBALS['c4gForumErrors']           = array();
     $GLOBALS['c4gForumSearchParamCache'] = array();
@@ -36,9 +34,10 @@
     }
 
     /**
-     * Class Module_c4g_forum
+     * Class C4GForum
+     * @package c4g\Forum
      */
-    class Module_c4g_forum extends Module
+    class C4GForum extends \Module
     {
 
         /**
@@ -85,7 +84,7 @@
         {
 
             if (TL_MODE == 'BE') {
-                $objTemplate = new BackendTemplate('be_wildcard');
+                $objTemplate = new \BackendTemplate('be_wildcard');
 
                 $objTemplate->wildcard = '### ' . $GLOBALS['TL_LANG']['FMD']['c4g_forum'][0] . ' ###';
                 $objTemplate->title    = $this->headline;
@@ -118,7 +117,7 @@
                 $useGoogleMaps = C4GForumHelper::isGoogleMapsUsed($this->Database);
             }
             // initialize used Javascript Libraries and CSS files
-            C4GJQueryGUI::initializeLibraries(
+            \C4GJQueryGUI::initializeLibraries(
                 true,                                               // add c4gJQuery GUI Core LIB
                 ($this->c4g_forum_jquery_lib == true),              // add JQuery
                 ($this->c4g_forum_jqui_lib == true),                // add JQuery UI
@@ -137,14 +136,14 @@
             if ($this->c4g_forum_uitheme_css_src) {
                 if (version_compare(VERSION, '3.2', '>=')) {
                     // Contao 3.2.x Format
-                    $objFile                            = FilesModel::findByUuid($this->c4g_forum_uitheme_css_src);
+                    $objFile                            = \FilesModel::findByUuid($this->c4g_forum_uitheme_css_src);
                     if (!empty($objFile)) {
                         $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
                     }
                 } else {
                     if (is_numeric($this->c4g_forum_uitheme_css_src)) {
                         // Contao 3.x Format
-                        $objFile                            = FilesModel::findByPk($this->c4g_forum_uitheme_css_src);
+                        $objFile                            = \FilesModel::findByPk($this->c4g_forum_uitheme_css_src);
                         if (!empty($objFile)) {
                             $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
                         }
@@ -163,7 +162,7 @@
                 $GLOBALS ['TL_HEAD'] [] = '<style>.rating_static > span.checked ~ label{color:#' . $this->c4g_forum_rating_color . ' !important;}</style>';
             }
 
-            $GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/html/css/c4gForum.css';
+            $GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/assets/css/c4gForum.css';
             //$GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/html/css/bbcodes.css';
             $data['id']      = $this->id;
             $data['ajaxUrl'] = "system/modules/con4gis_core/api/index.php/c4g_forum_ajax";
@@ -236,8 +235,8 @@
             }
 
             if($this->c4g_forum_pagination_active == "1") {
-                $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/html/js/jquery.pagination.min.js";
-                $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/html/js/jquery.hashchange.min.js";
+                $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/assets/js/jquery.pagination.min.js";
+                $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/assets/js/jquery.hashchange.min.js";
             }
 
 
@@ -520,7 +519,7 @@
                 array_insert($data['aoColumnDefs'], 1, array(
                                                       array(
                                                           'sTitle'                => $GLOBALS['TL_LANG']['C4G_FORUM']['RATING'],
-                                                          "sWidth"                => '20%',
+                                                          "sWidth"                => '10%',
                                                           "aDataSort"             => array(1),
                                                           "aTargets"              => array(1),
                                                           "c4gMinTableSizeWidths" => array(
@@ -687,7 +686,7 @@
                                         <span id="staticStar15" ' . (($rating == "1.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar15" title="1.5 stars"></label>
                                         <span id="staticStar1" ' . (($rating == "1") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar1" title="1 stars"></label>
                                         <span id="staticStar05" ' . (($rating == "0.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar05" title="0.5 stars"></label>
-                                    </fieldset><br><span class="score">&#216 ' . $rating . '&nbsp;&nbsp;('.$aRating['overall'].' '.(($aRating['overall'] > 1)?$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_MULTIPLE']:$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_SINGLE']).')</spa>
+                                    </fieldset><span class="score">&#216 ' . $rating . '&nbsp;&nbsp;('.$aRating['overall'].' '.(($aRating['overall'] > 1)?$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_MULTIPLE']:$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_SINGLE']).')</spa>
                                 </div>';
                         }
                         array_insert($aaData, 1, $sRating);
@@ -957,6 +956,8 @@
         public function generatePostAsHtml($post, $singlePost, $preview = false)
         {
 
+            \System::loadLanguageFile('tl_c4g_forum_pn');
+
             if (!empty($post['tags'])) {
                 $post['tags'] = explode(", ", $post['tags']);
             }
@@ -1158,6 +1159,14 @@
             $oUserDataTemplate = new \Contao\FrontendTemplate('forum_user_data');
 
             // Get different member properties and hand them over to the user data template.
+            $oUserDataTemplate->iUserId = $oMember->id;
+
+            $oUserDataTemplate->c4g_forum_show_pn_button = ($this->c4g_forum_show_pn_button == '1');
+            $oUserDataTemplate->pn_label = $GLOBALS['TL_LANG']['tl_c4g_forum_pn']['profile_compose'];
+
+            $sJsLang = C4GForumPNCenter::getClientLangVars();
+            $oUserDataTemplate->c4g_pn_js = $sJsLang;
+
             $oUserDataTemplate->sUserName = $oMember->username;
             $oUserDataTemplate->iUserPostCount = $iUserPostCount;
             if ($this->c4g_forum_show_avatars) {
@@ -1506,8 +1515,8 @@
 
             if($this->c4g_forum_pagination_active == "1") {
 
-                // $GLOBALS['TL_JAVASCRIPT'][] = "/system/modules/con4gis_forum/html/js/jquery.pagination.min.js";
-                // $GLOBALS['TL_JAVASCRIPT'][] = "/system/modules/con4gis_forum/html/js/jquery.hashchange.min.js";
+                // $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/html/js/jquery.pagination.min.js";
+                // $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/html/js/jquery.hashchange.min.js";
 
                 $iPerPage = (!empty($this->c4g_forum_pagination_perpage))?$this->c4g_forum_pagination_perpage: 10;
                 $sPaginatorFormat = (!empty($this->c4g_forum_pagination_format))?$this->c4g_forum_pagination_format: '[< ncn >]';
@@ -2241,7 +2250,7 @@ JSPAGINATE;
                 }
 // TODO
 
-                $objFile               = FilesModel::findByUuid($forum['box_imagesrc']);
+                $objFile               = \FilesModel::findByUuid($forum['box_imagesrc']);
                 $forum['box_imagesrc'] = $objFile->path;
 
                 if ($forum['box_imagesrc']) { // check if bin is empty!!!!
@@ -2271,7 +2280,7 @@ JSPAGINATE;
 
 				} else if (is_numeric($forum['box_imagesrc'])) {
 					// Contao 3.x Format
-					$objFile = FilesModel::findByPk($forum['box_imagesrc']);
+					$objFile = \FilesModel::findByPk($forum['box_imagesrc']);
 					$forum['box_imagesrc'] = $objFile->path;
 				}*/
                     $data .= '<img src="' . $forum['box_imagesrc'] . '" class="' . $imgClass . '" alt="' . $forum['name'] . '">';
@@ -4464,7 +4473,7 @@ JSPAGINATE;
                 array_insert($data['aoColumnDefs'], 1, array(
                                                       array(
                                                           'sTitle'                => $GLOBALS['TL_LANG']['C4G_FORUM']['RATING'],
-                                                          "sWidth"                => '20%',
+                                                          "sWidth"                => '10%',
                                                           "aDataSort"             => array(1),
                                                           "aTargets"              => array(1),
                                                           "c4gMinTableSizeWidths" => array(
@@ -4591,7 +4600,7 @@ JSPAGINATE;
                                         <span id="staticStar15" ' . (($rating == "1.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar15" title="1.5 stars"></label>
                                         <span id="staticStar1" ' . (($rating == "1") ? " class=\"checked\"" : "") . '></span><label class="full" for="staticStar1" title="1 stars"></label>
                                         <span id="staticStar05" ' . (($rating == "0.5") ? " class=\"checked\"" : "") . '></span><label class="half" for="staticStar05" title="0.5 stars"></label>
-                                    </fieldset><br><span class="score">&#216 ' . $rating . '&nbsp;&nbsp;('.$aRating['overall'].' '.(($aRating['overall'] > 1)?$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_MULTIPLE']:$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_SINGLE']).')</spa>
+                                    </fieldset><span class="score">&#216 ' . $rating . '&nbsp;&nbsp;('.$aRating['overall'].' '.(($aRating['overall'] > 1)?$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_MULTIPLE']:$GLOBALS['TL_LANG']['C4G_FORUM']['RATINGS_SINGLE']).')</spa>
                                 </div>';
                     }
                     array_insert($aaData, 1, $sRating);
@@ -4669,7 +4678,7 @@ JSPAGINATE;
             if ($this->c4g_forum_rating_enabled) {
                 $data['aoColumnDefs'][] = array(
                     'sTitle'                => $GLOBALS['TL_LANG']['C4G_FORUM']['RATING'],
-                    "sWidth"                => '30%',
+                    "sWidth"                => '10%',
                     "aDataSort"             => array(1),
                     "aTargets"              => array(1),
                     "c4gMinTableSizeWidths" => array(

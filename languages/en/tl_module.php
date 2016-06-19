@@ -2,17 +2,17 @@
     die('You cannot access this file directly!');
 }
 
-    /**
-     * Contao Open Source CMS
-     *
-     * @version    php 5
-     * @package    con4gis
-     * @author     Jürgen Witte <http://www.kuestenschmiede.de>
-     * @license    GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
-     * @copyright  Küstenschmiede GmbH Software & Design 2014 - 2015
-     * @link       https://www.kuestenschmiede.de
-     * @filesource
-     */
+/**
+ * con4gis - the gis-kit
+ *
+ * @version   php 5
+ * @package   con4gis
+ * @author    con4gis contributors (see "authors.txt")
+ * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @link      https://www.kuestenschmiede.de
+ */
+
 
 
     /**
@@ -76,7 +76,7 @@
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_rating_enabled'] = array("Enable rating", "Enables a five star rating system, when writing posts.");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_rating_color'] = array("Ratingstar color", "Changes the color of ratingstars. Default: global textcolor");
-
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_pn_button']                = array('Private messages','Show button for private messages');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor']                = array('Use WYSIWYG-Editor', 'CAUTION: This Feature only works for embedded forums!');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems']   = array('WYSIWYG-Editor Toolbar Buttons', '');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath']  = array('Image Upload-Folder', 'Decide where uploaded images should be stored');
@@ -213,6 +213,7 @@
      */
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_general_legend'] = 'Forum - General';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_bbcodes_legend'] = 'Forum - BBCodes';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_pn_legend']      = 'Forum - Personal Messaging';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_boxes_legend']   = 'Forum - Box navigation settings';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_jqui_legend']    = 'Forum - jQuery UI';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend']    = 'Forum - Maps (con4gis)';
@@ -255,7 +256,7 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['FORUMS']  = 'Public forums';
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['INTROS']  = 'Public forums - Intropages';
 
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip']                           = array("Tootip for threadlist", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip']                           = array("Tooltip for threadlist", "");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['title_first_post'] = "Title of first post";
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['title_last_post']  = "Title of last post";
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['body_first_post']  = "Content of first post";

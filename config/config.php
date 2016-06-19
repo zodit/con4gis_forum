@@ -1,32 +1,30 @@
 <?php
 
 /**
- * Contao Open Source CMS
+ * con4gis - the gis-kit
  *
  * @version   php 5
  * @package   con4gis
- * @author     Jürgen Witte <http://www.kuestenschmiede.de>
+ * @author    con4gis contributors (see "authors.txt")
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014 - 2016
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
  * @link      https://www.kuestenschmiede.de
- * @filesource
  */
-
-
 
 /**
  * Global settings
  */
 $GLOBALS['con4gis_forum_extension']['installed']    = true;
-$GLOBALS['con4gis_forum_extension']['version']      = '1.3.1';
+$GLOBALS['con4gis_forum_extension']['version']      = '1.4.0-snapshot';
 
 /**
  * Frontend modules
  */
 array_insert( $GLOBALS['FE_MOD']['con4gis'], 6, array
 (
-	'c4g_forum' 				=> 'Module_c4g_forum',
-	'c4g_forum_breadcrumb' 		=> 'Module_c4g_forum_breadcrumb',
+	'c4g_forum' 				=> 'C4GForum',
+	'c4g_forum_breadcrumb' 		=> 'C4GForumBreadcrumb',
+	'c4g_forum_pncenter'  	    => 'C4GForumPNCenter',
 )
 );
 
@@ -39,7 +37,7 @@ array_insert( $GLOBALS['BE_MOD']['con4gis'], 5, array
     (
 		'tables' 		=> array('tl_c4g_forum'),
 		'build_index' 	=> array('C4GForumBackend', 'buildIndex'),
- 		'icon'	 		=> 'system/modules/con4gis_forum/html/forumicon.png'
+ 		'icon'	 		=> 'system/modules/con4gis_forum/assets/forumicon.png'
 	)
 ));
 
@@ -62,3 +60,4 @@ $GLOBALS['TL_HOOKS']['removeOldFeeds'][] = array('C4GForumHelper','removeOldFeed
  * Rest-API
  */
 $GLOBALS['TL_API']['c4g_forum_ajax'] 		= 'C4gForumAjaxApi';
+//$GLOBALS['TL_API']['c4g_forum_pn_api'] 		= 'C4gForumPnApi';

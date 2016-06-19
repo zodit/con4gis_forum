@@ -1,29 +1,24 @@
-<?php if (!defined('TL_ROOT')) {
-    die('You can not access this file directly!');
-}
+<?php
+
+/**
+ * con4gis - the gis-kit
+ *
+ * @version   php 5
+ * @package   con4gis
+ * @author    con4gis contributors (see "authors.txt")
+ * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @link      https://www.kuestenschmiede.de
+ */
+
+namespace c4g\Forum;
+
 
     /**
-     * Contao Open Source CMS
-     *
-     * @version    php 5
-     * @package    con4gis
-     * @author     Jürgen Witte <http://www.kuestenschmiede.de>
-     * @license    GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
-     * @copyright  Küstenschmiede GmbH Software & Design 2014 - 2015
-     * @link       https://www.kuestenschmiede.de
-     * @filesource
+     * Class C4GForumBreadcrumb
+     * @package c4g\Forum
      */
-
-
-    /**
-     * Class Module_c4g_forum_breadcrumb
-     *
-     * @copyright  Küstenschmiede GmbH Software & Design 2012
-     * @author     Jürgen Witte <http://www.kuestenschmiede.de>
-     * @package    con4gis
-     * @author     Jürgen Witte <http://www.kuestenschmiede.de>
-     */
-    class Module_c4g_forum_breadcrumb extends Module
+    class C4GForumBreadcrumb extends \Module
     {
 
         /**
@@ -48,7 +43,7 @@
         {
 
             if (TL_MODE == 'BE') {
-                $objTemplate = new BackendTemplate('be_wildcard');
+                $objTemplate = new \BackendTemplate('be_wildcard');
 
                 $objTemplate->wildcard = '### ' . $GLOBALS['TL_LANG']['FMD']['c4g_forum_breadcrumb'][0] . ' ###';
                 $objTemplate->title    = $this->headline;
@@ -96,7 +91,7 @@
             if ($this->forumModule->numRows) {
 
                 // initialize used Javascript Libraries and CSS files
-                C4GJQueryGUI::initializeLibraries(
+                \C4GJQueryGUI::initializeLibraries(
                     true,                                                  // add c4gJQuery GUI Core LIB
                     ($this->forumModule->c4g_forum_jquery_lib == true),   // add JQuery
                     ($this->forumModule->c4g_forum_jqui_lib == true),      // add JQuery UI
@@ -121,13 +116,13 @@
                 if ($this->forumModule->c4g_forum_uitheme_css_src) {
                     if (version_compare(VERSION, '3.2', '>=')) {
                         // Contao 3.2.x Format
-                        $objFile                            = FilesModel::findByUuid($this->forumModule->c4g_forum_uitheme_css_src);
+                        $objFile                            = \FilesModel::findByUuid($this->forumModule->c4g_forum_uitheme_css_src);
                         $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
 
                     } else {
                         if (is_numeric($this->forumModule->c4g_forum_uitheme_css_src)) {
                             // Contao 3 Format
-                            $objFile                            = FilesModel::findByPk($this->forumModule->c4g_forum_uitheme_css_src);
+                            $objFile                            = \FilesModel::findByPk($this->forumModule->c4g_forum_uitheme_css_src);
                             $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
                         } else {
                             // Contao 2 Format
@@ -136,7 +131,7 @@
                     }
                 }
 
-                $GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/html/css/c4gForum.css';
+                $GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/assets/css/c4gForum.css';
 
             }
 
