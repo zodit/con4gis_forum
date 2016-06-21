@@ -198,7 +198,7 @@
     );
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb_jumpTo'] = array(
-        'Weiterleitungsseite',
+        'Referenzseite',
         'Wählen Sie hier die Seite aus, auf der sich das Frontend-Modul mit dem Diskussionsforum befindet.'
     );
 
