@@ -5346,7 +5346,7 @@ JSPAGINATE;
             global $objPage;
 
             // auf die benutzerdefinierte Fehlerbehandlung umstellen
-            $old_error_handler = set_error_handler("c4gForumErrorHandler");
+            $old_error_handler = \set_error_handler("\c4g\Forum\c4gForumErrorHandler");
             if ($request == null) {
 
                 // Ajax Request: read get parameter "req"
@@ -5441,7 +5441,7 @@ JSPAGINATE;
             } catch (Exception $e) {
                 $result = $this->showException($e);
             }
-            set_error_handler($old_error_handler);
+            \set_error_handler($old_error_handler);
             if (count($GLOBALS['c4gForumErrors']) > 0) {
                 $result['phpErrors'] = $GLOBALS['c4gForumErrors'];
             }

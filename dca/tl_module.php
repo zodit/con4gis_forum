@@ -36,7 +36,7 @@
         '{expert_legend:hide},guests,cssID,space';
 
     $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum_pncenter'] =
-        '{title_legend},name,headline,type;';
+        '{title_legend},name,headline,type,c4g_appearance_themeroller_css;';
 
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_bbcodes';
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_jqui';
@@ -704,6 +704,15 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_sitemap_root'] = array
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageHeight'],
         'inputType' => 'text',
         'eval'      => array('mandatory' => true, 'rgxp' => 'digit', 'nospace' => true, 'tl_class' => 'w50')
+    );
+
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_appearance_themeroller_css'] = array
+    (
+        'label'                   => $GLOBALS['TL_LANG']['tl_module']['c4g_appearance_themeroller_css'],
+        'exclude'                 => true,
+        'inputType'               => 'fileTree',
+        'eval'                    => array('tl_class'=>'w50 wizard', 'fieldType'=>'radio', 'files'=>true, 'extensions'=>'css'),
+        'sql'                     => "binary(16) NULL"
     );
 
 
