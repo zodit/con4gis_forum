@@ -2860,7 +2860,7 @@ class C4GForumHelper extends \System
 	public function sendMail($data)
 	{
 		try {
-			$eMail = new Email ();
+			$eMail = new \Email ();
 			$eMail->charset = $data['charset'];
 			$eMail->from = $data['from'];
 			$eMail->subject = $data['subject'];
