@@ -200,7 +200,7 @@
                     items: ckEditorItems
                 }],
                 // removePlugins:'',
-                extraPlugins: 'justify,fileUpload,bbcode,panelbutton,floatpanel,colorbutton,blockquote,youtube',
+                extraPlugins: 'justify,bbcode,panelbutton,floatpanel,colorbutton,blockquote,youtube',
                 language: sCurrentLang,
                 defaultLanguage: "en",
                 height:'360',
