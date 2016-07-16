@@ -43,7 +43,7 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_POST']                = 'Löschen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST']               = 'Bearbeiten';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_PREVIEW']       = 'Vorschau - Beitrag bearbeiten';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_POST_CHANGES']       = 'Geänderten Beitrag speichern';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_POST_CHANGES']       = 'Speichern';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_AUTHOR_SHORT'] = 'Letzter';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST_SHORT']   = 'Letzter am';
