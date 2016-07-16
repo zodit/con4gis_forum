@@ -1161,7 +1161,7 @@ namespace c4g\Forum;
             // Get different member properties and hand them over to the user data template.
             $oUserDataTemplate->iUserId = $oMember->id;
 
-            $oUserDataTemplate->c4g_forum_show_pn_button = ($this->c4g_forum_show_pn_button == '1');
+            $oUserDataTemplate->c4g_forum_show_pn_button = ($this->c4g_forum_show_pn_button == '1' && !$preview);
             $oUserDataTemplate->pn_label = $GLOBALS['TL_LANG']['tl_c4g_forum_pn']['profile_compose'];
 
             $sJsLang = C4GForumPNCenter::getClientLangVars();
@@ -1186,7 +1186,7 @@ namespace c4g\Forum;
             }
 
             // Online status.
-            if ($this->c4g_forum_show_online_status) {
+            if ($this->c4g_forum_show_online_status && !$preview) {
                 $bIsOnline = C4gForumSession::getOnlineStatusByMemberId($iAuthorId, $this->c4g_forum_member_online_time);
                 $oUserDataTemplate->bShowOnlineStatus = true;
                 $oUserDataTemplate->bIsOnline = $bIsOnline;
