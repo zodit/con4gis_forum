@@ -5064,6 +5064,9 @@ JSPAGINATE;
          */
         public function performAction($action)
         {
+            //delete cache -- Übergangslösung bis alles läuft.
+            \c4g\Core\C4GAutomator::purgeApiCache();
+
 
             $values       = explode(':', $action, 5);
             $this->action = $values[0];
