@@ -375,7 +375,7 @@
         'inputType' => 'radio',
         'options'   => array(
             'ck' => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor_option']['ck'],
-            'bb' => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor_option']['bb'],
+            //'bb' => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor_option']['bb'],
             'no' => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor_option']['no'],
         )
     );
@@ -401,7 +401,7 @@
     (
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems'],
         'exclude'   => true,
-        'default'   => 'Cut,Copy,Paste,PasteText,PasteFromWord,-,Undo,Redo,TextColor,Bold,Italic,Underline,Strike,Subscript,Superscript,-,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,-,RemoveFormat,NumberedList,BulletedList,Link,Unlink,Anchor,Image,Youtube,FileUpload,Table,Smiley',
+        'default'   => 'Cut,Copy,Paste,PasteText,PasteFromWord,-,Undo,Redo,TextColor,Bold,Italic,Underline,Strike,Subscript,Superscript,-,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,-,RemoveFormat,NumberedList,BulletedList,Link,Unlink,Anchor,-,Image,Youtube,FileUpload,-,Table,Smiley,-,Maximize,Source',
         'inputType' => 'text',
         'eval'      => array('class' => '', 'style' => 'width:662px')
     );
@@ -413,6 +413,7 @@
         'default'   => true,
         'inputType' => 'checkbox'
     );
+
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_tooltip']         = array
     (
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip'],
