@@ -165,7 +165,12 @@ namespace c4g\Forum;
             $GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/assets/css/c4gForum.css';
             //$GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/html/css/bbcodes.css';
             $data['id']      = $this->id;
-            $data['ajaxUrl'] = "system/modules/con4gis_core/api/index.php/c4g_forum_ajax";
+            //check if we need contao 4 routing
+            if (class_exists('\Con4gis\ApiBundle\Controller\ApiController')) {
+                $data['ajaxUrl'] = "con4gis/api/c4g_forum_ajax";
+            } else {
+                $data['ajaxUrl'] = "system/modules/con4gis_core/api/index.php/c4g_forum_ajax";
+            }
             // $data['ajaxData'] = "action=fmd&id=".$this->id."&language=".$GLOBALS['TL_LANGUAGE']."&page=".$objPage->id;
             $data['ajaxData'] = $this->id;
 
@@ -220,8 +225,8 @@ namespace c4g\Forum;
             $aToolbarButtons = explode(",", $this->c4g_forum_bbcodes_editor_toolbaritems);
 
 
-            $GLOBALS['TL_CSS'][]        = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.css';
-            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.jquery.min.js';
+            $GLOBALS['TL_CSS'][]        = 'system/modules/con4gis_core/assets/vendor/jQuery/plugins/chosen/chosen.css';
+            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/assets/vendor/jQuery/plugins/chosen/chosen.jquery.min.js';
 
             if($this->c4g_forum_bbcodes != "1") {
                 $GLOBALS['TL_HEAD'][] = "<script>var ckRemovePlugins = 'bbcode';</script>";
@@ -231,7 +236,7 @@ namespace c4g\Forum;
 
             if ($this->c4g_forum_editor === "ck") {
                 $GLOBALS['TL_HEAD'][]       = "<script>var ckEditorItems = ['" . implode("','", $aToolbarButtons) . "'];</script>";
-                $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/ckeditor/ckeditor.js';
+                $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/assets/vendor/ckeditor/ckeditor.js';
             }
 
             if($this->c4g_forum_pagination_active == "1") {

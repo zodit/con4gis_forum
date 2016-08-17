@@ -51,6 +51,10 @@
             $this->import('FrontendUser', 'User');
             $this->User->authenticate();
             parent::__construct();
+            // check if we need contao 4 routing
+            if (class_exists('\Con4gis\ApiBundle\Controller\ApiController')) {
+                $this->_sApiUrl = 'con4gis/api';
+            }
 
             // Check whether a user is logged in
             define('BE_USER_LOGGED_IN', $this->getLoginStatus('BE_USER_AUTH'));
@@ -213,5 +217,5 @@
     /**
      * Instantiate controller
      */
-    $objApi = new ForumApi4Gis();
+    $objApi = new C4gForumPnApi();
     $objApi->run();

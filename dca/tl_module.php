@@ -61,7 +61,7 @@
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_size'],
         'exclude'   => true,
         'inputType' => 'imageSize',
-        'options'   => array('px', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
+        'options'   => \System::getContainer()->get('contao.image.image_sizes')->getAllOptions(),
         'eval'      => array('rgxp' => 'digit')
     );
 
@@ -70,7 +70,7 @@
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_scroll'],
         'exclude'   => true,
         'inputType' => 'imageSize',
-        'options'   => array('px', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
+        'options'   => \System::getContainer()->get('contao.image.image_sizes')->getAllOptions(),
         'eval'      => array('rgxp' => 'digit')
     );
 
@@ -236,7 +236,7 @@
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_avatar_size'],
         'exclude'   => true,
         'inputType' => 'imageSize',
-        'options'   => array('px', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
+        'options'   => \System::getContainer()->get('contao.image.image_sizes')->getAllOptions(),
         'eval'      => array('rgxp' => 'digit')
     );
 
@@ -523,7 +523,7 @@
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_dialogsize'],
         'exclude'   => true,
         'inputType' => 'imageSize',
-        'options'   => array('px', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
+        'options'   => \System::getContainer()->get('contao.image.image_sizes')->getAllOptions(),
         'eval'      => array('rgxp' => 'digit')
     );
 

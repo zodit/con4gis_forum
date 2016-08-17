@@ -101,10 +101,10 @@
                     });
             }
 
-
             $.ajax({
                 method: "GET",
-                url: "system/modules/con4gis_forum/api/index.php/modal/" + type,
+                //url: "system/modules/con4gis_forum/api/index.php/modal/" + type,
+                url: "con4gis/api/index.php/c4g_forum_pn_api/modal/" + type,
                 data: {data: data},
                 success: function (response) {
                     $("body").append(response.template);
@@ -205,8 +205,8 @@
                 defaultLanguage: "en",
                 height:'360',
                 disableObjectResizing: true,
-                filebrowserImageUploadUrl: "system/modules/con4gis_core/lib/imgUpload.php",
-                filebrowserUploadUrl: 'system/modules/con4gis_core/lib/fileUpload.php',
+                filebrowserImageUploadUrl: "system/modules/con4gis_core/assets/vendor/imgUpload.php",
+                filebrowserUploadUrl: 'system/modules/con4gis_core/assets/vendor/fileUpload.php',
                 // codeSnippet_languages: {
                 // }
             });
