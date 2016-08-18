@@ -166,11 +166,15 @@ namespace c4g\Forum;
             //$GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/html/css/bbcodes.css';
             $data['id']      = $this->id;
             //check if we need contao 4 routing
+            // set global js var to inidcate api endpoint
             if (class_exists('\Con4gis\ApiBundle\Controller\ApiController')) {
                 $data['ajaxUrl'] = "con4gis/api/c4g_forum_ajax";
+                $GLOBALS['TL_HEAD'][] = "<script>var pnApiBaseUrl = 'con4gis/api/c4g_forum_pn_api';</script>";
             } else {
                 $data['ajaxUrl'] = "system/modules/con4gis_core/api/index.php/c4g_forum_ajax";
+                $GLOBALS['TL_HEAD'][] = "<script>var pnApiBaseUrl = 'system/modules/con4gis_core/api/index.php/c4g_forum_pn_api';</script>";
             }
+
             // $data['ajaxData'] = "action=fmd&id=".$this->id."&language=".$GLOBALS['TL_LANGUAGE']."&page=".$objPage->id;
             $data['ajaxData'] = $this->id;
 

@@ -25,7 +25,6 @@ class C4gForumAjaxApi extends \Frontend
 	{
 		$this->import('FrontendUser', 'User');
 		$this->User->authenticate();
-
 		$id = $arrInput[0]?:null;
 		$req = $arrInput[1]?:null;
 		// switch ($_SERVER['REQUEST_METHOD'])
