@@ -171,30 +171,27 @@ class C4GForumHelper extends \System
     {
     	$rights = $guestRights;
     	if ((FE_USER_LOGGED_IN) && (!$this->checkGuestRights)) {
-    		if (($userId!=0) && ($this->User->id!=$userId)) {
-    			$userGroups = deserialize($this->Database->prepare(
-    					"SELECT groups FROM tl_member  ".
-    					"WHERE id=?")
-    					->execute($userId)->groups, true);
+            if (($userId != 0) && ($this->User->id != $userId)) {
+                $userGroups = deserialize($this->Database->prepare(
+                    "SELECT groups FROM tl_member  " .
+                    "WHERE id=?")
+                    ->execute($userId)->groups, true);
 
-    		} else {
-    			$userGroups = $this->User->groups;
+            } else {
+                $userGroups = $this->User->groups;
 //                echo json_encode($this->User);
 //                echo json_encode($userGroups);
-    		}
+            }
 //            echo $userId;
-//            echo json_encode(sizeof(array_intersect($userGroups, deserialize($adminGroups) ))) . '<br>';
-//            echo json_encode(deserialize($memberGroups))  . '<br>';
-//            echo json_encode(deserialize($userGroups))  . '<br>';
+            if ($right == 'readpost') {
 
-            //TODO $userGroups ist hier leer, da userId = 0 und $this->User leer
-    		if (($adminGroups) && (sizeof(array_intersect($userGroups, deserialize($adminGroups) )) > 0)) {
-    			$rights = $adminRights;
-    		}
-    		else if (($memberGroups) && (sizeof(array_intersect($userGroups, deserialize($memberGroups) )) > 0)) {
-    			$rights = $memberRights;
-    		}
+            }
 
+            if (($adminGroups) && (sizeof(array_intersect($userGroups, deserialize($adminGroups))) > 0)) {
+                $rights = $adminRights;
+            } else if (($memberGroups) && (sizeof(array_intersect($userGroups, deserialize($memberGroups))) > 0)) {
+                $rights = $memberRights;
+            }
     	} else {
     		// not logged in: newpost and newthread not possible at all
     		switch ($right) {
@@ -210,7 +207,11 @@ class C4GForumHelper extends \System
    			return true;
    		}
    		$this->permissionError = $GLOBALS['TL_LANG']['C4G_FORUM']['NO_PERMISSION'];
-//        echo 'bla';
+//        echo json_encode(sizeof(array_intersect($userGroups, deserialize($adminGroups)))) . '<br>';
+        echo json_encode(deserialize($adminGroups)) . '<br>';
+//        echo json_encode(deserialize($userGroups)) . '<br>';
+        echo 'bla';
+//        debug_print_backtrace();
     	return false;
     }
 
@@ -231,10 +232,15 @@ class C4GForumHelper extends \System
 	 								 ->execute($forumId)->fetchAssoc();
 	 		$this->ForumCache[$forumId] = $forum;
 		}
-//		echo json_encode($forum['member_rights']);
-		return $this->checkPermissionWithData($right, $forum['member_groups'], $forum['admin_groups'],
-			$forum['guest_rights'], $forum['member_rights'], $forum['admin_rights'], $userId);
+        //TODO hier fehlt manchmal forumid, weswegen aus der db nix zurückkommt
 
+//		echo json_encode($forum['member_rights']);
+		$return = $this->checkPermissionWithData($right, $forum['member_groups'], $forum['admin_groups'],
+			$forum['guest_rights'], $forum['member_rights'], $forum['admin_rights'], $userId);
+        if ($return == false) {
+            echo $forumId;
+        }
+        return $return;
 	}
 
 

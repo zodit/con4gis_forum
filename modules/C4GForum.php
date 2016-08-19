@@ -13,6 +13,9 @@
 
 namespace c4g\Forum;
 
+    use c4g\Maps\C4gMapsModel;
+    use c4g\Maps\ResourceLoader;
+
     $GLOBALS['c4gForumErrors']           = array();
     $GLOBALS['c4gForumSearchParamCache'] = array();
 
@@ -73,6 +76,8 @@ namespace c4g\Forum;
         protected $dialogs_jqui = true;
 
         static $url = "";
+
+        protected static $useMaps = false;
 
 
         /**
@@ -250,6 +255,16 @@ namespace c4g\Forum;
             if($this->c4g_forum_pagination_active == "1") {
                 $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/assets/js/jquery.pagination.min.js";
                 $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/assets/js/jquery.hashchange.min.js";
+            }
+            if ($this->c4g_forum_enable_maps && $GLOBALS['con4gis_maps_extension']['installed']) {
+                // load maps resources
+                $map = C4gMapsModel::findByPk($this->map_id);
+                if ($map) {
+                    ResourceLoader::loadResourcesForProfile($map->profile);
+                } else {
+                    ResourceLoader::loadResources();
+                }
+                static::$useMaps = true;
             }
 
 
@@ -1311,6 +1326,7 @@ namespace c4g\Forum;
         {
 
             $return = array();
+//            echo json_encode($post);
             if (($post['loc_geox'] && $post['loc_geoy']) || $post['loc_data_content']) {
                 if ($this->map_enabled() && $this->helper->checkPermissionForAction($post['forumid'], 'viewmapforpost')) {
                     $return['viewmapforpost:' . $post['id']] = $GLOBALS['TL_LANG']['C4G_FORUM']['VIEW_MAP_FOR_POST'];
@@ -1336,9 +1352,9 @@ namespace c4g\Forum;
                 $data .= $this->generatePostAsHtml($post, true);
             }
             if (count($posts) == 1) {
-                $posts = $posts[0];
+//                $posts = $posts[0];
             }
-            list($access, $message) = $this->checkPermission($posts['forumid']);
+            list($access, $message) = $this->checkPermission($posts[0]['forumid']);
             if (!$access) {
                 return $this->getPermissionDenied($message);
             }
@@ -1365,7 +1381,7 @@ namespace c4g\Forum;
             }
 
             // get edit and delete buttons
-            $act = $this->getChangeActionsForPost($posts);
+            $act = $this->getChangeActionsForPost($posts[0]);
 //            echo json_encode($act);
             foreach ($act as $key => $value) {
                 array_insert($dialogbuttons, 0,
@@ -3388,10 +3404,14 @@ JSPAGINATE;
          */
         public function map_enabled()
         {
+//            // test
+//            if (!isset($this->c4g_forum_enable_maps)) {
+//                $this->c4g_forum_enable_maps = 1;
+//            }
+            $this->c4g_forum_enable_maps = 1;
 
             return
-                ($GLOBALS['con4gis_maps_extension']['installed']) &&
-                ($this->c4g_forum_enable_maps);
+                ($GLOBALS['con4gis_maps_extension']['installed']) && (($this->c4g_forum_enable_maps) || static::$useMaps);
         }
 
 
@@ -3412,8 +3432,9 @@ JSPAGINATE;
          */
         public function getPostMapEntryForForm($divname, $forumId, $dialogId, $geox, $geoy, $geodata, $locstyle, $label, $tooltip, $postId, $osmId)
         {
-
+//            echo "fkt betreten";
             if ($this->map_enabled()) {
+//                echo "map ist enabled";
                 $forum = $this->helper->getForumFromDB($forumId);
                 if (($forum['enable_maps']) || ($forum['enable_maps_inherited'])) {
 
