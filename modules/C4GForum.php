@@ -256,14 +256,17 @@ namespace c4g\Forum;
                 $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/assets/js/jquery.pagination.min.js";
                 $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/assets/js/jquery.hashchange.min.js";
             }
-            if ($this->c4g_forum_enable_maps && $GLOBALS['con4gis_maps_extension']['installed']) {
+            //TODO workaround until we can check enable_maps properly (need forum id)
+//            if ($this->map_enabled(2) && $GLOBALS['con4gis_maps_extension']['installed']) {
+            if ($GLOBALS['con4gis_maps_extension']['installed']) {
                 // load maps resources
-                $map = C4gMapsModel::findByPk($this->map_id);
-                if ($map) {
-                    ResourceLoader::loadResourcesForProfile($map->profile);
-                } else {
+//                $map = C4gMapsModel::findByPk($this->map_id);
+//                if ($map) {
+//                    ResourceLoader::loadResourcesForProfile($map->profile);
+//                } else {
                     ResourceLoader::loadResources();
-                }
+                    ResourceLoader::loadTheme();
+//                }
                 static::$useMaps = true;
             }
 
@@ -347,7 +350,7 @@ namespace c4g\Forum;
         public function addForumButtons($buttons, $forumId)
         {
 
-            if ($this->map_enabled() && $this->helper->checkPermission($forumId, 'mapview')) {
+            if ($this->map_enabled($forumId) && $this->helper->checkPermission($forumId, 'mapview')) {
                 $forum = $this->helper->getForumFromDB($forumId);
                 if ($forum['enable_maps'] || $forum['enable_maps_inherited']) {
                     array_insert($buttons, 0, array(
@@ -1328,7 +1331,7 @@ namespace c4g\Forum;
             $return = array();
 //            echo json_encode($post);
             if (($post['loc_geox'] && $post['loc_geoy']) || $post['loc_data_content']) {
-                if ($this->map_enabled() && $this->helper->checkPermissionForAction($post['forumid'], 'viewmapforpost')) {
+                if ($this->map_enabled($post['forumid']) && $this->helper->checkPermissionForAction($post['forumid'], 'viewmapforpost')) {
                     $return['viewmapforpost:' . $post['id']] = $GLOBALS['TL_LANG']['C4G_FORUM']['VIEW_MAP_FOR_POST'];
                 }
             }
@@ -1839,7 +1842,7 @@ JSPAGINATE;
 
             $data .= $this->getPostlinkForForm('c4gForumNewPostPostLink', $thread['forumid'], 'newpost', '', '');
             $locstyle = "";
-            if ($this->map_enabled()) {
+            if ($this->map_enabled($thread['forumid'])) {
                 $locstyle = $this->helper->getDefaultLocstyleFromDB($threadId);
             }
             $data .= $this->getPostMapEntryForForm('c4gForumNewPostMapData', $thread['forumid'], 'newpost', '', '', '', $locstyle, '', '', 0, '');
@@ -2381,7 +2384,7 @@ JSPAGINATE;
             $data .= '</div>';
 
             $buttons = array();
-            if ($this->map_enabled() && $this->helper->checkPermission($parentId, 'mapview')) {
+            if ($this->map_enabled($forum['id']) && $this->helper->checkPermission($parentId, 'mapview')) {
                 $forum = $this->helper->getForumFromDB($parentId);
                 if ($forum['enable_maps'] || $forum['enable_maps_inherited']) {
                     array_insert($buttons, 0, array(
@@ -3402,16 +3405,18 @@ JSPAGINATE;
         /**
          * @return boolean
          */
-        public function map_enabled()
+        public function map_enabled($forumId)
         {
 //            // test
 //            if (!isset($this->c4g_forum_enable_maps)) {
 //                $this->c4g_forum_enable_maps = 1;
 //            }
-            $this->c4g_forum_enable_maps = 1;
-
-            return
-                ($GLOBALS['con4gis_maps_extension']['installed']) && (($this->c4g_forum_enable_maps) || static::$useMaps);
+//            $this->c4g_forum_enable_maps = 1;
+            //TODO forum id hier übergeben, dann können wir uns das forum hier aus der db holen und abfragen
+            $forum = C4gForumModel::findByPk($forumId);
+//            echo $forumId;
+//            echo json_encode($forum);
+            return ($GLOBALS['con4gis_maps_extension']['installed']) && (($forum->enable_maps) || static::$useMaps);
         }
 
 
@@ -3433,7 +3438,7 @@ JSPAGINATE;
         public function getPostMapEntryForForm($divname, $forumId, $dialogId, $geox, $geoy, $geodata, $locstyle, $label, $tooltip, $postId, $osmId)
         {
 //            echo "fkt betreten";
-            if ($this->map_enabled()) {
+            if ($this->map_enabled($forumId)) {
 //                echo "map ist enabled";
                 $forum = $this->helper->getForumFromDB($forumId);
                 if (($forum['enable_maps']) || ($forum['enable_maps_inherited'])) {
@@ -3839,7 +3844,7 @@ JSPAGINATE;
         public function postMapEntry($forumId, $dialogId, $add, $postId)
         {
 
-            if ((!$this->map_enabled()) ||
+            if ((!$this->map_enabled($forumId)) ||
                 (!$this->helper->checkPermission($forumId, 'mapedit'))
             ) {
                 return $this->getPermissionDenied($this->helper->permissionError);
@@ -4074,7 +4079,7 @@ JSPAGINATE;
             $post  = $posts[0];
 
             $forum = $this->helper->getForumFromDB($post['forumid']);
-            if ((!$this->map_enabled()) ||
+            if ((!$this->map_enabled($post['forumid'])) ||
                 (!$this->helper->checkPermissionForAction($post['forumid'], 'viewmapforpost'))
             ) {
                 return $this->getPermissionDenied($this->helper->permissionError);
@@ -4152,7 +4157,7 @@ JSPAGINATE;
         {
 
             $forum = $this->helper->getForumFromDB($forumId);
-            if ((!$this->map_enabled()) ||
+            if ((!$this->map_enabled($forumId)) ||
                 (!$this->helper->checkPermissionForAction($forumId, 'viewmapforforum'))
             ) {
                 return $this->getPermissionDenied($this->helper->permissionError);
