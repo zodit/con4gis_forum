@@ -15,6 +15,8 @@
 
 namespace c4g\Forum;
 
+use Contao\System;
+
 if (version_compare(VERSION,'3','<')) {
 	include_once "classes/C4GUtils.php";
 }
@@ -65,6 +67,9 @@ class C4GForumHelper extends \System
 			$this->Database = $database;
 		}
 		$this->User = $user;
+        if ($user == null) {
+//            $this->import('FrontendUser', 'User');
+        }
 		$this->Environment = $environment;
 		$this->frontendUrl = $frontendUrl;
 		if ($forumName=="") {
@@ -171,9 +176,18 @@ class C4GForumHelper extends \System
     					"SELECT groups FROM tl_member  ".
     					"WHERE id=?")
     					->execute($userId)->groups, true);
+
     		} else {
     			$userGroups = $this->User->groups;
+//                echo json_encode($this->User);
+//                echo json_encode($userGroups);
     		}
+//            echo $userId;
+//            echo json_encode(sizeof(array_intersect($userGroups, deserialize($adminGroups) ))) . '<br>';
+//            echo json_encode(deserialize($memberGroups))  . '<br>';
+//            echo json_encode(deserialize($userGroups))  . '<br>';
+
+            //TODO $userGroups ist hier leer, da userId = 0 und $this->User leer
     		if (($adminGroups) && (sizeof(array_intersect($userGroups, deserialize($adminGroups) )) > 0)) {
     			$rights = $adminRights;
     		}
@@ -192,9 +206,11 @@ class C4GForumHelper extends \System
     	}
 
    		if (($rights) && (array_search($right, deserialize($rights)) !== false)) {
+//            echo "permission ist da";
    			return true;
    		}
    		$this->permissionError = $GLOBALS['TL_LANG']['C4G_FORUM']['NO_PERMISSION'];
+//        echo 'bla';
     	return false;
     }
 
@@ -215,6 +231,7 @@ class C4GForumHelper extends \System
 	 								 ->execute($forumId)->fetchAssoc();
 	 		$this->ForumCache[$forumId] = $forum;
 		}
+//		echo json_encode($forum['member_rights']);
 		return $this->checkPermissionWithData($right, $forum['member_groups'], $forum['admin_groups'],
 			$forum['guest_rights'], $forum['member_rights'], $forum['admin_rights'], $userId);
 
@@ -227,9 +244,9 @@ class C4GForumHelper extends \System
 	 * @param int $forumId
 	 * @param String $action
 	 */
-	public function checkPermissionForAction( $forumId, $action )
+	public function checkPermissionForAction( $forumId, $action, $userId = null )
 	{
-		return $this->checkPermission($forumId,$this->actionToRight($action));
+		return $this->checkPermission($forumId,$this->actionToRight($action), $userId);
 	}
 
 

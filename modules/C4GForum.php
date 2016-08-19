@@ -109,8 +109,12 @@ namespace c4g\Forum;
         protected function compile()
         {
 
+            if (FE_USER_LOGGED_IN) {
+                \System::import('FrontendUser', 'User');
+            }
             global $objPage;
             $this->initMembers();
+//            echo json_encode($this->User->groups);
 
             $useGoogleMaps = false;
             if ($this->c4g_forum_enable_maps) {
@@ -1043,6 +1047,8 @@ namespace c4g\Forum;
             }
 
             if ((!$preview) && (!$singlePost)) {
+//            if (!$preview) {
+                // change buttons for post
                 // change buttons for post
                 $act = $this->getChangeActionsForPost($post);
                 foreach ($act as $key => $value) {
@@ -1204,7 +1210,8 @@ namespace c4g\Forum;
 
             // Get member rank by language and member post count.
             if ($this->c4g_forum_show_ranks) {
-                $aUserRanks = deserialize($this->c4g_forum_member_ranks);
+                // pass true as param to force return value to be array
+                $aUserRanks = deserialize($this->c4g_forum_member_ranks, true);
                 $sUserRank = '';
                 foreach ($aUserRanks as $aUserRank) {
                     if ($iUserPostCount >= $aUserRank['rank_min'] && $this->c4g_forum_language === $aUserRank['rank_language']) {
@@ -1281,13 +1288,16 @@ namespace c4g\Forum;
                 $delAction  = 'delpostdialog';
                 $editAction = 'editpostdialog';
             }
-            if ($this->helper->checkPermissionForAction($post['forumid'], $delAction)) {
+            if ($this->helper->checkPermissionForAction($post['forumid'], $delAction, $this->User->id)) {
                 $return[$delAction . ':' . $post['id']] = $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_POST'];
             }
-            if ($this->helper->checkPermissionForAction($post['forumid'], $editAction)) {
+//            echo $post['forumid'];
+//            echo  $this->User->id;
+//            echo json_encode($this->helper->checkPermissionForAction($post['forumid'], $editAction, $this->User->id));
+            if ($this->helper->checkPermissionForAction($post['forumid'], $editAction, $this->User->id)) {
                 $return[$editAction . ':' . $post['id']] = $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST'];
             }
-
+//            echo json_encode ($return);
             return $return;
         }
 
@@ -1325,8 +1335,10 @@ namespace c4g\Forum;
             foreach ($posts as $post) {
                 $data .= $this->generatePostAsHtml($post, true);
             }
-
-            list($access, $message) = $this->checkPermission($post['forumid']);
+            if (count($posts) == 1) {
+                $posts = $posts[0];
+            }
+            list($access, $message) = $this->checkPermission($posts['forumid']);
             if (!$access) {
                 return $this->getPermissionDenied($message);
             }
@@ -1353,7 +1365,8 @@ namespace c4g\Forum;
             }
 
             // get edit and delete buttons
-            $act = $this->getChangeActionsForPost($posts[0]);
+            $act = $this->getChangeActionsForPost($posts);
+//            echo json_encode($act);
             foreach ($act as $key => $value) {
                 array_insert($dialogbuttons, 0,
                              array(
@@ -1365,6 +1378,7 @@ namespace c4g\Forum;
                              )
                 );
             }
+//            echo json_encode($dialogbuttons);
 
             $return = array(
                 "dialogtype"    => "html",
@@ -1421,7 +1435,7 @@ namespace c4g\Forum;
             $thread = $this->helper->getThreadFromDB($id);
             $data   = $this->generateThreadHeaderAsHtml($thread);
             foreach ($posts as $post) {
-                $data .= $this->generatePostAsHtml($post, false);
+                $data .= $this->generatePostAsHtml($post, true);
             }
 
             list($access, $message) = $this->checkPermission($thread['forumid']);
@@ -5074,7 +5088,7 @@ JSPAGINATE;
         public function performAction($action)
         {
             //delete cache -- Übergangslösung bis alles läuft.
-            \c4g\Core\C4GAutomator::purgeApiCache();
+//            \c4g\Core\C4GAutomator::purgeApiCache();
 
 
             $values       = explode(':', $action, 5);
@@ -5106,6 +5120,7 @@ JSPAGINATE;
                     break;
                 case 'readpostnumber':
                     $return = $this->getPostNumberOfThreadAsHtml($values[1], $values[2]);
+//                    $return = $this->getPostAsHtml($values[1]);
                     break;
                 case 'newpost':
                     $return = $this->generateNewPostForm($values[1], $values[2]);
@@ -5352,9 +5367,10 @@ JSPAGINATE;
         /**
          * function is called by every Ajax requests
          */
-        public function generateAjax($request = null)
+        public function generateAjax($request = null, $user = null)
         {
-
+            $this->User = $user;
+//            echo $this->User . 'sheesh';
             global $objPage;
 
             // auf die benutzerdefinierte Fehlerbehandlung umstellen
@@ -5532,7 +5548,8 @@ JSPAGINATE;
             }
 
             $this->dialogs_jqui = ((!$this->c4g_forum_dialogs_embedded) || ($this->c4g_forum_embdialogs_jqui));
-            $this->import('FrontendUser', 'User');
+//            \System::import('FrontendUser', 'User');
+//            $this->import('FrontendUser', 'User');
 
         }
     }
