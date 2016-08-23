@@ -1276,8 +1276,8 @@ namespace c4g\Forum;
                 $data .= '<hr>';
             }
 
-            $data .=
-                '</div>';
+//            $data .=
+//                '</div>';
 
 
             return $data;
@@ -1436,12 +1436,12 @@ namespace c4g\Forum;
          */
         public function getThreadAsHtml($id)
         {
-
+            $this->c4g_forum_pagination_active = false;
             $posts  = $this->helper->getPostsOfThreadFromDB($id, ($this->c4g_forum_postsort != 'UP'));
             $thread = $this->helper->getThreadFromDB($id);
             $data   = $this->generateThreadHeaderAsHtml($thread);
             foreach ($posts as $post) {
-                $data .= $this->generatePostAsHtml($post, true);
+                $data .= $this->generatePostAsHtml($post, false);
             }
 
             list($access, $message) = $this->checkPermission($thread['forumid']);
