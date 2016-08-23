@@ -25,7 +25,6 @@ class C4gForumAjaxApi extends \Frontend
 	{
 		$this->import('FrontendUser', 'User');
 		$this->User->authenticate();
-
 		$id = $arrInput[0]?:null;
 		$req = $arrInput[1]?:null;
 		// switch ($_SERVER['REQUEST_METHOD'])
@@ -116,7 +115,7 @@ class C4gForumAjaxApi extends \Frontend
 		$strClass = $this->findFrontendModule($objModule->type);
 
 		// Return if the class does not exist
-		if (!$this->classFileExists($strClass))
+		if (!class_exists($strClass))
 		{
 			$this->log('Module class "'.$GLOBALS['FE_MOD'][$objModule->type].'" (module "'.$objModule->type.'") does not exist', 'Ajax getFrontendModule()', TL_ERROR);
 
@@ -125,8 +124,8 @@ class C4gForumAjaxApi extends \Frontend
 		}
 
 		$objModule->typePrefix = 'mod_';
-		$objModule = new $strClass($objModule, $strColumn);
+		$objModule = new $strClass($objModule);
 
-		return $objModule->generateAjax( $req );
+		return $objModule->generateAjax($req, $this->User);
 	}
 }

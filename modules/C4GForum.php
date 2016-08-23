@@ -13,6 +13,9 @@
 
 namespace c4g\Forum;
 
+    use c4g\Maps\C4gMapsModel;
+    use c4g\Maps\ResourceLoader;
+
     $GLOBALS['c4gForumErrors']           = array();
     $GLOBALS['c4gForumSearchParamCache'] = array();
 
@@ -74,6 +77,8 @@ namespace c4g\Forum;
 
         static $url = "";
 
+        protected static $useMaps = false;
+
 
         /**
          * Display a wildcard in the back end
@@ -109,6 +114,9 @@ namespace c4g\Forum;
         protected function compile()
         {
 
+            if (FE_USER_LOGGED_IN) {
+                \System::import('FrontendUser', 'User');
+            }
             global $objPage;
             $this->initMembers();
 
@@ -165,7 +173,18 @@ namespace c4g\Forum;
             $GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/assets/css/c4gForum.css';
             //$GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/html/css/bbcodes.css';
             $data['id']      = $this->id;
-            $data['ajaxUrl'] = "system/modules/con4gis_core/api/index.php/c4g_forum_ajax";
+            //check if we need contao 4 routing
+            // set global js var to inidcate api endpoint
+            if (class_exists('\Con4gis\ApiBundle\Controller\ApiController')) {
+                $data['ajaxUrl'] = "con4gis/api/c4g_forum_ajax";
+                $GLOBALS['TL_HEAD'][] = "<script>var pnApiBaseUrl = 'con4gis/api/c4g_forum_pn_api';</script>";
+                $GLOBALS['TL_HEAD'][] = "<script>var uploadApiUrl = 'con4gis/api/fileUpload/';</script>";
+            } else {
+                $data['ajaxUrl'] = "system/modules/con4gis_core/api/index.php/c4g_forum_ajax";
+                $GLOBALS['TL_HEAD'][] = "<script>var pnApiBaseUrl = 'system/modules/con4gis_core/api/index.php/c4g_forum_pn_api';</script>";
+                $GLOBALS['TL_HEAD'][] = "<script>var uploadApiUrl = 'system/modules/con4gis_core/api/index.php/fileUpload/';</script>";
+            }
+
             // $data['ajaxData'] = "action=fmd&id=".$this->id."&language=".$GLOBALS['TL_LANGUAGE']."&page=".$objPage->id;
             $data['ajaxData'] = $this->id;
 
@@ -220,8 +239,8 @@ namespace c4g\Forum;
             $aToolbarButtons = explode(",", $this->c4g_forum_bbcodes_editor_toolbaritems);
 
 
-            $GLOBALS['TL_CSS'][]        = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.css';
-            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/jQuery/plugins/chosen/chosen.jquery.min.js';
+            $GLOBALS['TL_CSS'][]        = 'system/modules/con4gis_core/assets/vendor/jQuery/plugins/chosen/chosen.css';
+            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/assets/vendor/jQuery/plugins/chosen/chosen.jquery.min.js';
 
             if($this->c4g_forum_bbcodes != "1") {
                 $GLOBALS['TL_HEAD'][] = "<script>var ckRemovePlugins = 'bbcode';</script>";
@@ -231,12 +250,20 @@ namespace c4g\Forum;
 
             if ($this->c4g_forum_editor === "ck") {
                 $GLOBALS['TL_HEAD'][]       = "<script>var ckEditorItems = ['" . implode("','", $aToolbarButtons) . "'];</script>";
-                $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/ckeditor/ckeditor.js';
+                $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/assets/vendor/ckeditor/ckeditor.js';
             }
 
             if($this->c4g_forum_pagination_active == "1") {
                 $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/assets/js/jquery.pagination.min.js";
                 $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/assets/js/jquery.hashchange.min.js";
+            }
+            //TODO workaround until we can check enable_maps properly (need forum id)
+            if ($GLOBALS['con4gis_maps_extension']['installed']) {
+                ResourceLoader::loadResources();
+                ResourceLoader::loadTheme();
+                static::$useMaps = true;
+                // load core resources for maps
+                \c4g\Core\ResourceLoader::loadResourcesForModule('maps');
             }
 
 
@@ -319,7 +346,7 @@ namespace c4g\Forum;
         public function addForumButtons($buttons, $forumId)
         {
 
-            if ($this->map_enabled() && $this->helper->checkPermission($forumId, 'mapview')) {
+            if ($this->map_enabled($forumId) && $this->helper->checkPermission($forumId, 'mapview')) {
                 $forum = $this->helper->getForumFromDB($forumId);
                 if ($forum['enable_maps'] || $forum['enable_maps_inherited']) {
                     array_insert($buttons, 0, array(
@@ -1034,6 +1061,8 @@ namespace c4g\Forum;
             }
 
             if ((!$preview) && (!$singlePost)) {
+//            if (!$preview) {
+                // change buttons for post
                 // change buttons for post
                 $act = $this->getChangeActionsForPost($post);
                 foreach ($act as $key => $value) {
@@ -1195,7 +1224,8 @@ namespace c4g\Forum;
 
             // Get member rank by language and member post count.
             if ($this->c4g_forum_show_ranks) {
-                $aUserRanks = deserialize($this->c4g_forum_member_ranks);
+                // pass true as param to force return value to be array
+                $aUserRanks = deserialize($this->c4g_forum_member_ranks, true);
                 $sUserRank = '';
                 foreach ($aUserRanks as $aUserRank) {
                     if ($iUserPostCount >= $aUserRank['rank_min'] && $this->c4g_forum_language === $aUserRank['rank_language']) {
@@ -1248,8 +1278,8 @@ namespace c4g\Forum;
                 $data .= '<hr>';
             }
 
-            $data .=
-                '</div>';
+//            $data .=
+//                '</div>';
 
 
             return $data;
@@ -1272,13 +1302,12 @@ namespace c4g\Forum;
                 $delAction  = 'delpostdialog';
                 $editAction = 'editpostdialog';
             }
-            if ($this->helper->checkPermissionForAction($post['forumid'], $delAction)) {
+            if ($this->helper->checkPermissionForAction($post['forumid'], $delAction, $this->User->id)) {
                 $return[$delAction . ':' . $post['id']] = $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_POST'];
             }
-            if ($this->helper->checkPermissionForAction($post['forumid'], $editAction)) {
+            if ($this->helper->checkPermissionForAction($post['forumid'], $editAction, $this->User->id)) {
                 $return[$editAction . ':' . $post['id']] = $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST'];
             }
-
             return $return;
         }
 
@@ -1293,7 +1322,7 @@ namespace c4g\Forum;
 
             $return = array();
             if (($post['loc_geox'] && $post['loc_geoy']) || $post['loc_data_content']) {
-                if ($this->map_enabled() && $this->helper->checkPermissionForAction($post['forumid'], 'viewmapforpost')) {
+                if ($this->map_enabled($post['forumid']) && $this->helper->checkPermissionForAction($post['forumid'], 'viewmapforpost')) {
                     $return['viewmapforpost:' . $post['id']] = $GLOBALS['TL_LANG']['C4G_FORUM']['VIEW_MAP_FOR_POST'];
                 }
             }
@@ -1316,8 +1345,10 @@ namespace c4g\Forum;
             foreach ($posts as $post) {
                 $data .= $this->generatePostAsHtml($post, true);
             }
-
-            list($access, $message) = $this->checkPermission($post['forumid']);
+            if (count($posts) == 1) {
+//                $posts = $posts[0];
+            }
+            list($access, $message) = $this->checkPermission($posts[0]['forumid']);
             if (!$access) {
                 return $this->getPermissionDenied($message);
             }
@@ -1407,7 +1438,7 @@ namespace c4g\Forum;
          */
         public function getThreadAsHtml($id)
         {
-
+            $this->c4g_forum_pagination_active = false;
             $posts  = $this->helper->getPostsOfThreadFromDB($id, ($this->c4g_forum_postsort != 'UP'));
             $thread = $this->helper->getThreadFromDB($id);
             $data   = $this->generateThreadHeaderAsHtml($thread);
@@ -1800,7 +1831,7 @@ JSPAGINATE;
 
             $data .= $this->getPostlinkForForm('c4gForumNewPostPostLink', $thread['forumid'], 'newpost', '', '');
             $locstyle = "";
-            if ($this->map_enabled()) {
+            if ($this->map_enabled($thread['forumid'])) {
                 $locstyle = $this->helper->getDefaultLocstyleFromDB($threadId);
             }
             $data .= $this->getPostMapEntryForForm('c4gForumNewPostMapData', $thread['forumid'], 'newpost', '', '', '', $locstyle, '', '', 0, '');
@@ -2342,7 +2373,7 @@ JSPAGINATE;
             $data .= '</div>';
 
             $buttons = array();
-            if ($this->map_enabled() && $this->helper->checkPermission($parentId, 'mapview')) {
+            if ($this->map_enabled($forum['id']) && $this->helper->checkPermission($parentId, 'mapview')) {
                 $forum = $this->helper->getForumFromDB($parentId);
                 if ($forum['enable_maps'] || $forum['enable_maps_inherited']) {
                     array_insert($buttons, 0, array(
@@ -3363,12 +3394,11 @@ JSPAGINATE;
         /**
          * @return boolean
          */
-        public function map_enabled()
+        public function map_enabled($forumId)
         {
-
-            return
-                ($GLOBALS['con4gis_maps_extension']['installed']) &&
-                ($this->c4g_forum_enable_maps);
+            //TODO forum id hier übergeben, dann können wir uns das forum hier aus der db holen und abfragen
+            $forum = C4gForumModel::findByPk($forumId);
+            return ($GLOBALS['con4gis_maps_extension']['installed']) && (($forum->enable_maps) || static::$useMaps);
         }
 
 
@@ -3389,8 +3419,7 @@ JSPAGINATE;
          */
         public function getPostMapEntryForForm($divname, $forumId, $dialogId, $geox, $geoy, $geodata, $locstyle, $label, $tooltip, $postId, $osmId)
         {
-
-            if ($this->map_enabled()) {
+            if ($this->map_enabled($forumId)) {
                 $forum = $this->helper->getForumFromDB($forumId);
                 if (($forum['enable_maps']) || ($forum['enable_maps_inherited'])) {
 
@@ -3795,7 +3824,7 @@ JSPAGINATE;
         public function postMapEntry($forumId, $dialogId, $add, $postId)
         {
 
-            if ((!$this->map_enabled()) ||
+            if ((!$this->map_enabled($forumId)) ||
                 (!$this->helper->checkPermission($forumId, 'mapedit'))
             ) {
                 return $this->getPermissionDenied($this->helper->permissionError);
@@ -4030,7 +4059,7 @@ JSPAGINATE;
             $post  = $posts[0];
 
             $forum = $this->helper->getForumFromDB($post['forumid']);
-            if ((!$this->map_enabled()) ||
+            if ((!$this->map_enabled($post['forumid'])) ||
                 (!$this->helper->checkPermissionForAction($post['forumid'], 'viewmapforpost'))
             ) {
                 return $this->getPermissionDenied($this->helper->permissionError);
@@ -4108,7 +4137,7 @@ JSPAGINATE;
         {
 
             $forum = $this->helper->getForumFromDB($forumId);
-            if ((!$this->map_enabled()) ||
+            if ((!$this->map_enabled($forumId)) ||
                 (!$this->helper->checkPermissionForAction($forumId, 'viewmapforforum'))
             ) {
                 return $this->getPermissionDenied($this->helper->permissionError);
@@ -5065,7 +5094,7 @@ JSPAGINATE;
         public function performAction($action)
         {
             //delete cache -- Übergangslösung bis alles läuft.
-            \c4g\Core\C4GAutomator::purgeApiCache();
+//            \c4g\Core\C4GAutomator::purgeApiCache();
 
 
             $values       = explode(':', $action, 5);
@@ -5097,6 +5126,7 @@ JSPAGINATE;
                     break;
                 case 'readpostnumber':
                     $return = $this->getPostNumberOfThreadAsHtml($values[1], $values[2]);
+//                    $return = $this->getPostAsHtml($values[1]);
                     break;
                 case 'newpost':
                     $return = $this->generateNewPostForm($values[1], $values[2]);
@@ -5343,9 +5373,9 @@ JSPAGINATE;
         /**
          * function is called by every Ajax requests
          */
-        public function generateAjax($request = null)
+        public function generateAjax($request = null, $user = null)
         {
-
+            $this->User = $user;
             global $objPage;
 
             // auf die benutzerdefinierte Fehlerbehandlung umstellen
@@ -5523,7 +5553,8 @@ JSPAGINATE;
             }
 
             $this->dialogs_jqui = ((!$this->c4g_forum_dialogs_embedded) || ($this->c4g_forum_embdialogs_jqui));
-            $this->import('FrontendUser', 'User');
+//            \System::import('FrontendUser', 'User');
+//            $this->import('FrontendUser', 'User');
 
         }
     }

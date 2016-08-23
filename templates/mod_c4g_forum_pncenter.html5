@@ -1,6 +1,6 @@
 <?php if (FE_USER_LOGGED_IN): ?>
 
-    <script src="system/modules/con4gis_core/lib/ckeditor/ckeditor.js"></script>
+    <script src="system/modules/con4gis_core/assets/vendor/ckeditor/ckeditor.js"></script>
     <script src="system/modules/con4gis_forum/assets/js/c4g.pn.js"></script>
     <link rel="stylesheet" href="system/modules/con4gis_forum/assets/css/c4g.pn.css">
     <link rel="stylesheet" href="system/modules/con4gis_core/assets/vendor/font-awesome/css/font-awesome.min.css">

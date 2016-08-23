@@ -101,10 +101,10 @@
                     });
             }
 
-
             $.ajax({
                 method: "GET",
-                url: "system/modules/con4gis_forum/api/index.php/modal/" + type,
+                //url: "system/modules/con4gis_forum/api/index.php/modal/" + type,
+                url: pnApiBaseUrl + "/modal/" + type,
                 data: {data: data},
                 success: function (response) {
                     $("body").append(response.template);
@@ -132,7 +132,8 @@
             if (bConfirm == true) {
                 $.ajax({
                     method: "DELETE",
-                    url: "system/modules/con4gis_forum/api/index.php/delete/" + id,
+                    //url: "system/modules/con4gis_forum/api/index.php/delete/" + id,
+                    url: pnApiBaseUrl + "/delete/" + id,
                     success: function (response) {
                         if (response.success == true) {
                             $('#message-' + id).remove();
@@ -153,7 +154,8 @@
             data.url = document.location.href;
             $.ajax({
                 method: "POST",
-                url: "system/modules/con4gis_forum/api/index.php/send/",
+                //url: "system/modules/con4gis_forum/api/index.php/send/",
+                url: pnApiBaseUrl + "/send/",
                 data: data,
                 success: function (response) {
                     if (response.success !== true) {
@@ -205,8 +207,8 @@
                 defaultLanguage: "en",
                 height:'360',
                 disableObjectResizing: true,
-                filebrowserImageUploadUrl: "system/modules/con4gis_core/lib/imgUpload.php",
-                filebrowserUploadUrl: 'system/modules/con4gis_core/lib/fileUpload.php',
+                filebrowserImageUploadUrl: "system/modules/con4gis_core/assets/vendor/imgUpload.php",
+                filebrowserUploadUrl: 'system/modules/con4gis_core/assets/vendor/fileUpload.php',
                 // codeSnippet_languages: {
                 // }
             });
@@ -231,7 +233,8 @@
             };
             $.ajax({
                 method: "POST",
-                url: "system/modules/con4gis_forum/api/index.php/mark",
+                //url: "system/modules/con4gis_forum/api/index.php/mark",
+                url: pnApiBaseUrl + "/mark",
                 data: data,
                 success: function (response) {
                     if (response.success !== true) {

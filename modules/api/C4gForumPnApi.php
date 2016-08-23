@@ -38,7 +38,7 @@
         /**
          * @var string
          */
-        private $_sApiUrl = 'system/modules/con4gis_forum/api/index.php';
+        private $_sApiUrl = 'system/modules/con4gis_core/api/index.php';
 
 
         /**
@@ -51,19 +51,119 @@
             $this->import('FrontendUser', 'User');
             $this->User->authenticate();
             parent::__construct();
+            // check if we need contao 4 routing
+            if (class_exists('\Con4gis\ApiBundle\Controller\ApiController')) {
+                $this->_sApiUrl = 'con4gis/api/c4g_forum_pn_api';
+            }
 
             // Check whether a user is logged in
             define('BE_USER_LOGGED_IN', $this->getLoginStatus('BE_USER_AUTH'));
             define('FE_USER_LOGGED_IN', $this->getLoginStatus('FE_USER_AUTH'));
         }
 
+        /**
+         * Generate response
+         */
+        public function generate($arrFragments)
+        {
+            if(!FE_USER_LOGGED_IN){
+                header('HTTP/1.1 400 Bad Request');
+                exit;
+            }
+
+            \Contao\System::loadLanguageFile("tl_c4g_forum_pn");
+
+            // Set default headers for api
+            header('Content-Type: application/json');
+            try {
+                if ($arrFragments[0] == "modal") {
+                    if (!empty($arrFragments[1])) {
+                        $sType      = $arrFragments[1];
+                        $aReturn    = array();
+                        $sClassName = "\\c4g\\Forum\\PN\\" . ucfirst($sType);
+                        if (class_exists($sClassName)) {
+                            $aData = \Input::get('data');
+
+                            $aReturn['template'] = $sClassName::parse($aData);
+                        }
+                        return json_encode($aReturn);
+//                        exit();
+
+                    } else {
+                        header('HTTP/1.1 400 Bad Request');
+                        exit;
+                    }
+
+
+
+                } elseif ($arrFragments[0] == "delete") {
+                    $iId = $arrFragments[1];
+                    $oPn = c4g\Forum\C4gForumPn::getById($iId);
+                    $res = $oPn->delete();
+                    return json_encode(array('success' => $res));
+//                    exit();
+
+
+
+                } elseif ($arrFragments[0] == "mark") {
+
+                    $iStatus = intval(\Input::post('status'));
+                    $iId = intval(\Input::post('id'));
+
+                    $oPn = \c4g\Forum\C4gForumPn::getById($iId);
+                    $oPn->setStatus($iStatus);
+                    $oPn->update();
+                    return json_encode(array('success' => true));
+//                    exit();
+
+
+
+
+                } elseif ($arrFragments[0] == "send") {
+
+                    $iRecipientId = \Input::post('recipient_id');
+                    $sRecipient = \Input::post('recipient');
+                    $sUrl = \Input::post('url');
+                    if(empty($iRecipientId) && !empty($sRecipient)) {
+                        $aRecipient = \c4g\Forum\C4gForumPn::getMemberByUsername($sRecipient);
+                        if(empty($aRecipient)){
+                            throw new \Exception($GLOBALS['TL_LANG']['tl_c4g_forum_pn']['member_not_found']);
+                        }
+                        $iRecipientId = $aRecipient['id'];
+                    }
+
+                    $aData = array(
+                        "subject"      => \Input::post('subject'),
+                        "message"      => htmlentities($_POST['message']),
+                        "sender_id"    => $this->User->id,
+                        "recipient_id" => $iRecipientId,
+                        "dt_created"   => time(),
+                        "status"       => 0
+                    );
+
+
+
+
+                    $oPn = \c4g\Forum\C4gForumPn::create($aData);
+                    $oPn->send($sUrl);
+                    return json_encode(array('success' => true));
+//                    exit();
+
+                }else{
+                    header('HTTP/1.1 400 Bad Request');
+                    exit;
+                }
+            } catch (\Exception $e) {
+                return json_encode(array('success' => false, "message" => $e->getMessage()));
+//                exit();
+            }
+        }
 
         /**
          * Run the controller
          */
         public function run()
         {
-
             if(!FE_USER_LOGGED_IN){
                 header('HTTP/1.1 400 Bad Request');
                 exit;
@@ -81,8 +181,11 @@
                 }
 
                 // Get path
-                $arrFragments = $this->getFragmentsFromUrl();
-
+                if ($this->_sApiUrl == 'con4gis/api/c4g_forum_pn_api') {
+                    $arrFragments = $this->getFragments();
+                } else {
+                    $arrFragments = $this->getFragmentsFromUrl();
+                }
 
                 // Stop on empty path
                 if (empty($arrFragments)) {
@@ -102,7 +205,7 @@
                             $aReturn['template'] = $sClassName::parse($aData);
                         }
 
-                        echo json_encode($aReturn);
+                        return json_encode($aReturn);
                         exit();
 
                     } else {
@@ -208,10 +311,30 @@
             // return the fragments
             return explode('/', $strRequest);
         }
+
+        /**
+         * Returns the fragments when con4gis/api/ is used (Contao 4)
+         */
+        private function getFragments()
+        {
+            // Return null on empty request path
+            if (\Environment::get('request') == '') {
+                return null;
+            }
+
+            $request = \Environment::get('request');
+            $strRequest = substr($request, strlen($this->_sApiUrl), strlen($request));
+            $strRequest = rawurldecode($strRequest);
+            if (substr($strRequest, 0, 1) == '/') {
+                $strRequest = substr($strRequest, 1);
+            }
+            return explode('/', $strRequest);
+
+        }
     }
 
     /**
      * Instantiate controller
      */
-    $objApi = new ForumApi4Gis();
-    $objApi->run();
+//    $objApi = new C4gForumPnApi();
+//    $objApi->run();

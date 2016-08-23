@@ -50,7 +50,7 @@ ClassLoader::addClasses(array
 
 	// api
 	'C4gForumAjaxApi'             => 'system/modules/con4gis_forum/modules/api/C4gForumAjaxApi.php',
-	//'C4gForumPnApi' 	          => 'system/modules/con4gis_forum/modules/api/C4gForumPnApi.php',
+	'C4gForumPnApi' 	          => 'system/modules/con4gis_forum/modules/api/C4gForumPnApi.php',
 
 	// Widgets
 	'Avatar'                      => 'system/modules/con4gis_forum/widgets/Avatar.php',
