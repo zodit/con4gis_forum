@@ -178,9 +178,11 @@ namespace c4g\Forum;
             if (class_exists('\Con4gis\ApiBundle\Controller\ApiController')) {
                 $data['ajaxUrl'] = "con4gis/api/c4g_forum_ajax";
                 $GLOBALS['TL_HEAD'][] = "<script>var pnApiBaseUrl = 'con4gis/api/c4g_forum_pn_api';</script>";
+                $GLOBALS['TL_HEAD'][] = "<script>var uploadApiUrl = 'con4gis/api/fileUpload/';</script>";
             } else {
                 $data['ajaxUrl'] = "system/modules/con4gis_core/api/index.php/c4g_forum_ajax";
                 $GLOBALS['TL_HEAD'][] = "<script>var pnApiBaseUrl = 'system/modules/con4gis_core/api/index.php/c4g_forum_pn_api';</script>";
+                $GLOBALS['TL_HEAD'][] = "<script>var uploadApiUrl = 'system/modules/con4gis_core/api/index.php/fileUpload/';</script>";
             }
 
             // $data['ajaxData'] = "action=fmd&id=".$this->id."&language=".$GLOBALS['TL_LANGUAGE']."&page=".$objPage->id;
