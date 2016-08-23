@@ -13,6 +13,15 @@
  * @link      https://www.kuestenschmiede.de
  */
 
+// set imageSize options (Contao 3&4)
+if (method_exists('\System', 'getContainer')) {
+    //contao 4
+    $imageSizes = \System::getContainer()->get('contao.image.image_sizes')->getAllOptions();
+} else {
+    //contao 3
+    $imageSizes = array('px');
+}
+
     /***
      * Palettes
      */
@@ -61,7 +70,7 @@
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_size'],
         'exclude'   => true,
         'inputType' => 'imageSize',
-        'options'   => \System::getContainer()->get('contao.image.image_sizes')->getAllOptions(),
+        'options'   => $imageSizes,
         'eval'      => array('rgxp' => 'digit')
     );
 
@@ -70,7 +79,7 @@
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_scroll'],
         'exclude'   => true,
         'inputType' => 'imageSize',
-        'options'   => \System::getContainer()->get('contao.image.image_sizes')->getAllOptions(),
+        'options'   => $imageSizes,
         'eval'      => array('rgxp' => 'digit')
     );
 
@@ -236,7 +245,7 @@
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_avatar_size'],
         'exclude'   => true,
         'inputType' => 'imageSize',
-        'options'   => \System::getContainer()->get('contao.image.image_sizes')->getAllOptions(),
+        'options'   => $imageSizes,
         'eval'      => array('rgxp' => 'digit')
     );
 
@@ -523,7 +532,7 @@
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_dialogsize'],
         'exclude'   => true,
         'inputType' => 'imageSize',
-        'options'   => \System::getContainer()->get('contao.image.image_sizes')->getAllOptions(),
+        'options'   => $imageSizes,
         'eval'      => array('rgxp' => 'digit')
     );
 
