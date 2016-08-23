@@ -179,10 +179,7 @@ class C4GForumHelper extends \System
 
             } else {
                 $userGroups = $this->User->groups;
-//                echo json_encode($this->User);
-//                echo json_encode($userGroups);
             }
-//            echo $userId;
             if ($right == 'readpost') {
 
             }
@@ -203,15 +200,9 @@ class C4GForumHelper extends \System
     	}
 
    		if (($rights) && (array_search($right, deserialize($rights)) !== false)) {
-//            echo "permission ist da";
    			return true;
    		}
    		$this->permissionError = $GLOBALS['TL_LANG']['C4G_FORUM']['NO_PERMISSION'];
-//        echo json_encode(sizeof(array_intersect($userGroups, deserialize($adminGroups)))) . '<br>';
-        echo json_encode(deserialize($adminGroups)) . '<br>';
-//        echo json_encode(deserialize($userGroups)) . '<br>';
-        echo 'bla';
-//        debug_print_backtrace();
     	return false;
     }
 
@@ -234,12 +225,9 @@ class C4GForumHelper extends \System
 		}
         //TODO hier fehlt manchmal forumid, weswegen aus der db nix zurückkommt
 
-//		echo json_encode($forum['member_rights']);
 		$return = $this->checkPermissionWithData($right, $forum['member_groups'], $forum['admin_groups'],
 			$forum['guest_rights'], $forum['member_rights'], $forum['admin_rights'], $userId);
-        if ($return == false) {
-            echo $forumId;
-        }
+
         return $return;
 	}
 

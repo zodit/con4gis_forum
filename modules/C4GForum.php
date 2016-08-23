@@ -119,7 +119,6 @@ namespace c4g\Forum;
             }
             global $objPage;
             $this->initMembers();
-//            echo json_encode($this->User->groups);
 
             $useGoogleMaps = false;
             if ($this->c4g_forum_enable_maps) {
@@ -257,17 +256,12 @@ namespace c4g\Forum;
                 $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/assets/js/jquery.hashchange.min.js";
             }
             //TODO workaround until we can check enable_maps properly (need forum id)
-//            if ($this->map_enabled(2) && $GLOBALS['con4gis_maps_extension']['installed']) {
             if ($GLOBALS['con4gis_maps_extension']['installed']) {
-                // load maps resources
-//                $map = C4gMapsModel::findByPk($this->map_id);
-//                if ($map) {
-//                    ResourceLoader::loadResourcesForProfile($map->profile);
-//                } else {
-                    ResourceLoader::loadResources();
-                    ResourceLoader::loadTheme();
-//                }
+                ResourceLoader::loadResources();
+                ResourceLoader::loadTheme();
                 static::$useMaps = true;
+                // load core resources for maps
+                \c4g\Core\ResourceLoader::loadResourcesForModule('maps');
             }
 
 
@@ -1309,13 +1303,9 @@ namespace c4g\Forum;
             if ($this->helper->checkPermissionForAction($post['forumid'], $delAction, $this->User->id)) {
                 $return[$delAction . ':' . $post['id']] = $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_POST'];
             }
-//            echo $post['forumid'];
-//            echo  $this->User->id;
-//            echo json_encode($this->helper->checkPermissionForAction($post['forumid'], $editAction, $this->User->id));
             if ($this->helper->checkPermissionForAction($post['forumid'], $editAction, $this->User->id)) {
                 $return[$editAction . ':' . $post['id']] = $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST'];
             }
-//            echo json_encode ($return);
             return $return;
         }
 
@@ -1329,7 +1319,6 @@ namespace c4g\Forum;
         {
 
             $return = array();
-//            echo json_encode($post);
             if (($post['loc_geox'] && $post['loc_geoy']) || $post['loc_data_content']) {
                 if ($this->map_enabled($post['forumid']) && $this->helper->checkPermissionForAction($post['forumid'], 'viewmapforpost')) {
                     $return['viewmapforpost:' . $post['id']] = $GLOBALS['TL_LANG']['C4G_FORUM']['VIEW_MAP_FOR_POST'];
@@ -1385,7 +1374,6 @@ namespace c4g\Forum;
 
             // get edit and delete buttons
             $act = $this->getChangeActionsForPost($posts[0]);
-//            echo json_encode($act);
             foreach ($act as $key => $value) {
                 array_insert($dialogbuttons, 0,
                              array(
@@ -1397,7 +1385,6 @@ namespace c4g\Forum;
                              )
                 );
             }
-//            echo json_encode($dialogbuttons);
 
             $return = array(
                 "dialogtype"    => "html",
@@ -3407,15 +3394,8 @@ JSPAGINATE;
          */
         public function map_enabled($forumId)
         {
-//            // test
-//            if (!isset($this->c4g_forum_enable_maps)) {
-//                $this->c4g_forum_enable_maps = 1;
-//            }
-//            $this->c4g_forum_enable_maps = 1;
             //TODO forum id hier übergeben, dann können wir uns das forum hier aus der db holen und abfragen
             $forum = C4gForumModel::findByPk($forumId);
-//            echo $forumId;
-//            echo json_encode($forum);
             return ($GLOBALS['con4gis_maps_extension']['installed']) && (($forum->enable_maps) || static::$useMaps);
         }
 
@@ -3437,9 +3417,7 @@ JSPAGINATE;
          */
         public function getPostMapEntryForForm($divname, $forumId, $dialogId, $geox, $geoy, $geodata, $locstyle, $label, $tooltip, $postId, $osmId)
         {
-//            echo "fkt betreten";
             if ($this->map_enabled($forumId)) {
-//                echo "map ist enabled";
                 $forum = $this->helper->getForumFromDB($forumId);
                 if (($forum['enable_maps']) || ($forum['enable_maps_inherited'])) {
 
@@ -5396,7 +5374,6 @@ JSPAGINATE;
         public function generateAjax($request = null, $user = null)
         {
             $this->User = $user;
-//            echo $this->User . 'sheesh';
             global $objPage;
 
             // auf die benutzerdefinierte Fehlerbehandlung umstellen
