@@ -113,7 +113,9 @@ class tl_member_dca extends \Contao\Backend
         }
 
         $sImagePathFromDatabase = \c4g\Forum\C4gForumMember::getAvatarByMemberId($iMemberId);
-        if (empty(deserialize($varValue)) && (!empty($sImagePathFromDatabase))) {
+
+        $deseralized_value = deserialize($varValue);
+        if (empty($deseralized_value) && (!empty($sImagePathFromDatabase))) {
             if ($sImagePathFromDatabase) {
                 $varValue = $sImagePathFromDatabase;
             }
