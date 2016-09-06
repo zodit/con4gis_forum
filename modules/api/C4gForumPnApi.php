@@ -52,7 +52,7 @@
             $this->User->authenticate();
             parent::__construct();
             // check if we need contao 4 routing
-            if (class_exists('\Con4gis\ApiBundle\Controller\ApiController')) {
+            if (class_exists('\con4gis\ApiBundle\Controller\ApiController')) {
                 $this->_sApiUrl = 'con4gis/api/c4g_forum_pn_api';
             }
 

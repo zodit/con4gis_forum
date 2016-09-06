@@ -91,7 +91,7 @@
             $data = array();
 
             // set global js var to inidcate api endpoint
-            if (\class_exists('\Con4gis\ApiBundle\Controller\ApiController')) {
+            if (\class_exists('\con4gis\ApiBundle\Controller\ApiController')) {
                 $GLOBALS['TL_HEAD'][] = "<script>var pnApiBaseUrl = 'con4gis/api/c4g_forum_pn_api';</script>";
             } else {
                 $GLOBALS['TL_HEAD'][] = "<script>var pnApiBaseUrl = 'system/modules/con4gis_core/api/index.php/c4g_forum_pn_api';</script>";
