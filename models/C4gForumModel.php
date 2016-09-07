@@ -17,6 +17,7 @@ namespace c4g\Forum;
      * Class C4gForumModel
      * @package c4g\Forum
      */
-    class C4gForumModel extends \Model{
+    class C4gForumModel extends \Model {
 
+        protected static $strTable = "tl_c4g_forum";
     }

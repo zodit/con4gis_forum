@@ -114,7 +114,7 @@ class Avatar extends \Widget implements \uploadable
 		}
 
 		// Generate an image tag with the member's avatar.
-		$sImage = C4GForumHelper::getAvatarByMemberId($iMemberId);
+		$sImage = \c4g\Forum\C4GForumHelper::getAvatarByMemberId($iMemberId);
 		if ($sImage) {
 			$sReturn = '<img src="' . $sImage . '">';
 		}

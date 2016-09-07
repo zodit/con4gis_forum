@@ -15,6 +15,8 @@
 
 namespace c4g\Forum;
 
+use Contao\System;
+
 if (version_compare(VERSION,'3','<')) {
 	include_once "classes/C4GUtils.php";
 }
@@ -65,6 +67,9 @@ class C4GForumHelper extends \System
 			$this->Database = $database;
 		}
 		$this->User = $user;
+        if ($user == null) {
+//            $this->import('FrontendUser', 'User');
+        }
 		$this->Environment = $environment;
 		$this->frontendUrl = $frontendUrl;
 		if ($forumName=="") {
@@ -166,21 +171,24 @@ class C4GForumHelper extends \System
     {
     	$rights = $guestRights;
     	if ((FE_USER_LOGGED_IN) && (!$this->checkGuestRights)) {
-    		if (($userId!=0) && ($this->User->id!=$userId)) {
-    			$userGroups = deserialize($this->Database->prepare(
-    					"SELECT groups FROM tl_member  ".
-    					"WHERE id=?")
-    					->execute($userId)->groups, true);
-    		} else {
-    			$userGroups = $this->User->groups;
-    		}
-    		if (($adminGroups) && (sizeof(array_intersect($userGroups, deserialize($adminGroups) )) > 0)) {
-    			$rights = $adminRights;
-    		}
-    		else if (($memberGroups) && (sizeof(array_intersect($userGroups, deserialize($memberGroups) )) > 0)) {
-    			$rights = $memberRights;
-    		}
+            if (($userId != 0) && ($this->User->id != $userId)) {
+                $userGroups = deserialize($this->Database->prepare(
+                    "SELECT groups FROM tl_member  " .
+                    "WHERE id=?")
+                    ->execute($userId)->groups, true);
 
+            } else {
+                $userGroups = $this->User->groups;
+            }
+            if ($right == 'readpost') {
+
+            }
+
+            if (($adminGroups) && (sizeof(array_intersect($userGroups, deserialize($adminGroups))) > 0)) {
+                $rights = $adminRights;
+            } else if (($memberGroups) && (sizeof(array_intersect($userGroups, deserialize($memberGroups))) > 0)) {
+                $rights = $memberRights;
+            }
     	} else {
     		// not logged in: newpost and newthread not possible at all
     		switch ($right) {
@@ -215,9 +223,12 @@ class C4GForumHelper extends \System
 	 								 ->execute($forumId)->fetchAssoc();
 	 		$this->ForumCache[$forumId] = $forum;
 		}
-		return $this->checkPermissionWithData($right, $forum['member_groups'], $forum['admin_groups'],
+        //TODO hier fehlt manchmal forumid, weswegen aus der db nix zurückkommt
+
+		$return = $this->checkPermissionWithData($right, $forum['member_groups'], $forum['admin_groups'],
 			$forum['guest_rights'], $forum['member_rights'], $forum['admin_rights'], $userId);
 
+        return $return;
 	}
 
 
@@ -227,9 +238,9 @@ class C4GForumHelper extends \System
 	 * @param int $forumId
 	 * @param String $action
 	 */
-	public function checkPermissionForAction( $forumId, $action )
+	public function checkPermissionForAction( $forumId, $action, $userId = null )
 	{
-		return $this->checkPermission($forumId,$this->actionToRight($action));
+		return $this->checkPermission($forumId,$this->actionToRight($action), $userId);
 	}
 
 

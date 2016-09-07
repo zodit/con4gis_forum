@@ -15,7 +15,7 @@
  * Global settings
  */
 $GLOBALS['con4gis_forum_extension']['installed']    = true;
-$GLOBALS['con4gis_forum_extension']['version']      = '1.5.0';
+$GLOBALS['con4gis_forum_extension']['version']      = '1.6.0';
 
 /**
  * Frontend modules
@@ -60,4 +60,4 @@ $GLOBALS['TL_HOOKS']['removeOldFeeds'][] = array('C4GForumHelper','removeOldFeed
  * Rest-API
  */
 $GLOBALS['TL_API']['c4g_forum_ajax'] 		= 'C4gForumAjaxApi';
-//$GLOBALS['TL_API']['c4g_forum_pn_api'] 		= 'C4gForumPnApi';
+$GLOBALS['TL_API']['c4g_forum_pn_api'] 		= 'C4gForumPnApi';
