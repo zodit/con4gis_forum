@@ -175,7 +175,7 @@ namespace c4g\Forum;
             $data['id']      = $this->id;
             //check if we need contao 4 routing
             // set global js var to inidcate api endpoint
-            if (class_exists('\con4gis\ApiBundle\Controller\ApiController') && VERSION >= 4.0) {
+            if (class_exists('\con4gis\ApiBundle\Controller\ApiController') &&  (version_compare( VERSION, '4', '>=' ))) {
                 $data['ajaxUrl'] = "con4gis/api/c4g_forum_ajax";
                 $GLOBALS['TL_HEAD'][] = "<script>var pnApiBaseUrl = 'con4gis/api/c4g_forum_pn_api';</script>";
                 $GLOBALS['TL_HEAD'][] = "<script>var uploadApiUrl = 'con4gis/api/fileUpload/';</script>";
