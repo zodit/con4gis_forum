@@ -1174,6 +1174,9 @@ namespace c4g\Forum;
                 $text = html_entity_decode($text);
             }
 
+            // search in the forum text for lib and replace by assets/vendor (file download compatibility)
+            $text = str_replace('/lib', '/assets/vendor', $text);
+
             /**
              * Member data
              */
