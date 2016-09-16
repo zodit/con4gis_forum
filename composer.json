@@ -1,13 +1,17 @@
 {
   "name": "con4gis/con4gis_forum",
-  "type": "contao-module",
   "description": "Forum module for contao",
   "keywords": ["con4gis", "forum", "contao", "c4g"],
+  "type": "contao-module",
   "homepage": "https://con4gis.org",
   "license": "LGPL-3.0+",
+  "authors":[
+    {
+      "name":"Küstenschmiede GmbH Software & Design",
+      "homepage":"https://kuestenschmiede.de"
+    }
+  ],
   "require": {
-    "contao/core-bundle": "~3.5 || ~4.2",
-    "contao-community-alliance/composer-plugin": "~2.4 || ~3.0",
     "con4gis/con4gis_core": "~1.6",
     "menatwork/contao-multicolumnwizard": "3.3.6"
   },

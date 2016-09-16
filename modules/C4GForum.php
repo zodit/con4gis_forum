@@ -1174,6 +1174,9 @@ namespace c4g\Forum;
                 $text = html_entity_decode($text);
             }
 
+            // search in the forum text for lib and replace by assets/vendor (file download compatibility)
+            $text = str_replace('/lib', '/assets/vendor', $text);
+
             /**
              * Member data
              */
@@ -1438,7 +1441,7 @@ namespace c4g\Forum;
          */
         public function getThreadAsHtml($id)
         {
-            $this->c4g_forum_pagination_active = false;
+//            $this->c4g_forum_pagination_active = false;
             $posts  = $this->helper->getPostsOfThreadFromDB($id, ($this->c4g_forum_postsort != 'UP'));
             $thread = $this->helper->getThreadFromDB($id);
             $data   = $this->generateThreadHeaderAsHtml($thread);
@@ -1573,8 +1576,13 @@ namespace c4g\Forum;
                                 var data = this.slice;
 
                                 cont.slice(prev[0], prev[1]).css('display', 'none');
+                                if (jQuery(cont.slice(prev[0], prev[1]).next()).hasClass('c4g_forum_post_head_edit_row')) {
+                                    jQuery(cont.slice(prev[0], prev[1]).next()).css('display', 'none');
+                                }
                                 cont.slice(data[0], data[1]).fadeIn("slow");
-
+                                if (jQuery(cont.slice(data[0], data[1]).next()).hasClass('c4g_forum_post_head_edit_row')) {
+                                    jQuery(cont.slice(data[0], data[1]).next()).fadeIn("slow");
+                                }
                                 prev = data;
 
                                 return true; // locate!
@@ -1603,9 +1611,12 @@ namespace c4g\Forum;
                                 Paging.setPage(window.location.hash.substr(1));
                             else
                                 Paging.setPage(1); // we dropped the initial page selection and need to run it manually
+
+                            jQuery(".c4g_pagination").css('display', '');
                         });
 
                         jQuery(window).hashchange();
+
                     });
                 </script>
 JSPAGINATE;
