@@ -26,7 +26,7 @@
 
 
     // Initialize the system
-    require(TL_ROOT . '/system/initialize.php');
+    //require(TL_ROOT . '/system/initialize.php');
 
     /**
      * Class C4gForumPnApi
