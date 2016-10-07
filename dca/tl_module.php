@@ -380,7 +380,7 @@ if (method_exists('\System', 'getContainer')) {
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_editor'] = array(
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor'],
         'exclude'   => true,
-        'default'   => false,
+        'default'   => 'ck',
         'inputType' => 'radio',
         'options'   => array(
             'ck' => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor_option']['ck'],

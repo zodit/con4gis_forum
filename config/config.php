@@ -15,7 +15,7 @@
  * Global settings
  */
 $GLOBALS['con4gis_forum_extension']['installed']    = true;
-$GLOBALS['con4gis_forum_extension']['version']      = '1.6.3';
+$GLOBALS['con4gis_forum_extension']['version']      = '1.6.4';
 
 /**
  * Frontend modules
