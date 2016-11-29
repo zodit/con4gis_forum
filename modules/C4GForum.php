@@ -415,6 +415,7 @@ namespace c4g\Forum;
                     'sTitle'      => 'key',
                     "bVisible"    => false,
                     "bSearchable" => false,
+                    "responsivePriority"  => array(0),
                     "aTargets"    => array(0)
                 ),
                 array(
@@ -426,6 +427,7 @@ namespace c4g\Forum;
                         1
                     ),
                     "aTargets"              => array(1),
+                    "responsivePriority"    => array(1),
                     "c4gMinTableSizeWidths" => array(
                         array(
                             "tsize" => 500,
@@ -447,6 +449,7 @@ namespace c4g\Forum;
                     ),
                     "bSearchable"     => false,
                     "aTargets"        => array(2),
+                    "responsivePriority" => array(2),
                     "c4gMinTableSize" => 700
                 ),
                 array(
@@ -462,12 +465,14 @@ namespace c4g\Forum;
                         'asc'
                     ),
                     "aTargets"        => array(3),
+                    "responsivePriority" => array(3),
                     "c4gMinTableSize" => 700
                 ),
                 array(
                     "bVisible"    => false,
                     "bSearchable" => false,
-                    "aTargets"    => array(4)
+                    "aTargets"    => array(4),
+                    "responsivePriority" => array(4)
                 ),
                 array(
                     'sTitle'          => $GLOBALS['TL_LANG']['C4G_FORUM']['AUTHOR'],
@@ -479,6 +484,7 @@ namespace c4g\Forum;
                     ),
                     "bSearchable"     => false,
                     "aTargets"        => array(5),
+                    "responsivePriority" => array(5),
                     "c4gMinTableSize" => 500
                 ),
                 array(
@@ -494,12 +500,14 @@ namespace c4g\Forum;
                     ),
                     "bSearchable"     => false,
                     "aTargets"        => array(6),
+                    "responsivePriority" => array(6),
                     "c4gMinTableSize" => 500
                 ),
                 array(
                     "bVisible"    => false,
                     "bSearchable" => false,
-                    "aTargets"    => array(7)
+                    "aTargets"    => array(7),
+                    "responsivePriority" => array(7)
                 ),
                 array(
                     'sTitle'      => '#',
@@ -509,22 +517,26 @@ namespace c4g\Forum;
                         'asc'
                     ),
                     "bSearchable" => false,
-                    "aTargets"    => array(8)
+                    "aTargets"    => array(8),
+                    "responsivePriority" => array(8)
                 ),
                 array(
                     "bVisible"    => false,
                     "bSearchable" => false,
-                    "aTargets"    => array(9)
+                    "aTargets"    => array(9),
+                    "responsivePriority" => array(9)
                 ),
                 array(
                     "bVisible"    => false,
                     "bSearchable" => false,
-                    "aTargets"    => array(10)
+                    "aTargets"    => array(10),
+                    "responsivePriority" => array(10)
                 ),
                 array(
                     "bVisible"    => false,
                     "bSearchable" => false,
-                    "aTargets"    => array(11)
+                    "aTargets"    => array(11),
+                    "responsivePriority" => array(11)
                 ),
             );
 
@@ -537,6 +549,7 @@ namespace c4g\Forum;
                             if(is_array($data['aoColumnDefs'][$key]['aTargets'])) {
                                 foreach ($data['aoColumnDefs'][$key]['aTargets'] as $i => $val) {
                                     $data['aoColumnDefs'][$key]['aTargets'][$i] += 1;
+                                    $data['aoColumnDefs'][$key]['responsivePriority'][$i] += 1;
                                 }
                             }
                         }
@@ -549,6 +562,7 @@ namespace c4g\Forum;
                                                           "sWidth"                => '10%',
                                                           "aDataSort"             => array(1),
                                                           "aTargets"              => array(1),
+                                                          "responsivePriority"    => array(1),
                                                           "c4gMinTableSizeWidths" => array(
                                                               array(
                                                                   "tsize" => 200,
@@ -591,6 +605,7 @@ namespace c4g\Forum;
                     'desc'
                 )
             );
+            $data['responsive'] = true;
             $data['bScrollCollapse'] = true;
             $data['bStateSave']      = true;
             $data['sPaginationType'] = 'full_numbers';
@@ -4369,7 +4384,8 @@ JSPAGINATE;
                     'sTitle'      => 'key',
                     "bVisible"    => false,
                     "bSearchable" => false,
-                    "aTargets"    => array(0)
+                    "aTargets"    => array(0),
+                    "responsivePriority"    => array(0),
                 ),
                 array(
                     'sTitle'                => $GLOBALS['TL_LANG']['C4G_FORUM']['THREAD'],
@@ -4380,6 +4396,7 @@ JSPAGINATE;
                         1
                     ),
                     "aTargets"              => array(1),
+                    "aaResponsivePriority"   => array(1),
                     "c4gMinTableSizeWidths" => array(
                         array(
                             "tsize" => 500,
@@ -4395,7 +4412,9 @@ JSPAGINATE;
                     'sTitle'   => $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHRESULTPAGE_DATATABLE_AREA'],
                     "sClass"   => 'c4g_forum_searchres_area',
                     "sWidth"   => '20%',
-                    "aTargets" => array(2)
+                    "aTargets" => array(2),
+                    "aaResponsivePriority" => array(2),
+
                 ),
                 array(
                     'sTitle'          => $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_AUTHOR_SHORT'],
@@ -4407,6 +4426,7 @@ JSPAGINATE;
                     ),
                     "bSearchable"     => false,
                     "aTargets"        => array(3),
+                    "responsivePriority"    => array(3),
                     "c4gMinTableSize" => 700
                 ),
                 array(
@@ -4422,12 +4442,14 @@ JSPAGINATE;
                         'asc'
                     ),
                     "aTargets"        => array(4),
+                    "responsivePriority"    => array(4),
                     "c4gMinTableSize" => 700
                 ),
                 array(
                     "bVisible"    => false,
                     "bSearchable" => false,
-                    "aTargets"    => array(5)
+                    "aTargets"    => array(5),
+                    "responsivePriority"    => array(5)
                 ),
                 array(
                     'sTitle'          => $GLOBALS['TL_LANG']['C4G_FORUM']['AUTHOR'],
@@ -4439,6 +4461,7 @@ JSPAGINATE;
                     ),
                     "bSearchable"     => false,
                     "aTargets"        => array(6),
+                    "responsivePriority"    => array(6),
                     "c4gMinTableSize" => 500
                 ),
                 array(
@@ -4454,12 +4477,14 @@ JSPAGINATE;
                     ),
                     "bSearchable"     => false,
                     "aTargets"        => array(7),
+                    "responsivePriority"    => array(7),
                     "c4gMinTableSize" => 500
                 ),
                 array(
                     "bVisible"    => false,
                     "bSearchable" => false,
-                    "aTargets"    => array(8)
+                    "aTargets"    => array(8),
+                    "responsivePriority"    => array(8),
                 ),
                 array(
                     'sTitle'      => '#',
@@ -4469,29 +4494,34 @@ JSPAGINATE;
                         'asc'
                     ),
                     "bSearchable" => false,
-                    "aTargets"    => array(9)
+                    "aTargets"    => array(9),
+                    "responsivePriority"    => array(9),
                 ),
                 array(
                     "bVisible"    => false,
                     "bSearchable" => false,
-                    "aTargets"    => array(10)
+                    "aTargets"    => array(10),
+                    "responsivePriority"    => array(10),
                 ),
                 array(
                     "bVisible"    => false,
                     "bSearchable" => false,
-                    "aTargets"    => array(11)
+                    "aTargets"    => array(11),
+                    "responsivePriority"    => array(11),
                 ),
                 array(
                     'sTitle'      => $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHRESULTPAGE_DATATABLE_HITS'],
                     "sClass"      => 'c4g_forum_searchres_hits',
                     "bVisible"    => true,
                     "bSearchable" => false,
-                    "aTargets"    => array(12)
+                    "aTargets"    => array(12),
+                    "responsivePriority"    => array(12),
                 ),
                 array(
                     "bVisible"    => false,
                     "bSearchable" => false,
-                    "aTargets"    => array(13)
+                    "aTargets"    => array(13),
+                    "responsivePriority"    => array(13),
                 ),
             );
 
@@ -4504,6 +4534,7 @@ JSPAGINATE;
                             if(is_array($data['aoColumnDefs'][$key]['aTargets'])) {
                                 foreach ($data['aoColumnDefs'][$key]['aTargets'] as $i => $val) {
                                     $data['aoColumnDefs'][$key]['aTargets'][$i] += 1;
+                                    $data['aoColumnDefs'][$key]['responsivePriority'][$i] += 1;
                                 }
                             }
                         }
@@ -4516,6 +4547,7 @@ JSPAGINATE;
                                                           "sWidth"                => '10%',
                                                           "aDataSort"             => array(1),
                                                           "aTargets"              => array(1),
+                                                          "responsivePriority"    => array(1),
                                                           "c4gMinTableSizeWidths" => array(
                                                               array(
                                                                   "tsize" => 200,
@@ -4544,6 +4576,7 @@ JSPAGINATE;
                     'desc'
                 )
             );
+            $data['responsive']      = true;
             $data['bScrollCollapse'] = true;
             $data['bStateSave']      = true;
             $data['sPaginationType'] = 'full_numbers';
@@ -4711,7 +4744,8 @@ JSPAGINATE;
                     'sTitle'      => 'key',
                     "bVisible"    => false,
                     "bSearchable" => false,
-                    "aTargets"    => array(0)
+                    "aTargets"    => array(0),
+                    "responsivePriority"    => array(0)
                 )
             );
 
@@ -4721,6 +4755,7 @@ JSPAGINATE;
                     "sWidth"                => '10%',
                     "aDataSort"             => array(1),
                     "aTargets"              => array(1),
+                    "responsivePriority"    => array(1),
                     "c4gMinTableSizeWidths" => array(
                         array(
                             "tsize" => 500,
@@ -4740,6 +4775,7 @@ JSPAGINATE;
                 "sWidth"                => '30%',
                 "aDataSort"             => array(1),
                 "aTargets"              => array(1),
+                "responsivePriority"    => array(1),
                 "c4gMinTableSizeWidths" => array(
                     array(
                         "tsize" => 500,
@@ -4754,7 +4790,8 @@ JSPAGINATE;
             $data['aoColumnDefs'][] = array(
                 'sTitle'   => $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHRESULTPAGE_DATATABLE_AREA'],
                 "sWidth"   => '20%',
-                "aTargets" => array(2)
+                "aTargets" => array(2),
+                "responsivePriority" => array(2),
             );
             $data['aoColumnDefs'][] = array(
                 'sTitle'          => $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_AUTHOR_SHORT'],
@@ -4764,6 +4801,7 @@ JSPAGINATE;
                 ),
                 "bSearchable"     => false,
                 "aTargets"        => array(3),
+                "responsivePriority"    => array(3),
                 "c4gMinTableSize" => 700
             );
             $data['aoColumnDefs'][] = array(
@@ -4775,12 +4813,14 @@ JSPAGINATE;
                     'asc'
                 ),
                 "aTargets"        => array(4),
+                "responsivePriority"    => array(4),
                 "c4gMinTableSize" => 700
             );
             $data['aoColumnDefs'][] = array(
                 "bVisible"    => false,
                 "bSearchable" => false,
-                "aTargets"    => array(5)
+                "aTargets"    => array(5),
+                "responsivePriority"    => array(5),
             );
             $data['aoColumnDefs'][] = array(
                 'sTitle'          => $GLOBALS['TL_LANG']['C4G_FORUM']['AUTHOR'],
@@ -4790,6 +4830,7 @@ JSPAGINATE;
                 ),
                 "bSearchable"     => false,
                 "aTargets"        => array(6),
+                "responsivePriority"    => array(6),
                 "c4gMinTableSize" => 500
             );
             $data['aoColumnDefs'][] = array(
@@ -4801,12 +4842,14 @@ JSPAGINATE;
                 ),
                 "bSearchable"     => false,
                 "aTargets"        => array(7),
+                "responsivePriority"    => array(7),
                 "c4gMinTableSize" => 500
             );
             $data['aoColumnDefs'][] = array(
                 "bVisible"    => false,
                 "bSearchable" => false,
-                "aTargets"    => array(8)
+                "aTargets"    => array(8),
+                "responsivePriority"    => array(8),
             );
             $data['aoColumnDefs'][] = array(
                 'sTitle'      => '#',
@@ -4815,12 +4858,14 @@ JSPAGINATE;
                     'asc'
                 ),
                 "bSearchable" => false,
-                "aTargets"    => array(9)
+                "aTargets"    => array(9),
+                "responsivePriority"    => array(9),
             );
             $data['aoColumnDefs'][] = array(
                 "bVisible"    => false,
                 "bSearchable" => false,
-                "aTargets"    => array(10)
+                "aTargets"    => array(10),
+                "responsivePriority"    => array(10),
             );
 
             if ($this->c4g_forum_table_jqui_layout) {
@@ -4833,6 +4878,7 @@ JSPAGINATE;
                     'desc'
                 )
             );
+            $data['responsive'] = true;
             $data['bScrollCollapse'] = true;
             $data['bStateSave']      = true;
             $data['sPaginationType'] = 'full_numbers';

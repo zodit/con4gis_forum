@@ -682,14 +682,14 @@ if (method_exists('\System', 'getContainer')) {
         'eval'          => array('multiple' => true),
         'save_callback' => array(array('tl_module_c4g_forum', 'update_sitemap'))
     );
-$GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_sitemap_root'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap_root'],
-	'exclude'                 => true,
-	'inputType'               => 'pageTree',
-	'eval'                    => array('mandatory'=>true),
-);
 
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_sitemap_root'] = array
+    (
+        'label'                   => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap_root'],
+        'exclude'                 => true,
+        'inputType'               => 'pageTree',
+        'eval'                    => array('mandatory'=>true),
+    );
 
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_uploadTypes'] = array(
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_uploadTypes'],
