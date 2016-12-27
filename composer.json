@@ -13,7 +13,7 @@
   ],
   "require": {
     "con4gis/con4gis_core": "~1.6",
-    "menatwork/contao-multicolumnwizard": "3.3.6"
+    "menatwork/contao-multicolumnwizard": "3.3.8"
   },
   "support": {
     "issues": "https://github.com/Kuestenschmiede/con4gis_forum/issues"
