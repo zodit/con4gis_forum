@@ -129,6 +129,11 @@ namespace c4g\Forum;
                             $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $this->forumModule->c4g_forum_uitheme_css_src;
                         }
                     }
+                } else if(!empty($this->forumModule->c4g_forum_uitheme_css_select)) {
+                    $theme = $this->forumModule->c4g_forum_uitheme_css_select;
+                    $GLOBALS['TL_CSS']['c4g_jquery_ui'] = 'system/modules/con4gis_core/assets/vendor/jQuery/ui-themes/themes/' . $theme . '/jquery-ui.css';
+                } else {
+                    $GLOBALS['TL_CSS']['c4g_jquery_ui'] = 'system/modules/con4gis_core/assets/vendor/jQuery/ui-themes/themes/base/jquery-ui.css';
                 }
 
                 $GLOBALS ['TL_CSS'] [] = 'system/modules/con4gis_forum/assets/css/c4gForum.css';

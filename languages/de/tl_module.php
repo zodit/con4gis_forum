@@ -113,6 +113,10 @@
         'jQuery UI Bibliothek laden',
         'Deaktivieren Sie diese Checkbox, falls Sie jQuery UI bereits anderweitig laden. Vorsicht beim Deaktivieren: achten Sie darauf, dass eine kompatible Version geladen wird!'
     );
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_uitheme_css_select']     = array(
+        'jQuery UI ThemeRoller CSS Theme',
+        'Wählen Sie hier eines der Standard UI-Themes aus. Sollten Sie im nächsten Schritt eine eigene Datei auswählen, wird die geladen.'
+    );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_uitheme_css_src']        = array(
         'jQuery UI ThemeRoller CSS Datei',
         'Wählen Sie hier wenn gewünscht eine CSS Datei aus, die Sie mit dem jQuery UI ThemeRoller erstellt haben.'
@@ -272,6 +276,31 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['THREADS'] = 'Öffentliche Themen';
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['FORUMS']  = 'Öffentliche Forenbereiche';
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['INTROS']  = 'Öffentliche Forenbereiche - Einstiegsseiten';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['base']      = 'base';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['black-tie'] = 'black-tie';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['blitzer']   = 'blitzer';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['cupertino'] = 'cupertino';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['dark-hive'] = 'dark-hive';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['dot-luv']   = 'dot-luv';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['eggplant']  = 'eggplant';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['excite-bike']   = 'excite-bike';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['flick']         = 'flick';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['hot-sneaks']    = 'hot-sneaks';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['humanity']      = 'humanity';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['le-frog']       = 'le-frog';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['mint-choc']     = 'mint-choc';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['overcast']      = 'overcast';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['pepper-grinder'] = 'pepper-grinder';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['redmond']       = 'redmond';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['smoothness']    = 'smoothness';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['south-street']  = 'south-street';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['start']         = 'start';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['sunny']         = 'sunny';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['swanky-purse']  = 'swanky-purse';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['trontastic']    = 'trontastic';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['ui-darkness']   = 'ui-darkness';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['ui-lightness']  = 'ui-lightness';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['vader']         = 'vader';
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip']                           = array("Tooltip für die Themenliste", "");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['title_first_post'] = "Titel des ersten Beitrags";
