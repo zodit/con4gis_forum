@@ -16,6 +16,10 @@
     /**
      * Fields
      */
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_type']              = array(
+        'Forenart',
+        'Die Forenart beeinflusst die Beschriftungen. Bei Informationen werden Themen zu Fragen und Beiträge zu Kommentaren.'
+    );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_size']              = array(
         'Größe (Breite, Höhe)',
         'Größe des Bereiches, in dem das Forum dargestellt wird. Bei Eingabe von "0" oder nichts wird der Wert nicht gesetzt, und die Breite sowie die Höhe werden automatisch ermittelt.'
@@ -225,13 +229,19 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_maxFileSize'] = array("Maximale Dateigröße", "Angabe in Byte: 1 kB = 1024 Byte, 1 MB = 1048576 Byte");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageWidth']  = array("Maximale Bildbreite", "Angabe in Pixel");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageHeight'] = array("Maximale Bildhöhe", "Angabe in Pixel");
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_use_tags_in_search'] = array("Schlagworte in Suchmaske anzeigen", "");
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_active'] = array("Pagination aktivieren", "");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_format'] = array("Paginator-Format", "Siehe <a onclick='window.open(this.href);return false;' href='http://www.xarg.org/2011/09/jquery-pagination-revised'>http://www.xarg.org/2011/09/jquery-pagination-revised</a>");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_perpage'] = array("Einträge pro Seite", "");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_legend'] = 'Diskussionsforum - Pagination';
 
+    //$GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_search'] = array();
+    //$GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_for'] = array("");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_onlythreads'] = array("Checkbox: nur nach Threads suchen aktivieren", "Dadurch können Sie Beiträge bzw. Kommentare von der Suche ausschließen.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_wholewords']  = array("Checkbox: nur ganze Wörter suchen aktivieren", "Dadurch können sie die Suche auf den genauen Wortlaut einschränken.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_use_tags_in_search'] = array("Schlagworte zur Auswahl in Suchmaske anzeigen", "Sie können die in den Forenbereichen festgelegten Schlagworte auswählen und damit die Suche einschränken. Hinweis: wenn Sie in den Forenbereichen keine Tags gesetzt haben. Wird die Auswahl im Frontend automatisch nicht angeboten.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_forums']      = array("Forenauswahl anzeigen", "So kann die Auswahl auf einen bestimmten Forenbereich eingeschränkt werden.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_displayonly'] = array("Suche (Eingabe) von Benutzernamen ermöglichen", "Sie können Benutzernamen eingeben und damit und über einen Zeitraum die Suche einschränken.");
 
     /**
      * Legend
@@ -244,13 +254,17 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend']    = 'Diskussionsforum - Kartenanbindung (con4gis-Maps)';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_lib_legend']     = 'Diskussionsforum - jQuery Bibliotheken';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_sitemap_legend'] = 'Diskussionsforum - XML-Sitemap';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tags_legend'] = 'Diskussionsforum - Schlagworte';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_legend']       = 'Diskussionsforum - Sucheinstellungen';
+    //$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tags_legend']         = 'Diskussionsforum - Schlagworte';
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb_legend'] = 'Navigationspfad';
 
     /**
      * References
      */
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['DISCUSSIONS'] = 'Diskussionen (Themen & Beiträge)';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['QUESTIONS']   = 'Informationen (Fragen & Kommentare)';
+
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['TREE']  = 'Baum';
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['BOXES'] = 'Kacheln';
 

@@ -18,6 +18,10 @@
     /**
      * Fields
      */
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_type']              = array(
+        'Forum type',
+        'Change type to change the wording. On informations threads are questions and posts are comments.'
+    );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_size']              = array(
         'Size (width, height)',
         'Size of division (DIV) wherein the forum is displayed. The size is calculated automatically when you don\'t enter values here.'
@@ -212,6 +216,13 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageWidth']  = array("Max image width", "Declaration in pixel");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageHeight'] = array("Max image height", "Declaration in pixel");
 
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_onlythreads'] = array("Checkbox for search threads only (no posts)", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_wholewords']  = array("Checkbox for whole words search", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_use_tags_in_search'] = array("Select for tags defined in your forum", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_forums']      = array("Select special forum", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_displayonly'] = array("Entry for searching usernames and periods", "");
+    //$GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_period']      = array("Periodsearch", "");
+
     /**
      * Legend
      */
@@ -223,6 +234,7 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend']    = 'Forum - Maps (con4gis)';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_lib_legend']     = 'Forum - jQuery libraries';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_sitemap_legend'] = 'Forum - XML sitemap';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_legend']       = 'Forum - Search settings';
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb_legend'] = 'Breadcrumb';
 
@@ -234,6 +246,9 @@
     /**
      * References
      */
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['DISCUSSIONS'] = 'Discussions (threads & posts)';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['QUESTIONS']   = 'Informations (questions & comments)';
+
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['TREE']  = 'Tree';
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['BOXES'] = 'Boxes';
 

@@ -274,7 +274,7 @@ namespace c4g\Forum;
          * @param $sUrl
          * @return string
          */
-        public function sendSubscriptionEMail($subscribers, $threadId, $sendKind, $sUrl=false)
+        public function sendSubscriptionEMail($subscribers, $threadId, $sendKind, $sUrl=false, $forumType='DISCUSSIONS')
         {
 
             \System::loadLanguageFile("tl_c4g_forum");
@@ -334,20 +334,20 @@ namespace c4g\Forum;
                                 break;
                             case "delThread" :
                                 $subjectAddition                       = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_' . $sType . '_MAIL_DELTHREAD'];
-                                $aMailData['ACTION_NAME']              = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD'];
-                                $aMailData['ACTION_NAME_WITH_SUBJECT'] = sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD_WITH_SUBJECT'], $thread['threadname']);
+                                $aMailData['ACTION_NAME']              = \c4g\Forum\C4GForumHelper::getTypeText($forumType,'SUBSCRIPTION_MAIL_ACTION_DEL_THREAD');
+                                $aMailData['ACTION_NAME_WITH_SUBJECT'] = sprintf(\c4g\Forum\C4GForumHelper::getTypeText($forumType,'SUBSCRIPTION_MAIL_ACTION_DEL_THREAD_WITH_SUBJECT'), $thread['threadname']);
                                 $sActionType                           = "THREAD";
                                 break;
                             case "moveThread" :
                                 $subjectAddition                       = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_' . $sType . '_MAIL_MOVETHREAD'];
-                                $aMailData['ACTION_NAME']              = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD'];
-                                $aMailData['ACTION_NAME_WITH_SUBJECT'] = sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD_WITH_SUBJECT'], $this->MailCache ['moveThreadOldName'], $thread['threadname']);
+                                $aMailData['ACTION_NAME']              = \c4g\Forum\C4GForumHelper::getTypeText($forumType,'SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD');
+                                $aMailData['ACTION_NAME_WITH_SUBJECT'] = sprintf(\c4g\Forum\C4GForumHelper::getTypeText($forumType,'SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD_WITH_SUBJECT'), $this->MailCache ['moveThreadOldName'], $thread['threadname']);
                                 $sActionType                           = "THREAD";
                                 break;
                             case "newThread" : // only subforum
-                                $subjectAddition                       = $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_THREAD'];
-                                $aMailData['ACTION_NAME']              = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD'];
-                                $aMailData['ACTION_NAME_WITH_SUBJECT'] = sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD_WITH_SUBJECT'], $thread['threadname']);
+                                $subjectAddition                       = \c4g\Forum\C4GForumHelper::getTypeText($forumType,'NEW_THREAD');
+                                $aMailData['ACTION_NAME']              = \c4g\Forum\C4GForumHelper::getTypeText($forumType,'SUBSCRIPTION_MAIL_ACTION_NEW_THREAD');
+                                $aMailData['ACTION_NAME_WITH_SUBJECT'] = sprintf(\c4g\Forum\C4GForumHelper::getTypeText($forumType,'SUBSCRIPTION_MAIL_ACTION_NEW_THREAD_WITH_SUBJECT'), $thread['threadname']);
                                 $sActionType                           = "THREAD";
                                 break;
                         }
@@ -537,7 +537,7 @@ namespace c4g\Forum;
         /**
          * @param string $value
          */
-        public function unsubscribeLinkThread($value)
+        public function unsubscribeLinkThread($value, $forumType)
         {
             $values = explode(';', $this->decryptLinkData($value), 2);
             $thread = $this->helper->getThreadFromDB($values[0]);
@@ -546,13 +546,13 @@ namespace c4g\Forum;
                 $subscriptionId = $this->getThreadSubscriptionFromDB($values[0], $member->id);
                 if ($subscriptionId) {
                     if ($this->deleteSubscriptionThread($subscriptionId)) {
-                        $message = sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_THREAD_LINK_SUCCESS'], $thread['name'], $member->username);
+                        $message = sprintf(\c4g\Forum\C4GForumHelper::getTypeText($forumType,'UNSUBSCRIBE_THREAD_LINK_SUCCESS'), $thread['name'], $member->username);
                     }
                 }
 
             }
             if (!$message) {
-                $message = $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_THREAD_LINK_FAILED'];
+                $message = \c4g\Forum\C4GForumHelper::getTypeText($forumType,'UNSUBSCRIBE_THREAD_LINK_FAILED');
             }
             $return['message']  = $message;
             $return['forumid']  = $thread['forumid'];
