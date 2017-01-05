@@ -201,8 +201,8 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['name'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>100 ),
-            'sql'                     => "varchar(100) NOT NULL default ''"
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>255 ),
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 
 		'headline' => array
@@ -212,7 +212,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'search'                  => true,
 			'inputType'               => 'inputUnit',
 			'options'                 => array('h1', 'h2', 'h3', 'h4', 'h5', 'h6'),
-			'eval'                    => array('maxlength'=>200),
+			'eval'                    => array('maxlength'=>255),
             'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 

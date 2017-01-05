@@ -45,7 +45,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum_thread'] = array
         ),
         'name' => array
         (
-            'sql'                     => "varchar(100) NOT NULL default ''"
+            'sql'                     => "varchar(255) NOT NULL default ''"
         ),
 //        'tstamp' => array
 //        (
