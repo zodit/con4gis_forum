@@ -27,7 +27,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 											array('tl_c4g_forum', 'updateDCA')
 										 ),
 	    'onsubmit_callback'           => array(
-	        array('\c4g\Core\C4GAutomator', 'purgeApiCache'),
+	        //array('\c4g\Core\C4GAutomator', 'purgeApiCache'),
             array('tl_c4g_forum', 'onSubmit')
         ),
 		'ondelete_callback'			  => array(
