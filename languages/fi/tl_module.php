@@ -16,6 +16,10 @@
     /**
      * Fields
      */
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_type']              = array(
+        'Forum type',
+        'Change type to change the wording. On informations threads are questions and posts are comments.'
+    );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_size']              = array(
         'Koko (leveys, korkeus)',
         'Divisonin koko (DIV) jossa foorumi on näkyvissä. Koko on laskettu automaattisesti kun et laita arvoja tänne.'
@@ -108,6 +112,10 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_jqui_lib']               = array(
         'Lataa jQuery UI kokoelma',
         'Älä raksita tätä jos olet jo ladannut jQuery UI kokoelman jo itse: varmista että sinulla on yhteensopiva versio kokoelmasta!'
+    );
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_uitheme_css_select']     = array(
+        'jQuery UI ThemeRoller CSS theme',
+        'Select a standart UI-Theme.'
     );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_uitheme_css_src']        = array(
         'jQuery UI ThemeRoller CSS tiedosto',
@@ -206,6 +214,13 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageWidth']  = array("Maksimi kuvan leveys", "Declaration in pixel");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageHeight'] = array("Maksimi kuvan korkeus", "Declaration in pixel");
 
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_onlythreads'] = array("Checkbox for search threads only (no posts)", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_wholewords']  = array("Checkbox for whole words search", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_use_tags_in_search'] = array("Select for tags defined in your forum", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_forums']      = array("Select special forum", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_displayonly'] = array("Entry for searching usernames and periods", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_period']      = array("Periodsearch", "");
+
     /**
      * Legend
      */
@@ -217,6 +232,7 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend']    = 'Foorumi - Kartat (con4gis)';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_lib_legend']     = 'Foorumi - jQuery kokoelmat';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_sitemap_legend'] = 'Foorumi - XML sivukartta';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_legend']       = 'Foorumi - Search settings';
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb_legend'] = 'Breadcrumb';
 
@@ -228,6 +244,9 @@
     /**
      * References
      */
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['DISCUSSIONS'] = 'Discussions (threads & posts)';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['QUESTIONS']   = 'Informations (questions & comments)';
+
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['TREE']  = 'Puu';
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['BOXES'] = 'Boksit';
 
@@ -253,6 +272,32 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['THREADS'] = 'Julkiset threadit';
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['FORUMS']  = 'Julkiset foorumit';
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['INTROS']  = 'Julkiset foorumit - Introsivut';
+
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['base']      = 'base';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['black-tie'] = 'black-tie';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['blitzer']   = 'blitzer';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['cupertino'] = 'cupertino';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['dark-hive'] = 'dark-hive';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['dot-luv']   = 'dot-luv';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['eggplant']  = 'eggplant';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['excite-bike']   = 'excite-bike';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['flick']         = 'flick';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['hot-sneaks']    = 'hot-sneaks';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['humanity']      = 'humanity';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['le-frog']       = 'le-frog';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['mint-choc']     = 'mint-choc';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['overcast']      = 'overcast';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['pepper-grinder'] = 'pepper-grinder';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['redmond']       = 'redmond';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['smoothness']    = 'smoothness';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['south-street']  = 'south-street';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['start']         = 'start';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['sunny']         = 'sunny';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['swanky-purse']  = 'swanky-purse';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['trontastic']    = 'trontastic';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['ui-darkness']   = 'ui-darkness';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['ui-lightness']  = 'ui-lightness';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['vader']         = 'vader';
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip']                           = array("Tootip for threadlist", "");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['title_first_post'] = "Ensimmäisen viestin otsikko";

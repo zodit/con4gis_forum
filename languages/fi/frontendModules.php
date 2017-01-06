@@ -13,18 +13,27 @@
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['FORUM']                   = 'Foorumi';
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREAD']                  = 'Thread';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTION']                = 'Question';
     $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS']                    = 'Tagit';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS_CHECKBOX']                    = 'Etsi vain tageilla';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCH_TERM']                    = 'Hakutermi';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS_CHECKBOX']           = 'Etsi vain tageilla';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCH_TERM']             = 'Hakutermi';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SELECT_TAGS_PLACEHOLDER'] = 'Valitse yksi tai enemmän tageja';
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS']                 = 'Threads';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS']               = 'Questions';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUM']                = 'Foorumi';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUMS']               = 'Foorumit';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_THREAD']              = 'Uusi thread';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_QUESTION']            = 'New question';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST']                    = 'Viesti';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POSTS']                   = 'Viestit';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST']               = 'Last post';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST']                = 'Uusi viesti';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_PREVIEW']        = 'Ennakkonäkymä - Uusi ';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT']                 = 'Comment';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENTS']                = 'Comments';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_COMMENT']            = 'Last comment';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_COMMENT']             = 'New comment';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_COMMENT_PREVIEW']     = 'Preview - New comment';
     $GLOBALS['TL_LANG']['C4G_FORUM']['ALL_POSTS']               = 'Kaikki';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SINGLE_POST']             = 'Yksi';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBJECT']                 = 'Aihe';
@@ -35,6 +44,12 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_THREAD']             = 'Siirrä thread';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIBE_THREAD']        = 'Tilaa thread';
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_THREAD']      = 'Peruuta threadin tilaus';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_QUESTION']           = 'Edit question';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_QUESTION_CHANGES']   = 'Save changes to question';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_QUESTION']            = 'Delete question';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION']           = 'Move question';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIBE_QUESTION']      = 'Subscribe question';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_QUESTION']    = 'Unsubscribe question';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIBE_SUBFORUM']      = 'Tilaa foorumi';
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_SUBFORUM']    = 'Peruuta foorumin tilaus';
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_POST']                = 'Poista viesti';
@@ -42,19 +57,23 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_PREVIEW']       = 'Ennakkonäkymä - Muokkaa viestiä';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_POST_CHANGES']       = 'Tallenna muutokset postiin';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']              = 'Viestien määrä';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_COMMENT']             = 'Delete comment';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_COMMENT']            = 'Edit comment';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_COMMENT_PREVIEW']    = 'Preview - Edit comment';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_COMMENT_CHANGES']    = 'Save changes to comment';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']              = 'Comment count';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_AUTHOR_SHORT'] = 'Viimeisin';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST_SHORT']   = 'Viimeksi';
     $GLOBALS['TL_LANG']['C4G_FORUM']['AUTHOR']            = 'Tekijä';
     $GLOBALS['TL_LANG']['C4G_FORUM']['CREATED_ON']        = 'Luotu';
-
     $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCH']        = 'Etsi';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LATESTTHREADS'] = 'Viimeisimmät threadit';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['LATESTQUESTIONS'] = 'Latest questions';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SEND']          = 'Lähetä';
     $GLOBALS['TL_LANG']['C4G_FORUM']['PREVIEW']       = 'Ennakkonäkymä';
     $GLOBALS['TL_LANG']['C4G_FORUM']['CANCEL']        = 'Peruuta';
     $GLOBALS['TL_LANG']['C4G_FORUM']['CLOSE']         = 'Sulje';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBMIT']        = 'Lähetä';
-
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_NODESC']     = 'Ei kuvausta saatavilla...';
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_EMPTY']      = 'Ei threadeja saatavilla';
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_INFO']       = "_TOTAL_ threads(_START_ to _END_)";
@@ -63,8 +82,14 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_PROCESSING'] = 'Odota...';
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_SEARCH']     = 'Pikahaku';
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_NOTFOUND']   = 'Threadeja ei löytynyt kyseisellä haulla';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS_EMPTY']      = 'No questions available';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS_INFO']       = "_TOTAL_ questions(_START_ to _END_)";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS_FILTERED']   = '(filtered from _MAX_ total questions)';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS_LENGTHMENU'] = 'Display _MENU_ questions';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS_NOTFOUND']   = 'No questions found for given search';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_COUNT']          = ' Viesti <b %s>#%d</b><b %s>%d</b> ';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT_HEADER_COUNT']       = ' Comment <b %s>#%d</b> of <b %s>%d</b> ';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_CREATED']        = 'Luonut <b %s>%s</b><b %s>%s</b>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_SUBJECT']        = '<b %s>Aihe:</b> <span %s>%s</span>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_LINK']           = 'Linkki: <a href="%s">%s</a>';
@@ -76,6 +101,10 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_TITLE']   = 'Uusi viesti threadissa "%s" (Forum "%s")';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_MISSING']       = 'Kirjoita tekstiä postiisi';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_QUESTION_TITLE'] = 'New question in forum "%s"';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_COMMENT_TITLE']  = 'New comment on question "%s" (Forum "%s")';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT_MISSING']    = 'Please supply a text for your comment!';
+
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBJECT_MISSING']    = 'Kirjoita aihe!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADNAME_MISSING'] = 'Kirjoita thread!';
 
@@ -94,6 +123,16 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_THREAD_WARNING'] = 'Haluatko oikeasti poistaa tämän threadin <b>%s</b> foorumista <b>%s</b>?';
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_THREAD_ERROR']   = 'Virhe poistaessa threadia!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_THREAD_SUCCESS'] = 'Thread poistettu onnistuneesti.';
+
+    $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONNAME_MISSING']  = 'Please enter the question!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['ERROR_SAVE_COMMENT']    = 'Error saving comment! Please try again or contact the administration of this forum.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUCCESS_SAVE_COMMENT']  = 'New comment saved successfully!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['ERROR_SAVE_QUESTION']   = 'Error saving question! Please try again or contact the administration of this forum.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUCCESS_SAVE_QUESTION'] = 'New question saved successfully!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['BOX_LAST_COMMENT']      = 'Last comment on %s by %s in question %s';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_QUESTION_WARNING']  = 'Do you really want to irrevocably delete question <b>%s</b> from forum <b>%s</b>?';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_QUESTION_ERROR']    = 'Error deleting question!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_QUESTION_SUCCESS']  = 'Question deleted successfully.';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_TEXT']                  = 'Tilaa thread <b>%s</b> foorumilta <b>%s</b> sähköpostin kautta?';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_TEXT']                = 'Tilaa foorumi <b>%s</b> sähköpostin kautta?';
@@ -114,6 +153,16 @@
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_SUBJECT']   = "Tilaamasi thread '%2\$s' (%1\$s)";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_SUBJECT'] = "Tilaamasi foorumi '%2\$s' (%1\$s)";
+
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_TEXT']                  = 'Subscribe question <b>%s</b> of forum <b>%s</b> via email?';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_SUBSCRIPTION_CANCEL']   = 'Unsubscribe question <b>%s</b> of forum <b>%s</b> ?';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_CANCEL_SUCCESS']        = 'Question unsubscribed successfully.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_ERROR']                 = 'Error subscribing question';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_SUCCESS']               = 'Question subscribed successfully.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_ONLY_QUESTIONS']        = 'notify only when new questions are created';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_COMMENTS']              = 'with comments';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_MAIL_SUBJECT']          = "Your subscribed question on '%2\$s' (%1\$s)";
+
 
 //    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_HELLO']            = "Hei %s,\r\n\r\n";
 //    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_END'] =
@@ -168,6 +217,14 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_POST_WITH_SUBJECT'] = "viesti muokattu aiheena '%s'";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_POST_WITH_SUBJECT']  = "viesti poistettu aiheena'%s'";
 
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_COMMENT']  = "created a comment";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_COMMENT'] = "edited a comment";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_COMMENT']  = "deleted a comment";
+
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_COMMENT_WITH_SUBJECT']  = "created a comment with subject '%s'";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_COMMENT_WITH_SUBJECT'] = "edited a comment with subject '%s'";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_COMMENT_WITH_SUBJECT']  = "deleted a comment with subject'%s'";
+
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_THREAD_PRE']               = "";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD']               = "thread luotu";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_THREAD']              = "threadia muokattu";
@@ -178,6 +235,16 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD_WITH_SUBJECT']  = "thread poistettu aiheena '%s'";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD_WITH_SUBJECT'] = "thread siirretty paikasta '%s' paikkaan '%s'";
 
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_QUESTION']               = "created a question";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_QUESTION']              = "edited a question";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_QUESTION']               = "deleted a question";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_QUESTION']              = "moved a question";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_QUESTION_WITH_SUBJECT']  = "created a question with subject '%s'";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_QUESTION_WITH_SUBJECT'] = "edited a question with subject '%s'";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_QUESTION_WITH_SUBJECT']  = "deleted a question with subject '%s'";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_QUESTION_WITH_SUBJECT'] = "moved a thread from '%s' to '%s'";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_QUESTION_LINK_SUCCESS']                   = 'Subscription of question "%s" of member "%s" has been canceled!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_QUESTION_LINK_FAILED']                    = 'Error unsubscribing from question!';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_THREAD_LINK_SUCCESS']   = 'tilaus threadista "%s" oli peruuttanut jäsen "%s"';
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_THREAD_LINK_FAILED']    = 'Virhe peruuttaessa tilausta threadista!';
@@ -206,6 +273,22 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_ERROR']   = 'Virhe tallentaessa muutettua viestiä!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_SUCCESS'] = 'Viesti tallennettu onnistuneesti.';
 
+    $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION_TEXT']      = 'Move question <b>%s</b> of forum <b>%s</b> to the following forum:';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION_ERROR']     = 'Error moving question!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION_SUCCESS']   = 'Moved question successfully.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION_NO_FORUMS'] = 'No forum found on which you have the permission to move the selected question to.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_QUESTION_ERROR']     = 'Error saving changed question!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_QUESTION_SUCCESS']   = 'Question changed successfully.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_COMMENT_WARNING']     = 'Do you really want to delete this comment?<br/>' .
+        'Forum: <b>%s</b><br/>' .
+        'Question: <b>%s</b><br/>' .
+        'By: <b>%s</b><br/>' .
+        'Subject: <b>%s</b><br/>';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_COMMENT_ERROR']   = 'Error deleting comment!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_COMMENT_SUCCESS'] = 'Comment deleted successfully.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_COMMENT_ERROR']   = 'Error saving changed comment!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_COMMENT_SUCCESS'] = 'Comment changed successfully.';
+
     $GLOBALS['TL_LANG']['C4G_FORUM']['LINKNAME']       = 'Linkin kuvaus';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LINKURL']        = 'Linkin URL';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_LINK'] = 'Muokkaa linkkiä';
@@ -224,6 +307,7 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['NO_ACTIVE_FORUMS'] = 'Subfoorumeita ei löytynyt forum ID:lle %d. Joko foorumit on poistettu tai deaktivoitu tai sinulla ei ole oikeuksia nähdä niitä.';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['ALLOW_MAP_POSTS']      = 'Salli viestit Karttaan';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['ALLOW_MAP_COMMENTS']   = 'Allow comments for map';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LOCATION']             = 'Kartan sijainti';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_MAP_LOCATION']    = 'Muokkaa %s';
     $GLOBALS['TL_LANG']['C4G_FORUM']['ADD_MAP_LOCATION']     = 'Lisää %s';
@@ -258,6 +342,11 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_DDL_MONTH']             = 'kuukautta';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_DDL_YEAR']              = 'vuotta';
 
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_HEADLINE_QUESTIONS']              = 'Search for questions';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_ONLYQUESTIONS']                = "Search only questions (ignore comments)";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_LBL_DISPLAY_ONLY_QUESTIONS']      = 'Only display questions with comments from user:';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_LBL_SEARCH_ALL_THEMES_QUESTIONS'] = 'Search through all questions starting from';
+
     $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCH_MESSAGE_NO_SEARCH_ENTRY'] = 'Laita merkkijono.';
 
 //search Resultpage
@@ -279,6 +368,7 @@
                                                                       'Tämä vaihtoehto jätetään huomioimatta.';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['LATESTTHREADS_HEADLINE'] = 'Viimeisimmät threadit';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['LATESTQUESTIONS_HEADLINE'] = 'Latest questions';
 
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['DELETED_USER'] = '"Entinen käyttäjä"';

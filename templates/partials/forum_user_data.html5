@@ -8,7 +8,12 @@
     <?php endif; ?>
     <p class="user_data_statistics">
         <?php if ($this->iUserPostCount): ?>
+          <?php if ($this->sForumType == 'DISCUSSIONS'): ?>
             <?php echo $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']; ?>: <?php echo $this->iUserPostCount; ?>
+          <?php endif; ?>
+          <?php if ($this->sForumType == 'QUESTIONS'): ?>
+            <?php echo $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT_COUNT']; ?>: <?php echo $this->iUserPostCount; ?>
+          <?php endif; ?>
         <?php endif; ?>
     </p>
 

@@ -138,24 +138,29 @@
             if ($this->c4g_appearance_themeroller_css) {
                 $objFile = \FilesModel::findByUuid($this->c4g_appearance_themeroller_css);
                 $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
-            } else {
-                //Override JQuery UI Default Theme CSS if defined
-                if ($this->forumModule && $this->forumModule->c4g_forum_uitheme_css_src) {
-                    if (version_compare(VERSION, '3.2', '>=')) {
-                        // Contao 3.2.x Format
-                        $objFile = \FilesModel::findByUuid($this->forumModule->c4g_forum_uitheme_css_src);
+            } else if(!empty($this->c4g_forum_uitheme_css_select)) {
+                $theme = $this->c4g_forum_uitheme_css_select;
+                $GLOBALS['TL_CSS']['c4g_jquery_ui'] = 'system/modules/con4gis_core/assets/vendor/jQuery/ui-themes/themes/' . $theme . '/jquery-ui.css';
+            } else if ($this->forumModule && $this->forumModule->c4g_forum_uitheme_css_src) {
+                if (version_compare(VERSION, '3.2', '>=')) {
+                    // Contao 3.2.x Format
+                    $objFile = \FilesModel::findByUuid($this->forumModule->c4g_forum_uitheme_css_src);
+                    $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
+                } else {
+                    if (is_numeric($this->forumModule->c4g_forum_uitheme_css_src)) {
+                        // Contao 3 Format
+                        $objFile = \FilesModel::findByPk($this->forumModule->c4g_forum_uitheme_css_src);
                         $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
                     } else {
-                        if (is_numeric($this->forumModule->c4g_forum_uitheme_css_src)) {
-                            // Contao 3 Format
-                            $objFile = \FilesModel::findByPk($this->forumModule->c4g_forum_uitheme_css_src);
-                            $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $objFile->path;
-                        } else {
-                            // Contao 2 Format
-                            $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $this->forumModule->c4g_forum_uitheme_css_src;
-                        }
+                        // Contao 2 Format
+                        $GLOBALS['TL_CSS']['c4g_jquery_ui'] = $this->forumModule->c4g_forum_uitheme_css_src;
                     }
                 }
+            } else if($this->forumModule && !empty($this->forumModule->c4g_forum_uitheme_css_select)) {
+                $theme = $this->forumModule->c4g_forum_uitheme_css_select;
+                $GLOBALS['TL_CSS']['c4g_jquery_ui'] = 'system/modules/con4gis_core/assets/vendor/jQuery/ui-themes/themes/' . $theme . '/jquery-ui.css';
+            } else {
+                $GLOBALS['TL_CSS']['c4g_jquery_ui'] = 'system/modules/con4gis_core/assets/vendor/jQuery/ui-themes/themes/base/jquery-ui.css';
             }
 
             $this->Template->c4gdata = $data;

@@ -22,9 +22,9 @@
         (
             'dataContainer'               => 'Table',
             'enableVersioning'            => true,
-            'onsubmit_callback'             => array(
-                array('\c4g\Core\C4GAutomator', 'purgeApiCache')
-            ),
+//            'onsubmit_callback'             => array(
+//                array('\c4g\Core\C4GAutomator', 'purgeApiCache')
+//            ),
             'sql' => array
             (
                 'keys' => array

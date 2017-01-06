@@ -27,12 +27,21 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 											array('tl_c4g_forum', 'updateDCA')
 										 ),
 	    'onsubmit_callback'           => array(
-	        array('\c4g\Core\C4GAutomator', 'purgeApiCache'),
+	        //array('\c4g\Core\C4GAutomator', 'purgeApiCache'),
             array('tl_c4g_forum', 'onSubmit')
         ),
 		'ondelete_callback'			  => array(
 											array('tl_c4g_forum', 'onDeleteForum')
-										 )
+										 ),
+        'sql'                         => array
+        (
+            'keys' => array
+            (
+                'id' => 'primary',
+                'pid' => 'index'
+            )
+        )
+
 	),
 
 	// List
@@ -151,12 +160,49 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 	// Fields
 	'fields' => array
 	(
+        'id' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+        ),
+        'pid' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
+        'sorting' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
+        'tstamp' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
+        'threads' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
+        'posts' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
+        'last_thread_id' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
+        'last_post_id' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
+        'enable_maps_inherited' => array
+        (
+            'sql'                     => "char(1) NOT NULL default ''"
+        ),
 		'name' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['name'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>100 )
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>255 ),
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 
 		'headline' => array
@@ -166,7 +212,8 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'search'                  => true,
 			'inputType'               => 'inputUnit',
 			'options'                 => array('h1', 'h2', 'h3', 'h4', 'h5', 'h6'),
-			'eval'                    => array('maxlength'=>200)
+			'eval'                    => array('maxlength'=>255),
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 
 		'description' => array
@@ -174,7 +221,8 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'label'					=> &$GLOBALS['TL_LANG']['tl_c4g_forum']['description'],
 			'search'				=> true,
 			'inputType'				=> 'textarea',
-			'eval'                  => array('style' => 'height:60px')
+			'eval'                  => array('style' => 'height:60px'),
+            'sql'                   => "blob NULL"
 		),
 
 		'published' => array
@@ -184,6 +232,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'default'                 => false,
 			'inputType'               => 'checkbox',
 			'eval'                    => array(),
+            'sql'                     => "char(1) NOT NULL default ''"
 		),
 
 		'box_imagesrc' => array
@@ -191,7 +240,8 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['box_imagesrc'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
-			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'extensions'=>'gif,jpg,jpeg,png', 'tl_class'=>'clr', 'mandatory'=>false)
+			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'extensions'=>'gif,jpg,jpeg,png', 'tl_class'=>'clr', 'mandatory'=>false),
+            'sql'                     => "binary(16) NULL"
 		),
 
 
@@ -202,6 +252,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'default'                 => '',
 			'inputType'               => 'checkbox',
 			'eval'                    => array('submitOnChange'=>true),
+            'sql'                     => "char(1) NOT NULL default ''"
 		),
 
 		'intropage' => array
@@ -210,23 +261,26 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'search'				=> true,
 			'inputType'				=> 'textarea',
 			'eval'					=> array('rte'=>'tinyMCE'),
+            'sql'                   => "text NULL"
 		),
 
 		'intropage_forumbtn' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['intropage_forumbtn'],
-			'exclude'                 => true,
-			'default'                 => '',
-			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>100 )
+			'label'                 => &$GLOBALS['TL_LANG']['tl_c4g_forum']['intropage_forumbtn'],
+			'exclude'               => true,
+			'default'               => '',
+			'inputType'             => 'text',
+			'eval'                  => array('maxlength'=>100 ),
+            'sql'                   => "varchar(100) NOT NULL default ''"
 		),
 
 		'intropage_forumbtn_jqui' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['intropage_forumbtn_jqui'],
-			'exclude'                 => true,
-			'default'                 => true,
-			'inputType'               => 'checkbox',
+			'label'                 => &$GLOBALS['TL_LANG']['tl_c4g_forum']['intropage_forumbtn_jqui'],
+			'exclude'               => true,
+			'default'               => true,
+			'inputType'             => 'checkbox',
+            'sql'                   => "char(1) NOT NULL default '1'"
 		),
 
 		'pretext' => array
@@ -235,6 +289,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'search'				=> true,
 			'inputType'				=> 'textarea',
 			'eval'					=> array('rte'=>'tinyMCE'),
+            'sql'                   => "text NULL"
 		),
 
 		'posttext' => array
@@ -243,6 +298,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
             'search'				=> true,
 			'inputType'				=> 'textarea',
 			'eval'					=> array('rte'=>'tinyMCE'),
+            'sql'                   => "text NULL"
 		),
 
 		'define_groups' => array
@@ -252,6 +308,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'default'                 => '',
 			'inputType'               => 'checkbox',
 			'eval'                    => array('submitOnChange'=>true),
+            'sql'                     => "char(1) NOT NULL default ''"
 		),
 
 		'member_groups' => array
@@ -260,7 +317,8 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
 			'foreignKey'              => 'tl_member_group.name',
-			'eval'                    => array('mandatory'=>false, 'multiple'=>true)
+			'eval'                    => array('mandatory'=>false, 'multiple'=>true),
+            'sql'                     => "blob NULL"
 		),
 
 		'admin_groups' => array
@@ -269,7 +327,8 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
 			'foreignKey'              => 'tl_member_group.name',
-			'eval'                    => array('mandatory'=>false, 'multiple'=>true)
+			'eval'                    => array('mandatory'=>false, 'multiple'=>true),
+            'sql'                     => "blob NULL"
 		),
 
 		'define_rights' => array
@@ -278,7 +337,8 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'exclude'                 => true,
 			'default'                 => '',
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+            'sql'                     => "char(1) NOT NULL default ''"
 		),
 
 
@@ -288,7 +348,8 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
 		    'options_callback'        => array('tl_c4g_forum','getGuestRightList'),
-			'eval'                    => array('mandatory'=>false, 'multiple'=>true)
+			'eval'                    => array('mandatory'=>false, 'multiple'=>true),
+            'sql'                     => "blob NULL"
 		),
 
 		'member_rights' => array
@@ -297,7 +358,8 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
 		    'options_callback'        => array('tl_c4g_forum','getRightList'),
-			'eval'                    => array('mandatory'=>false, 'multiple'=>true)
+			'eval'                    => array('mandatory'=>false, 'multiple'=>true),
+            'sql'                     => "blob NULL"
 		),
 
 		'admin_rights' => array
@@ -306,101 +368,112 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
 		    'options_callback'        => array('tl_c4g_forum','getRightList'),
-			'eval'                    => array('mandatory'=>false, 'multiple'=>true)
+			'eval'                    => array('mandatory'=>false, 'multiple'=>true),
+            'sql'                     => "blob NULL"
 		),
 
 		'enable_maps' => array
 		(
-				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['enable_maps'],
-				'exclude'                 => true,
-				'default'                 => '',
-				'inputType'               => 'checkbox',
-				'eval'					  => array('submitOnChange'=>true),
+            'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['enable_maps'],
+            'exclude'                 => true,
+            'default'                 => '',
+            'inputType'               => 'checkbox',
+            'eval'					  => array('submitOnChange'=>true),
+            'sql'                     => "char(1) NOT NULL default ''"
 		),
 
 		'map_type' => array
 		(
-				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_type'],
-				'exclude'                 => true,
-				'inputType'               => 'select',
-				'options'                 => array('EDIT','PICK','OSMID'),
-				'default'                 => 'EDIT',
-				'reference'               => &$GLOBALS['TL_LANG']['tl_c4g_forum']['references'],
-				'eval'					  => array('submitOnChange'=>true),
+            'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_type'],
+            'exclude'                 => true,
+            'inputType'               => 'select',
+            'options'                 => array('EDIT','PICK','OSMID'),
+            'default'                 => 'EDIT',
+            'reference'               => &$GLOBALS['TL_LANG']['tl_c4g_forum']['references'],
+            'eval'					  => array('submitOnChange'=>true),
+            'sql'                     => "char(5) NOT NULL default 'PICK'"
 		),
 
 		'map_override_locationstyle' => array
 		(
-				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_override_locationstyle'],
-				'exclude'                 => true,
-				'default'                 => '',
-				'inputType'               => 'checkbox',
-				'eval'					  => array('submitOnChange'=>true),
+            'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_override_locationstyle'],
+            'exclude'                 => true,
+            'default'                 => '',
+            'inputType'               => 'checkbox',
+            'eval'					  => array('submitOnChange'=>true),
+            'sql'                     => "char(1) NOT NULL default ''"
 		),
 
 		'map_override_locstyles' => array
 		(
-				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_override_locstyles'],
-				'exclude'                 => true,
-				'inputType'               => 'checkbox',
-				'options_callback'        => array('tl_c4g_forum','getAllLocStyles'),
-				'eval'                    => array('mandatory'=>false, 'multiple'=>true),
+            'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_override_locstyles'],
+            'exclude'                 => true,
+            'inputType'               => 'checkbox',
+            'options_callback'        => array('tl_c4g_forum','getAllLocStyles'),
+            'eval'                    => array('mandatory'=>false, 'multiple'=>true),
+            'sql'                     => "blob NULL"
 		),
 
 		'map_id' => array
 		(
-				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_id'],
-				'exclude'                 => true,
-				'inputType'               => 'select',
-				'options_callback'        => array('tl_c4g_forum', 'get_maps'),
+            'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_id'],
+            'exclude'                 => true,
+            'inputType'               => 'select',
+            'options_callback'        => array('tl_c4g_forum', 'get_maps'),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 
 		'map_location_label' => array
 		(
-				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_location_label'],
-				'exclude'                 => true,
-				'inputType'               => 'text',
-				'eval'                    => array('maxlength'=>20 )
+            'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_location_label'],
+            'exclude'                 => true,
+            'inputType'               => 'text',
+            'eval'                    => array('maxlength'=>20 ),
+            'sql'                     => "char(20) NOT NULL default ''"
 		),
 
 		'map_label' => array
 		(
-				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_label'],
-				'exclude'                 => true,
-				'inputType'               => 'select',
-				'options'                 => array('OFF','SUBJ','LINK','CUST'),
-				'default'                 => 'OFF',
-				'reference'               => &$GLOBALS['TL_LANG']['tl_c4g_forum']['references'],
-		),
+            'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_label'],
+            'exclude'                 => true,
+            'inputType'               => 'select',
+            'options'                 => array('OFF','SUBJ','LINK','CUST'),
+            'default'                 => 'OFF',
+            'reference'               => &$GLOBALS['TL_LANG']['tl_c4g_forum']['references'],
+            'sql'                     => "char(5) NOT NULL default 'NONE'"
+        ),
 
 		'map_tooltip' => array
 		(
-				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_tooltip'],
-				'exclude'                 => true,
-				'inputType'               => 'select',
-				'options'                 => array('OFF','SUBJ','LINK','CUST'),
-				'default'                 => 'OFF',
-				'reference'               => &$GLOBALS['TL_LANG']['tl_c4g_forum']['references'],
+            'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_tooltip'],
+            'exclude'                 => true,
+            'inputType'               => 'select',
+            'options'                 => array('OFF','SUBJ','LINK','CUST'),
+            'default'                 => 'OFF',
+            'reference'               => &$GLOBALS['TL_LANG']['tl_c4g_forum']['references'],
+            'sql'                     => "char(5) NOT NULL default 'NONE'"
 		),
 
 		'map_popup' => array
 		(
-				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_popup'],
-				'exclude'                 => true,
-				'inputType'               => 'select',
-				'options'                 => array('OFF','SUBJ','POST','SUPO'),
-				'default'                 => 'OFF',
-				'reference'               => &$GLOBALS['TL_LANG']['tl_c4g_forum']['references'],
+            'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_popup'],
+            'exclude'                 => true,
+            'inputType'               => 'select',
+            'options'                 => array('OFF','SUBJ','POST','SUPO'),
+            'default'                 => 'OFF',
+            'reference'               => &$GLOBALS['TL_LANG']['tl_c4g_forum']['references'],
+            'sql'                     => "char(5) NOT NULL default 'NONE'"
 		),
 
 		'map_link' => array
 		(
-				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_link'],
-				'exclude'                 => true,
-				'inputType'               => 'select',
-				'options'                 => array('OFF','POST','THREA','PLINK'),
-				'default'                 => 'OFF',
-				'reference'               => &$GLOBALS['TL_LANG']['tl_c4g_forum']['references'],
+            'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['map_link'],
+            'exclude'                 => true,
+            'inputType'               => 'select',
+            'options'                 => array('OFF','POST','THREA','PLINK'),
+            'default'                 => 'OFF',
+            'reference'               => &$GLOBALS['TL_LANG']['tl_c4g_forum']['references'],
+            'sql'                     => "char(5) NOT NULL default 'NONE'"
 		),
 
 		'linkurl' => array
@@ -410,42 +483,47 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'search'                  => true,
 			'inputType'               => 'text',
 			'eval'                    => array('rgxp'=>'url', 'decodeEntities'=>true, 'maxlength'=>255, 'tl_class'=>'wizard'),
-			'wizard' 				  => array(array('tl_c4g_forum', 'pickLinkUrl'))
+			'wizard' 				  => array(array('tl_c4g_forum', 'pickLinkUrl')),
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 
 		'link_newwindow' => array
 		(
-				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['link_newwindow'],
-				'exclude'                 => true,
-				'default'                 => '',
-				'inputType'               => 'checkbox',
+            'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['link_newwindow'],
+            'exclude'                 => true,
+            'default'                 => '',
+            'inputType'               => 'checkbox',
+            'sql'                     => "char(1) NOT NULL default ''"
 		),
 
 		'sitemap_exclude' => array
 		(
-				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['sitemap_exclude'],
-				'exclude'                 => true,
-				'default'                 => '',
-				'inputType'               => 'checkbox',
+            'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['sitemap_exclude'],
+            'exclude'                 => true,
+            'default'                 => '',
+            'inputType'               => 'checkbox',
+            'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'tags' => array
 		(
-				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['tags'],
-                'search'				=> true,
-				'inputType'               => 'text',
-                'load_callback'           => array("tl_c4g_forum" => "decodeTags"),
-                'eval'                    => array(),
+            'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['tags'],
+            'search'				  => true,
+            'inputType'               => 'text',
+            'load_callback'           => array("tl_c4g_forum" => "decodeTags"),
+            'eval'                    => array(),
+            'sql'                     => "blob NULL"
 		),
 		'mail_subscription_text' => array
 		(
-				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['mail_subscription_text'],
-                'search'				  => true,
-                'default'                 => &$GLOBALS['TL_LANG']['tl_c4g_forum']['default_subscription_text'],
-				'inputType'               => 'textarea',
-                'save_callback' => array(
-                    array('tl_c4g_forum','setMailTextDefault')
-                ),
-                'eval'                    => array("rows" => 15, "cols" => 60, "style" => "height:300px !important;"),
+            'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['mail_subscription_text'],
+            'search'				  => true,
+            'default'                 => &$GLOBALS['TL_LANG']['tl_c4g_forum']['default_subscription_text'],
+            'inputType'               => 'textarea',
+            'save_callback' => array(
+                array('tl_c4g_forum','setMailTextDefault')
+            ),
+            'eval'                    => array("rows" => 15, "cols" => 60, "style" => "height:300px !important;"),
+            'sql'                     => "text NULL"
 		),
 
 	)

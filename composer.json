@@ -1,7 +1,7 @@
 {
   "name": "con4gis/con4gis_forum",
   "description": "Forum module for contao",
-  "keywords": ["con4gis", "forum", "contao", "c4g"],
+  "keywords": ["con4gis", "forum", "diskussionsforum", "panel", "board", "contao", "c4g"],
   "type": "contao-module",
   "homepage": "https://con4gis.org",
   "license": "LGPL-3.0+",
@@ -12,8 +12,7 @@
     }
   ],
   "require": {
-    "con4gis/con4gis_core": "~1.6",
-    "menatwork/contao-multicolumnwizard": "3.3.6"
+    "con4gis/con4gis_core": "~1.7"
   },
   "support": {
     "issues": "https://github.com/Kuestenschmiede/con4gis_forum/issues"

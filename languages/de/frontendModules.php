@@ -15,43 +15,62 @@
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['FORUM']                   = 'Forum';
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREAD']                  = 'Thema';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTION']                = 'Frage';
     $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS']                    = 'Tags/Schlagworte';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCH_TERM']                    = 'Suchbegriff';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS_CHECKBOX']                    = 'Nur Tags durchsuchen';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCH_TERM']             = 'Suchbegriff';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS_CHECKBOX']           = 'Nur Tags durchsuchen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SELECT_TAGS_PLACEHOLDER'] = 'Ein oder mehrere Tags/Schlagworte wählen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS']                 = 'Themen';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS']               = 'Fragen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUM']                = 'Forenbereich';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUMS']               = 'Forenbereiche';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_THREAD']              = 'Neues Thema';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_QUESTION']            = 'Neue Frage';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST']                    = 'Beitrag';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POSTS']                   = 'Beiträge';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST']               = 'Letzter Beitrag';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST']                = 'Neuer Beitrag';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_PREVIEW']        = 'Vorschau - Neuer Beitrag';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT']                 = 'Kommentar';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENTS']                = 'Kommentare';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_COMMENT']            = 'Letzter Kommentar';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_COMMENT']             = 'Neuer Kommentar';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_COMMENT_PREVIEW']     = 'Vorschau - Neuer Kommentar';
     $GLOBALS['TL_LANG']['C4G_FORUM']['ALL_POSTS']               = 'Alle';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SINGLE_POST']             = 'Einzeln';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBJECT']                 = 'Betreff';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['THREADDESC']              = 'Themenbeschreibung';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['THREADDESC']              = 'Beschreibung';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_THREAD']             = 'Thema bearbeiten';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_THREAD_CHANGES']     = 'Geändertes Thema speichern';
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_THREAD']              = 'Thema löschen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_THREAD']             = 'Thema verschieben';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIBE_THREAD']        = 'Thema abonnieren';
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_THREAD']      = 'Thema abbestellen';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_QUESTION']           = 'Frage bearbeiten';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_QUESTION_CHANGES']   = 'Geänderte Frage speichern';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_QUESTION']            = 'Frage löschen';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION']           = 'Frage verschieben';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIBE_QUESTION']      = 'Frage abonnieren';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_QUESTION']    = 'Frage abbestellen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIBE_SUBFORUM']      = 'Forenbereich abonnieren';
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_SUBFORUM']    = 'Forenbereich abbestellen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_POST']                = 'Löschen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST']               = 'Bearbeiten';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_PREVIEW']       = 'Vorschau - Beitrag bearbeiten';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_POST_CHANGES']       = 'Speichern';
-
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']              = 'Anzahl Beiträge';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_COMMENT']             = 'Löschen';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_COMMENT']            = 'Bearbeiten';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_COMMENT_PREVIEW']    = 'Vorschau - Kommentar bearbeiten';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_COMMENT_CHANGES']    = 'Speichern';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']              = 'Anzahl Kommentare';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_AUTHOR_SHORT'] = 'Letzter';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST_SHORT']   = 'Letzter am';
     $GLOBALS['TL_LANG']['C4G_FORUM']['AUTHOR']            = 'Verfasser';
     $GLOBALS['TL_LANG']['C4G_FORUM']['CREATED_ON']        = 'Erstellt am';
-
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCH']        = 'Suchen';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['LATESTTHREADS'] = 'Neue Themen';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCH']            = 'Suchen';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['LATESTTHREADS']     = 'Neue Themen';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['LATESTQUESTIONS']   = 'Neue Fragen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SEND']          = 'Speichern';
     $GLOBALS['TL_LANG']['C4G_FORUM']['PREVIEW']       = 'Vorschau';
     $GLOBALS['TL_LANG']['C4G_FORUM']['CANCEL']        = 'Abbruch';
@@ -67,7 +86,15 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_SEARCH']     = 'Schnellsuche';
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_NOTFOUND']   = 'Keine Themen mit diesem Suchbegriff gefunden';
 
+    $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS_EMPTY']      = 'Keine Fragen verfügbar';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS_INFO']       = "_TOTAL_ Fragen (_START_ bis _END_)";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS_FILTERED']   = '(gefiltert von insgesamt _MAX_ Fragen)';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS_LENGTHMENU'] = 'Zeige _MENU_ Fragen';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS_NOTFOUND']   = 'Keine Fragen mit diesem Suchbegriff gefunden';
+
+
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_COUNT']          = ' Beitrag <b %s>#%d</b> von <b %s>%d</b> ';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT_HEADER_COUNT']       = ' Kommentar <b %s>#%d</b> von <b %s>%d</b> ';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_CREATED']        = 'Erstellt von <b %s>%s</b> am <b %s>%s</b>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_SUBJECT']        = '<b %s>Betreff:</b> <span %s>%s</span>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_LINK']           = 'Link: <a href="%s">%s</a>';
@@ -84,6 +111,10 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_TITLE']   = 'Neuer Beitrag im Thema "%s" (Forenbereich "%s")';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_MISSING']       = 'Bitte Beitrag verfassen!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_QUESTION_TITLE'] = 'Neue Frage im Bereich "%s"';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_COMMENT_TITLE']  = 'Neuer Kommentar im Thema "%s" (Forenbereich "%s")';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT_MISSING']    = 'Bitte Kommentar verfassen!';
+
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBJECT_MISSING']    = 'Bitte Betreff eingeben!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADNAME_MISSING'] = 'Bitte Thema eingeben!';
 
@@ -103,6 +134,16 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_THREAD_ERROR']   = 'Fehler beim Löschen des Themas!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_THREAD_SUCCESS'] = 'Thema erfolgreich gelöscht.';
 
+    $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONNAME_MISSING']  = 'Bitte Frage eingeben!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['ERROR_SAVE_COMMENT']    = 'Fehler beim Anlegen des Kommentars! Versuchen Sie es noch einmal, oder wenden Sie sich an eine Kontaktperson des Forums!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUCCESS_SAVE_COMMENT']  = 'Neuer Kommentar erfolgreich angelegt!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['ERROR_SAVE_QUESTION']   = 'Fehler beim Anlegen der Frage! Versuchen Sie es noch einmal, oder wenden Sie sich an eine Kontaktperson des Forums!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUCCESS_SAVE_QUESTION'] = 'Neue Frage erfolgreich angelegt!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['BOX_LAST_COMMENT']      = 'Letzter Kommentar am %s von %s in Frage %s';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_QUESTION_WARNING']  = 'Möchten Sie die Frage <b>%s</b> aus Forenbereich <b>%s</b> wirklich unwiderruflich löschen?';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_QUESTION_ERROR']    = 'EFehler beim Löschen der Frage!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_QUESTION_SUCCESS']  = 'Frage erfolgreich gelöscht.';
+
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_TEXT']                  = 'Thema <b>%s</b> aus Forenbereich <b>%s</b> per E-Mail abonnieren?';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_TEXT']                = 'Forenbereich <b>%s</b> per E-Mail abonnieren?';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_SUBSCRIPTION_CANCEL'] = 'Forenbereich <b>%s</b> abbestellen?';
@@ -117,9 +158,20 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_ERROR']        = 'Fehler beim Abonnieren des Forenbereichs!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_SUCCESS']      = 'Forenbereich erfolgreich abonniert.';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_ONLY_THREADS'] = 'nur bei neuen Themen benachrichtigen';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_POSTS']        = 'mit Beiträgen';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_SUBJECT']   = "Ihr abonniertes Thema auf '%2\$s' (%1\$s)";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_SUBJECT'] = "Ihr abonnierter Forenbereich auf '%2\$s' (%1\$s)";
+
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_TEXT']                  = 'Frage <b>%s</b> aus Forenbereich <b>%s</b> per E-Mail abonnieren?';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_SUBSCRIPTION_CANCEL']   = 'Frage <b>%s</b> aus Forenbereich <b>%s</b> abbestellen?';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_CANCEL_SUCCESS']        = 'Frage erfolgreich abbestellt.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_ERROR']                 = 'Fehler beim Abonnieren der Fragen!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_SUCCESS']               = 'Frage erfolgreich abonniert.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_ONLY_QUESTIONS']        = 'nur bei neuen Fragen benachrichtigen';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_COMMENTS']              = 'mit Kommentaren';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_MAIL_SUBJECT']          = "Ihre abonnierte Frage auf '%2$s' (%1$s)";
+
 
 //    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_HELLO']            = "Hallo %s,\r\n\r\n";
 //    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_END'] =
@@ -172,12 +224,20 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_POST_WITH_SUBJECT'] = "Beitrag mit dem Betreff '%s' bearbeitet";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_POST_WITH_SUBJECT']  = "Beitrag mit dem Betreff '%s' gelöscht";
 
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_COMMENT']  = "Kommentar erstellt";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_COMMENT'] = "Kommentar bearbeitet";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_COMMENT']  = "Kommentar gelöscht";
+
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_COMMENT_WITH_SUBJECT']  = "Kommentar mit dem Betreff '%s' erstellt";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_COMMENT_WITH_SUBJECT'] = "Kommentar mit dem Betreff '%s' bearbeitet";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_COMMENT_WITH_SUBJECT']  = "Kommentar mit dem Betreff '%s' gelöscht";
+
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_THREAD_PRE']               = "ein";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD']               = "Thema erstellt";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_THREAD']              = "Thema bearbeitet";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD']               = "Thema gelöscht";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD']              = "Thema verschoben";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD_WITH_SUBJECT']  = "Thema erstellt";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD_WITH_SUBJECT']  = "Thema mit dem Betreff '%s' erstellt";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_THREAD_WITH_SUBJECT'] = "Thema mit dem Betreff '%s' bearbeitet";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD_WITH_SUBJECT']  = "Thema mit dem Betreff '%s' gelöscht";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD_WITH_SUBJECT'] = "Thema aus Forenbereich '%s' in den Forenbereich '%s' verschoben";
@@ -185,6 +245,18 @@
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_THREAD_LINK_SUCCESS']   = 'Das Abonnement des Themas "%s" des Mitgliedes "%s" wurde beendet!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_THREAD_LINK_FAILED']    = 'Fehler beim Beenden des Themen-Abonnements!';
+
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_QUESTION']               = "Frage erstellt";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_QUESTION']              = "Frage bearbeitet";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_QUESTION']               = "Frage gelöscht";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_QUESTION']              = "Frage verschoben";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_QUESTION_WITH_SUBJECT']  = "Frage mit dem Betreff '%s' erstellt";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_QUESTION_WITH_SUBJECT'] = "Frage mit dem Betreff '%s' bearbeitet";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_QUESTION_WITH_SUBJECT']  = "Frage mit dem Betreff '%s' gelöscht";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_QUESTION_WITH_SUBJECT'] = "Frage aus Forenbereich '%s' in den Forenbereich '%s' verschoben";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_QUESTION_LINK_SUCCESS']                   = 'Das Abonnement der Frage "%s" des Mitgliedes "%s" wurde beendet!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_QUESTION_LINK_FAILED']                    = 'Fehler beim Beenden des Fragen-Abonnements!';
+
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_SUBFORUM_LINK_SUCCESS'] = 'Das Abonnement des Forenbereichs "%s" des Mitgliedes "%s" wurde beendet!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_SUBFORUM_LINK_FAILED']  = 'Fehler beim Beenden des Abonnements des Forenbereiches!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_ALL_LINK_SUCCESS']      = 'Alle Abonnements des Mitgliedes "%s" wurden beendet!';
@@ -209,6 +281,22 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_ERROR']   = 'Fehler beim Speichern des geänderten Beitrags!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_SUCCESS'] = 'Beitrag erfolgreich geändert.';
 
+    $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION_TEXT']      = 'Frage <b>%s</b> aus Forenbereich <b>%s</b> in den folgenden Forenbereich verschieben:';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION_ERROR']     = 'Fehler beim Verschieben der Frage!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION_SUCCESS']   = 'Frage erfolgreich verschoben.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION_NO_FORUMS'] = 'Keine Forenbereiche gefunden, für die Sie die Berechtigung haben, eine Frage hinzuverschieben.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_QUESTION_ERROR']     = 'Fehler beim Speichern der geänderten Frage!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_QUESTION_SUCCESS']   = 'Frage erfolgreich geändert.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_COMMENT_WARNING']     = 'Möchten Sie den gewählten Kommentar wirklich unwiderruflich löschen?<br/>' .
+        'Forenbereich: <b>%s</b><br/>' .
+        'Frage: <b>%s</b><br/>' .
+        'Kommentar von: <b>%s</b><br/>' .
+        'Betreff: <b>%s</b><br/>';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_COMMENT_ERROR']    = 'Fehler beim Löschen des Kommentars!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_COMMENT_SUCCESS']  = 'Kommentar erfolgreich gelöscht.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_COMMENT_ERROR']   = 'Fehler beim Speichern des geänderten Kommentars!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_COMMENT_SUCCESS'] = 'Kommentar erfolgreich geändert.';
+
     $GLOBALS['TL_LANG']['C4G_FORUM']['LINKNAME']       = 'Beschreibung des Links';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LINKURL']        = 'URL des Links';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_LINK'] = 'Link bearbeiten';
@@ -227,6 +315,7 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['NO_ACTIVE_FORUMS'] = 'Keine Unterforenbereiche für Forenbereich ID %d gefunden. Entweder Forenbereiche wurden gelöscht oder deaktiviert, oder Sie besitzen nicht die Berechtigung zur Anzeige der Forenbereiche.';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['ALLOW_MAP_POSTS']      = 'Kartenbeiträge erlauben';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['ALLOW_MAP_COMMENTS']   = 'Kartenkommentare erlauben';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LOCATION']             = 'Kartenlokation';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_MAP_LOCATION']    = '%s bearbeiten';
     $GLOBALS['TL_LANG']['C4G_FORUM']['ADD_MAP_LOCATION']     = '%s hinzufügen';
@@ -261,6 +350,11 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_DDL_MONTH']             = 'Monat(e)';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_DDL_YEAR']              = 'Jahr(e)';
 
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_HEADLINE_QUESTIONS']              = 'Suche';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_ONLYQUESTIONS']                = "Nur in Fragen suchen (Kommentare ignorieren)";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_LBL_DISPLAY_ONLY_QUESTIONS']      = 'Zeige nur Fragen mit Kommentaren von:';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_LBL_SEARCH_ALL_THEMES_QUESTIONS'] = 'Durchsuche alle Fragen ab';
+
     $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCH_MESSAGE_NO_SEARCH_ENTRY'] = 'Bitte geben Sie einen Suchbegriff ein';
 
 //search Resultpage
@@ -282,6 +376,7 @@
                                                                       'so wird dieser Filter ignoriert.';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['LATESTTHREADS_HEADLINE'] = 'Neue Themen';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['LATESTQUESTIONS_HEADLINE'] = 'Neue Fragen';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['DELETED_USER'] = '"Gelöschter Nutzer"';
     $GLOBALS['TL_LANG']['C4G_FORUM']['RATING']       = 'Bewertung';

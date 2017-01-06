@@ -18,6 +18,10 @@
     /**
      * Fields
      */
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_type']              = array(
+        'Forum type',
+        'Change type to change the wording. On informations threads are questions and posts are comments.'
+    );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_size']              = array(
         'Size (width, height)',
         'Size of division (DIV) wherein the forum is displayed. The size is calculated automatically when you don\'t enter values here.'
@@ -110,6 +114,10 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_jqui_lib']               = array(
         'Load jQuery UI library',
         'Uncheck this if you are already loading the jQuery UI library by yourself: please check that you use a compatible version of the library!'
+    );
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_uitheme_css_select']     = array(
+        'jQuery UI ThemeRoller CSS theme',
+        'Select a standart UI-Theme.'
     );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_uitheme_css_src']        = array(
         'jQuery UI ThemeRoller CSS file',
@@ -208,6 +216,13 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageWidth']  = array("Max image width", "Declaration in pixel");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imageHeight'] = array("Max image height", "Declaration in pixel");
 
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_onlythreads'] = array("Checkbox for search threads only (no posts)", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_wholewords']  = array("Checkbox for whole words search", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_use_tags_in_search'] = array("Select for tags defined in your forum", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_forums']      = array("Select special forum", "");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_displayonly'] = array("Entry for searching usernames and periods", "");
+    //$GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_period']      = array("Periodsearch", "");
+
     /**
      * Legend
      */
@@ -219,6 +234,7 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend']    = 'Forum - Maps (con4gis)';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_lib_legend']     = 'Forum - jQuery libraries';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_sitemap_legend'] = 'Forum - XML sitemap';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_legend']       = 'Forum - Search settings';
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb_legend'] = 'Breadcrumb';
 
@@ -230,6 +246,9 @@
     /**
      * References
      */
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['DISCUSSIONS'] = 'Discussions (threads & posts)';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['QUESTIONS']   = 'Informations (questions & comments)';
+
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['TREE']  = 'Tree';
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['BOXES'] = 'Boxes';
 
@@ -255,6 +274,32 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['THREADS'] = 'Public threads';
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['FORUMS']  = 'Public forums';
     $GLOBALS['TL_LANG']['tl_module']['c4g_references']['INTROS']  = 'Public forums - Intropages';
+
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['base']      = 'base';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['black-tie'] = 'black-tie';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['blitzer']   = 'blitzer';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['cupertino'] = 'cupertino';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['dark-hive'] = 'dark-hive';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['dot-luv']   = 'dot-luv';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['eggplant']  = 'eggplant';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['excite-bike']   = 'excite-bike';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['flick']         = 'flick';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['hot-sneaks']    = 'hot-sneaks';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['humanity']      = 'humanity';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['le-frog']       = 'le-frog';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['mint-choc']     = 'mint-choc';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['overcast']      = 'overcast';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['pepper-grinder'] = 'pepper-grinder';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['redmond']       = 'redmond';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['smoothness']    = 'smoothness';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['south-street']  = 'south-street';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['start']         = 'start';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['sunny']         = 'sunny';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['swanky-purse']  = 'swanky-purse';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['trontastic']    = 'trontastic';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['ui-darkness']   = 'ui-darkness';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['ui-lightness']  = 'ui-lightness';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_references']['vader']         = 'vader';
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip']                           = array("Tooltip for threadlist", "");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_tooltip_value']['title_first_post'] = "Title of first post";
