@@ -223,6 +223,9 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_displayonly'] = array("Entry for searching usernames and periods", "");
     //$GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_period']      = array("Periodsearch", "");
 
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_move_all'] = array("Move threads in other forum modules too (not recommend!)", "Just move threads between forum modules with same or similar settings!");
+
+
     /**
      * Legend
      */
@@ -242,6 +245,7 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_format'] = array("Paginator-Format", "See <a onclick='window.open(this.href);return false;' href='http://www.xarg.org/2011/09/jquery-pagination-revised'>http://www.xarg.org/2011/09/jquery-pagination-revised</a>");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_perpage'] = array("Entries per page", "");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_legend'] = 'Forum - Pagination';
+
 
     /**
      * References

@@ -2582,7 +2582,7 @@ JSPAGINATE;
                         "text"   => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'DEL_THREAD')
                     ),
                     array(
-                        "action" => 'closedialog:delthread' . $threadId,
+                        "action" => 'closedialog:delthread:' . $threadId,
                         "type"   => 'get',
                         "text"   => $GLOBALS['TL_LANG']['C4G_FORUM']['CANCEL']
                     )
@@ -2733,7 +2733,7 @@ JSPAGINATE;
             );
 
             $dialogbuttons [] = array(
-                "action" => 'closedialog:subscribethread' . $threadId,
+                "action" => 'closedialog:subscribethread:' . $threadId,
                 "type"   => 'get',
                 "text"   => $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['CANCEL']
             );
@@ -2924,7 +2924,8 @@ JSPAGINATE;
             $select = sprintf(\c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'MOVE_THREAD_TEXT'), $thread['threadname'], $thread['forumname']);
 
             // get forums as flat array (without hierarchy)
-            $forums = $this->helper->getForumsFromDB($this->c4g_forum_startforum, true, true);
+            $allModules = ($this->c4g_forum_move_all == "1");
+            $forums = $this->helper->getForumsFromDB($this->c4g_forum_startforum, true, true, 'pid', $allModules);
             $select .= '<select name="forum" class="formdata ui-corner-all">';
             foreach ($forums AS $forum) {
                 if ($forum['subforums'] == 0) {
@@ -2949,7 +2950,7 @@ JSPAGINATE;
             }
             $dialogbuttons[] =
                 array(
-                    "action" => 'closedialog:movethread' . $threadId,
+                    "action" => 'closedialog:movethread:' . $threadId,
                     "type"   => 'get',
                     "text"   => $GLOBALS['TL_LANG']['C4G_FORUM']['CANCEL']
                 );

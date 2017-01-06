@@ -243,6 +243,8 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_forums']      = array("Forenauswahl anzeigen", "So kann die Auswahl auf einen bestimmten Forenbereich eingeschränkt werden.");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_displayonly'] = array("Suche (Eingabe) von Benutzernamen ermöglichen", "Sie können Benutzernamen eingeben und damit und über einen Zeitraum die Suche einschränken.");
 
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_move_all'] = array("Themen auch in andere Forenmodule verschieben (nicht empfohlen!)", "Diese Funktion sollte mit Vorsicht und nur zwischen gleichartigen Forenmodulen verwendet werden! Es werden Forenbereiche aller Module als Ziel angeboten.");
+
     /**
      * Legend
      */

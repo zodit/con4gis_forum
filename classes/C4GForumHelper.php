@@ -361,7 +361,7 @@ class C4GForumHelper extends \System
 	 * @param string $idField
 	 *
 	 */
-	public function getForumsFromDB($id, $children = false, $flat = false, $idField = 'pid')
+	public function getForumsFromDB($id, $children = false, $flat = false, $idField = 'pid', $allModules = false)
 	{
 
 		switch( $this->show_realname ){
@@ -382,20 +382,37 @@ class C4GForumHelper extends \System
 				$sqlLastUser = 'm.username';
 				break;
 		}
-		$forums = $this->Database->prepare(
-			"SELECT a.id,a.name,a.headline,a.description,count(b.id) AS subforums,a.threads,a.posts,a.box_imagesrc,t.name AS last_threadname,p.creation AS last_post_creation, " . $sqlLastUser . " AS last_username, ".
-		            "a.member_groups, a.admin_groups, a.guest_rights, a.member_rights, a.admin_rights,".
-		            "a.use_intropage, a.intropage, a.intropage_forumbtn, a.intropage_forumbtn_jqui, a.linkurl,a.link_newwindow,a.sitemap_exclude,".
-				    "a.pretext, a.posttext, a.enable_maps, a.enable_maps_inherited, a.map_type, a.map_id, a.map_location_label, a.map_override_locationstyle, a.map_label, a.map_tooltip ".
-		            " FROM tl_c4g_forum a ".
-			"LEFT JOIN tl_c4g_forum b ON (b.pid = a.id) AND (b.published = ?) ".
-		    "LEFT JOIN tl_c4g_forum_post p ON p.id = a.last_post_id ".
-			"LEFT JOIN tl_c4g_forum_thread t ON t.id = p.pid ".
-		    "LEFT JOIN tl_member m ON m.id = p.author ".
-			"WHERE a.".$idField."=? AND a.published=? ".
-			"GROUP BY a.id ".
-		    "ORDER BY a.sorting"
-	 						)->execute(1, $id, 1);
+
+		if ($allModules) {
+            $forums = $this->Database->prepare(
+                "SELECT a.id,a.name,a.headline,a.description,a.threads,a.posts,a.box_imagesrc,t.name AS last_threadname,p.creation AS last_post_creation, " . $sqlLastUser . " AS last_username, ".
+                "a.member_groups, a.admin_groups, a.guest_rights, a.member_rights, a.admin_rights,".
+                "a.use_intropage, a.intropage, a.intropage_forumbtn, a.intropage_forumbtn_jqui, a.linkurl,a.link_newwindow,a.sitemap_exclude,".
+                "a.pretext, a.posttext, a.enable_maps, a.enable_maps_inherited, a.map_type, a.map_id, a.map_location_label, a.map_override_locationstyle, a.map_label, a.map_tooltip ".
+                " FROM tl_c4g_forum a ".
+                "LEFT JOIN tl_c4g_forum_post p ON p.id = a.last_post_id ".
+                "LEFT JOIN tl_c4g_forum_thread t ON t.id = p.pid ".
+                "LEFT JOIN tl_member m ON m.id = p.author ".
+                "WHERE a.published=? ".
+                "GROUP BY a.id ".
+                "ORDER BY a.sorting"
+            )->execute(1);
+        } else {
+            $forums = $this->Database->prepare(
+                "SELECT a.id,a.name,a.headline,a.description,count(b.id) AS subforums,a.threads,a.posts,a.box_imagesrc,t.name AS last_threadname,p.creation AS last_post_creation, " . $sqlLastUser . " AS last_username, ".
+                "a.member_groups, a.admin_groups, a.guest_rights, a.member_rights, a.admin_rights,".
+                "a.use_intropage, a.intropage, a.intropage_forumbtn, a.intropage_forumbtn_jqui, a.linkurl,a.link_newwindow,a.sitemap_exclude,".
+                "a.pretext, a.posttext, a.enable_maps, a.enable_maps_inherited, a.map_type, a.map_id, a.map_location_label, a.map_override_locationstyle, a.map_label, a.map_tooltip ".
+                " FROM tl_c4g_forum a ".
+                "LEFT JOIN tl_c4g_forum b ON (b.pid = a.id) AND (b.published = ?) ".
+                "LEFT JOIN tl_c4g_forum_post p ON p.id = a.last_post_id ".
+                "LEFT JOIN tl_c4g_forum_thread t ON t.id = p.pid ".
+                "LEFT JOIN tl_member m ON m.id = p.author ".
+                "WHERE a.".$idField."=? AND a.published=? ".
+                "GROUP BY a.id ".
+                "ORDER BY a.sorting"
+            )->execute(1, $id, 1);
+        }
 
 		$return = array();
 	 	$forumArr = $forums->fetchAllAssoc();
@@ -408,13 +425,14 @@ class C4GForumHelper extends \System
 
 	 				if ($value['subforums']>0) {
 	 					if ($flat) {
-	 						$flatArray = array_merge($flatArray,$this->getForumsFromDB($value['id'], true, true));
+	 						$flatArray = array_merge($flatArray,$this->getForumsFromDB($value['id'], true, true, $idField, false));
 	 					}
 	 					else {
-	 						$value['childs'] = $this->getForumsFromDB($value['id'], true);
+	 						$value['childs'] = $this->getForumsFromDB($value['id'], true, false, $idField, false);
 	 					}
 	 				}
 	 			}
+
  				$return[$key] = $value;
 	 		}
 	 	}

@@ -37,7 +37,7 @@ if (method_exists('\System', 'getContainer')) {
         '{c4g_forum_comf_sitemap_legend:hide},c4g_forum_sitemap;' .
         //'{c4g_forum_tags_legend:hide},c4g_forum_use_tags_in_search;' .
         '{c4g_forum_pagination_legend:hide},c4g_forum_pagination_active,c4g_forum_pagination_perpage,c4g_forum_pagination_format;' .
-        '{expert_legend:hide},guests,cssID,space';
+        '{expert_legend:hide},guests,cssID,space,c4g_forum_move_all';
 
     $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum_breadcrumb'] =
         '{title_legend},name,type;' .
@@ -875,6 +875,15 @@ if (method_exists('\System', 'getContainer')) {
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_sitemap_updated'] = array
     (
         'sql' => "int(10) NOT NULL default '0'"
+    );
+
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_move_all'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_move_all'],
+        'exclude'   => true,
+        'default'   => false,
+        'inputType' => 'checkbox',
+        'sql'       => "char(1) NOT NULL default '0'"
     );
 
 //    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_enable_maps'] = array
