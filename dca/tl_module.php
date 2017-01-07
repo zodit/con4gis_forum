@@ -499,7 +499,7 @@ if (method_exists('\System', 'getContainer')) {
         'default'   => 'Cut,Copy,Paste,PasteText,PasteFromWord,-,Undo,Redo,TextColor,Bold,Italic,Underline,Strike,Subscript,Superscript,-,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,-,RemoveFormat,NumberedList,BulletedList,Link,Unlink,Anchor,-,Image,Youtube,FileUpload,-,Table,Smiley,-,Maximize,Source',
         'inputType' => 'text',
         'eval'      => array('class' => '', 'style' => 'width:662px'),
-        'sql'       => "varchar(600) NOT NULL default 'Cut,Copy,Paste,PasteText,PasteFromWord,-,Undo,Redo,TextColor,Bold,Italic,Underline,Strike,Subscript,Superscript,-,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,-,RemoveFormat,NumberedList,BulletedList,Link,Unlink,Anchor,-,Image,Youtube,FileUpload,-,Smiley,-,Maximize,Source'"
+        'sql'       => 'varchar(600) NOT NULL default "Cut,Copy,Paste,PasteText,PasteFromWord,-,Undo,Redo,TextColor,Bold,Italic,Underline,Strike,Subscript,Superscript,-,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,-,RemoveFormat,NumberedList,BulletedList,Link,Unlink,Anchor,-,Image,Youtube,FileUpload,-,Smiley,-,Maximize,Source"'
     );
 
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_smileys'] = array
@@ -823,7 +823,7 @@ if (method_exists('\System', 'getContainer')) {
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_uploadTypes'],
         'inputType' => 'text',
         'eval'      => array('tl_class' => 'w50'),
-        'sql'       => "varchar(255) NOT NULL default 'jpg,png,gif,zip,pdf'"
+        'sql'       => 'varchar(255) NOT NULL default "jpg,png,gif,zip,pdf"'
     );
 
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_maxFileSize'] = array(
