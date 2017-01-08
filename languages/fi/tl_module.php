@@ -32,7 +32,7 @@
         'alkuperä',
         'Valitse parent foorumi aloittaaksesi. Jätä tyhjäksi nähdäksesi kaikki määritellyt foorumit.'
     );
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_navigation']   = array(
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_navigation']   = array(
         'Navigaatio',
         'Valitse navigaatio foorumille.'
     );
@@ -226,14 +226,16 @@
     /**
      * Legend
      */
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_general_legend'] = 'Foorumi - Yleinen';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_bbcodes_legend'] = 'Foorumi - BBCodes';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_pn_legend']      = 'Foorumi - Personal Messaging';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_boxes_legend']   = 'Foorumi - Boksi navigaatio asetukset';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_jqui_legend']    = 'Foorumi - jQuery UI';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend']    = 'Foorumi - Kartat (con4gis)';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_lib_legend']     = 'Foorumi - jQuery kokoelmat';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_sitemap_legend'] = 'Foorumi - XML sivukartta';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_general_legend'] = 'Foorumi - Yleinen';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_user_legend']         = 'Foorumi - User settings';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_sizes_legend']        = 'Foorumi - Sizes';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_legend'] = 'Foorumi - Editor (BBCodes)';
+    //$GLOBALS['TL_LANG']['tl_module']['c4g_forum_pn_legend']      = 'Foorumi - Personal Messaging';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_boxes_legend']   = 'Foorumi - Boksi navigaatio asetukset';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_jqui_legend']    = 'Foorumi - jQuery UI';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_maps_legend']    = 'Foorumi - Kartat (con4gis)';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_lib_legend']     = 'Foorumi - jQuery kokoelmat';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap_legend'] = 'Foorumi - XML sivukartta';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_legend']       = 'Foorumi - Search settings';
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb_legend'] = 'Breadcrumb';

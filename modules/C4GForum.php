@@ -129,7 +129,7 @@ namespace c4g\Forum;
                 true,                                               // add c4gJQuery GUI Core LIB
                 ($this->c4g_forum_jquery_lib == true),              // add JQuery
                 ($this->c4g_forum_jqui_lib == true),                // add JQuery UI
-                ($this->c4g_forum_comf_navigation == 'TREE'),       // add Tree Control
+                ($this->c4g_forum_navigation == 'TREE'),            // add Tree Control
                 ($this->c4g_forum_jqtable_lib == true),             // add Table Control
                 ($this->c4g_forum_jqhistory_lib == true),           // add history.js
                 ($this->c4g_forum_jqtooltip_lib == true),           // add simple tooltip
@@ -218,7 +218,7 @@ namespace c4g\Forum;
 
 
             $data['div'] = 'c4g_forum';
-            switch ($this->c4g_forum_comf_navigation) {
+            switch ($this->c4g_forum_navigation) {
                 case 'TREE':
                     $data['navPanel'] = true;
                     break;
@@ -777,7 +777,7 @@ namespace c4g\Forum;
             }
 
             if ($forumTree) {
-                if ($this->c4g_forum_comf_navigation == 'TREE') {
+                if ($this->c4g_forum_navigation == 'TREE') {
                     $return['treedata'] = $this->getForumTree($id, 0);
                 }
             }
@@ -2494,7 +2494,7 @@ JSPAGINATE;
                 "headline"    => $this->getHeadline($forum['headline'])
             );
 
-            if ($this->c4g_forum_comf_navigation == 'TREE') {
+            if ($this->c4g_forum_navigation == 'TREE') {
                 $return['treedata'] = $this->getForumTree($forumId, 0);
             }
 
@@ -5101,7 +5101,7 @@ JSPAGINATE;
         public function getBreadcrumb($forumId)
         {
 
-            if (($this->c4g_forum_comf_navigation == 'TREE') || (!$this->c4g_forum_breadcrumb)) {
+            if (($this->c4g_forum_navigation == 'TREE') || (!$this->c4g_forum_breadcrumb)) {
                 return array();
             }
             $path = $this->helper->getForumPath($forumId, $this->c4g_forum_startforum);
@@ -5571,7 +5571,7 @@ JSPAGINATE;
                 } else {
                     switch ($request) {
                         case 'initnav' :
-                            switch ($this->c4g_forum_comf_navigation) {
+                            switch ($this->c4g_forum_navigation) {
                                 case 'TREE':
                                     $result = $this->performAction('forumtree');
                                     break;

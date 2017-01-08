@@ -24,8 +24,8 @@ $GLOBALS['TL_LANG']['MOD']['c4g_forum'] 			= array( 'Foren', 'Foren verwalten.' 
  */
 $GLOBALS['TL_LANG']['FMD']['c4g_forum'] 			= array('Forum (con4gis)',
 															'Mit diesem Modul binden Sie ein Forum ein.');
-$GLOBALS['TL_LANG']['FMD']['c4g_forum_comfort'] 	= array('Forum (con4gis) - Komfortsicht',
-															'Mit diesem Modul binden Sie ein Forum in der Komfortsicht ein.');
+//$GLOBALS['TL_LANG']['FMD']['c4g_forum_comfort'] 	= array('Forum (con4gis) - Komfortsicht',
+//															'Mit diesem Modul binden Sie ein Forum in der Komfortsicht ein.');
 $GLOBALS['TL_LANG']['FMD']['c4g_forum_breadcrumb'] 	= array('Forum (con4gis) - Navigationspfad',
 															'Mit diesem Modul binden Sie einen Navigationspfad für, über ein Forum verlinkte, Seiten ein.');
 $GLOBALS['TL_LANG']['FMD']['c4g_forum_pncenter']	= array('Forum (con4gis) - Persönliche Nachrichten',
