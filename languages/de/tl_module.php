@@ -251,7 +251,7 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_legend'] = 'Forum - Editoreinstellungen (BBCodes)';
     //$GLOBALS['TL_LANG']['tl_module']['c4g_forum_pn_legend']      = 'Forum - Persönliche Nachrichten';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_boxes_legend']   = 'Forum - Einstellungen für Kachelsicht';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_jqui_legend']    = 'Forum - jQuery UI';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_jqui_legend']    = 'Forum - Styling (jQuery UI)';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_maps_legend']    = 'Forum - Kartenanbindung (con4gis-Maps)';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_lib_legend']     = 'Forum - jQuery Bibliotheken';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap_legend'] = 'Forum - XML-Sitemap';
