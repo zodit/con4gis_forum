@@ -1685,7 +1685,7 @@ JSPAGINATE;
             $data = '<div class="c4gForumNewThread">' .
                     '<div class="c4gForumNewThreadName">' .
                     \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREAD') . ':<br/>' .
-                    '<input name="thread" type="text" class="formdata ui-corner-all" size="80" maxlength="100" /><br />' .
+                    '<input name="thread" type="text" class="formdata ui-corner-all" size="80" maxlength="255" /><br />' .
                     '</div>';
 
             $data .= $this->getThreadDescForForm('c4gForumNewThreadDesc', $forumId, 'newthread', '');
@@ -1828,7 +1828,7 @@ JSPAGINATE;
             $data .= '<div class="c4gForumNewPost">' .
                      '<div class="c4gForumNewPostSubject">' .
                      $GLOBALS['TL_LANG']['C4G_FORUM']['SUBJECT'] . ':<br/>' .
-                     '<input name="subject" value="' . $thread['threadname'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="100" /><br />' .
+                     '<input name="subject" value="' . $thread['threadname'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="255" /><br />' .
                      '</div>';
             $data .= $this->getTagForm('c4gForumNewPostPostTags', $aPost, 'newpost');
 
@@ -3772,7 +3772,7 @@ JSPAGINATE;
             $data .= '<div class="c4gForumEditThread">' .
                      '<div class="c4gForumEditThreadName">' .
                      \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREAD') . ':<br/>' .
-                     '<input name="thread" value="' . $thread['name'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="100" /><br />';
+                     '<input name="thread" value="' . $thread['name'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="255" /><br />';
             $data .= '</div>';
             $data .= $this->getThreadSortForForm('c4gForumEditThreadSort', $thread['forumid'], 'editthread', $thread['sort']);
             $data .= '</div>';
