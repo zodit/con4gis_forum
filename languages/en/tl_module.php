@@ -34,7 +34,7 @@
         'Origin',
         'Choose the parent forum to start from. Leave empty to see all defined forums.'
     );
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_navigation']   = array(
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_navigation']   = array(
         'Navigation',
         'Choose the navigation for the forum.'
     );
@@ -223,17 +223,22 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_displayonly'] = array("Entry for searching usernames and periods", "");
     //$GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_period']      = array("Periodsearch", "");
 
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_move_all'] = array("Move threads in other forum modules too (not recommend!)", "Just move threads between forum modules with same or similar settings!");
+
+
     /**
      * Legend
      */
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_general_legend'] = 'Forum - General';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_bbcodes_legend'] = 'Forum - BBCodes';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_pn_legend']      = 'Forum - Personal Messaging';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_boxes_legend']   = 'Forum - Box navigation settings';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_jqui_legend']    = 'Forum - jQuery UI';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend']    = 'Forum - Maps (con4gis)';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_lib_legend']     = 'Forum - jQuery libraries';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_sitemap_legend'] = 'Forum - XML sitemap';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_general_legend'] = 'Forum - General';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_user_legend']         = 'Forum - User settings';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_sizes_legend']        = 'Forum - Sizes';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_legend'] = 'Forum - Editor (BBCodes)';
+    //$GLOBALS['TL_LANG']['tl_module']['c4g_forum_pn_legend']      = 'Forum - Personal Messaging';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_boxes_legend']   = 'Forum - Box navigation settings';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_jqui_legend']    = 'Forum - Styling (jQuery UI)';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_maps_legend']    = 'Forum - Maps (con4gis-Maps)';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_lib_legend']     = 'Forum - jQuery libraries';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap_legend'] = 'Forum - XML sitemap';
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_legend']       = 'Forum - Search settings';
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb_legend'] = 'Breadcrumb';
@@ -242,6 +247,7 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_format'] = array("Paginator-Format", "See <a onclick='window.open(this.href);return false;' href='http://www.xarg.org/2011/09/jquery-pagination-revised'>http://www.xarg.org/2011/09/jquery-pagination-revised</a>");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_perpage'] = array("Entries per page", "");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_legend'] = 'Forum - Pagination';
+
 
     /**
      * References

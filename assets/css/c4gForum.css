@@ -286,19 +286,19 @@
 */
 
 
-fieldset, label {
-    margin: 0;
-    padding: 0;
-}
+/*fieldset, label {*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+/*}*/
 
-body {
-    margin: 20px;
-}
+/*body {*/
+    /*margin: 20px;*/
+/*}*/
 
-h1 {
-    font-size: 1.5em;
-    margin: 10px;
-}
+/*h1 {*/
+    /*font-size: 1.5em;*/
+    /*margin: 10px;*/
+/*}*/
 
 /****** Style Star Rating Widget *****/
 
@@ -329,15 +329,16 @@ h1 {
 .c4gGuiDataTable .rating_static {
 	border: none;
 	float: left;
-	padding-top: 6px;
+	padding-top: 0px;
+	font-size: 12px;
 }
 
 .c4gGuiDataTable .rating_wrapper .score{
-	padding-top: 12px;
+	padding-top: 6px;
 	padding-left:6px;
 	display:inline-block;
 	color:#aaa;
-	font-size: 10px;
+	font-size: 12px;
 }
 
 .rating > input {

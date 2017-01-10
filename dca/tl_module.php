@@ -27,17 +27,17 @@ if (method_exists('\System', 'getContainer')) {
      */
     $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum'] =
         '{title_legend},name,headline,type;' .
-        '{c4g_forum_comf_general_legend},c4g_forum_type,c4g_forum_size,c4g_forum_scroll,c4g_forum_startforum,c4g_forum_comf_navigation,c4g_forum_threadclick,c4g_forum_show_realname,c4g_forum_postsort,c4g_forum_collapsible_posts,c4g_forum_breadcrumb,c4g_forum_hide_intropages,c4g_forum_jumpTo,c4g_forum_language,c4g_forum_tooltip,c4g_forum_show_last_post_on_new,c4g_forum_rating_enabled,c4g_forum_rating_color,c4g_forum_show_post_count,c4g_forum_show_avatars,c4g_forum_show_online_status,c4g_forum_show_ranks;' .
-        '{c4g_forum_comf_pn_legend:hide},c4g_forum_show_pn_button;' .
-        '{c4g_forum_comf_bbcodes_legend:hide},c4g_forum_bbcodes;' .
-        '{c4g_forum_search_legend:hide},c4g_forum_search_onlythreads, c4g_forum_search_wholewords, c4g_forum_use_tags_in_search, c4g_forum_search_forums, c4g_forum_search_displayonly;' .
-        '{c4g_forum_comf_boxes_legend:hide},c4g_forum_boxes_text,c4g_forum_boxes_subtext,c4g_forum_boxes_lastpost,c4g_forum_boxes_center;' .
-        '{c4g_forum_comf_jqui_legend:hide},c4g_forum_jqui;' .
-        '{c4g_forum_comf_lib_legend:hide},c4g_forum_jquery_lib,c4g_forum_jqtable_lib,c4g_forum_jqhistory_lib,c4g_forum_jqtooltip_lib,c4g_forum_jqscrollpane_lib;' .
-        '{c4g_forum_comf_sitemap_legend:hide},c4g_forum_sitemap;' .
-        //'{c4g_forum_tags_legend:hide},c4g_forum_use_tags_in_search;' .
+        '{c4g_forum_general_legend},c4g_forum_type,c4g_forum_startforum,c4g_forum_navigation,c4g_forum_threadclick,c4g_forum_postsort,c4g_forum_collapsible_posts,c4g_forum_breadcrumb,c4g_forum_hide_intropages,c4g_forum_jumpTo,c4g_forum_language,c4g_forum_tooltip,c4g_forum_show_last_post_on_new;' .
+        '{c4g_forum_user_legend:hide},c4g_forum_show_realname,c4g_forum_rating_enabled,c4g_forum_rating_color,c4g_forum_show_post_count,c4g_forum_show_avatars,c4g_forum_show_online_status,c4g_forum_show_ranks,c4g_forum_show_pn_button;'.
+        '{c4g_forum_bbcodes_legend:hide},c4g_forum_bbcodes;' .
+        '{c4g_forum_sizes_legend:hide},c4g_forum_size,c4g_forum_scroll;' .
         '{c4g_forum_pagination_legend:hide},c4g_forum_pagination_active,c4g_forum_pagination_perpage,c4g_forum_pagination_format;' .
-        '{expert_legend:hide},guests,cssID,space';
+        '{c4g_forum_search_legend:hide},c4g_forum_search_onlythreads, c4g_forum_search_wholewords, c4g_forum_use_tags_in_search, c4g_forum_search_forums, c4g_forum_search_displayonly;' .
+        '{c4g_forum_boxes_legend:hide},c4g_forum_boxes_text,c4g_forum_boxes_subtext,c4g_forum_boxes_lastpost,c4g_forum_boxes_center;' .
+        '{c4g_forum_jqui_legend:hide},c4g_forum_jqui;' .
+        '{c4g_forum_lib_legend:hide},c4g_forum_jquery_lib,c4g_forum_jqtable_lib,c4g_forum_jqhistory_lib,c4g_forum_jqtooltip_lib,c4g_forum_jqscrollpane_lib;' .
+        '{c4g_forum_sitemap_legend:hide},c4g_forum_sitemap;' .
+        '{expert_legend:hide},guests,cssID,space,c4g_forum_move_all';
 
     $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum_breadcrumb'] =
         '{title_legend},name,type;' .
@@ -204,9 +204,9 @@ if (method_exists('\System', 'getContainer')) {
         'sql'       => "varchar(255) NOT NULL default '[< ncn >]'"
     );
 
-    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_comf_navigation'] = array
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_navigation'] = array
     (
-        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_navigation'],
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_navigation'],
         'exclude'   => true,
         'inputType' => 'select',
         'options'   => array('BOXES', 'TREE'),
@@ -492,15 +492,28 @@ if (method_exists('\System', 'getContainer')) {
         'eval'      => array('maxlength' => 128, "style" => 'width: 200px', 'trailingSlash' => true),
         'sql'       => "char(128) NOT NULL default ''"
     );
-    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_toolbaritems']   = array
-    (
-        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems'],
-        'exclude'   => true,
-        'default'   => 'Cut,Copy,Paste,PasteText,PasteFromWord,-,Undo,Redo,TextColor,Bold,Italic,Underline,Strike,Subscript,Superscript,-,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,-,RemoveFormat,NumberedList,BulletedList,Link,Unlink,Anchor,-,Image,Youtube,FileUpload,-,Table,Smiley,-,Maximize,Source',
-        'inputType' => 'text',
-        'eval'      => array('class' => '', 'style' => 'width:662px'),
-        'sql'       => "varchar(600) NOT NULL default 'Cut,Copy,Paste,PasteText,PasteFromWord,-,Undo,Redo,TextColor,Bold,Italic,Underline,Strike,Subscript,Superscript,-,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,-,RemoveFormat,NumberedList,BulletedList,Link,Unlink,Anchor,-,Image,Youtube,FileUpload,-,Smiley,-,Maximize,Source'"
-    );
+
+    if ((version_compare( VERSION, '4', '>=' ))) {
+        $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_toolbaritems']   = array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems'],
+            'exclude'   => true,
+            'default'   => 'Cut,Copy,Paste,PasteText,PasteFromWord,-,Undo,Redo,TextColor,Bold,Italic,Underline,Strike,Subscript,Superscript,-,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,-,RemoveFormat,NumberedList,BulletedList,Link,Unlink,Anchor,-,Image,Youtube,FileUpload,-,Table,Smiley,-,Maximize,Source',
+            'inputType' => 'text',
+            'eval'      => array('class' => '', 'style' => 'width:662px'),
+            'sql'       => 'varchar(600) NOT NULL default "Cut,Copy,Paste,PasteText,PasteFromWord,-,Undo,Redo,TextColor,Bold,Italic,Underline,Strike,Subscript,Superscript,-,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,-,RemoveFormat,NumberedList,BulletedList,Link,Unlink,Anchor,-,Image,Youtube,FileUpload,-,Smiley,-,Maximize,Source"'
+        );
+    } else {
+        $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_toolbaritems']   = array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems'],
+            'exclude'   => true,
+            'default'   => 'Cut,Copy,Paste,PasteText,PasteFromWord,-,Undo,Redo,TextColor,Bold,Italic,Underline,Strike,Subscript,Superscript,-,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,-,RemoveFormat,NumberedList,BulletedList,Link,Unlink,Anchor,-,Image,Youtube,FileUpload,-,Table,Smiley,-,Maximize,Source',
+            'inputType' => 'text',
+            'eval'      => array('class' => '', 'style' => 'width:662px'),
+            'sql'       => "varchar(600) NOT NULL default 'Cut,Copy,Paste,PasteText,PasteFromWord,-,Undo,Redo,TextColor,Bold,Italic,Underline,Strike,Subscript,Superscript,-,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,-,RemoveFormat,NumberedList,BulletedList,Link,Unlink,Anchor,-,Image,Youtube,FileUpload,-,Smiley,-,Maximize,Source'"
+        );
+    }
 
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_smileys'] = array
     (
@@ -625,7 +638,7 @@ if (method_exists('\System', 'getContainer')) {
         'options'                 => array('base','black-tie','blitzer','cupertino','dark-hive','dot-luv','eggplant','excite-bike','flick','hot-sneaks','humanity','le-frog','mint-choc','overcast','pepper-grinder','redmond','smoothness','south-street','start','sunny','swanky-purse','trontastic','ui-darkness','ui-lightness','vader'),
         'eval'                    => array('mandatory'=>true, 'submitOnChange' => true),
         'reference'               => &$GLOBALS['TL_LANG']['tl_module']['c4g_references'],
-        'sql'                     => "char(100) NOT NULL default 'text'"
+        'sql'                     => "char(100) NOT NULL default 'base'"
     );
 
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_uitheme_css_src'] = array
@@ -819,12 +832,21 @@ if (method_exists('\System', 'getContainer')) {
         'sql'       => "int(10) unsigned NOT NULL default '0'"
     );
 
-    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_uploadTypes'] = array(
-        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_uploadTypes'],
-        'inputType' => 'text',
-        'eval'      => array('tl_class' => 'w50'),
-        'sql'       => "varchar(255) NOT NULL default 'jpg,png,gif,zip,pdf'"
-    );
+    if ((version_compare( VERSION, '4', '>=' ))) {
+        $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_uploadTypes'] = array(
+            'label' => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_uploadTypes'],
+            'inputType' => 'text',
+            'eval' => array('tl_class' => 'w50'),
+            'sql' => 'varchar(255) NOT NULL default "jpg,png,gif,zip,pdf"'
+        );
+    }else {
+        $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_uploadTypes'] = array(
+            'label' => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_uploadTypes'],
+            'inputType' => 'text',
+            'eval' => array('tl_class' => 'w50'),
+            'sql' => "varchar(255) NOT NULL default 'jpg,png,gif,zip,pdf'"
+        );
+    }
 
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_maxFileSize'] = array(
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_maxFileSize'],
@@ -875,6 +897,16 @@ if (method_exists('\System', 'getContainer')) {
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_sitemap_updated'] = array
     (
         'sql' => "int(10) NOT NULL default '0'"
+    );
+
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_move_all'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_move_all'],
+        'exclude'   => true,
+        'default'   => false,
+        'inputType' => 'checkbox',
+        'eval'      => array('tl_class'=>'clr long'),
+        'sql'       => "char(1) NOT NULL default '0'"
     );
 
 //    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_enable_maps'] = array

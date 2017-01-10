@@ -32,9 +32,9 @@
         'Startpunkt des Forums',
         'Wählen Sie hier den Forenbereich bei dem das Forum starten soll. Wenn Sie keine Angabe machen, dann sind alle Forenbereiche verfügbar.'
     );
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_navigation']   = array(
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_navigation']   = array(
         'Navigation',
-        'Wählen Sie die Art der Navigation für das Forum aus.'
+        'Wählen Sie die Art der Navigation für das Forum aus. Hinweis: die Baumstruktur wird nicht gepflegt und scheinbar auch nicht mehr verwendet (nicht empfohlen).'
     );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_threadclick']       = array(
         'Aktion bei Klick auf Thema',
@@ -180,7 +180,7 @@
     );
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_enable_maps'] = array(
-        'Kartenanbindung aktivieren (erfordert con4gis-Maps)',
+        'Kartenanbindung aktivieren',
         'Bei Aktivierung dieses Schalters kann ein Mitglied mit entsprechenden Rechten Beiträge mit Geo-Koordinaten versehen, vorausgesetzt die Karten-Funktionalität wurde im entsprechenden Forenbereich aktiviert. Funktioniert nur, wenn die Contao-Erweiterung \'con4gis-Maps\' installiert ist! '
     );
 
@@ -207,7 +207,7 @@
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb_jumpTo'] = array(
         'Referenzseite',
-        'Wählen Sie hier die Seite aus, auf der sich das Frontend-Modul mit dem Diskussionsforum befindet.'
+        'Wählen Sie hier die Seite aus, auf der sich das Frontend-Modul mit dem Forum befindet.'
     );
 
 
@@ -233,29 +233,30 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_active'] = array("Pagination aktivieren", "");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_format'] = array("Paginator-Format", "Siehe <a onclick='window.open(this.href);return false;' href='http://www.xarg.org/2011/09/jquery-pagination-revised'>http://www.xarg.org/2011/09/jquery-pagination-revised</a>");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_perpage'] = array("Einträge pro Seite", "");
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_legend'] = 'Diskussionsforum - Pagination';
 
-    //$GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_search'] = array();
-    //$GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_for'] = array("");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_onlythreads'] = array("Checkbox: nur nach Threads suchen aktivieren", "Dadurch können Sie Beiträge bzw. Kommentare von der Suche ausschließen.");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_wholewords']  = array("Checkbox: nur ganze Wörter suchen aktivieren", "Dadurch können sie die Suche auf den genauen Wortlaut einschränken.");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_use_tags_in_search'] = array("Schlagworte zur Auswahl in Suchmaske anzeigen", "Sie können die in den Forenbereichen festgelegten Schlagworte auswählen und damit die Suche einschränken. Hinweis: wenn Sie in den Forenbereichen keine Tags gesetzt haben. Wird die Auswahl im Frontend automatisch nicht angeboten.");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_forums']      = array("Forenauswahl anzeigen", "So kann die Auswahl auf einen bestimmten Forenbereich eingeschränkt werden.");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_displayonly'] = array("Suche (Eingabe) von Benutzernamen ermöglichen", "Sie können Benutzernamen eingeben und damit und über einen Zeitraum die Suche einschränken.");
 
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_move_all'] = array("Themen auch in andere Forenmodule verschieben (nicht empfohlen!)", "Diese Funktion sollte mit Vorsicht und nur zwischen gleichartigen Forenmodulen verwendet werden! Es werden Forenbereiche aller Module als Ziel angeboten.");
+
     /**
      * Legend
      */
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_general_legend'] = 'Diskussionsforum - Allgemein';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_bbcodes_legend'] = 'Diskussionsforum - BBCodes';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_pn_legend']      = 'Diskussionsforum - Persönliche Nachrichten';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_boxes_legend']   = 'Diskussionsforum - Einstellungen für Kachelsicht';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_jqui_legend']    = 'Diskussionsforum - jQuery UI';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_maps_legend']    = 'Diskussionsforum - Kartenanbindung (con4gis-Maps)';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_lib_legend']     = 'Diskussionsforum - jQuery Bibliotheken';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_comf_sitemap_legend'] = 'Diskussionsforum - XML-Sitemap';
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_legend']       = 'Diskussionsforum - Sucheinstellungen';
-    //$GLOBALS['TL_LANG']['tl_module']['c4g_forum_tags_legend']         = 'Diskussionsforum - Schlagworte';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_general_legend'] = 'Forum - Grundeinstellungen';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_user_legend']    = 'Forum - Benutzereinstellungen';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_sizes_legend']   = 'Forum - Größeneinstellungen';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_legend'] = 'Forum - Editoreinstellungen (BBCodes)';
+    //$GLOBALS['TL_LANG']['tl_module']['c4g_forum_pn_legend']      = 'Forum - Persönliche Nachrichten';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_boxes_legend']   = 'Forum - Einstellungen für Kachelsicht';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_jqui_legend']    = 'Forum - Styling (jQuery UI)';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_maps_legend']    = 'Forum - Kartenanbindung (con4gis-Maps)';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_lib_legend']     = 'Forum - jQuery Bibliotheken';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_sitemap_legend'] = 'Forum - XML-Sitemap';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_legend']       = 'Forum - Sucheinstellungen';
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_pagination_legend']   = 'Forum - Seiten und Nummerierung';
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_breadcrumb_legend'] = 'Navigationspfad';
 

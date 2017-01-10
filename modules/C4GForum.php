@@ -129,7 +129,7 @@ namespace c4g\Forum;
                 true,                                               // add c4gJQuery GUI Core LIB
                 ($this->c4g_forum_jquery_lib == true),              // add JQuery
                 ($this->c4g_forum_jqui_lib == true),                // add JQuery UI
-                ($this->c4g_forum_comf_navigation == 'TREE'),       // add Tree Control
+                ($this->c4g_forum_navigation == 'TREE'),            // add Tree Control
                 ($this->c4g_forum_jqtable_lib == true),             // add Table Control
                 ($this->c4g_forum_jqhistory_lib == true),           // add history.js
                 ($this->c4g_forum_jqtooltip_lib == true),           // add simple tooltip
@@ -218,7 +218,7 @@ namespace c4g\Forum;
 
 
             $data['div'] = 'c4g_forum';
-            switch ($this->c4g_forum_comf_navigation) {
+            switch ($this->c4g_forum_navigation) {
                 case 'TREE':
                     $data['navPanel'] = true;
                     break;
@@ -627,6 +627,8 @@ namespace c4g\Forum;
                 "sInfoFiltered"  => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADS_FILTERED'),
                 "sInfoThousands" => '.',
                 "sLengthMenu"    => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADS_LENGTHMENU'),
+                "iDisplayLength" => 25,
+                "bLengthChange"  => true,
                 "sProcessing"    => $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_PROCESSING'],
                 "sSearch"        => $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_SEARCH'],
                 "sZeroRecords"   => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADS_NOTFOUND')
@@ -777,7 +779,7 @@ namespace c4g\Forum;
             }
 
             if ($forumTree) {
-                if ($this->c4g_forum_comf_navigation == 'TREE') {
+                if ($this->c4g_forum_navigation == 'TREE') {
                     $return['treedata'] = $this->getForumTree($id, 0);
                 }
             }
@@ -1685,7 +1687,7 @@ JSPAGINATE;
             $data = '<div class="c4gForumNewThread">' .
                     '<div class="c4gForumNewThreadName">' .
                     \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREAD') . ':<br/>' .
-                    '<input name="thread" type="text" class="formdata ui-corner-all" size="80" maxlength="100" /><br />' .
+                    '<input name="thread" type="text" class="formdata ui-corner-all" size="80" maxlength="255" /><br />' .
                     '</div>';
 
             $data .= $this->getThreadDescForForm('c4gForumNewThreadDesc', $forumId, 'newthread', '');
@@ -1828,7 +1830,7 @@ JSPAGINATE;
             $data .= '<div class="c4gForumNewPost">' .
                      '<div class="c4gForumNewPostSubject">' .
                      $GLOBALS['TL_LANG']['C4G_FORUM']['SUBJECT'] . ':<br/>' .
-                     '<input name="subject" value="' . $thread['threadname'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="100" /><br />' .
+                     '<input name="subject" value="' . $thread['threadname'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="255" /><br />' .
                      '</div>';
             $data .= $this->getTagForm('c4gForumNewPostPostTags', $aPost, 'newpost');
 
@@ -2494,7 +2496,7 @@ JSPAGINATE;
                 "headline"    => $this->getHeadline($forum['headline'])
             );
 
-            if ($this->c4g_forum_comf_navigation == 'TREE') {
+            if ($this->c4g_forum_navigation == 'TREE') {
                 $return['treedata'] = $this->getForumTree($forumId, 0);
             }
 
@@ -2582,7 +2584,7 @@ JSPAGINATE;
                         "text"   => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'DEL_THREAD')
                     ),
                     array(
-                        "action" => 'closedialog:delthread' . $threadId,
+                        "action" => 'closedialog:delthread:' . $threadId,
                         "type"   => 'get',
                         "text"   => $GLOBALS['TL_LANG']['C4G_FORUM']['CANCEL']
                     )
@@ -2733,7 +2735,7 @@ JSPAGINATE;
             );
 
             $dialogbuttons [] = array(
-                "action" => 'closedialog:subscribethread' . $threadId,
+                "action" => 'closedialog:subscribethread:' . $threadId,
                 "type"   => 'get',
                 "text"   => $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['CANCEL']
             );
@@ -2924,7 +2926,8 @@ JSPAGINATE;
             $select = sprintf(\c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'MOVE_THREAD_TEXT'), $thread['threadname'], $thread['forumname']);
 
             // get forums as flat array (without hierarchy)
-            $forums = $this->helper->getForumsFromDB($this->c4g_forum_startforum, true, true);
+            $allModules = ($this->c4g_forum_move_all == "1");
+            $forums = $this->helper->getForumsFromDB($this->c4g_forum_startforum, true, true, 'pid', $allModules);
             $select .= '<select name="forum" class="formdata ui-corner-all">';
             foreach ($forums AS $forum) {
                 if ($forum['subforums'] == 0) {
@@ -2949,7 +2952,7 @@ JSPAGINATE;
             }
             $dialogbuttons[] =
                 array(
-                    "action" => 'closedialog:movethread' . $threadId,
+                    "action" => 'closedialog:movethread:' . $threadId,
                     "type"   => 'get',
                     "text"   => $GLOBALS['TL_LANG']['C4G_FORUM']['CANCEL']
                 );
@@ -3771,7 +3774,7 @@ JSPAGINATE;
             $data .= '<div class="c4gForumEditThread">' .
                      '<div class="c4gForumEditThreadName">' .
                      \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREAD') . ':<br/>' .
-                     '<input name="thread" value="' . $thread['name'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="100" /><br />';
+                     '<input name="thread" value="' . $thread['name'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="255" /><br />';
             $data .= '</div>';
             $data .= $this->getThreadSortForForm('c4gForumEditThreadSort', $thread['forumid'], 'editthread', $thread['sort']);
             $data .= '</div>';
@@ -4643,6 +4646,8 @@ JSPAGINATE;
                 "sInfoFiltered"  => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADS_FILTERED'),
                 "sInfoThousands" => '.',
                 "sLengthMenu"    => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADS_LENGTHMENU'),
+                "iDisplayLength" => 25,
+                "bLengthChange"  => true,
                 "sProcessing"    => $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_PROCESSING'],
                 "sSearch"        => $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_SEARCH'],
                 "sZeroRecords"   => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADS_NOTFOUND')
@@ -4945,6 +4950,8 @@ JSPAGINATE;
                 "sInfoFiltered"  => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADS_FILTERED'),
                 "sInfoThousands" => '.',
                 "sLengthMenu"    => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADS_LENGTHMENU'),
+                "iDisplayLength" => 25,
+                "bLengthChange"  => true,
                 "sProcessing"    => $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_PROCESSING'],
                 "sSearch"        => $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_SEARCH'],
                 "sZeroRecords"   => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADS_NOTFOUND')
@@ -5100,7 +5107,7 @@ JSPAGINATE;
         public function getBreadcrumb($forumId)
         {
 
-            if (($this->c4g_forum_comf_navigation == 'TREE') || (!$this->c4g_forum_breadcrumb)) {
+            if (($this->c4g_forum_navigation == 'TREE') || (!$this->c4g_forum_breadcrumb)) {
                 return array();
             }
             $path = $this->helper->getForumPath($forumId, $this->c4g_forum_startforum);
@@ -5570,7 +5577,7 @@ JSPAGINATE;
                 } else {
                     switch ($request) {
                         case 'initnav' :
-                            switch ($this->c4g_forum_comf_navigation) {
+                            switch ($this->c4g_forum_navigation) {
                                 case 'TREE':
                                     $result = $this->performAction('forumtree');
                                     break;
