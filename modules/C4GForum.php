@@ -627,6 +627,8 @@ namespace c4g\Forum;
                 "sInfoFiltered"  => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADS_FILTERED'),
                 "sInfoThousands" => '.',
                 "sLengthMenu"    => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADS_LENGTHMENU'),
+                "iDisplayLength" => 25,
+                "bLengthChange"  => true,
                 "sProcessing"    => $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_PROCESSING'],
                 "sSearch"        => $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_SEARCH'],
                 "sZeroRecords"   => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADS_NOTFOUND')
@@ -4644,6 +4646,8 @@ JSPAGINATE;
                 "sInfoFiltered"  => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADS_FILTERED'),
                 "sInfoThousands" => '.',
                 "sLengthMenu"    => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADS_LENGTHMENU'),
+                "iDisplayLength" => 25,
+                "bLengthChange"  => true,
                 "sProcessing"    => $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_PROCESSING'],
                 "sSearch"        => $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_SEARCH'],
                 "sZeroRecords"   => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADS_NOTFOUND')
@@ -4946,6 +4950,8 @@ JSPAGINATE;
                 "sInfoFiltered"  => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADS_FILTERED'),
                 "sInfoThousands" => '.',
                 "sLengthMenu"    => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADS_LENGTHMENU'),
+                "iDisplayLength" => 25,
+                "bLengthChange"  => true,
                 "sProcessing"    => $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_PROCESSING'],
                 "sSearch"        => $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_SEARCH'],
                 "sZeroRecords"   => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADS_NOTFOUND')
