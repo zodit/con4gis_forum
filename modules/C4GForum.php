@@ -1218,7 +1218,7 @@ namespace c4g\Forum;
             // Get different member properties and hand them over to the user data template.
             $oUserDataTemplate->iUserId = $oMember->id;
 
-            $oUserDataTemplate->c4g_forum_show_pn_button = ($this->c4g_forum_show_pn_button == '1' && !$preview);
+            $oUserDataTemplate->c4g_forum_show_pn_button = ($this->User->id && $this->c4g_forum_show_pn_button == '1' && !$preview);
             $oUserDataTemplate->pn_label = $GLOBALS['TL_LANG']['tl_c4g_forum_pn']['profile_compose'];
 
             $sJsLang = C4GForumPNCenter::getClientLangVars();
