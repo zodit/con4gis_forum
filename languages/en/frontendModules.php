@@ -58,12 +58,12 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST']               = 'Edit post';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_PREVIEW']       = 'Preview - Edit post';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_POST_CHANGES']       = 'Save changes to post';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']              = 'Post count';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']              = 'Posts';
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_COMMENT']             = 'Delete comment';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_COMMENT']            = 'Edit comment';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_COMMENT_PREVIEW']    = 'Preview - Edit comment';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_COMMENT_CHANGES']    = 'Save changes to comment';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']              = 'Comment count';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT_COUNT']           = 'Comments';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_AUTHOR_SHORT'] = 'Last';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST_SHORT']   = 'Last on';

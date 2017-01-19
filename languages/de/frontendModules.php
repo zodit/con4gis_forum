@@ -58,12 +58,12 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST']               = 'Bearbeiten';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_PREVIEW']       = 'Vorschau - Beitrag bearbeiten';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_POST_CHANGES']       = 'Speichern';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']              = 'Anzahl Beiträge';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']              = 'Beiträge';
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_COMMENT']             = 'Löschen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_COMMENT']            = 'Bearbeiten';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_COMMENT_PREVIEW']    = 'Vorschau - Kommentar bearbeiten';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_COMMENT_CHANGES']    = 'Speichern';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']              = 'Anzahl Kommentare';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT_COUNT']           = 'Kommentare';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_AUTHOR_SHORT'] = 'Letzter';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST_SHORT']   = 'Letzter am';
     $GLOBALS['TL_LANG']['C4G_FORUM']['AUTHOR']            = 'Verfasser';
@@ -101,7 +101,7 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_TAGS']           = 'Tags: %s';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_LINK_NEWWINDOW'] = 'Link: <a href="%s" target="_blank">%s</a>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_EDIT_INFO']             = '<b %s>%s</b> Mal geändert, zuletzt am <b %s>%s</b> von <b %s>%s</b>';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']                 = 'Beiträge';
+    //$GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']                 = 'Beiträge';
     $GLOBALS['TL_LANG']['C4G_FORUM']['memberHomepageLink']         = 'Homepage';
     $GLOBALS['TL_LANG']['C4G_FORUM']['memberFacebookLink']         = 'Facebook';
     $GLOBALS['TL_LANG']['C4G_FORUM']['memberTwitterLink']          = 'Twitter';
