@@ -120,9 +120,11 @@ namespace c4g\Forum;
             global $objPage;
             $this->initMembers();
 
+            $enableMaps = false;
             $useGoogleMaps = false;
             if ($this->c4g_forum_enable_maps) {
                 $useGoogleMaps = C4GForumHelper::isGoogleMapsUsed($this->Database);
+                $enableMaps = true;
             }
             // initialize used Javascript Libraries and CSS files
             \C4GJQueryGUI::initializeLibraries(
@@ -133,9 +135,9 @@ namespace c4g\Forum;
                 ($this->c4g_forum_jqtable_lib == true),             // add Table Control
                 ($this->c4g_forum_jqhistory_lib == true),           // add history.js
                 ($this->c4g_forum_jqtooltip_lib == true),           // add simple tooltip
-                ($this->c4g_forum_enable_maps == true),             // add C4GMaps
+                ($this->c4g_forum_enable_maps == $enableMaps),      // add C4GMaps
                 $useGoogleMaps,                                     // add C4GMaps - include Google Maps Javascript?
-                ($this->c4g_forum_enable_maps == true),             // add C4GMaps Feature Editor
+                ($this->c4g_forum_enable_maps == $enableMaps),      // add C4GMaps Feature Editor
                 ($this->c4g_forum_bbcodes == true),
                 ($this->c4g_forum_jqscrollpane_lib == true)         // add jScrollPane
             );
@@ -263,15 +265,14 @@ namespace c4g\Forum;
                 $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/assets/js/jquery.pagination.min.js";
                 $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/assets/js/jquery.hashchange.min.js";
             }
-            //TODO workaround until we can check enable_maps properly (need forum id)
-            if ($GLOBALS['con4gis_maps_extension']['installed']) {
+
+            if ($enableMaps) {
                 ResourceLoader::loadResources();
                 ResourceLoader::loadTheme();
-                static::$useMaps = true;
+                static::$useMaps = $enableMaps;
                 // load core resources for maps
                 \c4g\Core\ResourceLoader::loadResourcesForModule('maps');
             }
-
 
             $data['breadcrumbDelim'] = $this->c4g_forum_breadcrumb_jqui_layout ? '' : '>';
 
