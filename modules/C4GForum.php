@@ -1255,7 +1255,7 @@ namespace c4g\Forum;
             // Get different member properties and hand them over to the user data template.
             $oUserDataTemplate->iUserId = $oMember->id;
 
-            $oUserDataTemplate->c4g_forum_show_pn_button = ($this->User->id && $this->c4g_forum_show_pn_button == '1' && !$preview);
+            $oUserDataTemplate->c4g_forum_show_pn_button = ($this->User->id && ($this->User->id != $iAuthorId) && $this->c4g_forum_show_pn_button == '1' && !$preview);
             $oUserDataTemplate->pn_label = $GLOBALS['TL_LANG']['tl_c4g_forum_pn']['profile_compose'];
 
             $sJsLang = C4GForumPNCenter::getClientLangVars();
@@ -1789,13 +1789,14 @@ JSPAGINATE;
             $binImageUuid = deserialize(unserialize($this->c4g_forum_bbcodes_editor_imguploadpath));
             if ($binImageUuid) {
                 $imageUploadPath = \FilesModel::findByUuid(\Contao\StringUtil::binToUuid($binImageUuid[0]));
+
             }
 
             $data .= $this->getTagForm('c4gForumNewThreadPostTags', $aPost, 'newthread');
             $data .= '<div class="c4gForumNewThreadContent">' .
                      \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'POST') . ':<br/>' .
                      '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
-                     '<input type="hidden" name="uploadPath" value="' . $imageUploadPath . '">' .
+                     '<input type="hidden" name="uploadPath" value="' . $imageUploadPath->path . '">' .
                      '<input type="hidden" name="site" class="formdata" value="' . $sCurrentSite . '">' .
                      '<input type="hidden" name="hsite" class="formdata" value="' . $sCurrentSiteHashed . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea><br/>' .
@@ -1938,7 +1939,7 @@ JSPAGINATE;
                      '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
                      '<input type="hidden" name="site" class="formdata" value="' . $sCurrentSite . '">' .
                      '<input type="hidden" name="hsite" class="formdata" value="' . $sCurrentSiteHashed . '">' .
-                     '<input type="hidden" name="uploadPath" value="' . $imageUploadPath . '">' .
+                     '<input type="hidden" name="uploadPath" value="' . $imageUploadPath->path . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea>' .
                      '</div>';
 
@@ -3879,7 +3880,7 @@ JSPAGINATE;
                      '</div>';
             $data .= $this->getTagForm('c4gForumEditPostTags', $post, $dialogId);
 
-            if ($this->c4g_forum_rating_enabled) {
+            if (($post['authorid'] != $this->User->id) && $this->c4g_forum_rating_enabled) {
                 // Rating stars
                 $data .= '<div class="rating_wrapper">
                             <input type="hidden" name="rating" value="' . $post['rating'] . '" id="rating" class="formdata">
@@ -3902,10 +3903,16 @@ JSPAGINATE;
             $sCurrentSite = strtok(\Environment::get('httpReferer'),'?');
             $sCurrentSiteHashed = md5($sCurrentSite . \Config::get('encryptionKey'));
 
+            $binImageUuid = deserialize(unserialize($this->c4g_forum_bbcodes_editor_imguploadpath));
+            if ($binImageUuid) {
+                $imageUploadPath = \FilesModel::findByUuid(\Contao\StringUtil::binToUuid($binImageUuid[0]));
+            }
+
+
             $data .= '<div class="c4gForumEditPostContent">' .
                      \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'POST') . ':<br/>' .
                      '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
-                     '<input type="hidden" name="uploadPath" value="' . $imageUploadPath . '">' .
+                     '<input type="hidden" name="uploadPath" value="' . $imageUploadPath->path . '">' .
                      '<input type="hidden" name="site" class="formdata" value="' . $sCurrentSite . '">' .
                      '<input type="hidden" name="hsite" class="formdata" value="' . $sCurrentSiteHashed . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all">' . strip_tags($post['text']) . '</textarea>' .
