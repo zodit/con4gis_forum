@@ -1615,16 +1615,24 @@ class C4GForumHelper extends \System
 	 * @param int $threadId
 	 * @param int $charcount
 	 */
-	public function getFirstPostLimitedTextOfThreadFromDB($threadId,$charcount = 150, $bUseTitle = false)
+	public function getFirstPostLimitedTextOfThreadFromDB($threadId, $charcount = 150, $bUseTitle = false)
 	{
 		$sColumn = "text";
-		if($bUseTitle === true)$sColumn = "subject";
-		return $this->Database->prepare(
-				"SELECT LEFT(".$sColumn.", ? ) as intro FROM tl_c4g_forum_post ".
-				"WHERE pid = ?".
+		if($bUseTitle === true) {
+		    $sColumn = "subject";
+        }
+
+		$result = $this->Database->prepare(
+				"SELECT LEFT(".$sColumn.", ? ) AS intro FROM tl_c4g_forum_post ".
+				"WHERE pid = ? ".
 				"AND post_number = 1")
 				->execute($charcount, $threadId)->intro;
 
+		if ($result) {
+		    return $result;
+        }
+
+        return false;
 	}
 	/**
 	 *
@@ -1637,7 +1645,7 @@ class C4GForumHelper extends \System
 		if($bUseTitle === true)$sColumn = "subject";
 		return $this->Database->prepare(
 				"SELECT LEFT(".$sColumn.", ? ) as intro FROM tl_c4g_forum_post ".
-				"WHERE pid = ?".
+				"WHERE pid = ? ".
 				"AND post_number = (SELECT MAX(post_number) FROM tl_c4g_forum_post WHERE pid = ?)")
 				->execute($charcount, $threadId,$threadId)->intro;
 

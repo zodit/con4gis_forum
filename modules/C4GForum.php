@@ -773,12 +773,17 @@ namespace c4g\Forum;
             $buttons = $this->addDefaultButtons(array(), $id);
             $buttons = $this->addForumButtons($buttons, $id);
 
+            $tooltipcol = 11;
+            if ($this->c4g_forum_rating_enabled) {
+                $tooltipcol = 12;
+            }
+
             $return = array(
                 "contenttype"    => "datatable",
                 "contentdata"    => $data,
                 "contentoptions" => array(
                     "actioncol"     => 0,
-                    "tooltipcol"    => 11,
+                    "tooltipcol"    => $tooltipcol,
                     "selectOnHover" => true,
                     "clickAction"   => true
                 ),
@@ -4964,13 +4969,18 @@ JSPAGINATE;
                 $action = "forum:" . $forumId;
             }
 
+            $tooltipcol = 13;
+            if ($this->c4g_forum_rating_enabled) {
+                $tooltipcol = 14;
+            }
+
             $return = array(
                 "dialogclose"    => "search",
                 "contenttype"    => "datatable",
                 "contentdata"    => $data,
                 "contentoptions" => array(
                     "actioncol"     => 0,
-                    "tooltipcol"    => 13,
+                    "tooltipcol"    => $tooltipcol,
                     "selectOnHover" => true,
                     "clickAction"   => true
                 ),
@@ -5272,13 +5282,18 @@ JSPAGINATE;
                 $action = "forum:" . $forumId;
             }
 
+            $tooltipcol = 10;
+            if ($this->c4g_forum_rating_enabled) {
+                $tooltipcol = 11;
+            }
+
             $return = array(
                 "dialogclose"    => "search",
                 "contenttype"    => "datatable",
                 "contentdata"    => $data,
                 "contentoptions" => array(
                     "actioncol"     => 0,
-                    "tooltipcol"    => 10,
+                    "tooltipcol"    => $tooltipcol,
                     "selectOnHover" => true,
                     "clickAction"   => true
                 ),
