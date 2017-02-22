@@ -29,8 +29,8 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST']                    = 'Post';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POSTS']                   = 'Posts';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST']               = 'Last post';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST']                = 'New post';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_PREVIEW']        = 'Preview - New post';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST']                = 'Reply';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_PREVIEW']        = 'Preview - reply';
     $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT']                 = 'Comment';
     $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENTS']                = 'Comments';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_COMMENT']            = 'Last comment';
@@ -105,8 +105,8 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_EDIT_INFO']             = 'Edited <b %s>%s</b> times, last on <b %s>%s</b> by <b %s>%s</b>';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_THREAD_TITLE'] = 'New thread in forum "%s"';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_TITLE']   = 'New post in thread "%s" (Forum "%s")';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_MISSING']       = 'Please supply a text for your post!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_TITLE']   = 'New reply in thread "%s" (Forum "%s")';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_MISSING']       = 'Please enter a text for your post!';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_QUESTION_TITLE'] = 'New question in forum "%s"';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_COMMENT_TITLE']  = 'New comment on question "%s" (Forum "%s")';
@@ -117,7 +117,7 @@
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADNAME_MISSING']  = 'Please enter the thread!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['ERROR_SAVE_POST']     = 'Error saving post! Please try again or contact the administration of this forum.';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUCCESS_SAVE_POST']   = 'New post saved successfully!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUCCESS_SAVE_POST']   = 'Your reply has been saved successfully!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['ERROR_SAVE_THREAD']   = 'Error saving thread! Please try again or contact the administration of this forum.';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUCCESS_SAVE_THREAD'] = 'New thread saved successfully!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['BOX_LAST_POST']       = 'Last post on %s by %s in thread %s';

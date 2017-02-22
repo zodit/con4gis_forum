@@ -1432,7 +1432,7 @@ namespace c4g\Forum;
                                  array(
                                      "action" => 'newpost:' . $posts[0]['threadid'] . ':post' . $id,
                                      "type"   => 'get',
-                                     "text"   => $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST']
+                                     "text"   => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'NEW_POST')
                                  )
                              )
                 );
@@ -1565,7 +1565,7 @@ namespace c4g\Forum;
                                  array(
                                      "action" => 'newpost:' . $id . ':thread' . $id,
                                      "type"   => 'get',
-                                     "text"   => $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST']
+                                     "text"   => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'NEW_POST')
                                  )
                              )
                 );
