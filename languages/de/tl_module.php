@@ -134,7 +134,7 @@
     );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_uitheme_css_src']        = array(
         'jQuery UI ThemeRoller CSS Datei',
-        'Wählen Sie hier wenn gewünscht eine CSS Datei aus, die Sie mit dem jQuery UI ThemeRoller erstellt haben.'
+        'Wählen Sie hier wenn gewünscht eine CSS Datei aus, die Sie mit dem jQuery UI ThemeRoller erstellt haben (https://jqueryui.com/themeroller/).'
     );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_dialogsize']             = array(
         'Größe von Dialogen (Breite, Höhe)',
