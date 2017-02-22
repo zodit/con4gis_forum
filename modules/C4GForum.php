@@ -2268,10 +2268,28 @@ JSPAGINATE;
             if (!$access) {
                 return $this->getPermissionDenied($message);
             }
-            if (!$this->putVars['thread']) {
-                $return['usermessage'] = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADNAME_MISSING');
 
-                return $return;
+            $threadname = $this->putVars['thread'];
+            if (!$this->putVars['thread']) {
+                $found = false;
+                $languages = unserialize($this->c4g_forum_multilingual_languages);
+                if ($this->c4g_forum_multilingual && $languages) {
+                    foreach ($languages as $language) {
+                        if ($this->putVars['thread_'.$language]) {
+                            if ($threadname == $GLOBALS['TL_LANGUAGE']) {
+                                $threadname = $this->putVars['thread_'.$language];
+                            } else if (!$threadname) {
+                                $threadname = $this->putVars['thread_'.$language];
+                            }
+                            $found = true;
+                        }
+                    }
+                }
+
+                if (!$found) {
+                    $return['usermessage'] = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADNAME_MISSING');
+                    return $return;
+                }
             }
             if (!$this->putVars['post']) {
                 $return['usermessage'] = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'POST_MISSING');
@@ -2286,7 +2304,7 @@ JSPAGINATE;
             $post             = array();
             $post['username'] = $this->User->username;
             $post['creation'] = time();
-            $post['subject']  = nl2br(C4GUtils::secure_ugc($this->putVars['thread']));
+            $post['subject']  = nl2br(C4GUtils::secure_ugc($threadname));
             $post['tags']     = nl2br(C4GUtils::secure_ugc($this->putVars['tags']));
             $post['text']     = nl2br(C4GUtils::secure_ugc($this->putVars['post']));
             $post['linkname'] = C4GUtils::secure_ugc($this->putVars['linkname']);
@@ -2296,7 +2314,7 @@ JSPAGINATE;
             $return = array(
                 "dialogtype"    => "html",
                 "dialogdata"    => $data,
-                "dialogoptions" => $this->addDefaultDialogOptions(array("title" => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'NEW_THREAD') . ': ' . C4GUtils::secure_ugc($this->putVars['thread']))),
+                "dialogoptions" => $this->addDefaultDialogOptions(array("title" => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'NEW_THREAD') . ': ' . C4GUtils::secure_ugc($threadname))),
                 "dialogid"      => 'previewthread',
                 "dialogbuttons" => array(
                     array(
