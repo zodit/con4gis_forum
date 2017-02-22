@@ -152,6 +152,7 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapextend'] 			= 'Extend mapdata (con
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapedit'] 			= 'Edit maps: Location style';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_search'] 			= 'Search';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_latestthreads']		= 'Latest threads';
+$GLOBALS['TL_LANG']['tl_c4g_forum']['right_alllanguages']	    = 'Edit all languages (multilingual)';
 
 /**
  * Fulltext Indexing Configuration Texts

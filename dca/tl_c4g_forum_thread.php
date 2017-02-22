@@ -20,8 +20,8 @@ $GLOBALS['TL_DCA']['tl_c4g_forum_thread'] = array
     // Config
     'config' => array
     (
-        'dataContainer'               => 'Table',
-        'sql'                         => array
+        'dataContainer' => 'Table',
+        'sql'           => array
         (
             'keys' => array
             (
@@ -47,10 +47,6 @@ $GLOBALS['TL_DCA']['tl_c4g_forum_thread'] = array
         (
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
-//        'tstamp' => array
-//        (
-//            'sql'                     => "int(10) unsigned NOT NULL default '0'"
-//        ),
         'sort' => array
         (
             'sql'                     => "int(10) unsigned NOT NULL default '999'"

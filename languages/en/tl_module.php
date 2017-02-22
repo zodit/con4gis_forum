@@ -70,7 +70,18 @@
         'Frontend-Language',
         'Empty=determine automatically, de=German, en=English.'
     );
-
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_multilingual']      = array(
+        'multilingual entries',
+        'you can fill out some fields in user language. With right language switch, you can change the language.'
+    );
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_multilingual_languages'] = array(
+        'Frontend languages for all multilanguages fields',
+        'Select your languages.'
+    );
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_multilingual_language'] = array(
+        'Frontend languages',
+        ''
+    );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes']                       = array(
         'Use BBCodes',
         'Deactivate this checkbox, if you do not want to use BBCodes in your forum. Please take note, that deactivating BBCodes after they have already been used, may cause ugly formating-errors.'

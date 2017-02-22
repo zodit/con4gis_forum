@@ -68,7 +68,18 @@
         'Frontendin-kieli',
         'Tyhjä=määrittää automaattisesti, de=German, en=English fi=finnish.'
     );
-
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_multilingual']      = array(
+        'multilingual entries',
+        'you can fill out some fields in user language. With right language switch, you can change the language.'
+    );
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_multilingual_languages'] = array(
+        'Frontend languages for all multilanguages fields',
+        'Select your languages.'
+    );
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_multilingual_language'] = array(
+        'Frontend languages',
+        ''
+    );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes']                       = array(
         'Käytä BBCodea',
         'Deaktivoi tämä checkbox, jos et halua käyttää BBCodea tällä foorumilla. Huomioi, että BBCoden deaktivointi sen jälkeen, kun sitä on jo käytetty, saattaa aiheuttaa muotoilu-virheitä.'

@@ -27,7 +27,7 @@ if (method_exists('\System', 'getContainer')) {
      */
     $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum'] =
         '{title_legend},name,headline,type;' .
-        '{c4g_forum_general_legend},c4g_forum_type,c4g_forum_startforum,c4g_forum_navigation,c4g_forum_threadclick,c4g_forum_postsort,c4g_forum_collapsible_posts,c4g_forum_breadcrumb,c4g_forum_hide_intropages,c4g_forum_jumpTo,c4g_forum_language,c4g_forum_tooltip,c4g_forum_show_last_post_on_new;' .
+        '{c4g_forum_general_legend},c4g_forum_type,c4g_forum_startforum,c4g_forum_navigation,c4g_forum_threadclick,c4g_forum_postsort,c4g_forum_collapsible_posts,c4g_forum_breadcrumb,c4g_forum_hide_intropages,c4g_forum_jumpTo,c4g_forum_language,c4g_forum_multilingual,c4g_forum_tooltip,c4g_forum_show_last_post_on_new;' .
         '{c4g_forum_user_legend},c4g_forum_show_realname,c4g_forum_rating_enabled,c4g_forum_rating_color,c4g_forum_show_post_count,c4g_forum_show_avatars,c4g_forum_show_online_status,c4g_forum_show_ranks,c4g_forum_show_pn_button;'.
         '{c4g_forum_bbcodes_legend:hide},c4g_forum_bbcodes;' .
         '{c4g_forum_sizes_legend:hide},c4g_forum_size,c4g_forum_scroll;' .
@@ -55,6 +55,7 @@ if (method_exists('\System', 'getContainer')) {
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_show_avatars';
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_show_online_status';
     $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_show_ranks';
+    $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][]  = 'c4g_forum_multilingual';
 
     //$GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_tags']    = 'c4g_forum_sitemap_filename,c4g_forum_use_tags_in_search';
     $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_jqui']    = 'c4g_forum_jqui_lib,c4g_forum_uitheme_css_select,c4g_forum_uitheme_css_src,c4g_forum_dialogsize,c4g_forum_dialogs_embedded,c4g_forum_embdialogs_jqui,c4g_forum_breadcrumb_jqui_layout,c4g_forum_buttons_jqui_layout,c4g_forum_table_jqui_layout,c4g_forum_posts_jqui,c4g_forum_boxes_jqui_layout,c4g_forum_enable_scrollpane';
@@ -64,6 +65,7 @@ if (method_exists('\System', 'getContainer')) {
     $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_show_avatars']       = 'c4g_forum_avatar_size';
     $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_show_online_status'] = 'c4g_forum_member_online_time';
     $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_show_ranks']         = 'c4g_forum_member_ranks';
+    $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_forum_multilingual']  = 'c4g_forum_multilingual_languages';
 
     /***
      * Fields - General
@@ -426,6 +428,26 @@ if (method_exists('\System', 'getContainer')) {
         'sql'       => "char(5) NOT NULL default ''"
     );
 
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_multilingual'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_multilingual'],
+        'exclude'   => true,
+        'default'   => '',
+        'inputType' => 'checkbox',
+        'eval'      => array('submitOnChange' => true),
+        'sql'       => "char(1) NOT NULL default ''"
+    );
+
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_multilingual_languages'] = array
+    (
+        'label'      => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_multilingual_language'],
+        'exclude'    => true,
+        'default'    => array('de','en','fi'),
+        'inputType'  => 'select',
+        'options'    => \System::getLanguages(),
+        'eval'       => array('multiple' => true, 'chosen' => true, 'style' => 'width: 120px'),
+        'sql'        => "blob NULL"
+    );
 
     /***
      * Fields - BBCodes

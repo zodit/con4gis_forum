@@ -153,6 +153,7 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapextend'] 		= 'Kartendaten erweiter
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapedit_style'] 	= 'Kartendaten editieren: Lokationsstil';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_search'] 		= 'Suchen';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_latestthreads']	= 'Neue Themen';
+$GLOBALS['TL_LANG']['tl_c4g_forum']['right_alllanguages']	= 'Alle Sprachen editieren (Mehrsprachigkeit)';
 
 /**
  * Fulltext Indexing Configuration Texts

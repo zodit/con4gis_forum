@@ -151,6 +151,7 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapextend'] 			= 'Pidennä kartan dat
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapedit'] 			= 'Muokkaa karttoja: Sijainnin tyyli';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_search'] 			= 'Etsi';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_latestthreads']		= 'Viimeisimmät threadit';
+$GLOBALS['TL_LANG']['tl_c4g_forum']['right_alllanguages']	    = 'Edit all languages (multilingual)';
 
 /**
  * Fulltext Indexing Configuration Texts
