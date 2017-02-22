@@ -92,7 +92,7 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_pn_button']                = array('Private messages','Show button for private messages');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor']                = array('Käytä WYSIWYG-Editoria', 'VAROITUS: Tämä ominaisuus toimii vain sulautetuilla foorumeilla!');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems']   = array('WYSIWYG-Editori tooltip napit', '');
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath']  = array('Kuvan latauskansio', 'Päätä minne ladatut kuvat pitäisi varastoida');
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath']  = array('Kuvan latauskansio', 'Päätä minne ladatut kuvat pitäisi varastoida. Ylimääräinen kansio joka on nimetty päivämäärän mukaan on luotu tänne');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_fileuploadpath'] = array('Tiedoston latauskansio', 'Päätä minne ladatut tiedostot pitäisi varastoida. Ylimääräinen kansio joka on nimetty päivämäärän mukaan on luotu tänne');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_autourl'] = array(
         'Automaattisesti tunnista URL',

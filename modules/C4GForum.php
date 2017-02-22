@@ -237,8 +237,18 @@ namespace c4g\Forum;
             $data['embedDialogs']        = $this->c4g_forum_dialogs_embedded;
             $data['jquiEmbeddedDialogs'] = $this->dialogs_jqui;
 
-            \Contao\Session::getInstance()->set("con4gisImageUploadPath", $this->c4g_forum_bbcodes_editor_imguploadpath);
-            \Contao\Session::getInstance()->set("con4gisFileUploadPath", $this->c4g_forum_bbcodes_editor_fileuploadpath);
+            $binImageUuid = deserialize(unserialize($this->c4g_forum_bbcodes_editor_imguploadpath));
+            if ($binImageUuid) {
+                $imageUploadPath = \FilesModel::findByUuid(\Contao\StringUtil::binToUuid($binImageUuid[0]));
+            }
+            \Contao\Session::getInstance()->set("con4gisImageUploadPath", $imageUploadPath->path.'/');
+
+            $binFileUuid = deserialize(unserialize($this->c4g_forum_bbcodes_editor_fileuploadpath));
+            if ($binFileUuid) {
+                $fileUploadPath = \FilesModel::findByUuid(\Contao\StringUtil::binToUuid($binFileUuid[0]));
+            }
+            \Contao\Session::getInstance()->set("con4gisFileUploadPath", $fileUploadPath->path.'/');
+
             \Contao\Session::getInstance()->set("c4g_forum_bbcodes_editor_uploadTypes", $this->c4g_forum_bbcodes_editor_uploadTypes);
             \Contao\Session::getInstance()->set("c4g_forum_bbcodes_editor_maxFileSize", $this->c4g_forum_bbcodes_editor_maxFileSize);
             \Contao\Session::getInstance()->set("c4g_forum_bbcodes_editor_imageWidth", $this->c4g_forum_bbcodes_editor_imageWidth);
@@ -1776,11 +1786,16 @@ JSPAGINATE;
             $sCurrentSite = strtok(\Environment::get('httpReferer'),'?');
             $sCurrentSiteHashed = md5($sCurrentSite . \Config::get('encryptionKey'));
 
+            $binImageUuid = deserialize(unserialize($this->c4g_forum_bbcodes_editor_imguploadpath));
+            if ($binImageUuid) {
+                $imageUploadPath = \FilesModel::findByUuid(\Contao\StringUtil::binToUuid($binImageUuid[0]));
+            }
+
             $data .= $this->getTagForm('c4gForumNewThreadPostTags', $aPost, 'newthread');
             $data .= '<div class="c4gForumNewThreadContent">' .
                      \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'POST') . ':<br/>' .
                      '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
-                     '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
+                     '<input type="hidden" name="uploadPath" value="' . $imageUploadPath . '">' .
                      '<input type="hidden" name="site" class="formdata" value="' . $sCurrentSite . '">' .
                      '<input type="hidden" name="hsite" class="formdata" value="' . $sCurrentSiteHashed . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea><br/>' .
@@ -1923,7 +1938,7 @@ JSPAGINATE;
                      '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
                      '<input type="hidden" name="site" class="formdata" value="' . $sCurrentSite . '">' .
                      '<input type="hidden" name="hsite" class="formdata" value="' . $sCurrentSiteHashed . '">' .
-                     '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
+                     '<input type="hidden" name="uploadPath" value="' . $imageUploadPath . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea>' .
                      '</div>';
 
@@ -3890,7 +3905,7 @@ JSPAGINATE;
             $data .= '<div class="c4gForumEditPostContent">' .
                      \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'POST') . ':<br/>' .
                      '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
-                     '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
+                     '<input type="hidden" name="uploadPath" value="' . $imageUploadPath . '">' .
                      '<input type="hidden" name="site" class="formdata" value="' . $sCurrentSite . '">' .
                      '<input type="hidden" name="hsite" class="formdata" value="' . $sCurrentSiteHashed . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all">' . strip_tags($post['text']) . '</textarea>' .

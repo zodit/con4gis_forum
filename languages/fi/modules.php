@@ -23,8 +23,6 @@ $GLOBALS['TL_LANG']['MOD']['c4g_forum'] 			= array( 'Foorumit', 'Hallinnoiva foo
  */
 $GLOBALS['TL_LANG']['FMD']['c4g_forum'] 			= array('Foorumi (con4gis)',
 															'Tämä moduuli antaa sinun integroida foorumeita.');
-$GLOBALS['TL_LANG']['FMD']['c4g_forum_comfort'] 	= array('Foorumi (con4gis) - Comfort view',
-															'Tämä moduuli antaa sinun integroida foorumeita käyttäen Comfort viewiä.');
 $GLOBALS['TL_LANG']['FMD']['c4g_forum_breadcrumb'] 	= array('Foorumi (con4gis) - Breadcrumb',
 															'Tämä moduuli antaa sinun integroida foorumin breadcrumbia sivuilla jotka ovat linkattu foorumiin.');
 $GLOBALS['TL_LANG']['FMD']['c4g_forum_pncenter']   	= array('Forum (con4gis) - Private messages',

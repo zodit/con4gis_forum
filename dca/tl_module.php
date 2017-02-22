@@ -501,18 +501,24 @@ if (method_exists('\System', 'getContainer')) {
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath'],
         'exclude'   => true,
         'default'   => '',
-        'inputType' => 'text',
-        'eval'      => array('maxlength' => 128, "style" => 'width: 200px', 'trailingSlash' => true),
-        'sql'       => "char(128) NOT NULL default ''"
+//        'inputType' => 'text',
+//        'eval'      => array('maxlength' => 128, "style" => 'width: 200px', 'trailingSlash' => true),
+        'inputType'               => 'fileTree',
+        'eval'                    => array('multiple'=>true, 'fieldType'=>'checkbox'),
+        'sql'                     => "blob NULL"
+//        'sql'       => "char(128) NOT NULL default ''"
     );
     $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_fileuploadpath'] = array
     (
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_fileuploadpath'],
         'exclude'   => true,
         'default'   => '',
-        'inputType' => 'text',
-        'eval'      => array('maxlength' => 128, "style" => 'width: 200px', 'trailingSlash' => true),
-        'sql'       => "char(128) NOT NULL default ''"
+//        'inputType' => 'text',
+//        'eval'      => array('maxlength' => 128, "style" => 'width: 200px', 'trailingSlash' => true),
+        'inputType'               => 'fileTree',
+        'eval'                    => array('multiple'=>true, 'fieldType'=>'checkbox'),
+        'sql'                     => "blob NULL"
+//        'sql'       => "char(128) NOT NULL default ''"
     );
 
     if ((version_compare( VERSION, '4', '>=' ))) {

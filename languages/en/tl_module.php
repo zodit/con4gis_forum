@@ -94,7 +94,7 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_pn_button']                = array('Private messages','Show button for private messages');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor']                = array('Use WYSIWYG-Editor', 'CAUTION: This Feature only works for embedded forums!');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems']   = array('WYSIWYG-Editor Toolbar Buttons', '');
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath']  = array('Image Upload-Folder', 'Decide where uploaded images should be stored');
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath']  = array('Image Upload-Folder', 'Decide where uploaded images should be stored. An additional folder named by date is created in here');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_fileuploadpath'] = array('File Upload-Folder', 'Decide where uploaded files should be stored. An additional folder named by date is created in here');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_autourl'] = array(
         'Automaticaly recognize URLs',
