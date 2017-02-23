@@ -15,12 +15,19 @@
  * Fields
  */
 $GLOBALS['TL_LANG']['tl_c4g_forum']['name'] 					= array('Name', 'Name des Forenbereiches');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_names']           = array('Optionale Bezeichnungen', '');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_name']            = array('Bezeichnung', '');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_language']        = array('Sprache', '');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['tags'] 					= array('Tags', 'Schlagwort-Vorgabe zur Auswahl bei der Thread- / Post-Erstellung');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['mail_subscription_text'] 					= array('E-Mail-Vorlage für Benachrichtigung bei Änderungen', '');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['headline'] 				= array('Überschrift',
 																		'Hier können Sie dem Forenbereich eine Überschrift hinzufügen.');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_headlines']       = array('Optionale Überschriften', '');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_headline']        = array('Überschrift', '');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['description'] 				= array('Beschreibung',
 																		'Die Beschreibung wird als Tooltip angezeigt.');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_descriptions']    = array('Optionale Beschreibungen', '');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_description']     = array('Beschreibung', '');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['published'] 				= array('Veröffentlicht',
 																		'Legt fest, ob der Forenbereich veröffentlicht wird.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['box_imagesrc'] 			= array('Bild für Kachel',
@@ -82,6 +89,7 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['sitemap_exclude'] 			= array('Nicht in XML-
  * Legends
  */
 $GLOBALS['TL_LANG']['tl_c4g_forum']['general_legend'] 		= 'Allgemein';
+$GLOBALS['TL_LANG']['tl_c4g_forum']['language_legend'] 		= 'Spracheinstellungen';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['comfort_legend'] 		= 'Kachelsicht';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['intropage_legend'] 	= 'Einstiegsseite für Kachelsicht';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['infotext_legend'] 		= 'Informationstexte';

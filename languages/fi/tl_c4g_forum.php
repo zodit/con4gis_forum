@@ -16,8 +16,15 @@
  */
 $GLOBALS['TL_LANG']['tl_c4g_forum']['name'] 			= array('Nimi',
 																'Foorumin nimi');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_names']           = array('Optional captions', '');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_name']            = array('Caption', '');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_language']        = array('Language', '');
+
 $GLOBALS['TL_LANG']['tl_c4g_forum']['headline'] 		= array('Otsikko',
 																'Tässä voit lisätä otsikon Foorumiin.');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_headlines']       = array('Optional headlines', '');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_headline']        = array('Headline', '');
+
 $GLOBALS['TL_LANG']['tl_c4g_forum']['description'] 		= array('Kuvaus',
 																'Kuvaus näytetään tooltippinä.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['published'] 		= array('Julkaistu',
@@ -81,6 +88,7 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['sitemap_exclude'] 	= array('Sulje pois XML 
  * Legends
  */
 $GLOBALS['TL_LANG']['tl_c4g_forum']['general_legend']	 	= 'Yleinen';
+$GLOBALS['TL_LANG']['tl_c4g_forum']['language_legend'] 		= 'Language settings';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['comfort_legend']	 	= 'Boksit';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['intropage_legend']		= 'Introsivu';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['infotext_legend'] 		= 'Info';

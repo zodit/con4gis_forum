@@ -385,7 +385,7 @@ class C4GForumHelper extends \System
 
 		if ($allModules) {
             $forums = $this->Database->prepare(
-                "SELECT a.id,a.name,a.headline,a.description,a.threads,a.posts,a.box_imagesrc,t.name AS last_threadname,p.creation AS last_post_creation, " . $sqlLastUser . " AS last_username, ".
+                "SELECT a.id,a.name,a.optional_names,a.headline,a.optional_headlines,a.description,a.optional_descriptions,a.threads,a.posts,a.box_imagesrc,t.name AS last_threadname,p.creation AS last_post_creation, " . $sqlLastUser . " AS last_username, ".
                 "a.member_groups, a.admin_groups, a.guest_rights, a.member_rights, a.admin_rights,".
                 "a.use_intropage, a.intropage, a.intropage_forumbtn, a.intropage_forumbtn_jqui, a.linkurl,a.link_newwindow,a.sitemap_exclude,".
                 "a.pretext, a.posttext, a.enable_maps, a.enable_maps_inherited, a.map_type, a.map_id, a.map_location_label, a.map_override_locationstyle, a.map_label, a.map_tooltip ".
@@ -399,7 +399,7 @@ class C4GForumHelper extends \System
             )->execute(1);
         } else {
             $forums = $this->Database->prepare(
-                "SELECT a.id,a.name,a.headline,a.description,count(b.id) AS subforums,a.threads,a.posts,a.box_imagesrc,t.name AS last_threadname,p.creation AS last_post_creation, " . $sqlLastUser . " AS last_username, ".
+                "SELECT a.id,a.name,a.optional_names,a.headline,a.optional_headlines,a.description,a.optional_descriptions,count(b.id) AS subforums,a.threads,a.posts,a.box_imagesrc,t.name AS last_threadname,p.creation AS last_post_creation, " . $sqlLastUser . " AS last_username, ".
                 "a.member_groups, a.admin_groups, a.guest_rights, a.member_rights, a.admin_rights,".
                 "a.use_intropage, a.intropage, a.intropage_forumbtn, a.intropage_forumbtn_jqui, a.linkurl,a.link_newwindow,a.sitemap_exclude,".
                 "a.pretext, a.posttext, a.enable_maps, a.enable_maps_inherited, a.map_type, a.map_id, a.map_location_label, a.map_override_locationstyle, a.map_label, a.map_tooltip ".
@@ -459,7 +459,7 @@ class C4GForumHelper extends \System
 			$return = '';
 		}
 		$forums = $this->Database->prepare(
-				"SELECT a.id, a.name, count(b.id) AS subforums, a.member_groups, a.admin_groups, a.guest_rights, a.member_rights, a.admin_rights".
+				"SELECT a.id, a.name, a.optional_names, count(b.id) AS subforums, a.member_groups, a.admin_groups, a.guest_rights, a.member_rights, a.admin_rights".
 				" FROM tl_c4g_forum a ".
 				"LEFT JOIN tl_c4g_forum b ON (b.pid = a.id) AND (b.published = ?) ".
 				"WHERE a.pid = ? AND a.published = ? ".
@@ -1699,7 +1699,7 @@ class C4GForumHelper extends \System
 	public function getThreadAndForumNameFromDBUncached($threadId)
 	{
 		return $this->Database->prepare(
-				"SELECT a.name AS threadname, b.name AS forumname, a.pid AS forumid FROM tl_c4g_forum_thread a ".
+				"SELECT a.name AS threadname, b.name AS forumname,b.optional_names AS optional_forumnames, a.pid AS forumid FROM tl_c4g_forum_thread a ".
 				"INNER JOIN tl_c4g_forum b ON b.id = a.pid ".
 				"WHERE a.id=?")
 				->executeUncached($threadId)->fetchAssoc();
@@ -1711,7 +1711,7 @@ class C4GForumHelper extends \System
 	public function getThreadAndForumNameAndMailTextFromDBUncached($threadId)
 	{
 		return $this->Database->prepare(
-				"SELECT a.name AS threadname, b.name AS forumname,b.mail_subscription_text as mail, a.pid AS forumid FROM tl_c4g_forum_thread a ".
+				"SELECT a.name AS threadname, b.name AS forumname,b.optional_names AS optional_forumnames,b.mail_subscription_text as mail, a.pid AS forumid FROM tl_c4g_forum_thread a ".
 				"INNER JOIN tl_c4g_forum b ON b.id = a.pid ".
 				"WHERE a.id=?")
 				->executeUncached($threadId)->fetchAssoc();
@@ -1725,7 +1725,7 @@ class C4GForumHelper extends \System
 	public function getThreadAndForumNameFromDB($threadId)
 	{
 		return $this->Database->prepare(
-				"SELECT a.name AS threadname, b.name AS forumname, a.pid AS forumid FROM tl_c4g_forum_thread a ".
+				"SELECT a.name AS threadname, b.name AS forumname,b.optional_name AS optional_forumnames, a.pid AS forumid FROM tl_c4g_forum_thread a ".
 				"INNER JOIN tl_c4g_forum b ON b.id = a.pid ".
 				"WHERE a.id=?")
 				->execute($threadId)->fetchAssoc();
@@ -1745,15 +1745,28 @@ class C4GForumHelper extends \System
 	/**
 	 * @param int $threadId
 	 */
-	public function getForumNameForThread($threadId)
+	public function getForumNameForThread($threadId, $language = '')
 	{
-		return $this->Database->prepare(
-				"SELECT name FROM tl_c4g_forum ".
+		$result = $this->Database->prepare(
+				"SELECT name, optional_names FROM tl_c4g_forum ".
 				"WHERE id = ".
 					"(SELECT pid FROM tl_c4g_forum_thread ".
 					"WHERE id = ?)"
 				)
-				->execute($threadId)->name;
+				->execute($threadId);
+
+        if ($language) {
+            $names = unserialize($result->optional_names);
+            if ($names) {
+                foreach ($names as $name) {
+                    if ($name['optional_language'] == $language) {
+                        return $name['optional_name'];
+                    }
+                }
+            }
+        }
+
+        return $result->name;
 	}
 
 	/**
@@ -1770,9 +1783,22 @@ class C4GForumHelper extends \System
 	/**
 	 * @param int $forumId
 	 */
-	public function getForumNameFromDB($forumId)
+	public function getForumNameFromDB($forumId, $language = '')
 	{
-		return $this->Database->prepare("SELECT name FROM tl_c4g_forum WHERE id=?")->execute($forumId)->name;
+		$result = $this->Database->prepare("SELECT name, optional_names FROM tl_c4g_forum WHERE id=?")->execute($forumId);
+
+        if ($language) {
+            $names = unserialize($result->optional_names);
+            if ($names) {
+                foreach ($names as $name) {
+                    if ($name['optional_language'] == $language) {
+                        return $name['optional_name'];
+                    }
+                }
+            }
+        }
+
+        return $result->name;
 	}
 
 	/**
@@ -1784,7 +1810,7 @@ class C4GForumHelper extends \System
 
 		$forumId = (int) $forumId;
 		$forums = $this->Database->prepare(
-			"SELECT a.id,a.pid,a.name,a.use_intropage,count(b.id) AS subforums FROM tl_c4g_forum a ".
+			"SELECT a.id,a.pid,a.name,a.optional_names,a.use_intropage,count(b.id) AS subforums FROM tl_c4g_forum a ".
 			"LEFT JOIN tl_c4g_forum b ON (b.pid = a.id) AND (b.published = ?) ".
 			"GROUP BY a.id")->execute(true);
 		do {
@@ -1808,6 +1834,7 @@ class C4GForumHelper extends \System
 				array_insert($result, 0, array(array(
 					id=>$id,
 					name=>$data[$id]['name'],
+                    optional_names=>$data[$id]['optional_names'],
 					use_intropage=>$data[$id]['use_intropage'],
 					subforums=>$data[$id]['subforums'])));
 			}

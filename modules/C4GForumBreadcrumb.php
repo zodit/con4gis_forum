@@ -209,17 +209,29 @@ namespace c4g\Forum;
                             $action = 'forumbox';
                         }
                     }
+
+                    $pathname = $value['name'];
+                    $names = unserialize($value['optional_names']);
+                    if ($names) {
+                        foreach ($names as $name) {
+                            if ($name['optional_language'] == $this->c4g_forum_language_temp) {
+                                $pathname = $name['optional_name'];
+                                break;
+                            }
+                        }
+                    }
+
                     if (++$i === count($path)) {
                         // last button without functionality (id is empty)
                         $data[] = array(
                             "id"   => '',
-                            "text" => $value['name']
+                            "text" => $pathname
                         );
 
                     } else {
                         $data[] = array(
                             "url"  => C4GUtils::addParametersToURL($url, array('state' => $action . ':' . $value['id'])),
-                            "text" => $value['name']
+                            "text" => $pathname
                         );
                     }
                 }
