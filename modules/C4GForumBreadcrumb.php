@@ -34,6 +34,8 @@ namespace c4g\Forum;
         protected $forumModule = null;
 
 
+        protected $c4g_forum_language_temp = '';
+
         /**
          * Display a wildcard in the back end
          *
@@ -63,13 +65,40 @@ namespace c4g\Forum;
          */
         protected function compile()
         {
+            if (trim($this->c4g_forum_language) == '') {
 
-            if(empty($this->c4g_forum_language)){
-                $this->c4g_forum_language = $GLOBALS['TL_LANGUAGE'];
+                //language get param or request_uri for language switcher sites
+                $getLang  = \Input::get('language');
+                if ($getLang) {
+                    $this->c4g_forum_language_temp = $getLang;
+                } else if ($_SERVER["REQUEST_URI"]) {
+                    $uri = str_replace('.html','',substr($_SERVER['REQUEST_URI'],1));
+                    $uri = explode('/',$uri);
+                    if ($uri && $uri[0] && strlen($uri[0]) == 2) {
+                        $this->c4g_forum_language_temp = $uri[0];
+                    }
+                }
+
+                if ($this->c4g_forum_language_temp == '') {
+                    /** @var \PageModel $objPage */
+                    global $objPage;
+
+                    //three other ways to get current language
+                    $pageLang = \Controller::replaceInsertTags('{{page::language}}');
+                    if ($pageLang) {
+                        $this->c4g_forum_language_temp = $pageLang;
+                    } else if ($objPage && $objPage->language) {
+                        $this->c4g_forum_language_temp = $objPage->language;
+                    } else if ($GLOBALS['TL_LANGUAGE']) {
+                        $this->c4g_forum_language_temp = $GLOBALS['TL_LANGUAGE'];
+                    }
+                }
+            } else {
+                $this->c4g_forum_language_temp = $this->c4g_forum_language;
             }
 
             $data = array();
-            $this->loadLanguageFile('frontendModules', $this->c4g_forum_language);
+            $this->loadLanguageFile('frontendModules', $this->c4g_forum_language_temp);
 
             if (!$_GET['c4g_forum_fmd']) {
                 // try to get parameters from referer, if they don't exist
