@@ -9,7 +9,7 @@
  * @package   con4gis
  * @author    con4gis contributors (see "authors.txt")
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2017.
  * @link      https://www.kuestenschmiede.de
  */
 
@@ -68,7 +68,18 @@
         'Frontendin-kieli',
         'Tyhjä=määrittää automaattisesti, de=German, en=English fi=finnish.'
     );
-
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_multilingual']      = array(
+        'multilingual entries',
+        'you can fill out some fields in user language. With right language switch, you can change the language.'
+    );
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_multilingual_languages'] = array(
+        'Frontend languages for all multilanguages fields',
+        'Select your languages.'
+    );
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_multilingual_language'] = array(
+        'Frontend languages',
+        ''
+    );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes']                       = array(
         'Käytä BBCodea',
         'Deaktivoi tämä checkbox, jos et halua käyttää BBCodea tällä foorumilla. Huomioi, että BBCoden deaktivointi sen jälkeen, kun sitä on jo käytetty, saattaa aiheuttaa muotoilu-virheitä.'
@@ -81,7 +92,7 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_pn_button']                = array('Private messages','Show button for private messages');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor']                = array('Käytä WYSIWYG-Editoria', 'VAROITUS: Tämä ominaisuus toimii vain sulautetuilla foorumeilla!');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems']   = array('WYSIWYG-Editori tooltip napit', '');
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath']  = array('Kuvan latauskansio', 'Päätä minne ladatut kuvat pitäisi varastoida');
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath']  = array('Kuvan latauskansio', 'Päätä minne ladatut kuvat pitäisi varastoida. Ylimääräinen kansio joka on nimetty päivämäärän mukaan on luotu tänne');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_fileuploadpath'] = array('Tiedoston latauskansio', 'Päätä minne ladatut tiedostot pitäisi varastoida. Ylimääräinen kansio joka on nimetty päivämäärän mukaan on luotu tänne');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_autourl'] = array(
         'Automaattisesti tunnista URL',

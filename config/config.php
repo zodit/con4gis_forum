@@ -7,7 +7,7 @@
  * @package   con4gis
  * @author    con4gis contributors (see "authors.txt")
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2017.
  * @link      https://www.kuestenschmiede.de
  */
 
@@ -15,18 +15,14 @@
  * Global settings
  */
 $GLOBALS['con4gis_forum_extension']['installed']    = true;
-$GLOBALS['con4gis_forum_extension']['version']      = '1.7.1';
+$GLOBALS['con4gis_forum_extension']['version']      = '2.0.0';
 
 /**
  * Frontend modules
  */
-array_insert( $GLOBALS['FE_MOD']['con4gis'], 6, array
-(
-	'c4g_forum' 				=> 'C4GForum',
-	'c4g_forum_breadcrumb' 		=> 'C4GForumBreadcrumb',
-	'c4g_forum_pncenter'  	    => 'C4GForumPNCenter',
-)
-);
+$GLOBALS['FE_MOD']['con4gis']['c4g_forum'] = 'C4GForum';
+$GLOBALS['FE_MOD']['con4gis']['c4g_forum_breadcrumb'] = 'C4GForumBreadcrumb';
+$GLOBALS['FE_MOD']['con4gis']['c4g_forum_pncenter'] = 'C4GForumPNCenter';
 
 /**
  * Backend Modules

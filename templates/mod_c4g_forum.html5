@@ -31,7 +31,7 @@ if (typeof(jQuery)=='undefined') {
 				"embedDialogs: '" . $this->c4gdata['embedDialogs'] ."', ".
 				"jquiEmbeddedDialogs: '" . $this->c4gdata['jquiEmbeddedDialogs'] ."', ".
 				"contaoPath: '" . \Contao\Environment::get('base')."', ".
-				"contaoLanguage: '" . $GLOBALS['TL_LANGUAGE'] . "',";
+				"contaoLanguage: '" . $this->c4gdata['currentLanguage'] . "',";
 		if ($this->c4gdata['navPanel']) {
 			echo "navPanel: true";
 		}

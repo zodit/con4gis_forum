@@ -7,7 +7,7 @@
  * @package   con4gis
  * @author    con4gis contributors (see "authors.txt")
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2017.
  * @link      https://www.kuestenschmiede.de
  */
 
@@ -29,8 +29,8 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST']                    = 'Beitrag';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POSTS']                   = 'Beiträge';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST']               = 'Letzter Beitrag';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST']                = 'Neuer Beitrag';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_PREVIEW']        = 'Vorschau - Neuer Beitrag';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST']                = 'Antworten';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_PREVIEW']        = 'Vorschau - Antwort';
     $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT']                 = 'Kommentar';
     $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENTS']                = 'Kommentare';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_COMMENT']            = 'Letzter Kommentar';
@@ -58,12 +58,12 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST']               = 'Bearbeiten';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_PREVIEW']       = 'Vorschau - Beitrag bearbeiten';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_POST_CHANGES']       = 'Speichern';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']              = 'Anzahl Beiträge';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']              = 'Beiträge';
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_COMMENT']             = 'Löschen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_COMMENT']            = 'Bearbeiten';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_COMMENT_PREVIEW']    = 'Vorschau - Kommentar bearbeiten';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_COMMENT_CHANGES']    = 'Speichern';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']              = 'Anzahl Kommentare';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT_COUNT']           = 'Kommentare';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_AUTHOR_SHORT'] = 'Letzter';
     $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST_SHORT']   = 'Letzter am';
     $GLOBALS['TL_LANG']['C4G_FORUM']['AUTHOR']            = 'Verfasser';
@@ -101,14 +101,14 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_TAGS']           = 'Tags: %s';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_LINK_NEWWINDOW'] = 'Link: <a href="%s" target="_blank">%s</a>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_EDIT_INFO']             = '<b %s>%s</b> Mal geändert, zuletzt am <b %s>%s</b> von <b %s>%s</b>';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']                 = 'Beiträge';
+    //$GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']                 = 'Beiträge';
     $GLOBALS['TL_LANG']['C4G_FORUM']['memberHomepageLink']         = 'Homepage';
     $GLOBALS['TL_LANG']['C4G_FORUM']['memberFacebookLink']         = 'Facebook';
     $GLOBALS['TL_LANG']['C4G_FORUM']['memberTwitterLink']          = 'Twitter';
     $GLOBALS['TL_LANG']['C4G_FORUM']['memberGooglePlusLink']       = 'Google+';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_THREAD_TITLE'] = 'Neues Thema im Bereich "%s"';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_TITLE']   = 'Neuer Beitrag im Thema "%s" (Forenbereich "%s")';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_TITLE']   = 'Antwort im Thema "%s" (Forenbereich "%s")';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_MISSING']       = 'Bitte Beitrag verfassen!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_QUESTION_TITLE'] = 'Neue Frage im Bereich "%s"';
@@ -119,7 +119,7 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADNAME_MISSING'] = 'Bitte Thema eingeben!';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['ERROR_SAVE_POST']     = 'Fehler beim Anlegen des Beitrages! Versuchen Sie es noch einmal, oder wenden Sie sich an eine Kontaktperson des Forums!';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUCCESS_SAVE_POST']   = 'Neuer Beitrag erfolgreich angelegt!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUCCESS_SAVE_POST']   = 'Ihre Antwort wurde gespeichert!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['ERROR_SAVE_THREAD']   = 'Fehler beim Anlegen des Themas! Versuchen Sie es noch einmal, oder wenden Sie sich an eine Kontaktperson des Forums!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUCCESS_SAVE_THREAD'] = 'Neues Thema erfolgreich angelegt!';
 

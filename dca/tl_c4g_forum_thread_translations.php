@@ -14,23 +14,21 @@
 /**
  * Table tl_c4g_forum
  */
-$GLOBALS['TL_DCA']['tl_c4g_forum_subforum_subscription'] = array
+$GLOBALS['TL_DCA']['tl_c4g_forum_thread_translations'] = array
 (
 
     // Config
     'config' => array
     (
-        'dataContainer'               => 'Table',
-        'sql'                         => array
+        'dataContainer' => 'Table',
+        'sql'           => array
         (
             'keys' => array
             (
-                'id'     => 'primary',
+                'id' => 'primary',
                 'pid'    => 'index',
-                'member' => 'index'
             )
         )
-
     ),
 
     // Fields
@@ -44,13 +42,17 @@ $GLOBALS['TL_DCA']['tl_c4g_forum_subforum_subscription'] = array
         (
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
-        'member' => array
+        'language' => array
         (
-            'sql'                     => "int(10) NOT NULL default '0'"
+            'sql'                     => "varchar(5) NOT NULL"
         ),
-        'thread_only' => array
+        'fieldname' => array
         (
-            'sql'                     => "char(1) NOT NULL default ''"
+            'sql'                     => "varchar(255) NOT NULL"
+        ),
+        'value' => array
+        (
+            'sql'                     => "varchar(255) NOT NULL"
         ),
     ),
 );

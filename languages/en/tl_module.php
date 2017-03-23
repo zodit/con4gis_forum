@@ -9,7 +9,7 @@
  * @package   con4gis
  * @author    con4gis contributors (see "authors.txt")
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2017.
  * @link      https://www.kuestenschmiede.de
  */
 
@@ -70,7 +70,18 @@
         'Frontend-Language',
         'Empty=determine automatically, de=German, en=English.'
     );
-
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_multilingual']      = array(
+        'multilingual entries',
+        'you can fill out some fields in user language. With right language switch, you can change the language.'
+    );
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_multilingual_languages'] = array(
+        'Frontend languages for all multilanguages fields',
+        'Select your languages.'
+    );
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_multilingual_language'] = array(
+        'Frontend languages',
+        ''
+    );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes']                       = array(
         'Use BBCodes',
         'Deactivate this checkbox, if you do not want to use BBCodes in your forum. Please take note, that deactivating BBCodes after they have already been used, may cause ugly formating-errors.'
@@ -83,7 +94,7 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_pn_button']                = array('Private messages','Show button for private messages');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor']                = array('Use WYSIWYG-Editor', 'CAUTION: This Feature only works for embedded forums!');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems']   = array('WYSIWYG-Editor Toolbar Buttons', '');
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath']  = array('Image Upload-Folder', 'Decide where uploaded images should be stored');
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath']  = array('Image Upload-Folder', 'Decide where uploaded images should be stored. An additional folder named by date is created in here');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_fileuploadpath'] = array('File Upload-Folder', 'Decide where uploaded files should be stored. An additional folder named by date is created in here');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_autourl'] = array(
         'Automaticaly recognize URLs',

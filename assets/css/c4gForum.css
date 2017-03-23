@@ -237,6 +237,14 @@
 	border: none;
 }
 
+.c4g_forum_header_center {
+	margin-top: 10px;
+	text-align: center;
+	font-size: 1.25em;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
 .c4gGuiDialogContentNoJqui, .c4gGuiDialogButtonsNoJqui {
 	padding-left: 10px;
 	padding-right: 10px;

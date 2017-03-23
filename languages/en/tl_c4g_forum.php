@@ -7,7 +7,7 @@
  * @package   con4gis
  * @author    con4gis contributors (see "authors.txt")
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2017.
  * @link      https://www.kuestenschmiede.de
  */
 
@@ -17,10 +17,20 @@
  */
 $GLOBALS['TL_LANG']['tl_c4g_forum']['name'] 			= array('Name',
 																'Name of forum');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_names']           = array('Optional captions', '');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_name']            = array('Caption', '');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_language']        = array('Language', '');
+
 $GLOBALS['TL_LANG']['tl_c4g_forum']['headline'] 		= array('Headline',
 																'Here you can add a headline to the forum.');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_headlines']       = array('Optional headlines', '');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_headline']        = array('Headline', '');
+
 $GLOBALS['TL_LANG']['tl_c4g_forum']['description'] 		= array('Description',
 																'The description is displayed as a tooltip.');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_descriptions']    = array('Optional descriptions', '');
+$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_description']     = array('Description', '');
+
 $GLOBALS['TL_LANG']['tl_c4g_forum']['published'] 		= array('Published',
 																'Activate this to publish the forum.');
 $GLOBALS['TL_LANG']['tl_c4g_forum']['box_imagesrc'] 	= array('Image for box',
@@ -82,6 +92,7 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['sitemap_exclude'] 	= array('Exclude from XM
  * Legends
  */
 $GLOBALS['TL_LANG']['tl_c4g_forum']['general_legend']	 	= 'General';
+$GLOBALS['TL_LANG']['tl_c4g_forum']['language_legend'] 		= 'Language settings';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['comfort_legend']	 	= 'Boxes';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['intropage_legend']		= 'Intropage';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['infotext_legend'] 		= 'Information';
@@ -152,6 +163,7 @@ $GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapextend'] 			= 'Extend mapdata (con
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_mapedit'] 			= 'Edit maps: Location style';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_search'] 			= 'Search';
 $GLOBALS['TL_LANG']['tl_c4g_forum']['right_latestthreads']		= 'Latest threads';
+$GLOBALS['TL_LANG']['tl_c4g_forum']['right_alllanguages']	    = 'Edit all languages (multilingual)';
 
 /**
  * Fulltext Indexing Configuration Texts

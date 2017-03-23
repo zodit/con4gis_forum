@@ -7,7 +7,7 @@
  * @package   con4gis
  * @author    con4gis contributors (see "authors.txt")
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2017.
  * @link      https://www.kuestenschmiede.de
  */
 
@@ -79,6 +79,7 @@ namespace c4g\Forum;
 
         protected static $useMaps = false;
 
+        protected $c4g_forum_language_temp = '';
 
         /**
          * Display a wildcard in the back end
@@ -113,16 +114,19 @@ namespace c4g\Forum;
          */
         protected function compile()
         {
+            $this->setTempLanguage();
 
             if (FE_USER_LOGGED_IN) {
                 \System::import('FrontendUser', 'User');
             }
-            global $objPage;
+
             $this->initMembers();
 
+            $enableMaps = false;
             $useGoogleMaps = false;
             if ($this->c4g_forum_enable_maps) {
                 $useGoogleMaps = C4GForumHelper::isGoogleMapsUsed($this->Database);
+                $enableMaps = true;
             }
             // initialize used Javascript Libraries and CSS files
             \C4GJQueryGUI::initializeLibraries(
@@ -133,9 +137,9 @@ namespace c4g\Forum;
                 ($this->c4g_forum_jqtable_lib == true),             // add Table Control
                 ($this->c4g_forum_jqhistory_lib == true),           // add history.js
                 ($this->c4g_forum_jqtooltip_lib == true),           // add simple tooltip
-                ($this->c4g_forum_enable_maps == true),             // add C4GMaps
+                ($this->c4g_forum_enable_maps == $enableMaps),      // add C4GMaps
                 $useGoogleMaps,                                     // add C4GMaps - include Google Maps Javascript?
-                ($this->c4g_forum_enable_maps == true),             // add C4GMaps Feature Editor
+                ($this->c4g_forum_enable_maps == $enableMaps),      // add C4GMaps Feature Editor
                 ($this->c4g_forum_bbcodes == true),
                 ($this->c4g_forum_jqscrollpane_lib == true)         // add jScrollPane
             );
@@ -234,9 +238,20 @@ namespace c4g\Forum;
             $data['jquiButtons']         = $this->c4g_forum_buttons_jqui_layout;
             $data['embedDialogs']        = $this->c4g_forum_dialogs_embedded;
             $data['jquiEmbeddedDialogs'] = $this->dialogs_jqui;
+            $data['contaoLanguage']      = $this->c4g_forum_language_temp;
 
-            \Contao\Session::getInstance()->set("con4gisImageUploadPath", $this->c4g_forum_bbcodes_editor_imguploadpath);
-            \Contao\Session::getInstance()->set("con4gisFileUploadPath", $this->c4g_forum_bbcodes_editor_fileuploadpath);
+            $binImageUuid = deserialize(unserialize($this->c4g_forum_bbcodes_editor_imguploadpath));
+            if ($binImageUuid) {
+                $imageUploadPath = \FilesModel::findByUuid(\Contao\StringUtil::binToUuid($binImageUuid[0]));
+            }
+            \Contao\Session::getInstance()->set("con4gisImageUploadPath", $imageUploadPath->path.'/');
+
+            $binFileUuid = deserialize(unserialize($this->c4g_forum_bbcodes_editor_fileuploadpath));
+            if ($binFileUuid) {
+                $fileUploadPath = \FilesModel::findByUuid(\Contao\StringUtil::binToUuid($binFileUuid[0]));
+            }
+            \Contao\Session::getInstance()->set("con4gisFileUploadPath", $fileUploadPath->path.'/');
+
             \Contao\Session::getInstance()->set("c4g_forum_bbcodes_editor_uploadTypes", $this->c4g_forum_bbcodes_editor_uploadTypes);
             \Contao\Session::getInstance()->set("c4g_forum_bbcodes_editor_maxFileSize", $this->c4g_forum_bbcodes_editor_maxFileSize);
             \Contao\Session::getInstance()->set("c4g_forum_bbcodes_editor_imageWidth", $this->c4g_forum_bbcodes_editor_imageWidth);
@@ -263,15 +278,14 @@ namespace c4g\Forum;
                 $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/assets/js/jquery.pagination.min.js";
                 $GLOBALS['TL_JAVASCRIPT'][] = "system/modules/con4gis_forum/assets/js/jquery.hashchange.min.js";
             }
-            //TODO workaround until we can check enable_maps properly (need forum id)
-            if ($GLOBALS['con4gis_maps_extension']['installed']) {
+
+            if ($enableMaps) {
                 ResourceLoader::loadResources();
                 ResourceLoader::loadTheme();
-                static::$useMaps = true;
+                static::$useMaps = $enableMaps;
                 // load core resources for maps
                 \c4g\Core\ResourceLoader::loadResourcesForModule('maps');
             }
-
 
             $data['breadcrumbDelim'] = $this->c4g_forum_breadcrumb_jqui_layout ? '' : '>';
 
@@ -464,6 +478,7 @@ namespace c4g\Forum;
                         10,
                         4
                     ),
+                    "sType"           => 'de_datetime',
                     "bSearchable"     => false,
                     "asSorting"       => array(
                         'desc',
@@ -495,6 +510,7 @@ namespace c4g\Forum;
                 array(
                     'sTitle'          => $GLOBALS['TL_LANG']['C4G_FORUM']['CREATED_ON'],
                     "sClass"          => 'c4g_forum_tlist_created',
+                    "sType"           => 'de_datetime',
                     "aDataSort"       => array(
                         10,
                         7
@@ -604,15 +620,20 @@ namespace c4g\Forum;
 
             }
 
+            $sorting = 3;
+            if ($this->c4g_forum_rating_enabled) {
+                $sorting = 4;
+            }
+
             $data['aaSorting']       = array(
                 array(
-                    3,
+                    $sorting,
                     'desc'
                 )
             );
             $data['responsive'] = true;
             $data['bScrollCollapse'] = true;
-            $data['bStateSave']      = true;
+            $data['bStateSave']      = false;
             $data['sPaginationType'] = 'full_numbers';
             $data['oLanguage']       = array(
                 "oPaginate"      => array(
@@ -677,7 +698,11 @@ namespace c4g\Forum;
                         $tooltip = preg_replace('/\[[^\[\]]*\]/i', '', $tooltip);
                         break;
                     case "threadtitle":
-                        $tooltip = $thread['name'];
+                        if ($this->c4g_forum_multilingual) {
+                            $tooltip = $this->helper->translateThreadField($thread['id'], 'name', $this->c4g_forum_language_temp, $thread['name']);
+                        } else {
+                            $tooltip = $thread['name'];
+                        }
                         break;
                     case "threadbody":
                         $tooltip = $thread['threaddesc'];
@@ -699,11 +724,21 @@ namespace c4g\Forum;
                 $plainHtmlData = false;
                 if ($this->plainhtml) {
                     // for search engines: only show threadnames
-                    $plainHtmlData .= $this->helper->checkThreadname($thread['name']) . '<br/>';
+                    if ($this->c4g_forum_multilingual) {
+                        $plainHtmlData = $this->helper->translateThreadField($thread['id'], 'name', $this->c4g_forum_language_temp, $this->helper->checkThreadname($thread['name'])) . '<br/>';
+                    } else {
+                        $plainHtmlData .= $this->helper->checkThreadname($thread['name']) . '<br/>';
+                    }
                 } else {
+                    if ($this->c4g_forum_multilingual) {
+                        $threadname = $this->helper->translateThreadField($thread['id'], 'name', $this->c4g_forum_language_temp, $thread['name']);
+                    } else {
+                        $threadname = $thread['name'];
+                    }
+
                     $aaData = array(
                         $threadAction,
-                        $this->helper->checkThreadname($thread['name']),
+                        $this->helper->checkThreadname($threadname),
                         $lastUsername,
                         $this->helper->getDateTimeString($lastPost),
                         $lastPost, // hidden column for sorting
@@ -751,18 +786,23 @@ namespace c4g\Forum;
             $buttons = $this->addDefaultButtons(array(), $id);
             $buttons = $this->addForumButtons($buttons, $id);
 
+            $tooltipcol = 11;
+            if ($this->c4g_forum_rating_enabled) {
+                $tooltipcol = 12;
+            }
+
             $return = array(
                 "contenttype"    => "datatable",
                 "contentdata"    => $data,
                 "contentoptions" => array(
                     "actioncol"     => 0,
-                    "tooltipcol"    => 11,
+                    "tooltipcol"    => $tooltipcol,
                     "selectOnHover" => true,
                     "clickAction"   => true
                 ),
                 "state"          => "forum:" . $id,
                 "breadcrumb"     => $this->getBreadcrumb($id),
-                "headline"       => $this->getHeadline($forum['headline']),
+                "headline"       => $this->getHeadline($this->getForumLanguageConfig($forum,'headline')),
                 "buttons"        => $buttons
             );
             if ($plainHtmlData) {
@@ -831,12 +871,12 @@ namespace c4g\Forum;
                     }
                 }
                 $row = array(
-                    "title"    => $forum['name'] . ' (' . $forum['threads'] . ')',
+                    "title"    => $this->getForumLanguageConfig($forum,'name') . ' (' . $forum['threads'] . ')',
                     "key"      => $action . ':' . $forum['id'],
                     "isFolder" => true,
                     "children" => $children,
                     "expand"   => $expand,
-                    "tooltip"  => nl2br(str_replace("'", '', C4GUtils::secure_ugc($forum['description'])))
+                    "tooltip"  => nl2br(str_replace("'", '', C4GUtils::secure_ugc($this->getForumLanguageConfig($forum,'description'))))
                 );
                 if ($forum['id'] == $actForum) {
                     $row['activate'] = true;
@@ -1218,7 +1258,7 @@ namespace c4g\Forum;
             // Get different member properties and hand them over to the user data template.
             $oUserDataTemplate->iUserId = $oMember->id;
 
-            $oUserDataTemplate->c4g_forum_show_pn_button = ($this->c4g_forum_show_pn_button == '1' && !$preview);
+            $oUserDataTemplate->c4g_forum_show_pn_button = ($this->User->id && ($this->User->id != $iAuthorId) && $this->c4g_forum_show_pn_button == '1' && !$preview);
             $oUserDataTemplate->pn_label = $GLOBALS['TL_LANG']['tl_c4g_forum_pn']['profile_compose'];
 
             $sJsLang = C4GForumPNCenter::getClientLangVars();
@@ -1256,7 +1296,7 @@ namespace c4g\Forum;
                 $aUserRanks = deserialize($this->c4g_forum_member_ranks, true);
                 $sUserRank = '';
                 foreach ($aUserRanks as $aUserRank) {
-                    if ($iUserPostCount >= $aUserRank['rank_min'] && $this->c4g_forum_language === $aUserRank['rank_language']) {
+                    if ($iUserPostCount >= $aUserRank['rank_min'] && $this->c4g_forum_language_temp === $aUserRank['rank_language']) {
                         $sUserRank = $aUserRank['rank_name'];
                     }
                 }
@@ -1366,7 +1406,7 @@ namespace c4g\Forum;
          */
         public function getPostAsHtml($id)
         {
-
+            //$this->setTempLanguage();
             $posts  = $this->helper->getPostFromDB($id);
             $thread = $this->helper->getThreadFromDB($posts[0]['threadid']);
             $data   = $this->generateThreadHeaderAsHtml($thread);
@@ -1395,7 +1435,7 @@ namespace c4g\Forum;
                                  array(
                                      "action" => 'newpost:' . $posts[0]['threadid'] . ':post' . $id,
                                      "type"   => 'get',
-                                     "text"   => $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST']
+                                     "text"   => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'NEW_POST')
                                  )
                              )
                 );
@@ -1415,10 +1455,16 @@ namespace c4g\Forum;
                 );
             }
 
+            if ($this->c4g_forum_multilingual) {
+                $threadname = $this->helper->translateThreadField($posts[0]['threadid'], 'name', $this->c4g_forum_language_temp, $posts[0]['threadname']);
+            } else {
+                $threadname = $posts[0]['threadname'];
+            }
+
             $return = array(
                 "dialogtype"    => "html",
                 "dialogdata"    => $data,
-                "dialogoptions" => $this->addDefaultDialogOptions(array("title" => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREAD') . ': ' . $posts[0]['threadname'])),
+                "dialogoptions" => $this->addDefaultDialogOptions(array("title" => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREAD') . ': ' . $threadname)),
                 "dialogid"      => 'post' . $id,
                 "dialogstate"   => "forum:" . $posts[0]['forumid'] . ";readpost:" . $id,
                 "dialogbuttons" => $dialogbuttons,
@@ -1522,7 +1568,7 @@ namespace c4g\Forum;
                                  array(
                                      "action" => 'newpost:' . $id . ':thread' . $id,
                                      "type"   => 'get',
-                                     "text"   => $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST']
+                                     "text"   => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'NEW_POST')
                                  )
                              )
                 );
@@ -1646,6 +1692,13 @@ JSPAGINATE;
                 $data .= html_entity_decode($sPagination);
             }
 
+            if ($this->c4g_forum_multilingual) {
+                $threadname = $this->helper->translateThreadField($thread['id'], 'name', $this->c4g_forum_language_temp, $thread['name']);
+
+            } else {
+                $threadname = $thread['name'];
+            }
+
             $return = array(
                 "dialogstate"   => "forum:" . $thread['forumid'] . ";readthread:" . $id,
                 "dialogtype"    => "html",
@@ -1653,7 +1706,7 @@ JSPAGINATE;
                 "dialogid"      => 'thread' . $id,
                 "dialogbuttons" => $dialogbuttons,
                 "dialogoptions" => $this->addDefaultDialogOptions(array(
-                                                                      "title" => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREAD') . ': ' . $thread['name']
+                                                                      "title" => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREAD') . ': ' . $threadname
                                                                   ))
             );
 
@@ -1684,10 +1737,26 @@ JSPAGINATE;
                 return $this->getPermissionDenied($message);
             }
 
+           $inputThreadname = '';
+           if ($this->c4g_forum_multilingual && $this->helper->checkPermission($forumId, 'alllanguages')) {
+                $languages = unserialize($this->c4g_forum_multilingual_languages);
+                if ($languages) {
+                    foreach($languages as $language) {
+                        $inputThreadname .=  \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREAD', $language) . ':<br/>' .
+                            '<input name="thread_'.$language.'" type="text" class="formdata ui-corner-all" size="80" maxlength="255" /><br />';
+                    }
+                }
+            }
+
+            if (!$inputThreadname) {
+               $inputThreadname .= \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREAD') . ':<br/>' .
+                   '<input name="thread" type="text" class="formdata ui-corner-all" size="80" maxlength="255" /><br />';
+            }
+
             $data = '<div class="c4gForumNewThread">' .
                     '<div class="c4gForumNewThreadName">' .
-                    \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREAD') . ':<br/>' .
-                    '<input name="thread" type="text" class="formdata ui-corner-all" size="80" maxlength="255" /><br />' .
+
+                    $inputThreadname .
                     '</div>';
 
             $data .= $this->getThreadDescForForm('c4gForumNewThreadDesc', $forumId, 'newthread', '');
@@ -1720,11 +1789,17 @@ JSPAGINATE;
             $sCurrentSite = strtok(\Environment::get('httpReferer'),'?');
             $sCurrentSiteHashed = md5($sCurrentSite . \Config::get('encryptionKey'));
 
+            $binImageUuid = deserialize(unserialize($this->c4g_forum_bbcodes_editor_imguploadpath));
+            if ($binImageUuid) {
+                $imageUploadPath = \FilesModel::findByUuid(\Contao\StringUtil::binToUuid($binImageUuid[0]));
+
+            }
+
             $data .= $this->getTagForm('c4gForumNewThreadPostTags', $aPost, 'newthread');
             $data .= '<div class="c4gForumNewThreadContent">' .
                      \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'POST') . ':<br/>' .
                      '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
-                     '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
+                     '<input type="hidden" name="uploadPath" value="' . $imageUploadPath->path . '">' .
                      '<input type="hidden" name="site" class="formdata" value="' . $sCurrentSite . '">' .
                      '<input type="hidden" name="hsite" class="formdata" value="' . $sCurrentSiteHashed . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea><br/>' .
@@ -1758,7 +1833,7 @@ JSPAGINATE;
                 ),
                 "dialogoptions" => $this->addDefaultDialogOptions(array(
                                                                       "title" =>
-                                                                          sprintf(\c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'NEW_THREAD_TITLE'), $this->helper->getForumNameFromDB($forumId)),
+                                                                          sprintf(\c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'NEW_THREAD_TITLE'), $this->helper->getForumNameFromDB($forumId, $this->c4g_forum_language_temp)),
                                                                       "modal" => true
                                                                   ))
             );
@@ -1827,10 +1902,17 @@ JSPAGINATE;
 
             $data = $sLastPost;
 
+            if ($this->c4g_forum_multilingual) {
+                $threadname = $this->helper->translateThreadField($thread['threadid'], 'name', $this->c4g_forum_language_temp, $thread['threadname']);
+
+            } else {
+                $threadname = $thread['threadname'];
+            }
+
             $data .= '<div class="c4gForumNewPost">' .
                      '<div class="c4gForumNewPostSubject">' .
                      $GLOBALS['TL_LANG']['C4G_FORUM']['SUBJECT'] . ':<br/>' .
-                     '<input name="subject" value="' . $thread['threadname'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="255" /><br />' .
+                     '<input name="subject" value="' . $threadname . '" type="text" class="formdata ui-corner-all" size="80" maxlength="255" /><br />' .
                      '</div>';
             $data .= $this->getTagForm('c4gForumNewPostPostTags', $aPost, 'newpost');
 
@@ -1854,13 +1936,17 @@ JSPAGINATE;
             ';
             }
 
+            $binImageUuid = deserialize(unserialize($this->c4g_forum_bbcodes_editor_imguploadpath));
+            if ($binImageUuid) {
+                $imageUploadPath = \FilesModel::findByUuid(\Contao\StringUtil::binToUuid($binImageUuid[0]));
+            }
 
             $data .= '<div class="c4gForumNewPostContent">' .
                       \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'POST') . ':<br/>' .
                      '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
                      '<input type="hidden" name="site" class="formdata" value="' . $sCurrentSite . '">' .
                      '<input type="hidden" name="hsite" class="formdata" value="' . $sCurrentSiteHashed . '">' .
-                     '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
+                     '<input type="hidden" name="uploadPath" value="' . $imageUploadPath->path . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all"></textarea>' .
                      '</div>';
 
@@ -2096,9 +2182,22 @@ JSPAGINATE;
                 return $this->getPermissionDenied($message);
             }
             if (!$this->putVars['thread']) {
-                $return['usermessage'] = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADNAME_MISSING');
+                $found = false;
+                $languages = unserialize($this->c4g_forum_multilingual_languages);
+                if ($this->c4g_forum_multilingual && $languages) {
+                    foreach ($languages as $language) {
+                        if ($this->putVars['thread_'.$language]) {
+                            $found = true;
+                            break;
+                        }
+                    }
+                }
 
-                return $return;
+                if (!$found) {
+                    $return['usermessage'] = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADNAME_MISSING');
+                    return $return;
+                }
+
             }
             if (!$this->putVars['post']) {
                 $return['usermessage'] = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'POST_MISSING');
@@ -2122,13 +2221,40 @@ JSPAGINATE;
                 $threaddesc = '';
             }
 
+            if ($this->c4g_forum_multilingual && (!$this->putVars['thread'])) {
+                if ($this->c4g_forum_language_temp && $this->putVars['thread_'.$this->c4g_forum_language_temp]) {
+                    $this->putVars['thread'] == $this->putVars['thread_'.$this->c4g_forum_language_temp];
+                }
+            }
+
             $result = $this->helper->insertThreadIntoDB($forumId, $this->putVars['thread'], $this->User->id, $threaddesc, $sort, $this->putVars['post'], $this->putVars['tags'],
                                                         $this->putVars['linkname'], $this->putVars['linkurl'], $this->putVars['geox'], $this->putVars['geoy'], $this->putVars['locstyle'],
                                                         $this->putVars['label'], $this->putVars['tooltip'], $this->putVars['geodata'], $this->putVars['osmId']);
-
             if (!$result) {
                 $return ['usermessage'] = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'ERROR_SAVE_THREAD');
             } else {
+                if ($this->c4g_forum_multilingual) {
+                      $globalLanguage = true;
+                      if ($this->helper->checkPermission($forumId, 'alllanguages')) {
+                        $languages = unserialize($this->c4g_forum_multilingual_languages);
+                        if ($languages) {
+                            foreach ($languages as $language) {
+                                $putVar = $this->putVars['thread_' . $language];
+                                if ($putVar) {
+                                    $this->helper->insertLanguageEntryIntoDB($result['thread_id'], 'name', $language, $putVar);
+                                    if ($language == $this->c4g_forum_language_temp) {
+                                        $globalLanguage = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if (!$this->helper->checkPermission($forumId, 'alllanguages') && $globalLanguage && $this->putVars['thread']) {
+                        $this->helper->insertLanguageEntryIntoDB($result['thread_id'],'name',$this->c4g_forum_language_temp,$this->putVars['thread']);
+                    }
+                }
+
                 $return                   = $this->getForumInTable($forumId, true);
                 $return ['dialogclose']   = "newthread";
                 $return ['performaction'] = "readthread:" . $result['thread_id'];
@@ -2170,10 +2296,28 @@ JSPAGINATE;
             if (!$access) {
                 return $this->getPermissionDenied($message);
             }
-            if (!$this->putVars['thread']) {
-                $return['usermessage'] = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADNAME_MISSING');
 
-                return $return;
+            $threadname = $this->putVars['thread'];
+            if (!$this->putVars['thread']) {
+                $found = false;
+                $languages = unserialize($this->c4g_forum_multilingual_languages);
+                if ($this->c4g_forum_multilingual && $languages) {
+                    foreach ($languages as $language) {
+                        if ($this->putVars['thread_'.$language]) {
+                            if ($threadname == $this->c4g_forum_language_temp) {
+                                $threadname = $this->putVars['thread_'.$language];
+                            } else if (!$threadname) {
+                                $threadname = $this->putVars['thread_'.$language];
+                            }
+                            $found = true;
+                        }
+                    }
+                }
+
+                if (!$found) {
+                    $return['usermessage'] = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADNAME_MISSING');
+                    return $return;
+                }
             }
             if (!$this->putVars['post']) {
                 $return['usermessage'] = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'POST_MISSING');
@@ -2188,7 +2332,7 @@ JSPAGINATE;
             $post             = array();
             $post['username'] = $this->User->username;
             $post['creation'] = time();
-            $post['subject']  = nl2br(C4GUtils::secure_ugc($this->putVars['thread']));
+            $post['subject']  = nl2br(C4GUtils::secure_ugc($threadname));
             $post['tags']     = nl2br(C4GUtils::secure_ugc($this->putVars['tags']));
             $post['text']     = nl2br(C4GUtils::secure_ugc($this->putVars['post']));
             $post['linkname'] = C4GUtils::secure_ugc($this->putVars['linkname']);
@@ -2198,7 +2342,7 @@ JSPAGINATE;
             $return = array(
                 "dialogtype"    => "html",
                 "dialogdata"    => $data,
-                "dialogoptions" => $this->addDefaultDialogOptions(array("title" => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'NEW_THREAD') . ': ' . C4GUtils::secure_ugc($this->putVars['thread']))),
+                "dialogoptions" => $this->addDefaultDialogOptions(array("title" => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'NEW_THREAD') . ': ' . C4GUtils::secure_ugc($threadname))),
                 "dialogid"      => 'previewthread',
                 "dialogbuttons" => array(
                     array(
@@ -2340,7 +2484,7 @@ JSPAGINATE;
                         $divClass .= " c4gForumBoxNoJqui";
                     }
                 }
-                $data .= '<div class="' . $divClass . '" id="' . $divId . '" title="' . nl2br(C4GUtils::secure_ugc($forum['description'])) . '" data-action="' . $action . '" data-hoverclass="' . $hoverClass . '"' . $href . '>';
+                $data .= '<div class="' . $divClass . '" id="' . $divId . '" title="' . nl2br(C4GUtils::secure_ugc($this->getForumLanguageConfig($forum,'description'))) . '" data-action="' . $action . '" data-hoverclass="' . $hoverClass . '"' . $href . '>';
                 $break = false;
 // TODO
                 if ($forum['box_imagesrc']) { // check if bin is empty !!!!
@@ -2357,11 +2501,11 @@ JSPAGINATE;
 					$objFile = \FilesModel::findByPk($forum['box_imagesrc']);
 					$forum['box_imagesrc'] = $objFile->path;
 				}*/
-                    $data .= '<img src="' . $forum['box_imagesrc'] . '" class="' . $imgClass . '" alt="' . $forum['name'] . '">';
+                    $data .= '<img src="' . $forum['box_imagesrc'] . '" class="' . $imgClass . '" alt="' . $this->getForumLanguageConfig($forum,'name') . '">';
 
                 }
                 if ($this->c4g_forum_boxes_text) {
-                    $name = $forum['name'];
+                    $name = $this->getForumLanguageConfig($forum,'name');
                     if (strlen($name) > 100) {
                         $name = substr($name, 0, 97) . '...';
                     }
@@ -2452,7 +2596,7 @@ JSPAGINATE;
             if ($parentForum['posttext']) {
                 $return['postcontent'] = $this->replaceInsertTags($parentForum['posttext']);
             }
-            $return['headline'] = $this->getHeadline($parentForum['headline']);
+            $return['headline'] = $this->getHeadline($this->getForumLanguageConfig($parentForum,'headline'));
 
             return $return;
         }
@@ -2493,7 +2637,7 @@ JSPAGINATE;
                 "state"       => "forumintro:" . $forumId,
                 "buttons"     => $this->addDefaultButtons(array(), $forumId),
                 "breadcrumb"  => $this->getBreadcrumb($forumId),
-                "headline"    => $this->getHeadline($forum['headline'])
+                "headline"    => $this->getHeadline($this->getForumLanguageConfig($forum,'headline'))
             );
 
             if ($this->c4g_forum_navigation == 'TREE') {
@@ -2566,7 +2710,12 @@ JSPAGINATE;
             }
 
             $thread = $this->helper->getThreadAndForumNameFromDB($threadId);
-            $data   = sprintf(\c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'DEL_THREAD_WARNING'), $thread['threadname'], $thread['forumname']);
+            if ($this->c4g_forum_multilingual) {
+                $threadname = $this->helper->translateThreadField($thread['threadid'], 'name', $this->c4g_forum_language_temp, $thread['threadname']);
+            } else {
+                $threadname = $thread['threadname'];
+            }
+            $data   = sprintf(\c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'DEL_THREAD_WARNING'), $threadname, $thread['forumname']);
 
             $return = array(
                 "dialogtype"    => "html",
@@ -2612,11 +2761,11 @@ JSPAGINATE;
             $subscriptionId = $this->helper->subscription->getSubforumSubscriptionFromDB($forumId, $this->User->id);
 
             if ($subscriptionId) {
-                $dialogData = sprintf($GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_SUBFORUM_SUBSCRIPTION_CANCEL'], $this->helper->getForumNameFromDB($forumId));
+                $dialogData = sprintf($GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_SUBFORUM_SUBSCRIPTION_CANCEL'], $this->helper->getForumNameFromDB($forumId, $this->c4g_forum_language_temp));
                 $buttonTxt  = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_SUBFORUM_CANCEL'];
                 $title      = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['UNSUBSCRIBE_SUBFORUM'];
             } else {
-                $dialogData = sprintf($GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_SUBFORUM_TEXT'], $this->helper->getForumNameFromDB($forumId));
+                $dialogData = sprintf($GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_SUBFORUM_TEXT'], $this->helper->getForumNameFromDB($forumId,$this->c4g_forum_language_temp));
                 $buttonTxt  = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIBE_SUBFORUM'];
 
                 $dialogData .= '<div>' . '<input id="c4gForumSubscriptionForumOnlyThreads"  type="checkbox" name="subscription_only_threads" class="formdata" />' . '<label for="c4gForumSubscriptionForumOnlyThreads">' .
@@ -2714,14 +2863,19 @@ JSPAGINATE;
             }
 
             $thread = $this->helper->getThreadAndForumNameFromDB($threadId);
+            if ($this->c4g_forum_multilingual) {
+                $threadname = $this->helper->translateThreadField($thread['threadid'], 'name', $this->c4g_forum_language_temp, $thread['threadname']);
+            } else {
+                $threadname = $thread['threadname'];
+            }
 
             $subscriptionId = $this->helper->subscription->getThreadSubscriptionFromDB($threadId, $this->User->id);
             if ($subscriptionId) {
-                $dialogData = sprintf(\c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'SUBSCRIPTION_THREAD_SUBSCRIPTION_CANCEL'), $thread ['threadname'], $thread ['forumname']);
+                $dialogData = sprintf(\c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'SUBSCRIPTION_THREAD_SUBSCRIPTION_CANCEL'), $threadname, $thread ['forumname']);
                 $buttonTxt  = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_THREAD_CANCEL'];
                 $title      = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['UNSUBSCRIBE_THREAD'];
             } else {
-                $dialogData = sprintf(\c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'SUBSCRIPTION_THREAD_TEXT'), $thread ['threadname'], $thread ['forumname']);
+                $dialogData = sprintf(\c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'SUBSCRIPTION_THREAD_TEXT'), $threadname, $thread ['forumname']);
                 $buttonTxt  = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'SUBSCRIBE_THREAD');
                 $title      = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'SUBSCRIBE_THREAD');
             }
@@ -2923,7 +3077,13 @@ JSPAGINATE;
             }
 
             $thread = $this->helper->getThreadAndForumNameFromDB($threadId);
-            $select = sprintf(\c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'MOVE_THREAD_TEXT'), $thread['threadname'], $thread['forumname']);
+            $thread = $this->helper->getThreadAndForumNameFromDB($threadId);
+            if ($this->c4g_forum_multilingual) {
+                $threadname = $this->helper->translateThreadField($thread['threadid'], 'name', $this->c4g_forum_language_temp, $thread['threadname']);
+            } else {
+                $threadname = $thread['threadname'];
+            }
+            $select = sprintf(\c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'MOVE_THREAD_TEXT'), $threadname, $thread['forumname']);
 
             // get forums as flat array (without hierarchy)
             $allModules = ($this->c4g_forum_move_all == "1");
@@ -2932,7 +3092,7 @@ JSPAGINATE;
             foreach ($forums AS $forum) {
                 if ($forum['subforums'] == 0) {
                     if (($forum['id'] != $forumId) && ($forum['linkurl'] == '') && ($this->helper->checkPermissionForAction($forum['id'], $this->action))) {
-                        $select .= '<option value="' . $forum['id'] . '">' . $forum['name'] . '</option>';
+                        $select .= '<option value="' . $forum['id'] . '">' . $this->getForumLanguageConfig($forum,'name') . '</option>';
                         $entries = true;
                     }
                 }
@@ -3138,7 +3298,13 @@ JSPAGINATE;
                 return $this->getPermissionDenied($this->helper->permissionError);
             }
 
-            $data = sprintf(\c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'DEL_POST_WARNING'), $post['forumname'], $post['threadname'], $post['username'], $post['subject']);
+            if ($this->c4g_forum_multilingual) {
+                $threadname = $this->helper->translateThreadField($post['threadid'], 'name', $this->c4g_forum_language_temp, $post['threadname']);
+            } else {
+                $threadname = $post['threadname'];
+            }
+
+            $data = sprintf(\c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'DEL_POST_WARNING'), $post['forumname'], $threadname, $post['username'], $post['subject']);
 
             $return = array(
                 "dialogtype"    => "html",
@@ -3270,9 +3436,22 @@ JSPAGINATE;
                 return $this->getPermissionDenied($this->helper->permissionError);
             }
             if (!$this->putVars['thread']) {
-                $return['usermessage'] = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREADNAME_MISSING');
+                $found = false;
+                $languages = unserialize($this->c4g_forum_multilingual_languages);
+                if ($this->c4g_forum_multilingual && $languages) {
+                    foreach ($languages as $language) {
+                        if ($this->putVars['thread_'.$language]) {
+                            $found = true;
+                            break;
+                        }
+                    }
+                }
 
-                return $return;
+                if (!$found) {
+                    $return['usermessage'] = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type, 'THREADNAME_MISSING');
+
+                    return $return;
+                }
             }
 
             if ($this->helper->checkPermission($thread['forumid'], 'threadsort')) {
@@ -3291,13 +3470,46 @@ JSPAGINATE;
                 $threaddesc = $thread['threaddesc'];
             }
 
+            if ($this->c4g_forum_multilingual && (!$this->putVars['thread'])) {
+                if ($this->c4g_forum_language_temp && $this->putVars['thread_'.$this->c4g_forum_language_temp]) {
+                    $this->putVars['thread'] = $this->putVars['thread_'.$this->c4g_forum_language_temp];
+                }
+            }
 
             $result = $this->helper->updateThreadDB($thread, $this->User->id, $this->putVars['thread'], $threaddesc, $sort);
 
             if (!$result) {
                 $return ['usermessage'] = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'EDIT_THREAD_ERROR');
             } else {
-                $return                   = $this->getForumInTable($thread['forumid'], true);
+                if ($this->c4g_forum_multilingual) {
+                    $globalLanguage = true;
+                    if ($this->helper->checkPermission($thread['forumid'], 'alllanguages')) {
+                        $languages = unserialize($this->c4g_forum_multilingual_languages);
+                        if ($languages) {
+                            foreach ($languages as $language) {
+                                $putVar = $this->putVars['thread_' . $language];
+                                $updated = $this->helper->updateDBLanguageEntry($thread['id'], 'name', $language, $putVar);
+                                if (!$updated) {
+                                    $updated = $this->helper->insertLanguageEntryIntoDB($thread['id'], 'name', $language, $putVar);
+                                }
+                                if ($updated && ($language == $this->c4g_forum_language_temp)) {
+                                    $globalLanguage = false;
+                                }
+                            }
+                        }
+                    }
+
+                    if (!$this->helper->checkPermission($thread['forumid'], 'alllanguages') && $globalLanguage) {
+                        $putVar = $this->putVars['thread'];
+                        if ($putVar) {
+                            $updated = $this->helper->updateDBLanguageEntry($thread['id'], 'name', $globalLanguage, $putVar);
+                            if (!$updated) {
+                                $this->helper->insertLanguageEntryIntoDB($thread['id'], 'name', $language, $putVar);
+                            }
+                        }
+                    }
+                }
+                $return = $this->getForumInTable($thread['forumid'], true);
                 $return ['dialogclose']   = array(
                     "editthread" . $threadId,
                     "thread" . $threadId
@@ -3363,7 +3575,6 @@ JSPAGINATE;
 
             $sHtml = "";
 
-            //ToDo macht es Sinn Tags zu pflegen, wenn man nicht danach suchen kann?
             if (!empty($aTags) && $this->c4g_forum_use_tags_in_search) {
                 $sHtml = "<div class=\"" . $sDivName . "\">";
                 $sHtml .= $label . ':<br/>';
@@ -3676,7 +3887,7 @@ JSPAGINATE;
                      '</div>';
             $data .= $this->getTagForm('c4gForumEditPostTags', $post, $dialogId);
 
-            if ($this->c4g_forum_rating_enabled) {
+            if (($post['authorid'] != $this->User->id) && $this->c4g_forum_rating_enabled) {
                 // Rating stars
                 $data .= '<div class="rating_wrapper">
                             <input type="hidden" name="rating" value="' . $post['rating'] . '" id="rating" class="formdata">
@@ -3699,10 +3910,16 @@ JSPAGINATE;
             $sCurrentSite = strtok(\Environment::get('httpReferer'),'?');
             $sCurrentSiteHashed = md5($sCurrentSite . \Config::get('encryptionKey'));
 
+            $binImageUuid = deserialize(unserialize($this->c4g_forum_bbcodes_editor_imguploadpath));
+            if ($binImageUuid) {
+                $imageUploadPath = \FilesModel::findByUuid(\Contao\StringUtil::binToUuid($binImageUuid[0]));
+            }
+
+
             $data .= '<div class="c4gForumEditPostContent">' .
                      \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'POST') . ':<br/>' .
                      '<input type="hidden" name="uploadEnv" value="' . $sSite . '">' .
-                     '<input type="hidden" name="uploadPath" value="' . $this->c4g_forum_bbcodes_editor_imguploadpath . '">' .
+                     '<input type="hidden" name="uploadPath" value="' . $imageUploadPath->path . '">' .
                      '<input type="hidden" name="site" class="formdata" value="' . $sCurrentSite . '">' .
                      '<input type="hidden" name="hsite" class="formdata" value="' . $sCurrentSiteHashed . '">' .
                      '<textarea' . $editorId . ' name="post" cols="80" rows="15" class="formdata ui-corner-all">' . strip_tags($post['text']) . '</textarea>' .
@@ -3769,12 +3986,38 @@ JSPAGINATE;
                 return $this->getPermissionDenied($this->helper->permissionError);
             }
 
-            $data = $this->getThreadDescForForm('c4gForumEditThreadDesc', $thread['forumid'], 'editthread', $thread['threaddesc']);
+            if ($this->c4g_forum_multilingual) {
+                $threadname = $this->helper->translateThreadField($thread['id'], 'name', $this->c4g_forum_language_temp, $thread['name']);
+            } else {
+                $threadname = $thread['name'];
+            }
 
-            $data .= '<div class="c4gForumEditThread">' .
+            $inputThreadname = '';
+            if ($this->c4g_forum_multilingual && $this->helper->checkPermission($thread['forumid'], 'alllanguages')) {
+                $languages = unserialize($this->c4g_forum_multilingual_languages);
+                if ($languages) {
+                    foreach($languages as $language) {
+                        $initialValue = '';
+                        if ($thread['name']) {
+                            $initialValue = $thread['name'];
+                        }
+                        $lgthreadname = $this->helper->translateThreadField($thread['id'], 'name', $language, $initialValue);
+                        $inputThreadname .=  \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type, 'THREAD', $language) . ':<br/>' .
+                            '<input name="thread_'.$language.'" value="' . $lgthreadname . '" type="text" class="formdata ui-corner-all" size="80" maxlength="255" /><br />';
+                    }
+                }
+            }
+
+            if (!$inputThreadname) {
+                $inputThreadname .= \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREAD') . ':<br/>' .
+                    '<input name="thread" type="text"  value="' . $threadname . '" class="formdata ui-corner-all" size="80" maxlength="255" /><br />';
+            }
+
+
+            $data = '<div class="c4gForumEditThread">' .
                      '<div class="c4gForumEditThreadName">' .
-                     \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREAD') . ':<br/>' .
-                     '<input name="thread" value="' . $thread['name'] . '" type="text" class="formdata ui-corner-all" size="80" maxlength="255" /><br />';
+                     $inputThreadname;
+            $data .= $this->getThreadDescForForm('c4gForumEditThreadDesc', $thread['forumid'], 'editthread', $thread['threaddesc']);
             $data .= '</div>';
             $data .= $this->getThreadSortForForm('c4gForumEditThreadSort', $thread['forumid'], 'editthread', $thread['sort']);
             $data .= '</div>';
@@ -4427,10 +4670,11 @@ JSPAGINATE;
             $threads = array_merge($threads, $this->helper->searchSpecificThreadsFromDB($searchParam));
 
 
-            /** *************************************************************************************************************************************\
-             * |* building datatable
-             * \****************************************************************************************************************************************/
+            /*************************************************************************************************************************************\
+             * building datatable
+             *****************************************************************************************************************************************/
             $data                 = array();
+
 
             $data['aoColumnDefs'] = array(
                 array(
@@ -4489,6 +4733,7 @@ JSPAGINATE;
                         11,
                         5
                     ),
+                    "sType"           => 'de_datetime',
                     "bSearchable"     => false,
                     "asSorting"       => array(
                         'desc',
@@ -4687,10 +4932,16 @@ JSPAGINATE;
                     $tooltip .= ' [...]';
                 }
 
+                if ($this->c4g_forum_multilingual) {
+                    $threadname = $this->helper->translateThreadField($thread['id'], 'name', $this->c4g_forum_language_temp, $thread['name']);
+                } else {
+                    $threadname = $thread['name'];
+                }
+
                 $aaData = array(
                     $threadAction,
-                    $this->helper->checkThreadname($thread['name']),
-                    $this->helper->getForumNameForThread($thread['id']),
+                    $this->helper->checkThreadname($threadname),
+                    $this->helper->getForumNameForThread($thread['id'], $this->c4g_forum_language_temp),
                     $lastUsername,
                     $this->helper->getDateTimeString($lastPost),
                     $lastPost,
@@ -4747,13 +4998,18 @@ JSPAGINATE;
                 $action = "forum:" . $forumId;
             }
 
+            $tooltipcol = 13;
+            if ($this->c4g_forum_rating_enabled) {
+                $tooltipcol = 14;
+            }
+
             $return = array(
                 "dialogclose"    => "search",
                 "contenttype"    => "datatable",
                 "contentdata"    => $data,
                 "contentoptions" => array(
                     "actioncol"     => 0,
-                    "tooltipcol"    => 13,
+                    "tooltipcol"    => $tooltipcol,
                     "selectOnHover" => true,
                     "clickAction"   => true
                 ),
@@ -4846,6 +5102,7 @@ JSPAGINATE;
                     'desc',
                     'asc'
                 ),
+                "sType"           => 'de_datetime',
                 "aTargets"        => array(4),
                 "responsivePriority"    => array(4),
                 "c4gMinTableSize" => 700
@@ -4874,6 +5131,7 @@ JSPAGINATE;
                     'desc',
                     'asc'
                 ),
+                "sType"           => 'de_datetime',
                 "bSearchable"     => false,
                 "aTargets"        => array(7),
                 "responsivePriority"    => array(7),
@@ -4990,11 +5248,16 @@ JSPAGINATE;
                     $tooltip .= ' [...]';
                 }
 
+                if ($this->c4g_forum_multilingual) {
+                    $threadname = $this->helper->translateThreadField($thread['id'], 'name', $this->c4g_forum_language_temp, $thread['name']);
+                } else {
+                    $threadname = $thread['name'];
+                }
 
                 $aaData = array(
                     $threadAction,
-                    $this->helper->checkThreadname($thread['name']),
-                    $this->helper->getForumNameForThread($thread['id']),
+                    $this->helper->checkThreadname($threadname),
+                    $this->helper->getForumNameForThread($thread['id'], $this->c4g_forum_language_temp),
                     $lastUsername,
                     $this->helper->getDateTimeString($lastPost),
                     $lastPost,
@@ -5048,18 +5311,23 @@ JSPAGINATE;
                 $action = "forum:" . $forumId;
             }
 
+            $tooltipcol = 10;
+            if ($this->c4g_forum_rating_enabled) {
+                $tooltipcol = 11;
+            }
+
             $return = array(
                 "dialogclose"    => "search",
                 "contenttype"    => "datatable",
                 "contentdata"    => $data,
                 "contentoptions" => array(
                     "actioncol"     => 0,
-                    "tooltipcol"    => 10,
+                    "tooltipcol"    => $tooltipcol,
                     "selectOnHover" => true,
                     "clickAction"   => true
                 ),
                 "state"          => $action . ";threadlist:" . $forumId,
-                "headline"       => '<div class="ui-widget-header"><center>' . \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'LATESTTHREADS_HEADLINE') . '</center></div>',
+                "headline"       => '<div class="ui-widget-header ui-corner-all c4g_forum_header_center">' . \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'LATESTTHREADS_HEADLINE') . '</div>',
                 "buttons"        => array()
                 //array(array( id=>'threadlist:'.$forumId, text=>$GLOBALS['TL_LANG']['C4G_FORUM']['LATESTTHREADS']))
             );
@@ -5114,22 +5382,32 @@ JSPAGINATE;
 
             $data = array();
             foreach ($path as $value) {
-                $value['name'] = $this->repInsertTags($value['name']);
+                $pathname = $value['name'];
+                $names = unserialize($value['optional_names']);
+                if ($names) {
+                    foreach ($names as $name) {
+                        if ($name['optional_language'] == $this->c4g_forum_language_temp) {
+                            $pathname = $name['optional_name'];
+                            break;
+                        }
+                    }
+                }
+                $pathname = $this->repInsertTags($pathname);
                 if (($value['use_intropage']) && (!$this->c4g_forum_hide_intropages)) {
                     $data[] = array(
                         "id"   => 'forumintro:' . $value['id'],
-                        "text" => $value['name']
+                        "text" => $pathname
                     );
                 } else {
                     if ($value['subforums'] == 0) {
                         $data[] = array(
                             "id"   => 'forum:' . $value['id'],
-                            "text" => $value['name']
+                            "text" => $pathname
                         );
                     } else {
                         $data[] = array(
                             "id"   => 'forumbox:' . $value['id'],
-                            "text" => $value['name']
+                            "text" => $pathname
                         );
                     }
                 }
@@ -5207,9 +5485,10 @@ JSPAGINATE;
          */
         public function performAction($action)
         {
+            $this->setTempLanguage();
+
             //delete cache -- Übergangslösung bis alles läuft.
 //            \c4g\Core\C4GAutomator::purgeApiCache();
-
 
             $values       = explode(':', $action, 5);
             $this->action = $values[0];
@@ -5507,14 +5786,111 @@ JSPAGINATE;
             return $sFrontendUrl;
         }
 
+        /**
+         *
+         */
+        private function setTempLanguage() {
+            //several ways to set/get language ...
+
+            if (trim($this->c4g_forum_language) == '') {
+                $this->c4g_forum_language_temp = '';
+
+                //language get param or request_uri for language switcher sites
+                $getLang  = \Input::get('language');
+                if ($getLang) {
+                    $this->c4g_forum_language_temp = $getLang;
+                } else if ($_SERVER["REQUEST_URI"]) {
+                    //$uri = str_replace('.html','',substr($_SERVER['REQUEST_URI'],1));
+                    $uri = $_SERVER['REQUEST_URI'];
+                    $uri = explode('/',$uri);
+                    if ($uri && $uri[0] && strlen($uri[0]) == 2) {
+                        $this->c4g_forum_language_temp = $uri[0];
+                    } else if ($uri && $uri[1] && strlen($uri[1]) == 2) {
+                        $this->c4g_forum_language_temp = $uri[1];
+                    }
+                }
+
+                //four other ways to get current language
+                if ($this->c4g_forum_language_temp == '') {
+                    /** @var \PageModel $objPage */
+                    global $objPage;
+
+                    $pageLang = \Controller::replaceInsertTags('{{page::language}}');
+                    if ($pageLang) {
+                        $this->c4g_forum_language_temp = $pageLang;
+                    } else if ($objPage && $objPage->language) {
+                        $this->c4g_forum_language_temp = $objPage->language;
+                    } else if ($GLOBALS['TL_LANGUAGE']) {
+                        $this->c4g_forum_language_temp = $GLOBALS['TL_LANGUAGE'];
+                    } else if ($_SESSION["TL_LANGUAGE"]) {
+                        $this->c4g_forum_language_temp = $_SESSION['TL_LANGUAGE'];
+                    }
+                }
+            } else {
+                $this->c4g_forum_language_temp = $this->c4g_forum_language;
+            }
+
+            if ($this->c4g_forum_language_temp != '') {
+                $this->loadLanguageFile('frontendModules', $this->c4g_forum_language_temp);
+                $this->loadLanguageFile('stopwords', $this->c4g_forum_language_temp);
+            } else {
+                //should not happen, but ...
+                $this->loadLanguageFile('frontendModules', 'de');
+                $this->loadLanguageFile('stopwords', 'de');
+            }
+        }
+
+        /**
+         * @param $forum
+         * @param $fieldname
+         * @return mixed
+         */
+        private function getForumLanguageConfig($forum, $fieldname) {
+
+            switch($fieldname) {
+                case 'name':
+                    $names = unserialize($forum['optional_names']);
+                    if ($names) {
+                        foreach ($names as $name) {
+                            if ($name['optional_language'] == $this->c4g_forum_language_temp) {
+                                return $name['optional_name'];
+                            }
+                        }
+                    }
+                    break;
+                case 'headline':
+                    $headlines = unserialize($forum['optional_headlines']);
+                    if ($headlines) {
+                        foreach ($headlines as $headline) {
+                            if ($headline['optional_headline_language'] == $this->c4g_forum_language_temp) {
+                                return $headline['optional_headline'];
+                            }
+                        }
+                    }
+                    break;
+                case 'description':
+                    $descriptions = unserialize($forum['optional_descriptions']);
+                    if ($descriptions) {
+                        foreach ($descriptions as $description) {
+                            if ($description['optional_description_language'] == $this->c4g_forum_language_temp) {
+                                return $description['optional_description'];
+                            }
+                        }
+                    }
+                    break;
+            }
+
+            return $forum[$fieldname];
+        }
+
 
         /**
          * function is called by every Ajax requests
          */
         public function generateAjax($request = null, $user = null)
         {
+
             $this->User = $user;
-            global $objPage;
 
             // auf die benutzerdefinierte Fehlerbehandlung umstellen
             $old_error_handler = \set_error_handler("\c4g\Forum\c4gForumErrorHandler");
@@ -5534,12 +5910,11 @@ JSPAGINATE;
                     $this->Session->setData($session);
                 }
             }
-            if (empty($this->c4g_forum_language)) {
-                $this->c4g_forum_language = $GLOBALS['TL_LANGUAGE'];
-            }
 
-            $this->loadLanguageFile('frontendModules', $this->c4g_forum_language);
-            $this->loadLanguageFile('stopwords', $this->c4g_forum_language);
+            $this->setTempLanguage();
+
+            //$this->loadLanguageFile('frontendModules', $this->c4g_forum_language_temp);
+            //$this->loadLanguageFile('stopwords', $this->c4g_forum_language_temp);
 
             try {
 

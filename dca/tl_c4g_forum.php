@@ -7,7 +7,7 @@
  * @package   con4gis
  * @author    con4gis contributors (see "authors.txt")
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2017.
  * @link      https://www.kuestenschmiede.de
  */
 
@@ -132,6 +132,7 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 	(
 		'__selector__'                => array('define_groups','define_rights','enable_maps','map_type'),
 		'default'                     => '{general_legend},name,headline,description,published;'.
+                                         '{language_legend:hide},optional_names,optional_headlines,optional_descriptions;'.
 										 '{comfort_legend},box_imagesrc;'.
 										 '{intropage_legend:hide},use_intropage;'.
 										 '{infotext_legend:hide},pretext,posttext;'.
@@ -141,7 +142,8 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 										 '{expert_legend:hide},linkurl,link_newwindow,sitemap_exclude;mail_subscription_text',
 
 	    // used in updateDCA(), because subpalettes don't work well with TinyMCE fields!!
-		'with_intropage'              => '{general_legend},name,headline,description,published;'.
+		'with_intropage'              => '{general_legend},name,optional_names,headline,optional_headlines,description,optional_descriptions,published;'.
+                                         '{language_legend:hide},optional_names,optional_headlines,optional_descriptions;'.
 										 '{comfort_legend},box_imagesrc;'.
 										 '{intropage_legend},use_intropage,intropage,intropage_forumbtn,intropage_forumbtn_jqui;'.
 										 '{infotext_legend:hide},pretext,posttext;'.
@@ -204,8 +206,36 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>255 ),
             'sql'                     => "varchar(255) NOT NULL default ''"
 		),
+        'optional_names' => array
+        (
+            'label'			=> &$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_names'],
+            'exclude' 		=> true,
+            'inputType'     => 'multiColumnWizard',
+            'eval' 			=> array
+            (
+                'columnFields' => array
+                (
+                    'optional_name' => array
+                    (
+                        'label'                 => &$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_name'],
+                        'exclude'               => true,
+                        'inputType'             => 'text',
+                        'eval' 			        => array('tl_class'=>'w50')
+                    ),
+                    'optional_language' => array
+                    (
+                        'label'                 => &$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_language'],
+                        'exclude'               => true,
+                        'inputType'             => 'select',
+                        'options'               => \System::getLanguages(),
+                        'eval'                  => array('chosen' => true, style=>'width: 200px')
+                    )
+                )
+            ),
 
-		'headline' => array
+            'sql' => "blob NULL"
+        ),
+        'headline' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['headline'],
 			'exclude'                 => true,
@@ -215,7 +245,36 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'eval'                    => array('maxlength'=>255),
             'sql'                     => "varchar(255) NOT NULL default ''"
 		),
+        'optional_headlines' => array
+        (
+            'label'			=> &$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_headlines'],
+            'exclude' 		=> true,
+            'inputType'     => 'multiColumnWizard',
+            'eval' 			=> array
+            (
+                'columnFields' => array
+                (
+                    'optional_headline' => array
+                    (
+                        'label'                 => &$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_headline'],
+                        'exclude'               => true,
+                        'inputType'             => 'inputUnit',
+                        'options'                 => array('h1', 'h2', 'h3', 'h4', 'h5', 'h6'),
+                        'eval'                    => array('tl_class'=>'w50','maxlength'=>255),
+                    ),
+                    'optional_headline_language' => array
+                    (
+                        'label'                 => &$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_language'],
+                        'exclude'               => true,
+                        'inputType'             => 'select',
+                        'options'               => \System::getLanguages(),
+                        'eval'                  => array('chosen' => true, style=>'width: 200px')
+                    )
+                )
+            ),
 
+            'sql' => "blob NULL"
+        ),
 		'description' => array
 		(
 			'label'					=> &$GLOBALS['TL_LANG']['tl_c4g_forum']['description'],
@@ -224,7 +283,35 @@ $GLOBALS['TL_DCA']['tl_c4g_forum'] = array
 			'eval'                  => array('style' => 'height:60px'),
             'sql'                   => "blob NULL"
 		),
+        'optional_descriptions' => array
+        (
+            'label'			=> &$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_descriptions'],
+            'exclude' 		=> true,
+            'inputType'     => 'multiColumnWizard',
+            'eval' 			=> array
+            (
+                'columnFields' => array
+                (
+                    'optional_description' => array
+                    (
+                        'label'                 => &$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_description'],
+                        'exclude'               => true,
+                        'inputType'             => 'textarea',
+                        'eval' 			        => array('tl_class'=>'w50','style' => 'height:60px')
+                    ),
+                    'optional_description_language' => array
+                    (
+                        'label'                 => &$GLOBALS['TL_LANG']['tl_c4g_forum']['optional_language'],
+                        'exclude'               => true,
+                        'inputType'             => 'select',
+                        'options'               => \System::getLanguages(),
+                        'eval'                  => array('chosen' => true, style=>'width: 200px')
+                    )
+                )
+            ),
 
+            'sql' => "blob NULL"
+        ),
 		'published' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_forum']['published'],

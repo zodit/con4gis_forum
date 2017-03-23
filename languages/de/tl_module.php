@@ -9,7 +9,7 @@
  * @package   con4gis
  * @author    con4gis contributors (see "authors.txt")
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2017.
  * @link      https://www.kuestenschmiede.de
  */
 
@@ -68,7 +68,18 @@
         'Frontend-Sprache des Forums',
         'Leer=Automatisch ermitteln, de=Deutsch, en=Englisch.'
     );
-
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_multilingual']      = array(
+        'Mehrsprachigkeit ermöglichen',
+        'Einige Felder (z.B. Themenname) werden mehrsprachig angeboten. D.h. die Eingabe erfolgt in der Forensprache. Mit dem Sprachwechsler-Recht kann die Eingabe im Frontend gewechselt werden (also mehrere Sprachen ausgefüllt werden). Wenn nur eine Sprache gefüllt ist, wird die bereits ausgefüllte Sprache dargestellt.'
+    );
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_multilingual_languages'] = array(
+        'Ausgewählte Sprachen für die Frontend-Mehrsprachigkeit',
+        'Wählen Sie die gewünschten Sprachen.'
+    );
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_multilingual_language'] = array(
+        'Frontend-Sprachen',
+        'Wählen Sie die Sprachen für die Frontendeingabe. Achtung wählen Sie nur Sprachen die über die Sprachdateien definiert sind (Standard: de,en,fi)'
+    );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes']                       = array(
         'BBCodes verwenden',
         'Deaktivieren Sie diese Checkbox, falls Sie BBCodes komplett deaktivieren möchten! Die Verwendung von BBCodes ist dann in diesem Forum nicht mehr möglich. Dies kann zu Formatfehlern führen, wenn diese in einem bereits laufenden Forum zuvor aktiviert waren.'
@@ -77,12 +88,12 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_toolbaritems']   = array('WYSIWYG-Editor Toolbar Schaltfächen', '');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_ckeditor']                      = array('Neuen WYSIWYG-Editor verwenden', '');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor']                        = array('WYSIWYG-Editor', '');
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_pn_button']                = array('Perönliche Nachrichten', 'Button für Persönliche Nachrichten im Profil anzeigen');
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_show_pn_button']                = array('Persönliche Nachrichten', 'Button für Persönliche Nachrichten im Profil anzeigen');
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor_option']['ck']           = "Neuen WYSIWYG-Editor verwenden";
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor_option']['bb']           = "Alten WYSIWYG-Editor verwenden";
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_editor_option']['no']           = "Keinen WYSIWYG-Editor verwenden";
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath']  = array('Bildupload-Verzeichnis', 'Bestimmt das Verzeichnis, in dem hochgeladene Bilder gespeichert werden sollen (z.B. files/con4gis_forum/images)');
-    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_fileuploadpath'] = array('Dateiupload-Verzeichnis', 'Bestimmt das Verzeichnis, in dem hochgeladene Dateien gespeichert werden sollen (z.B. files/con4gis_forum/documents). Es wird je Tag ein extra Ordner innerhalb dieses Ordners angelegt.');
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_imguploadpath']  = array('Bildupload-Verzeichnis', 'Wählen Sie das Verzeichnis aus, in dem die Bilder gespeichert werden sollen. Es wird je Tag ein extra Ordner innerhalb dieses Ordners angelegt.');
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_fileuploadpath'] = array('Dateiupload-Verzeichnis', 'Wählen Sie das Verzeichnis aus, in dem die Dateien gespeichert werden sollen. Es wird je Tag ein extra Ordner innerhalb dieses Ordners angelegt.');
 // $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_smileys'] 	= array('Smileys verwenden',
 // 																		'Deaktivieren Sie diese Checkbox, falls Sie nicht wollen, dass das Forum Smileys automatisch erkennt und gegen entsprechende Icons austauscht.');
 // $GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_smileys_url'] 	= array('Pfad zu den Smiley-Icons',
@@ -123,7 +134,7 @@
     );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_uitheme_css_src']        = array(
         'jQuery UI ThemeRoller CSS Datei',
-        'Wählen Sie hier wenn gewünscht eine CSS Datei aus, die Sie mit dem jQuery UI ThemeRoller erstellt haben.'
+        'Wählen Sie hier wenn gewünscht eine CSS Datei aus, die Sie mit dem jQuery UI ThemeRoller erstellt haben (https://jqueryui.com/themeroller/).'
     );
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_dialogsize']             = array(
         'Größe von Dialogen (Breite, Höhe)',

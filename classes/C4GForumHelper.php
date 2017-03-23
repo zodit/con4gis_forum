@@ -8,7 +8,7 @@
  * @package   con4gis
  * @author    con4gis contributors (see "authors.txt")
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2011 - 2016.
+ * @copyright Küstenschmiede GmbH Software & Design 2011 - 2017.
  * @link      https://www.kuestenschmiede.de
  */
 
@@ -385,7 +385,7 @@ class C4GForumHelper extends \System
 
 		if ($allModules) {
             $forums = $this->Database->prepare(
-                "SELECT a.id,a.name,a.headline,a.description,a.threads,a.posts,a.box_imagesrc,t.name AS last_threadname,p.creation AS last_post_creation, " . $sqlLastUser . " AS last_username, ".
+                "SELECT a.id,a.name,a.optional_names,a.headline,a.optional_headlines,a.description,a.optional_descriptions,a.threads,a.posts,a.box_imagesrc,t.name AS last_threadname,p.creation AS last_post_creation, " . $sqlLastUser . " AS last_username, ".
                 "a.member_groups, a.admin_groups, a.guest_rights, a.member_rights, a.admin_rights,".
                 "a.use_intropage, a.intropage, a.intropage_forumbtn, a.intropage_forumbtn_jqui, a.linkurl,a.link_newwindow,a.sitemap_exclude,".
                 "a.pretext, a.posttext, a.enable_maps, a.enable_maps_inherited, a.map_type, a.map_id, a.map_location_label, a.map_override_locationstyle, a.map_label, a.map_tooltip ".
@@ -399,7 +399,7 @@ class C4GForumHelper extends \System
             )->execute(1);
         } else {
             $forums = $this->Database->prepare(
-                "SELECT a.id,a.name,a.headline,a.description,count(b.id) AS subforums,a.threads,a.posts,a.box_imagesrc,t.name AS last_threadname,p.creation AS last_post_creation, " . $sqlLastUser . " AS last_username, ".
+                "SELECT a.id,a.name,a.optional_names,a.headline,a.optional_headlines,a.description,a.optional_descriptions,count(b.id) AS subforums,a.threads,a.posts,a.box_imagesrc,t.name AS last_threadname,p.creation AS last_post_creation, " . $sqlLastUser . " AS last_username, ".
                 "a.member_groups, a.admin_groups, a.guest_rights, a.member_rights, a.admin_rights,".
                 "a.use_intropage, a.intropage, a.intropage_forumbtn, a.intropage_forumbtn_jqui, a.linkurl,a.link_newwindow,a.sitemap_exclude,".
                 "a.pretext, a.posttext, a.enable_maps, a.enable_maps_inherited, a.map_type, a.map_id, a.map_location_label, a.map_override_locationstyle, a.map_label, a.map_tooltip ".
@@ -459,7 +459,7 @@ class C4GForumHelper extends \System
 			$return = '';
 		}
 		$forums = $this->Database->prepare(
-				"SELECT a.id, a.name, count(b.id) AS subforums, a.member_groups, a.admin_groups, a.guest_rights, a.member_rights, a.admin_rights".
+				"SELECT a.id, a.name, a.optional_names, count(b.id) AS subforums, a.member_groups, a.admin_groups, a.guest_rights, a.member_rights, a.admin_rights".
 				" FROM tl_c4g_forum a ".
 				"LEFT JOIN tl_c4g_forum b ON (b.pid = a.id) AND (b.published = ?) ".
 				"WHERE a.pid = ? AND a.published = ? ".
@@ -804,6 +804,100 @@ class C4GForumHelper extends \System
 				)->execute($type, $id);
 	}
 
+    /**
+     * returns language values, if multilingual
+     * @param $threadId
+     * @param $fieldname
+     * @param $language
+     * @param string $initialvalue
+     * @return string
+     */
+	public function translateThreadField($threadId, $fieldname, $language, $initialvalue = '') {
+        $result = $this->Database->prepare(
+            "SELECT value AS data FROM tl_c4g_forum_thread_translations WHERE pid = ? ".
+            "AND language = ? " .
+            "AND fieldname = ? "
+        )->execute($threadId, $language, $fieldname)->data;
+
+        if ($result) {
+            return $result;
+        } else {
+            return $initialvalue;
+        }
+    }
+
+
+    /**
+     * insert language value, if multilingual
+     * @param $threadId
+     * @param $fieldname
+     * @param $language
+     * @param $value
+     * @return bool
+     */
+    public function insertLanguageEntryIntoDB($threadId, $fieldname, $language, $value) {
+	    $set = array();
+        $set['pid']       = $threadId;
+        $set['fieldname'] = $fieldname;
+        $set['language']  = $language;
+        $set['value']     = $value;
+
+        $objInsertStmt = $this->Database->prepare("INSERT INTO tl_c4g_forum_thread_translations %s")
+            ->set($set)
+            ->execute();
+
+        if (!$objInsertStmt->affectedRows)
+        {
+            return false;
+        }
+
+        return $objInsertStmt->insertId;
+    }
+
+    /**
+     * @param $threadId
+     * @param $fieldname
+     * @param $language
+     * @param $value
+     * @return bool
+     */
+    public function updateDBLanguageEntry($threadId, $fieldname, $language, $value) {
+        $set = array();
+        $set['pid']       = $threadId;
+        $set['fieldname'] = $fieldname;
+        $set['language']  = $language;
+        $set['value']     = $value;
+
+        $objUpdateStmt = $this->Database->prepare(
+            "UPDATE tl_c4g_forum_thread_translations %s ".
+            "WHERE pid = ? ".
+            "AND language = ? " .
+            "AND fieldname = ? ")
+            ->set($set)
+            ->execute($threadId,$language,$fieldname);
+
+        if (!$objUpdateStmt->affectedRows)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param $threadId
+     * @return bool
+     */
+    public function deleteTranslationsForThread($threadId)
+    {
+        $objDeleteStmt = $this->Database->prepare("DELETE FROM tl_c4g_forum_thread_translations WHERE pid = ?")->execute($threadId);
+        if ($objDeleteStmt->affectedRows == 0) {
+            return false;
+        }
+
+        return true;
+    }
+
 	/**
 	 * creates an index for a specified tablerow
 	 * also use this for recreation
@@ -819,6 +913,8 @@ class C4GForumHelper extends \System
 		$dataSet = array();
 
 		$srcTable = "tl_c4g_forum_thread";
+		$translTable = "tl_c4g_forum_thread_translations";
+
 		$inPost = false;
 		switch ($type) {
 			case 'threadhl':
@@ -852,23 +948,44 @@ class C4GForumHelper extends \System
 				$select
 		)->execute($id)->data;
 
-		if(empty($dataSet)){
-			return null;
+		if(!empty($dataSet)){
+            //compress data
+            if($type == "tag" || $type == "threadtag"){
+                $dataSet = C4GUtils::compressDataSetForSearch($dataSet,false,true,true,true);
+                $dataSet = explode(',',$dataSet);
+                $dataSet = array_map("trim",$dataSet);
+            }else{
+                $dataSet = C4GUtils::compressDataSetForSearch($dataSet);
+                $dataSet = explode(' ', $dataSet);
+            }
 		}
 
-		//compress data
-        if($type == "tag" || $type == "threadtag"){
-            $dataSet = C4GUtils::compressDataSetForSearch($dataSet,false,true,true,true);
-            $dataSet = explode(',',$dataSet);
-            $dataSet = array_map("trim",$dataSet);
-        }else{
-		    $dataSet = C4GUtils::compressDataSetForSearch($dataSet);
-		    $dataSet = explode(' ', $dataSet);
+        if ($type == 'threadhl') {
+            $select_translations = "SELECT value AS data ".
+                "FROM " . $translTable . " ".
+                "WHERE pid = ? ".
+                "AND fieldname = ? ";
+
+            $dataTranslSet = $this->Database->prepare(
+                $select_translations
+            )->execute($id, $srcCol)->data;
+
+            if(!empty($dataTranslSet)){
+                $dataTranslSet = C4GUtils::compressDataSetForSearch($dataTranslSet);
+                $dataTranslSet = explode(' ', $dataTranslSet);
+
+                if(empty($dataSet)){
+                    $dataSet = $dataTranslSet;
+                } else {
+                    $dataSet = array_merge($dataSet, $dataTranslSet);
+                }
+            }
         }
 
-		if(empty($dataSet)){
-			return null;
-		}
+        if(empty($dataSet)){
+            return null;
+        }
+
 		//investigate data
 		$indexDataSet = array();
 		foreach ($dataSet as $data){
@@ -1498,16 +1615,24 @@ class C4GForumHelper extends \System
 	 * @param int $threadId
 	 * @param int $charcount
 	 */
-	public function getFirstPostLimitedTextOfThreadFromDB($threadId,$charcount = 150, $bUseTitle = false)
+	public function getFirstPostLimitedTextOfThreadFromDB($threadId, $charcount = 150, $bUseTitle = false)
 	{
 		$sColumn = "text";
-		if($bUseTitle === true)$sColumn = "subject";
-		return $this->Database->prepare(
-				"SELECT LEFT(".$sColumn.", ? ) as intro FROM tl_c4g_forum_post ".
-				"WHERE pid = ?".
+		if($bUseTitle === true) {
+		    $sColumn = "subject";
+        }
+
+		$result = $this->Database->prepare(
+				"SELECT LEFT(".$sColumn.", ? ) AS intro FROM tl_c4g_forum_post ".
+				"WHERE pid = ? ".
 				"AND post_number = 1")
 				->execute($charcount, $threadId)->intro;
 
+		if ($result) {
+		    return $result;
+        }
+
+        return false;
 	}
 	/**
 	 *
@@ -1520,7 +1645,7 @@ class C4GForumHelper extends \System
 		if($bUseTitle === true)$sColumn = "subject";
 		return $this->Database->prepare(
 				"SELECT LEFT(".$sColumn.", ? ) as intro FROM tl_c4g_forum_post ".
-				"WHERE pid = ?".
+				"WHERE pid = ? ".
 				"AND post_number = (SELECT MAX(post_number) FROM tl_c4g_forum_post WHERE pid = ?)")
 				->execute($charcount, $threadId,$threadId)->intro;
 
@@ -1574,7 +1699,7 @@ class C4GForumHelper extends \System
 	public function getThreadAndForumNameFromDBUncached($threadId)
 	{
 		return $this->Database->prepare(
-				"SELECT a.name AS threadname, b.name AS forumname, a.pid AS forumid FROM tl_c4g_forum_thread a ".
+				"SELECT a.name AS threadname, b.name AS forumname,b.optional_names AS optional_forumnames, a.pid AS forumid FROM tl_c4g_forum_thread a ".
 				"INNER JOIN tl_c4g_forum b ON b.id = a.pid ".
 				"WHERE a.id=?")
 				->executeUncached($threadId)->fetchAssoc();
@@ -1586,7 +1711,7 @@ class C4GForumHelper extends \System
 	public function getThreadAndForumNameAndMailTextFromDBUncached($threadId)
 	{
 		return $this->Database->prepare(
-				"SELECT a.name AS threadname, b.name AS forumname,b.mail_subscription_text as mail, a.pid AS forumid FROM tl_c4g_forum_thread a ".
+				"SELECT a.name AS threadname, b.name AS forumname,b.optional_names AS optional_forumnames,b.mail_subscription_text as mail, a.pid AS forumid FROM tl_c4g_forum_thread a ".
 				"INNER JOIN tl_c4g_forum b ON b.id = a.pid ".
 				"WHERE a.id=?")
 				->executeUncached($threadId)->fetchAssoc();
@@ -1600,7 +1725,7 @@ class C4GForumHelper extends \System
 	public function getThreadAndForumNameFromDB($threadId)
 	{
 		return $this->Database->prepare(
-				"SELECT a.name AS threadname, b.name AS forumname, a.pid AS forumid FROM tl_c4g_forum_thread a ".
+				"SELECT a.name AS threadname, b.name AS forumname,b.optional_name AS optional_forumnames, a.pid AS forumid FROM tl_c4g_forum_thread a ".
 				"INNER JOIN tl_c4g_forum b ON b.id = a.pid ".
 				"WHERE a.id=?")
 				->execute($threadId)->fetchAssoc();
@@ -1620,15 +1745,28 @@ class C4GForumHelper extends \System
 	/**
 	 * @param int $threadId
 	 */
-	public function getForumNameForThread($threadId)
+	public function getForumNameForThread($threadId, $language = '')
 	{
-		return $this->Database->prepare(
-				"SELECT name FROM tl_c4g_forum ".
+		$result = $this->Database->prepare(
+				"SELECT name, optional_names FROM tl_c4g_forum ".
 				"WHERE id = ".
 					"(SELECT pid FROM tl_c4g_forum_thread ".
 					"WHERE id = ?)"
 				)
-				->execute($threadId)->name;
+				->execute($threadId);
+
+        if ($language) {
+            $names = unserialize($result->optional_names);
+            if ($names) {
+                foreach ($names as $name) {
+                    if ($name['optional_language'] == $language) {
+                        return $name['optional_name'];
+                    }
+                }
+            }
+        }
+
+        return $result->name;
 	}
 
 	/**
@@ -1645,9 +1783,22 @@ class C4GForumHelper extends \System
 	/**
 	 * @param int $forumId
 	 */
-	public function getForumNameFromDB($forumId)
+	public function getForumNameFromDB($forumId, $language = '')
 	{
-		return $this->Database->prepare("SELECT name FROM tl_c4g_forum WHERE id=?")->execute($forumId)->name;
+		$result = $this->Database->prepare("SELECT name, optional_names FROM tl_c4g_forum WHERE id=?")->execute($forumId);
+
+        if ($language) {
+            $names = unserialize($result->optional_names);
+            if ($names) {
+                foreach ($names as $name) {
+                    if ($name['optional_language'] == $language) {
+                        return $name['optional_name'];
+                    }
+                }
+            }
+        }
+
+        return $result->name;
 	}
 
 	/**
@@ -1659,7 +1810,7 @@ class C4GForumHelper extends \System
 
 		$forumId = (int) $forumId;
 		$forums = $this->Database->prepare(
-			"SELECT a.id,a.pid,a.name,a.use_intropage,count(b.id) AS subforums FROM tl_c4g_forum a ".
+			"SELECT a.id,a.pid,a.name,a.optional_names,a.use_intropage,count(b.id) AS subforums FROM tl_c4g_forum a ".
 			"LEFT JOIN tl_c4g_forum b ON (b.pid = a.id) AND (b.published = ?) ".
 			"GROUP BY a.id")->execute(true);
 		do {
@@ -1683,6 +1834,7 @@ class C4GForumHelper extends \System
 				array_insert($result, 0, array(array(
 					id=>$id,
 					name=>$data[$id]['name'],
+                    optional_names=>$data[$id]['optional_names'],
 					use_intropage=>$data[$id]['use_intropage'],
 					subforums=>$data[$id]['subforums'])));
 			}
@@ -2161,13 +2313,13 @@ class C4GForumHelper extends \System
 
 	}
 
-
 	/**
 	 * @param int $threadId
 	 */
 	public function deleteThreadFromDB( $threadId )
 	{
 		$this->subscription->deleteSubscriptionForThread($threadId);
+		$this->deleteTranslationsForThread($threadId);
 		$return = $this->deleteThreadInternal($threadId);
 		$this->recalculateForumHelperData();
 		return $return;
@@ -2579,7 +2731,7 @@ class C4GForumHelper extends \System
 	 */
 	public function getAdminDefaultRights() {
 		$return = array('visible','threadlist','readpost','newpost','newthread','postlink','threaddesc','threadsort','editownpost','editpost',
-					 'editownthread','editthread','delownpost','delpost','delthread','movethread','subscribethread','subscribeforum','addmember','search','latestthreads');
+					 'editownthread','editthread','delownpost','delpost','delthread','movethread','subscribethread','subscribeforum','addmember','search','latestthreads','alllanguages');
 		return $this->executePermissionHook($return,'admin');
 	}
 
@@ -3075,7 +3227,15 @@ class C4GForumHelper extends \System
 		return false;
 	}
 
-    public static function getTypeText($forumType, $lngStrg) {
+    /**
+     * @param $forumType
+     * @param $lngStrg
+     * @param $language
+     * @return mixed
+     */
+    public static function getTypeText($forumType, $lngStrg, $language = '') {
+        //initial fallback -> missing or wrong language case
+        $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM'][$lngStrg];
 
         //ToDo check unused cased and remove language file entries
         switch ($lngStrg) {
@@ -3084,479 +3244,482 @@ class C4GForumHelper extends \System
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTION'];
                 }
-                return $sTitle;
+                break;
             case 'THREADS':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS'];
                 }
-                return $sTitle;
+                break;
             case 'NEW_THREAD':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_THREAD'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_QUESTION'];
                 }
-                return $sTitle;
+                break;
             case 'POST':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['POST'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT'];
                 }
-                return $sTitle;
+                break;
             case 'POSTS':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['POSTS'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENTS'];
                 }
-                return $sTitle;
+                break;
             case 'LAST_POST':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_COMMENT'];
                 }
-                return $sTitle;
+                break;
             case 'NEW_POST':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_COMMENT'];
                 }
-                return $sTitle;
+                break;
             case 'NEW_POST_PREVIEW':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_PREVIEW'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_COMMENT_PREVIEW'];
                 }
-                return $sTitle;
+                break;
             case 'EDIT_THREAD':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_THREAD'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_QUESTION'];
                 }
-                return $sTitle;
+                break;
             case 'SAVE_THREAD_CHANGES':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_THREAD_CHANGES'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_QUESTION_CHANGES'];
                 }
-                return $sTitle;
+                break;
             case 'DEL_THREAD':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_THREAD'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_QUESTION'];
                 }
-                return $sTitle;
+                break;
             case 'MOVE_THREAD':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_THREAD'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIBE_THREAD':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIBE_THREAD'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIBE_QUESTION'];
                 }
-                return $sTitle;
+                break;
             case 'UNSUBSCRIBE_THREAD':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_THREAD'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_QUESTION'];
                 }
-                return $sTitle;
+                break;
             case 'DEL_POST':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_POST'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_COMMENT'];
                 }
-                return $sTitle;
+                break;
             case 'EDIT_POST':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_COMMENT'];
                 }
-                return $sTitle;
+                break;
             case 'EDIT_POST_PREVIEW':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_PREVIEW'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_COMMENT_PREVIEW'];
                 }
-                return $sTitle;
+                break;
             case 'SAVE_POST_CHANGES':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_POST_CHANGES'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SAVE_COMMENT_CHANGES'];
                 }
-                return $sTitle;
+                break;
             case 'POST_COUNT':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT_COUNT'];
                 }
-                return $sTitle;
+                break;
             case 'LATESTTHREADS':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['LATESTTHREADS'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['LATESTQUESTIONS'];
                 }
-                return $sTitle;
+                break;
             case 'THREADS_EMPTY':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_EMPTY'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS_EMPTY'];
                 }
-                return $sTitle;
+                break;
             case 'THREADS_INFO':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_INFO'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS_INFO'];
                 }
-                return $sTitle;
+                break;
             case 'THREADS_FILTERED':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_FILTERED'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS_FILTERED'];
                 }
-                return $sTitle;
+                break;
             case 'THREADS_LENGTHMENU':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_LENGTHMENU'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS_LENGTHMENU'];
                 }
-                return $sTitle;
+                break;
             case 'THREADS_NOTFOUND':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['THREADS_NOTFOUND'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS_NOTFOUND'];
                 }
-                return $sTitle;
+                break;
             case 'POST_HEADER_COUNT':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_COUNT'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT_HEADER_COUNT'];
                 }
-                return $sTitle;
+                break;
             case 'NEW_THREAD_TITLE':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_THREAD_TITLE'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_QUESTION_TITLE'];
                 }
-                return $sTitle;
+                break;
             case 'NEW_POST_TITLE':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_TITLE'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_COMMENT_TITLE'];
                 }
-                return $sTitle;
+                break;
             case 'POST_MISSING':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['POST_MISSING'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT_MISSING'];
                 }
-                return $sTitle;
+                break;
             case 'THREADNAME_MISSING':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['THREADNAME_MISSING'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONNAME_MISSING'];
                 }
-                return $sTitle;
+                break;
             case 'ERROR_SAVE_POST':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['ERROR_SAVE_POST'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['ERROR_SAVE_COMMENT'];
                 }
-                return $sTitle;
+                break;
             case 'SUCCESS_SAVE_POST':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUCCESS_SAVE_POST'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUCCESS_SAVE_COMMENT'];
                 }
-                return $sTitle;
+                break;
             case 'ERROR_SAVE_THREAD':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['ERROR_SAVE_THREAD'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['ERROR_SAVE_QUESTION'];
                 }
-                return $sTitle;
+                break;
             case 'SUCCESS_SAVE_THREAD':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUCCESS_SAVE_THREAD'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUCCESS_SAVE_QUESTION'];
                 }
-                return $sTitle;
+                break;
             case 'BOX_LAST_POST':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['BOX_LAST_POST'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['BOX_LAST_COMMENT'];
                 }
-                return $sTitle;
+                break;
             case 'DEL_THREAD_WARNING':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_THREAD_WARNING'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_QUESTION_WARNING'];
                 }
-                return $sTitle;
+                break;
             case 'DEL_THREAD_ERROR':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_THREAD_ERROR'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_QUESTION_ERROR'];
                 }
-                return $sTitle;
+                break;
             case 'DEL_THREAD_SUCCESS':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_THREAD_SUCCESS'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_QUESTION_SUCCESS'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_THREAD_TEXT':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_TEXT'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_TEXT'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_THREAD_SUBSCRIPTION_CANCEL':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_SUBSCRIPTION_CANCEL'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_SUBSCRIPTION_CANCEL'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_THREAD_CANCEL_SUCCESS':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_CANCEL_SUCCESS'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_CANCEL_SUCCESS'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_THREAD_ERROR':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_ERROR'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_ERROR'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_THREAD_SUCCESS':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_SUCCESS'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_SUCCESS'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_SUBFORUM_ONLY_THREADS':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_ONLY_THREADS'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_ONLY_QUESTIONS'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_SUBFORUM_POSTS':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_POSTS'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_COMMENTS'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_THREAD_MAIL_SUBJECT':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_SUBJECT'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_MAIL_SUBJECT'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_MAIL_ACTION_NEW_POST':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_POST'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_COMMENT'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_MAIL_ACTION_EDIT_POST':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_POST'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_COMMENT'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_MAIL_ACTION_DEL_POST':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_POST'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_COMMENT'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_MAIL_ACTION_NEW_POST_WITH_SUBJECT':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_POST_WITH_SUBJECT'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_COMMENT_WITH_SUBJECT'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_MAIL_ACTION_EDIT_POST_WITH_SUBJECT':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_POST_WITH_SUBJECT'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_COMMENT_WITH_SUBJECT'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_MAIL_ACTION_DEL_POST_WITH_SUBJECT':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_POST_WITH_SUBJECT'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_COMMENT_WITH_SUBJECT'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_MAIL_ACTION_NEW_THREAD':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_QUESTION'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_MAIL_ACTION_EDIT_THREAD':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_THREAD'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_QUESTION'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_MAIL_ACTION_DEL_THREAD':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_QUESTION'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_QUESTION'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_MAIL_ACTION_NEW_THREAD_WITH_SUBJECT':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_THREAD_WITH_SUBJECT'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_QUESTION_WITH_SUBJECT'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_MAIL_ACTION_EDIT_THREAD_WITH_SUBJECT':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_THREAD_WITH_SUBJECT'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_QUESTION_WITH_SUBJECT'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_MAIL_ACTION_DEL_THREAD_WITH_SUBJECT':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_THREAD_WITH_SUBJECT'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_QUESTION_WITH_SUBJECT'];
                 }
-                return $sTitle;
+                break;
             case 'SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD_WITH_SUBJECT':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_THREAD_WITH_SUBJECT'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_QUESTION_WITH_SUBJECT'];
                 }
-                return $sTitle;
+                break;
             case 'UNSUBSCRIBE_THREAD_LINK_SUCCESS':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_THREAD_LINK_SUCCESS'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_QUESTION_LINK_SUCCESS'];
                 }
-                return $sTitle;
+                break;
             case 'UNSUBSCRIBE_THREAD_LINK_FAILED':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_THREAD_LINK_FAILED'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_QUESTION_LINK_FAILED'];
                 }
-                return $sTitle;
+                break;
             case 'MOVE_THREAD_TEXT':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_THREAD_TEXT'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION_TEXT'];
                 }
-                return $sTitle;
+                break;
             case 'MOVE_THREAD_ERROR':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_THREAD_ERROR'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION_ERROR'];
                 }
-                return $sTitle;
+                break;
             case 'MOVE_THREAD_SUCCESS':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_THREAD_SUCCESS'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION_SUCCESS'];
                 }
-                return $sTitle;
+                break;
             case 'MOVE_THREAD_NO_FORUMS':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_THREAD_NO_FORUMS'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION_NO_FORUMS'];
                 }
-                return $sTitle;
+                break;
             case 'EDIT_THREAD_ERROR':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_THREAD_ERROR'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_QUESTION_ERROR'];
                 }
-                return $sTitle;
+                break;
             case 'EDIT_THREAD_SUCCESS':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_THREAD_SUCCESS'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_QUESTION_SUCCESS'];
                 }
-                return $sTitle;
+                break;
             case 'DEL_POST_WARNING':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_POST_WARNING'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_COMMENT_WARNING'];
                 }
-                return $sTitle;
+                break;
             case 'DEL_POST_ERROR':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_POST_ERROR'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_COMMENT_ERROR'];
                 }
-                return $sTitle;
+                break;
             case 'DEL_POST_SUCCESS':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_POST_SUCCESS'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_COMMENT_SUCCESS'];
                 }
-                return $sTitle;
+                break;
             case 'EDIT_POST_ERROR':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_ERROR'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_COMMENT_ERROR'];
                 }
-                return $sTitle;
+                break;
             case 'EDIT_POST_SUCCESS':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_SUCCESS'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_COMMENT_SUCCESS'];
                 }
-                return $sTitle;
+                break;
             case 'ALLOW_MAP_POSTS':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['ALLOW_MAP_POSTS'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['ALLOW_MAP_COMMENTS'];
                 }
-                return $sTitle;
+                break;
             case 'SEARCHDIALOG_HEADLINE':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_HEADLINE'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_HEADLINE_QUESTIONS'];
                 }
-                return $sTitle;
+                break;
              case 'SEARCHDIALOG_CB_ONLYTHREADS':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_ONLYTHREADS'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_CB_ONLYQUESTIONS'];
                 }
-                return $sTitle;
+                break;
              case 'SEARCHDIALOG_LBL_DISPLAY_ONLY':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_LBL_DISPLAY_ONLY'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_LBL_DISPLAY_ONLY_QUESTIONS'];
                 }
-                return $sTitle;
+                break;
              case 'SEARCHDIALOG_LBL_SEARCH_ALL_THEMES':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_LBL_SEARCH_ALL_THEMES'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCHDIALOG_LBL_SEARCH_ALL_QUESTIONS'];
                 }
-                return $sTitle;
+                break;
              case 'LATESTTHREADS_HEADLINE':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['LATESTTHREADS_HEADLINE'];
                 if ($forumType == 'QUESTIONS') {
                     $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['LATESTQUESTIONS_HEADLINE'];
                 }
-                return $sTitle;
-
+                break;
         }
 
-        return $GLOBALS['TL_LANG']['C4G_FORUM'][$lngStrg]; //fallback -> missing or wrong language case
+        if ($language) {
+            $sTitle = $sTitle.' ('.strtoupper($language).')';
+        }
+        return $sTitle;
+
     }
 
 
