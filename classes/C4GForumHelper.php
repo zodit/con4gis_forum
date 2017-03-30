@@ -1725,7 +1725,7 @@ class C4GForumHelper extends \System
 	public function getThreadAndForumNameFromDB($threadId)
 	{
 		return $this->Database->prepare(
-				"SELECT a.name AS threadname, b.name AS forumname,b.optional_name AS optional_forumnames, a.pid AS forumid FROM tl_c4g_forum_thread a ".
+				"SELECT a.name AS threadname, b.name AS forumname,b.optional_names AS optional_forumnames, a.pid AS forumid FROM tl_c4g_forum_thread a ".
 				"INNER JOIN tl_c4g_forum b ON b.id = a.pid ".
 				"WHERE a.id=?")
 				->execute($threadId)->fetchAssoc();
