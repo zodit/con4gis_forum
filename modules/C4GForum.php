@@ -290,8 +290,8 @@ namespace c4g\Forum;
             $data['breadcrumbDelim'] = $this->c4g_forum_breadcrumb_jqui_layout ? '' : '>';
 
             if (($this->action == 'readthread') ||
-                ($this->action == 'forum') ||
-                ($this->action == 'forumbox')
+                ($this->action == $this->c4g_forum_param_forum) ||
+                ($this->action == $this->c4g_forum_param_forumbox)
             ) {
                 // add this for search engines
                 // when search engines find this they are supposed to send a second request
@@ -313,7 +313,7 @@ namespace c4g\Forum;
         {
 
             return array(
-                $this->helper->checkPermissionForAction($forumId, $this->action),
+                $this->helper->checkPermissionForAction($forumId, $this->action, null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum),
                 $this->helper->permissionError
             );
         }
@@ -327,7 +327,7 @@ namespace c4g\Forum;
         {
 
             return array(
-                $this->helper->checkPermissionForAction($forumId, $action),
+                $this->helper->checkPermissionForAction($forumId, $action, null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum),
                 $this->helper->permissionError
             );
         }
@@ -423,7 +423,7 @@ namespace c4g\Forum;
         public function getForumInTable($id, $forumTree)
         {
 
-            list($access, $message) = $this->checkPermissionForAction($id, 'forum');
+            list($access, $message) = $this->checkPermissionForAction($id, $this->c4g_forum_param_forum);
             if (!$access) {
                 return $this->getPermissionDenied($message);
             }
@@ -800,7 +800,7 @@ namespace c4g\Forum;
                     "selectOnHover" => true,
                     "clickAction"   => true
                 ),
-                "state"          => "forum:" . $id,
+                "state"          => $this->c4g_forum_param_forum.':' . $id,
                 "breadcrumb"     => $this->getBreadcrumb($id),
                 "headline"       => $this->getHeadline($this->getForumLanguageConfig($forum,'headline')),
                 "buttons"        => $buttons
@@ -865,9 +865,9 @@ namespace c4g\Forum;
                     $action = 'forumintro';
                 } else {
                     if ($forum['subforums'] == 0) {
-                        $action = 'forum';
+                        $action = $this->c4g_forum_param_forum;
                     } else {
-                        $action = 'forumbox';
+                        $action = $this->c4g_forum_param_forumbox;
                     }
                 }
                 $row = array(
@@ -1370,10 +1370,10 @@ namespace c4g\Forum;
                 $delAction  = 'delpostdialog';
                 $editAction = 'editpostdialog';
             }
-            if ($this->helper->checkPermissionForAction($post['forumid'], $delAction, $this->User->id)) {
+            if ($this->helper->checkPermissionForAction($post['forumid'], $delAction, $this->User->id, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum)) {
                 $return[$delAction . ':' . $post['id']] = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'DEL_POST');
             }
-            if ($this->helper->checkPermissionForAction($post['forumid'], $editAction, $this->User->id)) {
+            if ($this->helper->checkPermissionForAction($post['forumid'], $editAction, $this->User->id, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum)) {
                 $return[$editAction . ':' . $post['id']] = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'EDIT_POST');
             }
             return $return;
@@ -1390,7 +1390,7 @@ namespace c4g\Forum;
 
             $return = array();
             if (($post['loc_geox'] && $post['loc_geoy']) || $post['loc_data_content']) {
-                if ($this->map_enabled($post['forumid']) && $this->helper->checkPermissionForAction($post['forumid'], 'viewmapforpost')) {
+                if ($this->map_enabled($post['forumid']) && $this->helper->checkPermissionForAction($post['forumid'], 'viewmapforpost', null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum)) {
                     $return['viewmapforpost:' . $post['id']] = $GLOBALS['TL_LANG']['C4G_FORUM']['VIEW_MAP_FOR_POST'];
                 }
             }
@@ -1466,7 +1466,7 @@ namespace c4g\Forum;
                 "dialogdata"    => $data,
                 "dialogoptions" => $this->addDefaultDialogOptions(array("title" => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'THREAD') . ': ' . $threadname)),
                 "dialogid"      => 'post' . $id,
-                "dialogstate"   => "forum:" . $posts[0]['forumid'] . ";readpost:" . $id,
+                "dialogstate"   => $this->c4g_forum_param_forum.':' . $posts[0]['forumid'] . ";readpost:" . $id,
                 "dialogbuttons" => $dialogbuttons,
 
             );
@@ -1604,7 +1604,7 @@ namespace c4g\Forum;
                 $editAction = 'editthreaddialog';
             }
 
-            if ($this->helper->checkPermissionForAction($thread['forumid'], $editAction)) {
+            if ($this->helper->checkPermissionForAction($thread['forumid'], $editAction, null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum)) {
                 array_insert($dialogbuttons, 0,
                              array(
                                  array(
@@ -1700,7 +1700,7 @@ JSPAGINATE;
             }
 
             $return = array(
-                "dialogstate"   => "forum:" . $thread['forumid'] . ";readthread:" . $id,
+                "dialogstate"   => $this->c4g_forum_param_forum.':' . $thread['forumid'] . ";readthread:" . $id,
                 "dialogtype"    => "html",
                 "dialogdata"    => $data,
                 "dialogid"      => 'thread' . $id,
@@ -1812,7 +1812,7 @@ JSPAGINATE;
             $return = array(
                 "dialogtype"    => "form",
                 "dialogid"      => "newthread",
-                "dialogstate"   => "forum:" . $forumId . ";newthread:" . $forumId,
+                "dialogstate"   => $this->c4g_forum_param_forum.':' . $forumId . ";newthread:" . $forumId,
                 "dialogdata"    => $data,
                 "dialogbuttons" => array(
                     array(
@@ -1966,7 +1966,7 @@ JSPAGINATE;
                 "dialogtype"    => "form",
                 "dialogid"      => "newpost",
                 "dialogdata"    => $data,
-                "dialogstate"   => "forum:" . $thread['forumid'] . ";newpost:" . $threadId,
+                "dialogstate"   => $this->c4g_forum_param_forum.':' . $thread['forumid'] . ";newpost:" . $threadId,
                 "dialogbuttons" => array(
                     array(
                         "action" => 'sendpost:' . $threadId,
@@ -2454,9 +2454,9 @@ JSPAGINATE;
                         $action = "forumintro:" . $forum['id'];
                     } else {
                         if ($forum['subforums'] > 0) {
-                            $action = "forumbox:" . $forum['id'];
+                            $action = $this->c4g_forum_param_forumbox.':' . $forum['id'];
                         } else {
-                            $action = "forum:" . $forum['id'];
+                            $action = $this->c4g_forum_param_forum.':' . $forum['id'];
                         }
                     }
                 }
@@ -2584,7 +2584,7 @@ JSPAGINATE;
                 "contenttype"    => "html",
                 "contentoptions" => array("scrollable" => false),
                 "contentdata"    => $data,
-                "state"          => "forumbox:" . $parentId,
+                "state"          => $this->c4g_forum_param_forumbox.':' . $parentId,
                 "buttons"        => $this->addDefaultButtons($buttons, $parentId),
                 "breadcrumb"     => $this->getBreadcrumb($parentId),
             );
@@ -2620,9 +2620,9 @@ JSPAGINATE;
             $data .= $this->replaceInsertTags($forum['intropage']);
             if ($forum['intropage_forumbtn'] != '') {
                 if ($forum['subforums'] > 0) {
-                    $action = "forumbox:" . $forumId;
+                    $action = $this->c4g_forum_param_forumbox.':' . $forumId;
                 } else {
-                    $action = "forum:" . $forumId;
+                    $action = $this->c4g_forum_param_forum.':' . $forumId;
                 }
                 $class = 'c4gGuiAction';
                 if ($forum['intropage_forumbtn_jqui']) {
@@ -2795,7 +2795,7 @@ JSPAGINATE;
                                                                       "height" => 200,
                                                                       "modal"  => true
                                                                   )),
-                "dialogstate"   => "forum:" . $forumId . ";subscriptionsubforumdialog:" . $forumId,
+                "dialogstate"   => $this->c4g_forum_param_forum.':' . $forumId . ";subscriptionsubforumdialog:" . $forumId,
                 "dialogid"      => 'subscribesubforum' . $forumId,
                 "dialogbuttons" => $dialogbuttons
             );
@@ -2903,7 +2903,7 @@ JSPAGINATE;
                                                                       "modal"  => true
                                                                   )),
                 "dialogid"      => 'subscribethread' . $threadId,
-                "dialogstate"   => "forum:" . $forumId . ";subscribethreaddialog:" . $threadId,
+                "dialogstate"   => $this->c4g_forum_param_forum.':' . $forumId . ";subscribethreaddialog:" . $threadId,
                 "dialogbuttons" => $dialogbuttons
             );
 
@@ -3091,7 +3091,7 @@ JSPAGINATE;
             $select .= '<select name="forum" class="formdata ui-corner-all">';
             foreach ($forums AS $forum) {
                 if ($forum['subforums'] == 0) {
-                    if (($forum['id'] != $forumId) && ($forum['linkurl'] == '') && ($this->helper->checkPermissionForAction($forum['id'], $this->action))) {
+                    if (($forum['id'] != $forumId) && ($forum['linkurl'] == '') && ($this->helper->checkPermissionForAction($forum['id'], $this->action, null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum))) {
                         $select .= '<option value="' . $forum['id'] . '">' . $this->getForumLanguageConfig($forum,'name') . '</option>';
                         $entries = true;
                     }
@@ -3141,7 +3141,7 @@ JSPAGINATE;
         public function addMember($forumId)
         {
 
-            if (!$this->helper->checkPermissionForAction($forumId, $this->action)) {
+            if (!$this->helper->checkPermissionForAction($forumId, $this->action, null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum)) {
                 return $this->getPermissionDenied($this->helper->permissionError);
             }
             if (!$this->putVars['membergroup']) {
@@ -3206,7 +3206,7 @@ JSPAGINATE;
                                                                       "modal"  => true
                                                                   )),
                 "dialogid"      => 'addmember' . $forumId,
-                "dialogstate"   => "forum:" . $forumId . ";addmemberdialog:" . $forumId,
+                "dialogstate"   => $this->c4g_forum_param_forum.':' . $forumId . ";addmemberdialog:" . $forumId,
                 "dialogbuttons" => array(
                     array(
                         "action" => 'addmember:' . $forumId,
@@ -3241,7 +3241,7 @@ JSPAGINATE;
             } else {
                 $action = 'delpost';
             }
-            if (!$this->helper->checkPermissionForAction($post['forumid'], $action)) {
+            if (!$this->helper->checkPermissionForAction($post['forumid'], $action, null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum)) {
                 return $this->getPermissionDenied($this->helper->permissionError);
             }
 
@@ -3294,7 +3294,7 @@ JSPAGINATE;
             } else {
                 $action = 'delpostdialog';
             }
-            if (!$this->helper->checkPermissionForAction($post['forumid'], $action)) {
+            if (!$this->helper->checkPermissionForAction($post['forumid'], $action, null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum)) {
                 return $this->getPermissionDenied($this->helper->permissionError);
             }
 
@@ -3349,7 +3349,7 @@ JSPAGINATE;
             } else {
                 $action = 'editpost';
             }
-            if (!$this->helper->checkPermissionForAction($post['forumid'], $action)) {
+            if (!$this->helper->checkPermissionForAction($post['forumid'], $action, null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum)) {
                 return $this->getPermissionDenied($this->helper->permissionError);
             }
             if (!$this->putVars['post']) {
@@ -3432,7 +3432,7 @@ JSPAGINATE;
             } else {
                 $action = 'editthread';
             }
-            if (!$this->helper->checkPermissionForAction($thread['forumid'], $action)) {
+            if (!$this->helper->checkPermissionForAction($thread['forumid'], $action, null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum)) {
                 return $this->getPermissionDenied($this->helper->permissionError);
             }
             if (!$this->putVars['thread']) {
@@ -3534,7 +3534,7 @@ JSPAGINATE;
         public function getPostlinkForForm($divname, $forumid, $dialogId, $linkname, $linkurl)
         {
 
-            if ($this->helper->checkPermissionForAction($forumid, 'postlink') && false) {
+            if ($this->helper->checkPermissionForAction($forumid, 'postlink', null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum) && false) {
                 $addClass = "";
                 if ($this->dialogs_jqui) {
                     $addClass = " c4gGuiButton";
@@ -3855,7 +3855,7 @@ JSPAGINATE;
                 $action        = 'editpostdialog';
                 $previewAction = 'previeweditpost';
             }
-            if (!$this->helper->checkPermissionForAction($post['forumid'], $action)) {
+            if (!$this->helper->checkPermissionForAction($post['forumid'], $action, null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum)) {
                 return $this->getPermissionDenied($this->helper->permissionError);
             }
             $editorId = '';
@@ -3941,7 +3941,7 @@ JSPAGINATE;
                                                                       "modal" => true
                                                                   )),
                 "dialogid"      => $dialogId,
-                "dialogstate"   => "forum:" . $post['forumid'] . ";editpostdialog:" . $postId,
+                "dialogstate"   => $this->c4g_forum_param_forum.':' . $post['forumid'] . ";editpostdialog:" . $postId,
                 "dialogbuttons" => array(
                     array(
                         "action" => 'editpost:' . $postId,
@@ -3982,7 +3982,7 @@ JSPAGINATE;
             } else {
                 $action = 'editthreaddialog';
             }
-            if (!$this->helper->checkPermissionForAction($thread['forumid'], $action)) {
+            if (!$this->helper->checkPermissionForAction($thread['forumid'], $action, null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum)) {
                 return $this->getPermissionDenied($this->helper->permissionError);
             }
 
@@ -4031,7 +4031,7 @@ JSPAGINATE;
                                                                       "modal" => true
                                                                   )),
                 "dialogid"      => $dialogId,
-                "dialogstate"   => "forum:" . $thread['forumid'] . ";editthreaddialog:" . $threadId,
+                "dialogstate"   => $this->c4g_forum_param_forum.':' . $thread['forumid'] . ";editthreaddialog:" . $threadId,
                 "dialogbuttons" => array(
                     array(
                         "action" => 'editthread:' . $threadId,
@@ -4060,7 +4060,7 @@ JSPAGINATE;
         public function postLink($forumId, $dialogId)
         {
 
-            if (!$this->helper->checkPermissionForAction($forumId, $this->action)) {
+            if (!$this->helper->checkPermissionForAction($forumId, $this->action, null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum)) {
                 return $this->getPermissionDenied($this->helper->permissionError);
             }
 
@@ -4359,7 +4359,7 @@ JSPAGINATE;
 
             $forum = $this->helper->getForumFromDB($post['forumid']);
             if ((!$this->map_enabled($post['forumid'])) ||
-                (!$this->helper->checkPermissionForAction($post['forumid'], 'viewmapforpost'))
+                (!$this->helper->checkPermissionForAction($post['forumid'], 'viewmapforpost', null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum))
             ) {
                 return $this->getPermissionDenied($this->helper->permissionError);
             }
@@ -4412,7 +4412,7 @@ JSPAGINATE;
                                                                       "modal" => true
                                                                   )),
                 "dialogid"      => 'viewmapforpost' . $postId,
-                "dialogstate"   => "forum:" . $post['forumid'] . ";viewmapforpost:" . $postId,
+                "dialogstate"   => $this->c4g_forum_param_forum.':' . $post['forumid'] . ";viewmapforpost:" . $postId,
                 "dialogbuttons" => array(
                     array(
                         "action" => 'closedialog:viewmapforpost' . $postId,
@@ -4437,7 +4437,7 @@ JSPAGINATE;
 
             $forum = $this->helper->getForumFromDB($forumId);
             if ((!$this->map_enabled($forumId)) ||
-                (!$this->helper->checkPermissionForAction($forumId, 'viewmapforforum'))
+                (!$this->helper->checkPermissionForAction($forumId, 'viewmapforforum', null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum))
             ) {
                 return $this->getPermissionDenied($this->helper->permissionError);
             }
@@ -4448,7 +4448,7 @@ JSPAGINATE;
             }
 
             $this->c4g_map_id = $forum['map_id'];
-            $locations        = $this->helper->getMapLocationsForForum($forumId);
+            $locations        = $this->helper->getMapLocationsForForum($forumId, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum);
 
             if (version_compare($GLOBALS['con4gis_maps_extension']['version'], '3.0', '<')) {
                 // con4gis-Maps 1/2
@@ -4462,7 +4462,7 @@ JSPAGINATE;
             }
 
 
-            $data           = '<div id="c4gForumPostMap" class="c4gForumPostMap mod_c4g_maps"></div>';
+            $data = '<div id="c4gForumPostMap" class="c4gForumPostMap mod_c4g_maps"></div>';
 
             $return = array(
                 "dialogtype"    => "html",
@@ -4473,7 +4473,7 @@ JSPAGINATE;
                                                                       "modal" => true
                                                                   )),
                 "dialogid"      => 'viewmapforforum' . $forumId,
-                "dialogstate"   => "forum:" . $forumId . ";viewmapforforum:" . $forumId,
+                "dialogstate"   => $this->c4g_forum_param_forum.':' . $forumId . ";viewmapforforum:" . $forumId,
                 "dialogbuttons" => array(
                     array(
                         "action" => 'closedialog:viewmapforforum' . $forumId,
@@ -4501,7 +4501,7 @@ JSPAGINATE;
             $dialogId = 'search';
 
             //check permissions
-            if (!$this->helper->checkPermissionForAction($forumId, 'search')) {
+            if (!$this->helper->checkPermissionForAction($forumId, 'search', null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum)) {
                 return $this->getPermissionDenied($this->helper->permissionError);
             }
 
@@ -4594,9 +4594,9 @@ JSPAGINATE;
             $forum = $this->helper->getForumFromDB($forumId);
 
             if ($forum['subforums'] > 0) {
-                $action = "forumbox:" . $forumId;
+                $action = $this->c4g_forum_param_forumbox.':' . $forumId;
             } else {
-                $action = "forum:" . $forumId;
+                $action = $this->c4g_forum_param_forum.':' . $forumId;
             }
 
             $return = array(
@@ -4640,7 +4640,7 @@ JSPAGINATE;
         public function search($forumId, $searchParam)
         {
 
-            list($access, $message) = $this->checkPermissionForAction($forumId, 'search');
+            list($access, $message) = $this->checkPermissionForAction($forumId, 'search', null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum);
             if (!$access) {
                 return $this->getPermissionDenied($message);
             }
@@ -4993,9 +4993,9 @@ JSPAGINATE;
             $forum = $this->helper->getForumFromDB($forumId);
 
             if ($forum['subforums'] > 0) {
-                $action = "forumbox:" . $forumId;
+                $action = $this->c4g_forum_param_forumbox.':' . $forumId;
             } else {
-                $action = "forum:" . $forumId;
+                $action = $this->c4g_forum_param_forum.':' . $forumId;
             }
 
             $tooltipcol = 13;
@@ -5036,7 +5036,7 @@ JSPAGINATE;
         public function getThreadlist($forumId)
         {
 
-            list($access, $message) = $this->checkPermissionForAction($forumId, 'latestthreads');
+            list($access, $message) = $this->checkPermissionForAction($forumId, 'latestthreads',null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum);
             if (!$access) {
                 return $this->getPermissionDenied($message);
             }
@@ -5306,9 +5306,9 @@ JSPAGINATE;
             $forum = $this->helper->getForumFromDB($forumId);
 
             if ($forum['subforums'] > 0) {
-                $action = "forumbox:" . $forumId;
+                $action = $this->c4g_forum_param_forumbox.':' . $forumId;
             } else {
-                $action = "forum:" . $forumId;
+                $action = $this->c4g_forum_param_forum.':' . $forumId;
             }
 
             $tooltipcol = 10;
@@ -5349,14 +5349,14 @@ JSPAGINATE;
             //if ($this->c4g_forum_comf_navigation=='BOXES') {
             //	$buttons[] = array( id=>'recalculate', text=>'Neuberechnung (Debug)');
             //}
-            if ($this->helper->checkPermissionForAction($forumId, 'search')) {
+            if ($this->helper->checkPermissionForAction($forumId, 'search',null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum)) {
                 $buttons[] = array(
                     "id"   => 'searchDialog:' . $forumId,
                     "text" => $GLOBALS['TL_LANG']['C4G_FORUM']['SEARCH']
                 );
             }
 
-            if ($this->helper->checkPermissionForAction($forumId, 'latestthreads') && ($this->action == "forumbox")) {
+            if ($this->helper->checkPermissionForAction($forumId, 'latestthreads',null, $this->c4g_forum_param_forumbox, $this->c4g_forum_param_forum) && ($this->action == "forumbox")) {
                 $buttons[] = array(
                     "id"   => 'threadlist:' . $forumId,
                     "text" => \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'LATESTTHREADS')
@@ -5401,12 +5401,12 @@ JSPAGINATE;
                 } else {
                     if ($value['subforums'] == 0) {
                         $data[] = array(
-                            "id"   => 'forum:' . $value['id'],
+                            "id"   => $this->c4g_forum_param_forum.':' . $value['id'],
                             "text" => $pathname
                         );
                     } else {
                         $data[] = array(
-                            "id"   => 'forumbox:' . $value['id'],
+                            "id"   => $this->c4g_forum_param_forumbox.':' . $value['id'],
                             "text" => $pathname
                         );
                     }
@@ -5496,7 +5496,7 @@ JSPAGINATE;
                 case 'forumtree':
                     $return = $this->generateForumTree();
                     break;
-                case 'forumbox':
+                case $this->c4g_forum_param_forumbox:
                     $return = $this->getForumInBoxes($values[1],true);
                     if(count($return) <= 0){
                         $return = $this->getForumInTable($values[1], $values[2]);
@@ -5505,7 +5505,7 @@ JSPAGINATE;
                 case 'forumintro':
                     $return = $this->getForumintro($values[1]);
                     break;
-                case 'forum':
+                case $this->c4g_forum_param_forum:
                     $return = $this->getForumInTable($values[1], $values[2]);
                     break;
                 case 'readthread':
@@ -5562,7 +5562,7 @@ JSPAGINATE;
                     $return = $this->moveThreadDialog($values[1]);
                     break;
                 case 'movethread':
-                    $return = $this->moveThread($values[1], $this->putVars['forum']);
+                    $return = $this->moveThread($values[1], $this->putVars[$this->c4g_forum_param_forum]);
                     break;
                 case 'editownthreaddialog':
                 case 'editthreaddialog':
@@ -5720,7 +5720,7 @@ JSPAGINATE;
             $values       = explode(':', $historyAction);
             $this->action = $values[0];
             switch ($values[0]) {
-                case 'forum':
+                case $this->c4g_forum_param_forum:
                     $result = $this->getForumInTable($values[1], true);
                     break;
                 default:
@@ -5963,8 +5963,8 @@ JSPAGINATE;
                                         $this->action = 'forumintro';
                                         $result       = $this->performAction('forumintro:' . $this->c4g_forum_startforum);
                                     } else {
-                                        $this->action = 'forumbox';
-                                        $result       = $this->performAction('forumbox:' . $this->c4g_forum_startforum);
+                                        $this->action = $this->c4g_forum_param_forum;
+                                        $result       = $this->performAction($this->c4g_forum_param_forumbox.':' . $this->c4g_forum_startforum);
                                     }
                                     break;
 

@@ -252,7 +252,8 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_search_displayonly'] = array("Suche (Eingabe) von Benutzernamen ermöglichen", "Sie können Benutzernamen eingeben und damit und über einen Zeitraum die Suche einschränken.");
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_move_all'] = array("Themen auch in andere Forenmodule verschieben (nicht empfohlen!)", "Diese Funktion sollte mit Vorsicht und nur zwischen gleichartigen Forenmodulen verwendet werden! Es werden Forenbereiche aller Module als Ziel angeboten.");
-
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_param_forumbox'] = array("forumbox Parameter umbenennen", "Sie können so den Browserparameter forumbox umbenennen. Achtung! Danach funktionieren bereits bestehende Links nicht mehr");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_param_forum'] = array("forum Parameter umbenennen", "Sie können so den Browserparameter forum umbenennen. Achtung! Danach funktionieren bereits bestehende Links nicht mehr");
     /**
      * Legend
      */

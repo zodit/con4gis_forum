@@ -238,9 +238,9 @@ class C4GForumHelper extends \System
 	 * @param int $forumId
 	 * @param String $action
 	 */
-	public function checkPermissionForAction( $forumId, $action, $userId = null )
+	public function checkPermissionForAction( $forumId, $action, $userId = null, $paramForumbox, $paramForum )
 	{
-		return $this->checkPermission($forumId,$this->actionToRight($action), $userId);
+		return $this->checkPermission($forumId,$this->actionToRight($action, $paramForum), $userId);
 	}
 
 
@@ -249,7 +249,7 @@ class C4GForumHelper extends \System
 	 * Determines the right needed to perform the given action
 	 * @param String $action
 	 */
-	public function actionToRight($action)
+	public function actionToRight($action, $paramForum)
 	{
 		switch ($action) {
 			case 'newthread':
@@ -311,7 +311,7 @@ class C4GForumHelper extends \System
 			case 'addmemberdialog':
 				return 'addmember';
 
-			case 'forum':
+			case $paramForum:
 			case 'forumintro':
 				return 'threadlist';
 
@@ -2802,7 +2802,7 @@ class C4GForumHelper extends \System
 	 * @param array $post
 	 * @return array
 	 */
-	public function getMapLocationForPost($post)
+	public function getMapLocationForPost($post, $paramForumbox, $paramForum)
 	{
 		$location = array();
 		$location['id'] = 900000+$post['id'];
@@ -2842,7 +2842,7 @@ class C4GForumHelper extends \System
 		switch ($post['map_popup']) {
 			case 'SUBJ':
 				if ($this->frontendUrl) {
-					$location['popupInfo'] = '<a href="'.$this->getUrlForPost($post['id']).'">'.$post['subject'].'</a>';
+					$location['popupInfo'] = '<a href="'.$this->getUrlForPost($post['id'], $paramForumbox, $paramForum).'">'.$post['subject'].'</a>';
 				}
 				break;
 			case 'POST':
@@ -2859,12 +2859,12 @@ class C4GForumHelper extends \System
 			switch ($post['map_link']) {
 			case 'POST':
 				if ($this->frontendUrl) {
-					$location['linkurl'] = $this->getUrlForPost($post['id']);
+					$location['linkurl'] = $this->getUrlForPost($post['id'], $paramForumbox, $paramForum);
 				}
 				break;
 			case 'THREA':
 				if ($this->frontendUrl) {
-					$location['linkurl'] = $this->getUrlForThread($post['threadid']);
+					$location['linkurl'] = $this->getUrlForThread($post['threadid'], $paramForumbox, $paramForum);
 				}
 				break;
 			case 'PLINK':
@@ -2902,20 +2902,20 @@ class C4GForumHelper extends \System
 	 *
 	 * @param int $forumId
 	 */
-	public function getMapLocationsForForum($forumId)
+	public function getMapLocationsForForum($forumId, $paramForumbox, $paramForum)
 	{
 		$locations = array();
 		$posts = $this->getPostsFromDBForMap($forumId);
 		foreach ($posts AS $post) {
 			if ($post['id'] != self::$postIdToIgnoreInMap) {
-				$locations[] = $this->getMapLocationForPost($post);
+				$locations[] = $this->getMapLocationForPost($post, $paramForumbox, $paramForum);
 			}
 		}
 
 		$forums = $this->Database->prepare("SELECT id FROM tl_c4g_forum WHERE pid = ?")->execute($forumId)->fetchAllAssoc();
 		foreach ($forums AS $forum)
 		{
-			$locations = array_merge($locations, $this->getMapLocationsForForum($forum['id']));
+			$locations = array_merge($locations, $this->getMapLocationsForForum($forum['id'],$paramForumbox,$paramForum));
 		}
 		return $locations;
 	}
@@ -2969,21 +2969,21 @@ class C4GForumHelper extends \System
 	 * @param int $forumId
 	 * @param int $urlType 0=forum, 1=forumbox, 2=forumintro
 	 */
-	public function getUrlForForum($forumId,$urlType=0, $sUrl=false)
+	public function getUrlForForum($forumId, $urlType=0, $sUrl=false, $paramForumbox, $paramForum)
 	{
-		if($sUrl !== false){
+        if($sUrl !== false){
 			$this->frontendUrl = $sUrl;
 		}
 
 		switch ($urlType) {
 			case 1:
-				$action = 'forumbox';
+                $action = $paramForumbox;
 				break;
 			case 2:
 				$action = 'forumintro';
 				break;
 			default:
-				$action = 'forum';
+				$action = $paramForum;
 		}
 		return strtok($this->frontendUrl,'?') . '?state='.$action.':'.$forumId;
 	}
@@ -2992,7 +2992,7 @@ class C4GForumHelper extends \System
 	 * @param int $threadId
 	 * @param int $forumId
 	 */
-	public function getUrlForThread($threadId,$forumId=0, $sUrl=false)
+	public function getUrlForThread($threadId,$forumId=0, $sUrl=false, $paramForumbox, $paramForum)
 	{
 		if($sUrl !== false){
 			$this->frontendUrl = $sUrl;
@@ -3004,13 +3004,13 @@ class C4GForumHelper extends \System
 	 								 ->execute($threadId);
 			$forumId = $data->pid;
 		}
-		return strtok($this->frontendUrl,'?') . '?state=forum:'.$forumId.';readthread:'.$threadId;
+		return strtok($this->frontendUrl,'?') . '?state='.$paramForum.':'.$forumId.';readthread:'.$threadId;
 	}
 
 	/**
 	 * @param int $postId
 	 */
-	public function getUrlForPost($postId, $sUrl=false)
+	public function getUrlForPost($postId, $sUrl=false, $paramForumbox, $paramForum)
 	{
 		if($sUrl !== false){
 			$this->frontendUrl = $sUrl;
@@ -3018,7 +3018,7 @@ class C4GForumHelper extends \System
 		$data = $this->Database->prepare(
 				"SELECT forum_id FROM tl_c4g_forum_post WHERE id=?")
 				->execute($postId);
-		return strtok($this->frontendUrl,'?') . '?state=forum:'.$data->forum_id.';readpost:'.$postId;
+		return strtok($this->frontendUrl,'?') . '?state='.$paramForum.':'.$data->forum_id.';readpost:'.$postId;
 	}
 
 	/**
@@ -3110,6 +3110,8 @@ class C4GForumHelper extends \System
 				$data['filename'] = $module->c4g_forum_sitemap_filename;
 				$data['contents'] = deserialize($module->c4g_forum_sitemap_contents);
 				$data['startforum'] = $module->c4g_forum_startforum;
+				$data['param_forum'] = $module->c4g_forum_param_forum;
+                $data['param_forumbox'] = $module->c4g_forum_param_forumbox;
 				$cron[] = $data;
 				$filename = md5(uniqid(mt_rand(), true));
 				$objFile = fopen(TL_ROOT . '/system/tmp/' . $filename.'.tmp', 'wb');
@@ -3149,7 +3151,7 @@ class C4GForumHelper extends \System
 		if (array_search('INTROS', $data['contents'])!==false) {
 			foreach($forums AS $forum) {
 				if (!$forum['sitemap_exclude'] && $forum['use_intropage']) {
-					fputs($objFile, "<url><loc>".$this->getUrlForForum($forum['id'],2)."</loc></url>\n");
+					fputs($objFile, "<url><loc>".$this->getUrlForForum($forum['id'],2, false, $data['paramForumbox'], $data['paramForum'])."</loc></url>\n");
 				}
 			}
 		}
@@ -3164,7 +3166,7 @@ class C4GForumHelper extends \System
 					else {
 						$urltype = 0;
 					}
-					fputs($objFile, "<url><loc>".$this->getUrlForForum($forum['id'],$urltype)."</loc></url>\n");
+					fputs($objFile, "<url><loc>".$this->getUrlForForum($forum['id'],$urltype, false, $data['paramForumbox'], $data['paramForum'])."</loc></url>\n");
 				}
 			}
 		}
@@ -3180,7 +3182,7 @@ class C4GForumHelper extends \System
 
 					$threads = $this->getThreadsFromDB($forum['id']);
 					foreach($threads AS $thread) {
-						fputs($objFile, "<url><loc>".$this->getUrlForThread($thread['id'],$forum['id'])."</loc></url>\n");
+						fputs($objFile, "<url><loc>".$this->getUrlForThread($thread['id'],$forum['id'], false, $data['paramForumbox'], $data['paramForum'])."</loc></url>\n");
 					}
 				}
 			}
