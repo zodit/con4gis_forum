@@ -37,7 +37,7 @@ if (method_exists('\System', 'getContainer')) {
         '{c4g_forum_jqui_legend:hide},c4g_forum_jqui;' .
         '{c4g_forum_lib_legend:hide},c4g_forum_jquery_lib,c4g_forum_jqtable_lib,c4g_forum_jqhistory_lib,c4g_forum_jqtooltip_lib,c4g_forum_jqscrollpane_lib;' .
         '{c4g_forum_sitemap_legend:hide},c4g_forum_sitemap;' .
-        '{expert_legend:hide},guests,cssID,space,c4g_forum_move_all,c4g_forum_param_forumbox,c4g_forum_param_forum';
+        '{expert_legend:hide},guests,cssID,space,c4g_forum_remove_lastperson,c4g_forum_remove_lastdate,c4g_forum_remove_createperson,c4g_forum_remove_createdate,c4g_forum_remove_count,c4g_forum_move_all,c4g_forum_param_forumbox,c4g_forum_param_forum';
 
     $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_forum_breadcrumb'] =
         '{title_legend},name,type;' .
@@ -955,6 +955,56 @@ if (method_exists('\System', 'getContainer')) {
         'inputType'     => 'text',
         'eval'          => array('mandatory' => true, 'maxlength' => 42),
         'sql'           => "varchar(30) NOT NULL default 'forum'"
+    );
+
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_remove_lastperson'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_remove_lastperson'],
+        'exclude'   => true,
+        'default'   => false,
+        'inputType' => 'checkbox',
+        'eval'      => array('tl_class'=>'clr long'),
+        'sql'       => "char(1) NOT NULL default '0'"
+    );
+
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_remove_lastdate'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_remove_lastdate'],
+        'exclude'   => true,
+        'default'   => false,
+        'inputType' => 'checkbox',
+        'eval'      => array('tl_class'=>'clr long'),
+        'sql'       => "char(1) NOT NULL default '0'"
+    );
+
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_remove_createperson'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_remove_createperson'],
+        'exclude'   => true,
+        'default'   => false,
+        'inputType' => 'checkbox',
+        'eval'      => array('tl_class'=>'clr long'),
+        'sql'       => "char(1) NOT NULL default '0'"
+    );
+
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_remove_createdate'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_remove_createdate'],
+        'exclude'   => true,
+        'default'   => false,
+        'inputType' => 'checkbox',
+        'eval'      => array('tl_class'=>'clr long'),
+        'sql'       => "char(1) NOT NULL default '0'"
+    );
+
+    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_remove_count'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_remove_count'],
+        'exclude'   => true,
+        'default'   => false,
+        'inputType' => 'checkbox',
+        'eval'      => array('tl_class'=>'clr long'),
+        'sql'       => "char(1) NOT NULL default '0'"
     );
 
 //    $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_enable_maps'] = array

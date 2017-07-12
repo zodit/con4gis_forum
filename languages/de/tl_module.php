@@ -254,6 +254,13 @@
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_move_all'] = array("Themen auch in andere Forenmodule verschieben (nicht empfohlen!)", "Diese Funktion sollte mit Vorsicht und nur zwischen gleichartigen Forenmodulen verwendet werden! Es werden Forenbereiche aller Module als Ziel angeboten.");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_param_forumbox'] = array("forumbox Parameter umbenennen", "Sie können so den Browserparameter forumbox umbenennen. Achtung! Danach funktionieren bereits bestehende Links nicht mehr");
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_param_forum'] = array("forum Parameter umbenennen", "Sie können so den Browserparameter forum umbenennen. Achtung! Danach funktionieren bereits bestehende Links nicht mehr");
+
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_remove_lastperson'] = array("Feld -Letzter- ausblenden", "Mit dieser Funktion können Sie das Feld -Letzter- in der Liste ausblenden.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_remove_lastdate'] = array("Feld -Letzter am- ausblenden", "Mit dieser Funktion können Sie das Feld -Letzter am- in der Liste ausblenden.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_remove_createperson'] = array("Feld -Verfasser- ausblenden", "Mit dieser Funktion können Sie das Feld -Verfasser- in der Liste ausblenden.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_remove_createdate'] = array("Feld -Erstellt am- ausblenden", "Mit dieser Funktion können Sie das Feld -Erstellt am- in der Liste ausblenden.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_remove_count'] = array("Feld -#- ausblenden", "Mit dieser Funktion können Sie das Feld -#- in der Liste ausblenden.");
+
     /**
      * Legend
      */

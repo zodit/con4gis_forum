@@ -57,9 +57,9 @@ class C4GForumHelper extends \System
 	/**
 	 * Konstruktor
 	 */
-	public function __construct( $database = null, $environment = null, $user = null, $forumName = "", $frontendUrl = "" , $show_realname = "UU")
+	public function __construct( $database = null, $environment = null, $user = null, $forumName = "", $frontendUrl = "" , $show_realname = "UU", $forumType = "FORUM")
 	{
-		$this->subscription = new C4GForumSubscription($this, $database, $environment, $user, $forumName, $frontendUrl);
+		$this->subscription = new C4GForumSubscription($this, $database, $environment, $user, $forumName, $frontendUrl, $forumType);
 		if ($database==null) {
 			$this->import('Database');
 		}
@@ -73,7 +73,7 @@ class C4GForumHelper extends \System
 		$this->Environment = $environment;
 		$this->frontendUrl = $frontendUrl;
 		if ($forumName=="") {
-			$this->ForumName = $GLOBALS['TL_LANG']['C4G_FORUM']['FORUM'];
+			$this->ForumName = $this->getTypeText($forumType,'FORUM');
 		} else {
 			$this->ForumName = $forumName;
 		}
@@ -3241,6 +3241,36 @@ class C4GForumHelper extends \System
 
         //ToDo check unused cased and remove language file entries
         switch ($lngStrg) {
+            case 'FORUM':
+                $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['FORUM'];
+                if ($forumType == 'QUESTIONS') {
+                    $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['FAQ'];
+                }
+                break;
+            case 'SUBFORUM':
+                $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUM'];
+                if ($forumType == 'QUESTIONS') {
+                    $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['FAQS'];
+                }
+                break;
+            case 'SUBFORUMS':
+                $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUMS'];
+                if ($forumType == 'QUESTIONS') {
+                    $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['FAQS'];
+                }
+                break;
+            case 'SUBSCRIBE_SUBFORUM':
+                $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIBE_SUBFORUM'];
+                if ($forumType == 'QUESTIONS') {
+                    $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIBE_FAQ'];
+                }
+                break;
+            case 'UNSUBSCRIBE_SUBFORUM':
+                $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_SUBFORUM'];
+                if ($forumType == 'QUESTIONS') {
+                    $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_FAQ'];
+                }
+                break;
             case 'THREAD':
                 $sTitle = $GLOBALS['TL_LANG']['C4G_FORUM']['THREAD'];
                 if ($forumType == 'QUESTIONS') {

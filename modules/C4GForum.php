@@ -381,9 +381,9 @@ namespace c4g\Forum;
             if ($this->helper->checkPermission($forumId, 'subscribeforum')) {
                 $subscriptionId = $this->helper->subscription->getSubforumSubscriptionFromDB($forumId, $this->User->id);
                 if ($subscriptionId) {
-                    $text = $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_SUBFORUM'];
+                    $text = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'UNSUBSCRIBE_SUBFORUM');
                 } else {
-                    $text = $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIBE_SUBFORUM'];
+                    $text = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'SUBSCRIBE_SUBFORUM');
                 }
                 array_insert($buttons, 0, array(
                     array(
@@ -467,6 +467,7 @@ namespace c4g\Forum;
                         4
                     ),
                     "bSearchable"     => false,
+                    "bVisible"        => ($this->c4g_forum_remove_lastperson != '1'),
                     "aTargets"        => array(2),
                     "responsivePriority" => array(2),
                     "c4gMinTableSize" => 700
@@ -480,6 +481,7 @@ namespace c4g\Forum;
                     ),
                     "sType"           => 'de_datetime',
                     "bSearchable"     => false,
+                    "bVisible"        => ($this->c4g_forum_remove_lastdate != '1'),
                     "asSorting"       => array(
                         'desc',
                         'asc'
@@ -503,6 +505,7 @@ namespace c4g\Forum;
                         7
                     ),
                     "bSearchable"     => false,
+                    "bVisible"        => ($this->c4g_forum_remove_createperson != '1'),
                     "aTargets"        => array(5),
                     "responsivePriority" => array(5),
                     "c4gMinTableSize" => 500
@@ -520,6 +523,7 @@ namespace c4g\Forum;
                         'asc'
                     ),
                     "bSearchable"     => false,
+                    "bVisible"        => ($this->c4g_forum_remove_createdate != '1'),
                     "aTargets"        => array(6),
                     "responsivePriority" => array(6),
                     "c4gMinTableSize" => 500
@@ -538,6 +542,7 @@ namespace c4g\Forum;
                         'asc'
                     ),
                     "bSearchable" => false,
+                    "bVisible"        => ($this->c4g_forum_remove_count != '1'),
                     "aTargets"    => array(8),
                     "responsivePriority" => array(8)
                 ),
@@ -1166,9 +1171,20 @@ namespace c4g\Forum;
 
             if (!$this->plainhtml) {
                 // show author only when not in plainhtml-mode (=pages that will be indexed by search engines)
-                $data .= '<br><span class="c4g_forum_post_head_origin_row">' .
-                         sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_CREATED'], 'class=c4g_forum_post_head_origin_author',
-                                 $post['username'], 'class=c4g_forum_post_head_origin_datetime', $this->helper->getDateTimeString($post['creation'])) . '</span>';
+
+                if (($this->c4g_forum_remove_createperson != '1') && ($this->c4g_forum_remove_createdate != '1')) {
+                    $data .= '<br><span class="c4g_forum_post_head_origin_row">' .
+                        sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_CREATED'], 'class=c4g_forum_post_head_origin_author',
+                            $post['username'], 'class=c4g_forum_post_head_origin_datetime', $this->helper->getDateTimeString($post['creation'])) . '</span>';
+                } else if ($this->c4g_forum_remove_createperson != '1') {
+                    $data .= '<br><span class="c4g_forum_post_head_origin_row">' .
+                        sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_CREATED_AUTHOR'], 'class=c4g_forum_post_head_origin_author',
+                            $post['username']) . '</span>';
+                } else if ($this->c4g_forum_remove_createdate != '1') {
+                    $data .= '<br><span class="c4g_forum_post_head_origin_row">' .
+                        sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_CREATED_DATE'],
+                            'class=c4g_forum_post_head_origin_datetime', $this->helper->getDateTimeString($post['creation'])) . '</span>';
+                }
             }
             $data .= '<br>' .
                      sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_SUBJECT'], 'class="c4g_forum_post_head_subject_pre"',
@@ -1332,12 +1348,31 @@ namespace c4g\Forum;
             $data .= '</div>';
 
             if ($post['edit_count']) {
-                $data .=
-                    '<div class="c4gForumPostText c4g_forum_post_head_edit_row' . $targetClass . '">' .
-                    sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['POST_EDIT_INFO'], 'class="c4g_forum_post_head_edit_count"',
+                if (($this->c4g_forum_remove_lastperson != '1') && ($this->c4g_forum_remove_lastdate != '1')) {
+                    $data .=
+                        '<div class="c4gForumPostText c4g_forum_post_head_edit_row' . $targetClass . '">' .
+                        sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['POST_EDIT_INFO'], 'class="c4g_forum_post_head_edit_count"',
                             $post['edit_count'], 'class="c4g_forum_post_head_edit_datetime"', $this->helper->getDateTimeString($post['edit_last_time']),
                             'class="c4g_forum_post_head_edit_author"', $post['edit_username']) .
-                    '</div>';
+                        '</div>';
+
+                } else if ($this->c4g_forum_remove_lastperson != '1') {
+                    $data .=
+                        '<div class="c4gForumPostText c4g_forum_post_head_edit_row' . $targetClass . '">' .
+                        sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['POST_EDIT_INFO_AUTHOR'], 'class="c4g_forum_post_head_edit_count"',
+                            $post['edit_count'],
+                            'class="c4g_forum_post_head_edit_author"', $post['edit_username']) .
+                        '</div>';
+
+                } else if ($this->c4g_forum_remove_lastdate != '1') {
+                    $data .=
+                        '<div class="c4gForumPostText c4g_forum_post_head_edit_row' . $targetClass . '">' .
+                        sprintf($GLOBALS['TL_LANG']['C4G_FORUM']['POST_EDIT_INFO_DATE'], 'class="c4g_forum_post_head_edit_count"',
+                            $post['edit_count'], 'class="c4g_forum_post_head_edit_datetime"', $this->helper->getDateTimeString($post['edit_last_time'])) .
+                        '</div>';
+
+                }
+
             }
 
 
@@ -2516,9 +2551,9 @@ JSPAGINATE;
                     if ($this->c4g_forum_boxes_subtext) {
                         $data .= '<div class="c4gForumBoxSubtext">';
                         if ($forum['subforums'] == 1) {
-                            $data .= $forum['subforums'] . ' ' . $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUM'];
+                            $data .= $forum['subforums'] . ' ' . \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'SUBFORUM');
                         } else {
-                            $data .= $forum['subforums'] . ' ' . $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUMS'];
+                            $data .= $forum['subforums'] . ' ' . \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'SUBFORUMS');
                         }
                         $data .= '</div>';
                     }
@@ -2763,14 +2798,14 @@ JSPAGINATE;
             if ($subscriptionId) {
                 $dialogData = sprintf($GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_SUBFORUM_SUBSCRIPTION_CANCEL'], $this->helper->getForumNameFromDB($forumId, $this->c4g_forum_language_temp));
                 $buttonTxt  = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_SUBFORUM_CANCEL'];
-                $title      = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['UNSUBSCRIBE_SUBFORUM'];
+                $title      = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'UNSUBSCRIBE_SUBFORUM');
             } else {
                 $dialogData = sprintf($GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIPTION_SUBFORUM_TEXT'], $this->helper->getForumNameFromDB($forumId,$this->c4g_forum_language_temp));
-                $buttonTxt  = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIBE_SUBFORUM'];
+                $buttonTxt  = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'SUBSCRIBE_SUBFORUM');
 
                 $dialogData .= '<div>' . '<input id="c4gForumSubscriptionForumOnlyThreads"  type="checkbox" name="subscription_only_threads" class="formdata" />' . '<label for="c4gForumSubscriptionForumOnlyThreads">' .
                     \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'SUBSCRIPTION_SUBFORUM_ONLY_THREADS') . '</label>' . '</div>';
-                $title = $GLOBALS ['TL_LANG'] ['C4G_FORUM'] ['SUBSCRIBE_SUBFORUM'];
+                $title = \c4g\Forum\C4GForumHelper::getTypeText($this->c4g_forum_type,'SUBSCRIBE_SUBFORUM');
             }
 
             $dialogbuttons = array();
@@ -4722,6 +4757,7 @@ JSPAGINATE;
                         5
                     ),
                     "bSearchable"     => false,
+                    "bVisible"        => ($this->c4g_forum_remove_lastperson != '1'),
                     "aTargets"        => array(3),
                     "responsivePriority"    => array(3),
                     "c4gMinTableSize" => 700
@@ -4735,6 +4771,7 @@ JSPAGINATE;
                     ),
                     "sType"           => 'de_datetime',
                     "bSearchable"     => false,
+                    "bVisible"        => ($this->c4g_forum_remove_lastdate != '1'),
                     "asSorting"       => array(
                         'desc',
                         'asc'
@@ -4758,6 +4795,7 @@ JSPAGINATE;
                         8
                     ),
                     "bSearchable"     => false,
+                    "bVisible"        => ($this->c4g_forum_remove_createperson != '1'),
                     "aTargets"        => array(6),
                     "responsivePriority"    => array(6),
                     "c4gMinTableSize" => 500
@@ -4774,6 +4812,7 @@ JSPAGINATE;
                         'asc'
                     ),
                     "bSearchable"     => false,
+                    "bVisible"        => ($this->c4g_forum_remove_createdate != '1'),
                     "aTargets"        => array(7),
                     "responsivePriority"    => array(7),
                     "c4gMinTableSize" => 500
@@ -4792,6 +4831,7 @@ JSPAGINATE;
                         'asc'
                     ),
                     "bSearchable" => false,
+                    "bVisible"        => ($this->c4g_forum_remove_count != '1'),
                     "aTargets"    => array(9),
                     "responsivePriority"    => array(9),
                 ),
@@ -4937,6 +4977,7 @@ JSPAGINATE;
                 } else {
                     $threadname = $thread['name'];
                 }
+
 
                 $aaData = array(
                     $threadAction,
@@ -5090,6 +5131,7 @@ JSPAGINATE;
                     5
                 ),
                 "bSearchable"     => false,
+                "bVisible"        => ($this->c4g_forum_remove_lastperson != '1'),
                 "aTargets"        => array(3),
                 "responsivePriority"    => array(3),
                 "c4gMinTableSize" => 700
@@ -5098,6 +5140,7 @@ JSPAGINATE;
                 'sTitle'          => $GLOBALS['TL_LANG']['C4G_FORUM']['LAST_POST_SHORT'],
                 "aDataSort"       => array(5),
                 "bSearchable"     => false,
+                "bVisible"        => ($this->c4g_forum_remove_lastdate != '1'),
                 "asSorting"       => array(
                     'desc',
                     'asc'
@@ -5120,6 +5163,7 @@ JSPAGINATE;
                     8
                 ),
                 "bSearchable"     => false,
+                "bVisible"        => ($this->c4g_forum_remove_createperson != '1'),
                 "aTargets"        => array(6),
                 "responsivePriority"    => array(6),
                 "c4gMinTableSize" => 500
@@ -5133,6 +5177,7 @@ JSPAGINATE;
                 ),
                 "sType"           => 'de_datetime',
                 "bSearchable"     => false,
+                "bVisible"        => ($this->c4g_forum_remove_createdate != '1'),
                 "aTargets"        => array(7),
                 "responsivePriority"    => array(7),
                 "c4gMinTableSize" => 500
@@ -5150,6 +5195,7 @@ JSPAGINATE;
                     'asc'
                 ),
                 "bSearchable" => false,
+                "bVisible"        => ($this->c4g_forum_remove_count != '1'),
                 "aTargets"    => array(9),
                 "responsivePriority"    => array(9),
             );

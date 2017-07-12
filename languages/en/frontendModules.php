@@ -14,6 +14,7 @@
 
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['FORUM']                   = 'Forum';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['FAQ']                     = 'FAQ';
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREAD']                  = 'Thread';
     $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTION']                = 'Question';
     $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS']                    = 'Tags';
@@ -24,6 +25,7 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS']               = 'Questions';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUM']                = 'Forum';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUMS']               = 'Forums';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['FAQS']                    = 'FAQ';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_THREAD']              = 'New thread';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_QUESTION']            = 'New question';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST']                    = 'Post';
@@ -54,6 +56,8 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_QUESTION']    = 'Unsubscribe question';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIBE_SUBFORUM']      = 'Subscribe forum';
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_SUBFORUM']    = 'Unsubscribe forum';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIBE_FAQ']           = 'Subscribe FAQ';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_FAQ']         = 'Unsubscribe FAQ';
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_POST']                = 'Delete post';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST']               = 'Edit post';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_PREVIEW']       = 'Preview - Edit post';
@@ -98,11 +102,16 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_COUNT']          = ' Post <b %s>#%d</b> of <b %s>%d</b> ';
     $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT_HEADER_COUNT']       = ' Comment <b %s>#%d</b> of <b %s>%d</b> ';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_CREATED']        = 'Created by <b %s>%s</b> on <b %s>%s</b>';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_CREATED_AUTHOR'] = 'Created by <b %s>%s</b>';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_CREATED_DATE']   = 'Created on <b %s>%s</b>';
+
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_SUBJECT']        = '<b %s>Subject:</b> <span %s>%s</span>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_LINK']           = 'Link: <a href="%s">%s</a>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_LINK_NEWWINDOW'] = 'Link: <a href="%s" target="_blank">%s</a>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_TAGS']           = 'Tags: %s';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_EDIT_INFO']             = 'Edited <b %s>%s</b> times, last on <b %s>%s</b> by <b %s>%s</b>';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_EDIT_INFO_AUTHOR']      = 'Edited <b %s>%s</b> times, last by <b %s>%s</b>';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_EDIT_INFO_DATE']        = 'Edited <b %s>%s</b> times, last on <b %s>%s</b>';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_THREAD_TITLE'] = 'New thread in forum "%s"';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_TITLE']   = 'New reply in thread "%s" (Forum "%s")';
@@ -141,8 +150,8 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['PHP_ERROR'] = 'PHP Error! Please try again, or contact the administration of this forum!';
 
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_TEXT']                = 'Subscribe forum <b>%s</b> via email?';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_SUBSCRIPTION_CANCEL'] = 'Unsubscribe from forum <b>%s</b>?';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_TEXT']                = 'Subscribe area <b>%s</b> via email?';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_SUBSCRIPTION_CANCEL'] = 'Unsubscribe from area <b>%s</b>?';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_CANCEL']                = 'Cancel subscription';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_CANCEL']              = 'Cancel subscription';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_CANCEL_SUCCESS']      = 'Forum unsubscribed successfully.';
@@ -157,12 +166,12 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_SUBJECT']   = "Your subscribed thread on '%2\$s' (%1\$s)";
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_ERROR']        = 'Error subscribing forum';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_SUCCESS']      = 'Forum subscribed successfully.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_SUCCESS']      = 'Area subscribed successfully.';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_SUBJECT'] = "Your subscribed forum on '%2\$s' (%1\$s)";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_TEXT']                  = 'Subscribe question <b>%s</b> of forum <b>%s</b> via email?';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_SUBSCRIPTION_CANCEL']   = 'Unsubscribe question <b>%s</b> of forum <b>%s</b> ?';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_TEXT']                  = 'Subscribe question <b>%s</b> of FAQ <b>%s</b> via email?';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_SUBSCRIPTION_CANCEL']   = 'Unsubscribe question <b>%s</b> of FAQ <b>%s</b> ?';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_CANCEL_SUCCESS']        = 'Question unsubscribed successfully.';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_ERROR']                 = 'Error subscribing question';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_SUCCESS']               = 'Question subscribed successfully.';
@@ -301,7 +310,7 @@
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADSORT'] = 'Sort';
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['ADD_MEMBER']           = 'Add member to forum';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['ADD_MEMBER']           = 'Add member to area';
     $GLOBALS['TL_LANG']['C4G_FORUM']['MEMBER_GROUP']         = 'Member group';
     $GLOBALS['TL_LANG']['C4G_FORUM']['MEMBER']               = 'Member';
     $GLOBALS['TL_LANG']['C4G_FORUM']['MEMBER_GROUP_MISSING'] = 'Member group missing';

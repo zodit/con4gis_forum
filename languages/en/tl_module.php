@@ -236,6 +236,14 @@
 
     $GLOBALS['TL_LANG']['tl_module']['c4g_forum_move_all'] = array("Move threads in other forum modules too (not recommend!)", "Just move threads between forum modules with same or similar settings!");
 
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_param_forumbox'] = array("rename forumbox param", "rename the browser param forumbox (not recommend!)");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_param_forum'] = array("rename forum param", "rename the browser param forum (not recommend!)");
+
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_remove_lastperson'] = array("remove field -Last-", "Remove the -Last- field from table.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_remove_lastdate'] = array("remove field -Last on-", "Remove the -Last on- field from table.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_remove_createperson'] = array("remove field -AUTHOR-", "Remove the -Author- field from table.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_remove_createdate'] = array("remove field -Created on-", "Remove the -Created on- field from table.");
+    $GLOBALS['TL_LANG']['tl_module']['c4g_forum_remove_count'] = array("remove field -#-", "Remove the -#- field from table.");
 
     /**
      * Legend
