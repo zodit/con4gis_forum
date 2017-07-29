@@ -244,18 +244,18 @@ namespace c4g\Forum;
             if ($binImageUuid) {
                 $imageUploadPath = \FilesModel::findByUuid(\Contao\StringUtil::binToUuid($binImageUuid[0]));
             }
-            \Contao\Session::getInstance()->set("con4gisImageUploadPath", $imageUploadPath->path.'/');
+            \Session::getInstance()->set("con4gisImageUploadPath", $imageUploadPath->path.'/');
 
             $binFileUuid = deserialize(unserialize($this->c4g_forum_bbcodes_editor_fileuploadpath));
             if ($binFileUuid) {
                 $fileUploadPath = \FilesModel::findByUuid(\Contao\StringUtil::binToUuid($binFileUuid[0]));
             }
-            \Contao\Session::getInstance()->set("con4gisFileUploadPath", $fileUploadPath->path.'/');
+            \Session::getInstance()->set("con4gisFileUploadPath", $fileUploadPath->path.'/');
 
-            \Contao\Session::getInstance()->set("c4g_forum_bbcodes_editor_uploadTypes", $this->c4g_forum_bbcodes_editor_uploadTypes);
-            \Contao\Session::getInstance()->set("c4g_forum_bbcodes_editor_maxFileSize", $this->c4g_forum_bbcodes_editor_maxFileSize);
-            \Contao\Session::getInstance()->set("c4g_forum_bbcodes_editor_imageWidth", $this->c4g_forum_bbcodes_editor_imageWidth);
-            \Contao\Session::getInstance()->set("c4g_forum_bbcodes_editor_imageHeight", $this->c4g_forum_bbcodes_editor_imageHeight);
+            \Session::getInstance()->set("c4g_forum_bbcodes_editor_uploadTypes", $this->c4g_forum_bbcodes_editor_uploadTypes);
+            \Session::getInstance()->set("c4g_forum_bbcodes_editor_maxFileSize", $this->c4g_forum_bbcodes_editor_maxFileSize);
+            \Session::getInstance()->set("c4g_forum_bbcodes_editor_imageWidth", $this->c4g_forum_bbcodes_editor_imageWidth);
+            \Session::getInstance()->set("c4g_forum_bbcodes_editor_imageHeight", $this->c4g_forum_bbcodes_editor_imageHeight);
 
             $aToolbarButtons = explode(",", $this->c4g_forum_bbcodes_editor_toolbaritems);
 
