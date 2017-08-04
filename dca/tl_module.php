@@ -77,9 +77,9 @@ if (method_exists('\System', 'getContainer')) {
         'exclude'   => true,
         'inputType' => 'select',
         'options'   => array('DISCUSSIONS', 'QUESTIONS'),
-        'default'   => 'DISCUSSION',
+        'default'   => 'DISCUSSIONS',
         'reference' => &$GLOBALS['TL_LANG']['tl_module']['c4g_references'],
-        'sql'       => "varchar(10) NOT NULL default 'DISCUSSION'"
+        'sql'       => "varchar(12) NOT NULL default 'DISCUSSIONS'"
 
     );
 
@@ -864,13 +864,15 @@ if (method_exists('\System', 'getContainer')) {
         $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_uploadTypes'] = array(
             'label' => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_uploadTypes'],
             'inputType' => 'text',
+            'default' => 'jpg,png,gif,zip,pdf',
             'eval' => array('tl_class' => 'w50'),
             'sql' => 'varchar(255) NOT NULL default "jpg,png,gif,zip,pdf"'
         );
-    }else {
+    } else {
         $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_forum_bbcodes_editor_uploadTypes'] = array(
             'label' => &$GLOBALS['TL_LANG']['tl_module']['c4g_forum_bbcodes_editor_uploadTypes'],
             'inputType' => 'text',
+            'default' => 'jpg,png,gif,zip,pdf',
             'eval' => array('tl_class' => 'w50'),
             'sql' => "varchar(255) NOT NULL default 'jpg,png,gif,zip,pdf'"
         );
