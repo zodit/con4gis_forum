@@ -204,9 +204,9 @@ namespace c4g\Forum;
                         $action = 'forumintro';
                     } else {
                         if ($value['subforums'] == 0) {
-                            $action = 'forum';
+                            $action = $this->forumModule->c4g_forum_param_forum;
                         } else {
-                            $action = 'forumbox';
+                            $action = $this->forumModule->c4g_forum_param_forumbox;
                         }
                     }
 

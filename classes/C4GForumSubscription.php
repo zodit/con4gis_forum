@@ -54,7 +54,7 @@ namespace c4g\Forum;
         /**
          * Construktor
          */
-        public function __construct($helper = null, $database, $environment = null, $user = null, $forumName = "", $frontendUrl = "")
+        public function __construct($helper = null, $database, $environment = null, $user = null, $forumName = "", $frontendUrl = "", $forumType = "FORUM")
         {
             $this->helper      = $helper;
             $this->Database    = $database;
@@ -62,7 +62,7 @@ namespace c4g\Forum;
             $this->Environment = $environment;
             $this->frontendUrl = $frontendUrl;
             if ($forumName == "") {
-                $this->ForumName = $GLOBALS['TL_LANG']['C4G_FORUM']['FORUM'];
+                $this->ForumName = $helper->getTypeText($forumType,'FORUM');
             } else {
                 $this->ForumName = $forumName;
             }

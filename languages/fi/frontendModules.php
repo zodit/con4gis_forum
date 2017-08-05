@@ -12,6 +12,7 @@
  */
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['FORUM']                   = 'Foorumi';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['FAQ']                     = 'FAQ';
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREAD']                  = 'Thread';
     $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTION']                = 'Question';
     $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS']                    = 'Tagit';
@@ -22,6 +23,7 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS']               = 'Questions';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUM']                = 'Foorumi';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUMS']               = 'Foorumit';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['FAQS']                    = 'FAQ';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_THREAD']              = 'Uusi thread';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_QUESTION']            = 'New question';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST']                    = 'Viesti';
@@ -52,6 +54,8 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_QUESTION']    = 'Unsubscribe question';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIBE_SUBFORUM']      = 'Tilaa foorumi';
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_SUBFORUM']    = 'Peruuta foorumin tilaus';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIBE_FAQ']           = 'Subscribe FAQ';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_FAQ']         = 'Unsubscribe FAQ';
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_POST']                = 'Poista viesti';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST']               = 'Muokkaa viestiä';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_PREVIEW']       = 'Ennakkonäkymä - Muokkaa viestiä';
@@ -91,11 +95,16 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_COUNT']          = ' Viesti <b %s>#%d</b><b %s>%d</b> ';
     $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT_HEADER_COUNT']       = ' Comment <b %s>#%d</b> of <b %s>%d</b> ';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_CREATED']        = 'Luonut <b %s>%s</b><b %s>%s</b>';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_CREATED_AUTHOR'] = 'Created by <b %s>%s</b>';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_CREATED_DATE']   = 'Created on <b %s>%s</b>';
+
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_SUBJECT']        = '<b %s>Aihe:</b> <span %s>%s</span>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_LINK']           = 'Linkki: <a href="%s">%s</a>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_LINK_NEWWINDOW'] = 'Linkki: <a href="%s" target="_blank">%s</a>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_TAGS']           = 'Tagit: %s';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_EDIT_INFO']             = 'Muokattu <b %s>%s</b> kertaa, viimeksi <b %s>%s</b> muokannut <b %s>%s</b>';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_EDIT_INFO_AUTHOR']      = 'Edited <b %s>%s</b> times, last by <b %s>%s</b>';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_EDIT_INFO_DATE']        = 'Edited <b %s>%s</b> times, last on <b %s>%s</b>';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_THREAD_TITLE'] = 'Uusi thread foorumissa "%s"';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_TITLE']   = 'Uusi viesti threadissa "%s" (Forum "%s")';

@@ -14,6 +14,7 @@
 
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['FORUM']                   = 'Forum';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['FAQ']                     = 'FAQ';
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREAD']                  = 'Thema';
     $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTION']                = 'Frage';
     $GLOBALS['TL_LANG']['C4G_FORUM']['TAGS']                    = 'Tags/Schlagworte';
@@ -24,6 +25,7 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['QUESTIONS']               = 'Fragen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUM']                = 'Forenbereich';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBFORUMS']               = 'Forenbereiche';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['FAQS']                    = 'FAQ';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_THREAD']              = 'Neues Thema';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_QUESTION']            = 'Neue Frage';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST']                    = 'Beitrag';
@@ -54,6 +56,8 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_QUESTION']    = 'Frage abbestellen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIBE_SUBFORUM']      = 'Forenbereich abonnieren';
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_SUBFORUM']    = 'Forenbereich abbestellen';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIBE_FAQ']           = 'FAQ abonnieren';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_FAQ']         = 'FAQ abbestellen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_POST']                = 'Löschen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST']               = 'Bearbeiten';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_PREVIEW']       = 'Vorschau - Beitrag bearbeiten';
@@ -96,11 +100,15 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_COUNT']          = ' Beitrag <b %s>#%d</b> von <b %s>%d</b> ';
     $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT_HEADER_COUNT']       = ' Kommentar <b %s>#%d</b> von <b %s>%d</b> ';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_CREATED']        = 'Erstellt von <b %s>%s</b> am <b %s>%s</b>';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_CREATED_AUTHOR'] = 'Erstellt von <b %s>%s</b>';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_CREATED_DATE']   = 'Erstellt am <b %s>%s</b>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_SUBJECT']        = '<b %s>Betreff:</b> <span %s>%s</span>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_LINK']           = 'Link: <a href="%s">%s</a>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_TAGS']           = 'Tags: %s';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_HEADER_LINK_NEWWINDOW'] = 'Link: <a href="%s" target="_blank">%s</a>';
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_EDIT_INFO']             = '<b %s>%s</b> Mal geändert, zuletzt am <b %s>%s</b> von <b %s>%s</b>';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_EDIT_INFO_AUTHOR']      = '<b %s>%s</b> Mal geändert, zuletzt von <b %s>%s</b>';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['POST_EDIT_INFO_DATE']        = '<b %s>%s</b> Mal geändert, zuletzt am <b %s>%s</b>';
     //$GLOBALS['TL_LANG']['C4G_FORUM']['POST_COUNT']                 = 'Beiträge';
     $GLOBALS['TL_LANG']['C4G_FORUM']['memberHomepageLink']         = 'Homepage';
     $GLOBALS['TL_LANG']['C4G_FORUM']['memberFacebookLink']         = 'Facebook';
@@ -108,11 +116,11 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['memberGooglePlusLink']       = 'Google+';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_THREAD_TITLE'] = 'Neues Thema im Bereich "%s"';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_TITLE']   = 'Antwort im Thema "%s" (Forenbereich "%s")';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_POST_TITLE']   = 'Antwort im Thema "%s" (Bereich "%s")';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['POST_MISSING']       = 'Bitte Beitrag verfassen!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_QUESTION_TITLE'] = 'Neue Frage im Bereich "%s"';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_COMMENT_TITLE']  = 'Neuer Kommentar im Thema "%s" (Forenbereich "%s")';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['NEW_COMMENT_TITLE']  = 'Neuer Kommentar im Thema "%s" (Bereich "%s")';
     $GLOBALS['TL_LANG']['C4G_FORUM']['COMMENT_MISSING']    = 'Bitte Kommentar verfassen!';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBJECT_MISSING']    = 'Bitte Betreff eingeben!';
@@ -140,31 +148,31 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['ERROR_SAVE_QUESTION']   = 'Fehler beim Anlegen der Frage! Versuchen Sie es noch einmal, oder wenden Sie sich an eine Kontaktperson des Forums!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUCCESS_SAVE_QUESTION'] = 'Neue Frage erfolgreich angelegt!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['BOX_LAST_COMMENT']      = 'Letzter Kommentar am %s von %s in Frage %s';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_QUESTION_WARNING']  = 'Möchten Sie die Frage <b>%s</b> aus Forenbereich <b>%s</b> wirklich unwiderruflich löschen?';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_QUESTION_WARNING']  = 'Möchten Sie die Frage <b>%s</b> aus FAQ <b>%s</b> wirklich unwiderruflich löschen?';
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_QUESTION_ERROR']    = 'EFehler beim Löschen der Frage!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_QUESTION_SUCCESS']  = 'Frage erfolgreich gelöscht.';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_TEXT']                  = 'Thema <b>%s</b> aus Forenbereich <b>%s</b> per E-Mail abonnieren?';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_TEXT']                = 'Forenbereich <b>%s</b> per E-Mail abonnieren?';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_SUBSCRIPTION_CANCEL'] = 'Forenbereich <b>%s</b> abbestellen?';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_TEXT']                = 'Bereich <b>%s</b> per E-Mail abonnieren?';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_SUBSCRIPTION_CANCEL'] = 'Bereich <b>%s</b> abbestellen?';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_SUBSCRIPTION_CANCEL']   = 'Thema <b>%s</b> aus Forenbereich <b>%s</b> abbestellen?';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_CANCEL']                = 'Thema abbestellen';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_CANCEL']              = 'Forenbereich abbestellen';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_CANCEL']              = 'Bereich abbestellen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_CANCEL_SUCCESS']        = 'Thema erfolgreich abbestellt.';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_CANCEL_SUCCESS']      = 'Forenbereich erfolgreich abbestellt.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_CANCEL_SUCCESS']      = 'Bereich erfolgreich abbestellt.';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_ERROR']          = 'Fehler beim Abonnieren des Themas!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_SUCCESS']        = 'Thema erfolgreich abonniert.';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_ERROR']        = 'Fehler beim Abonnieren des Forenbereichs!';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_SUCCESS']      = 'Forenbereich erfolgreich abonniert.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_ERROR']        = 'Fehler beim Abonnieren des Bereichs!';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_SUCCESS']      = 'Bereich erfolgreich abonniert.';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_ONLY_THREADS'] = 'nur bei neuen Themen benachrichtigen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_POSTS']        = 'mit Beiträgen';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_THREAD_MAIL_SUBJECT']   = "Ihr abonniertes Thema auf '%2\$s' (%1\$s)";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_SUBJECT'] = "Ihr abonnierter Forenbereich auf '%2\$s' (%1\$s)";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_SUBFORUM_MAIL_SUBJECT'] = "Ihr abonnierter Bereich auf '%2\$s' (%1\$s)";
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_TEXT']                  = 'Frage <b>%s</b> aus Forenbereich <b>%s</b> per E-Mail abonnieren?';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_SUBSCRIPTION_CANCEL']   = 'Frage <b>%s</b> aus Forenbereich <b>%s</b> abbestellen?';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_TEXT']                  = 'Frage <b>%s</b> aus FAQ <b>%s</b> per E-Mail abonnieren?';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_SUBSCRIPTION_CANCEL']   = 'Frage <b>%s</b> aus FAQ <b>%s</b> abbestellen?';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_CANCEL_SUCCESS']        = 'Frage erfolgreich abbestellt.';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_ERROR']                 = 'Fehler beim Abonnieren der Fragen!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_QUESTION_SUCCESS']               = 'Frage erfolgreich abonniert.';
@@ -253,7 +261,7 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_NEW_QUESTION_WITH_SUBJECT']  = "Frage mit dem Betreff '%s' erstellt";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_EDIT_QUESTION_WITH_SUBJECT'] = "Frage mit dem Betreff '%s' bearbeitet";
     $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_DEL_QUESTION_WITH_SUBJECT']  = "Frage mit dem Betreff '%s' gelöscht";
-    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_QUESTION_WITH_SUBJECT'] = "Frage aus Forenbereich '%s' in den Forenbereich '%s' verschoben";
+    $GLOBALS['TL_LANG']['C4G_FORUM']['SUBSCRIPTION_MAIL_ACTION_MOVE_QUESTION_WITH_SUBJECT'] = "Frage aus FAQ '%s' in FAQ '%s' verschoben";
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_QUESTION_LINK_SUCCESS']                   = 'Das Abonnement der Frage "%s" des Mitgliedes "%s" wurde beendet!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['UNSUBSCRIBE_QUESTION_LINK_FAILED']                    = 'Fehler beim Beenden des Fragen-Abonnements!';
 
@@ -281,14 +289,14 @@
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_ERROR']   = 'Fehler beim Speichern des geänderten Beitrags!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_POST_SUCCESS'] = 'Beitrag erfolgreich geändert.';
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION_TEXT']      = 'Frage <b>%s</b> aus Forenbereich <b>%s</b> in den folgenden Forenbereich verschieben:';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION_TEXT']      = 'Frage <b>%s</b> aus FAQ <b>%s</b> in die folgenden FAQ verschieben:';
     $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION_ERROR']     = 'Fehler beim Verschieben der Frage!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION_SUCCESS']   = 'Frage erfolgreich verschoben.';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION_NO_FORUMS'] = 'Keine Forenbereiche gefunden, für die Sie die Berechtigung haben, eine Frage hinzuverschieben.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['MOVE_QUESTION_NO_FORUMS'] = 'Keine FAQ gefunden, für die Sie die Berechtigung haben, eine Frage hinzuverschieben.';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_QUESTION_ERROR']     = 'Fehler beim Speichern der geänderten Frage!';
     $GLOBALS['TL_LANG']['C4G_FORUM']['EDIT_QUESTION_SUCCESS']   = 'Frage erfolgreich geändert.';
     $GLOBALS['TL_LANG']['C4G_FORUM']['DEL_COMMENT_WARNING']     = 'Möchten Sie den gewählten Kommentar wirklich unwiderruflich löschen?<br/>' .
-        'Forenbereich: <b>%s</b><br/>' .
+        'Bereich: <b>%s</b><br/>' .
         'Frage: <b>%s</b><br/>' .
         'Kommentar von: <b>%s</b><br/>' .
         'Betreff: <b>%s</b><br/>';
@@ -304,15 +312,15 @@
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['THREADSORT'] = 'Sortierung';
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['ADD_MEMBER']           = 'Mitglied in Forenbereich aufnehmen';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['ADD_MEMBER']           = 'Mitglied in Bereich aufnehmen';
     $GLOBALS['TL_LANG']['C4G_FORUM']['MEMBER_GROUP']         = 'Mitgliedergruppe';
     $GLOBALS['TL_LANG']['C4G_FORUM']['MEMBER']               = 'Mitglied';
     $GLOBALS['TL_LANG']['C4G_FORUM']['MEMBER_GROUP_MISSING'] = 'Mitgliedergruppe fehlt';
     $GLOBALS['TL_LANG']['C4G_FORUM']['MEMBER_MISSING']       = 'Mitglied fehlt';
     $GLOBALS['TL_LANG']['C4G_FORUM']['ADD_MEMBER_ERROR']     = 'Fehler beim Aufnehmen des Mitgliedes!';
-    $GLOBALS['TL_LANG']['C4G_FORUM']['ADD_MEMBER_SUCCESS']   = 'Mitglied erfolgreich im Forenbereich aufgenommen.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['ADD_MEMBER_SUCCESS']   = 'Mitglied erfolgreich im Bereich aufgenommen.';
 
-    $GLOBALS['TL_LANG']['C4G_FORUM']['NO_ACTIVE_FORUMS'] = 'Keine Unterforenbereiche für Forenbereich ID %d gefunden. Entweder Forenbereiche wurden gelöscht oder deaktiviert, oder Sie besitzen nicht die Berechtigung zur Anzeige der Forenbereiche.';
+    $GLOBALS['TL_LANG']['C4G_FORUM']['NO_ACTIVE_FORUMS'] = 'Keine Unterbereiche für Bereich ID %d gefunden. Entweder Forenbereiche wurden gelöscht oder deaktiviert, oder Sie besitzen nicht die Berechtigung zur Anzeige der Bereiche.';
 
     $GLOBALS['TL_LANG']['C4G_FORUM']['ALLOW_MAP_POSTS']      = 'Kartenbeiträge erlauben';
     $GLOBALS['TL_LANG']['C4G_FORUM']['ALLOW_MAP_COMMENTS']   = 'Kartenkommentare erlauben';
