@@ -2239,8 +2239,8 @@ class C4GForumHelper extends \System
          * @return bool
          * @throws \Exception
          */
-        public function insertThreadIntoDB($forumId, $threadname, $userId, $threaddesc, $sort, $post, $tags,$rating = 0, $linkname, $linkurl, $geox, $geoy, $locstyle, $label, $tooltip, $geodata, $loc_osm_id )
-	{
+        public function insertThreadIntoDB($forumId, $threadname, $userId, $threaddesc, $sort, $post, $tags, $linkname, $linkurl, $geox, $geoy, $locstyle, $label, $tooltip, $geodata, $loc_osm_id, $rating = 0 )
+	    {
 		$this->Database->beginTransaction();
 		try {
 			$forum = $this->Database->prepare(
