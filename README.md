@@ -1,3 +1,6 @@
+Attention! con4gis-Forum is obsolete. Please try the new Contao 4 Bundle: 
+[ForumBundle](https://github.com/Kuestenschmiede/ForumBundle)
+
 con4gis-Forum
 =============
 
