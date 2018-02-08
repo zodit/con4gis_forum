@@ -502,7 +502,7 @@ namespace c4g\Forum;
                 $this->helper->frontendUrl = $sUrl;
             }
 
-            return strtok($this->helper->frontendUrl, '?') . '?state=unsubscribethread:' . $this->encryptLinkData($threadId . ';' . $mail);
+            return \c4g\C4GUtils::removeLastSlashes(strtok($this->helper->frontendUrl, '?')) . '?state=unsubscribethread:' . $this->encryptLinkData($threadId . ';' . $mail);
         }
 
         /**
@@ -517,7 +517,7 @@ namespace c4g\Forum;
                 $this->helper->frontendUrl = $sUrl;
             }
 
-            return strtok($this->helper->frontendUrl, '?') . '?state=unsubscribesubforum:' . $this->encryptLinkData($forumId . ';' . $mail);
+            return \c4g\C4GUtils::removeLastSlashes(strtok($this->helper->frontendUrl, '?')) . '?state=unsubscribesubforum:' . $this->encryptLinkData($forumId . ';' . $mail);
         }
 
         /**
@@ -531,7 +531,7 @@ namespace c4g\Forum;
                 $this->helper->frontendUrl = $sUrl;
             }
 
-            return strtok($this->helper->frontendUrl, '?') . '?state=unsubscribeall:' . $this->encryptLinkData($mail);
+            return \c4g\C4GUtils::removeLastSlashes(strtok($this->helper->frontendUrl, '?')) . '?state=unsubscribeall:' . $this->encryptLinkData($mail);
         }
 
         /**

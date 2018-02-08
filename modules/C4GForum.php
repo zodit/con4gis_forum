@@ -212,11 +212,11 @@ namespace c4g\Forum;
             // save forum url for linkbuilding in ajaxrequests
             $aTmpData = $this->Session->getData();
             if (stristr($aTmpData['referer']['current'], "/con4gis_core/api/") === false) {
-                $aTmpData['current_forum_url'] = $aTmpData['referer']['current'];
+                $aTmpData['current_forum_url'] = \c4g\C4GUtils::removeLastSlashes($aTmpData['referer']['current']);
                 $this->Session->setData($aTmpData);
             } else {
-                $aTmpData['referer']['last']    = $aTmpData['current_forum_url'];
-                $aTmpData['referer']['current'] = $aTmpData['current_forum_url'];
+                $aTmpData['referer']['last']    = \c4g\C4GUtils::removeLastSlashes($aTmpData['current_forum_url']);
+                $aTmpData['referer']['current'] = \c4g\C4GUtils::removeLastSlashes($aTmpData['current_forum_url']);
                 $this->Session->setData($aTmpData);
             }
 
@@ -1821,7 +1821,7 @@ JSPAGINATE;
             }
 
 
-            $sCurrentSite = strtok(\Environment::get('httpReferer'),'?');
+            $sCurrentSite = \c4g\C4GUtils::removeLastSlashes(strtok(\Environment::get('httpReferer'),'?'));
             $sCurrentSiteHashed = md5($sCurrentSite . \Config::get('encryptionKey'));
 
             $binImageUuid = deserialize(unserialize($this->c4g_forum_bbcodes_editor_imguploadpath));
@@ -1924,9 +1924,9 @@ JSPAGINATE;
             $path        = \Environment::get("path");
             $sProtocol   = !empty($sHttps) ? 'https://' : 'http://';
             $sSite       = $sProtocol . $sServerName . $path;
-            $sCurrentSite = strtok(\Environment::get('httpReferer'),'?');
+            $sCurrentSite = \c4g\C4GUtils::removeLastSlashes(strtok(\Environment::get('httpReferer'),'?'));
             if(empty($sCurrentSite)){
-                $sCurrentSite = strtok($sSite . $_SERVER['REQUEST_URI'],'?');
+                $sCurrentSite = \c4g\C4GUtils::removeLastSlashes(strtok($sSite . $_SERVER['REQUEST_URI'],'?'));
             }
 
             $sCurrentSiteHashed = md5($sCurrentSite . \Config::get('encryptionKey'));
@@ -3852,7 +3852,7 @@ JSPAGINATE;
 
             if ($this->helper->checkPermission($forumid, 'threaddesc')) {
 
-                $sCurrentSite = strtok(\Environment::get('httpReferer'),'?');
+                $sCurrentSite = \c4g\C4GUtils::removeLastSlashes(strtok(\Environment::get('httpReferer'),'?'));
                 $sCurrentSiteHashed = md5($sCurrentSite . \Config::get('encryptionKey'));
 
                 return
@@ -3942,7 +3942,7 @@ JSPAGINATE;
             ';
             }
 
-            $sCurrentSite = strtok(\Environment::get('httpReferer'),'?');
+            $sCurrentSite = \c4g\C4GUtils::removeLastSlashes(strtok(\Environment::get('httpReferer'),'?'));
             $sCurrentSiteHashed = md5($sCurrentSite . \Config::get('encryptionKey'));
 
             $binImageUuid = deserialize(unserialize($this->c4g_forum_bbcodes_editor_imguploadpath));
@@ -5824,7 +5824,7 @@ JSPAGINATE;
                 if (version_compare(VERSION, '3.1', '<')) {
                     $sFrontendUrl = $this->Environment->url;
                 } else {
-                    $sFrontendUrl = $this->Environment->url . TL_PATH . '/';
+                    $sFrontendUrl = $this->Environment->url . TL_PATH;
                 }
                 $sFrontendUrl .= $this->getFrontendUrl($oPage->row());
             }
@@ -5949,7 +5949,7 @@ JSPAGINATE;
                     // replace "state" parameter in Session-Referer to force correct
                     // handling after login with "redirect back" set
                     $session                       = $this->Session->getData();
-                    $session['referer']['last']    = $session['referer']['current'];
+                    $session['referer']['last']    = \c4g\C4GUtils::removeLastSlashes($session['referer']['current']);
                     $session['referer']['current'] = C4GUtils::addParametersToURL(
                         $session['referer']['last'],
                         array('state' => $request));
@@ -5968,9 +5968,9 @@ JSPAGINATE;
                 $this->initMembers();
                 $session = $this->Session->getData();
                 if (version_compare(VERSION, '3.1', '<')) {
-                    $frontendUrl = $this->Environment->url . $session['current_forum_url'];
+                    $frontendUrl = \c4g\C4GUtils::removeLastSlashes($this->Environment->url . $session['current_forum_url']);
                 } else {
-                    $frontendUrl = $this->Environment->url . TL_PATH . '/' . $session['current_forum_url'];
+                    $frontendUrl = \c4g\C4GUtils::removeLastSlashes($this->Environment->url . TL_PATH . '/' . $session['current_forum_url']);
                 }
 
                 $this->helper = new C4GForumHelper($this->Database, $this->Environment, $this->User, $this->headline,
@@ -6087,7 +6087,7 @@ JSPAGINATE;
         public function getFrontendUrl($arrRow)
         {
 
-            return parent::generateFrontendUrl($arrRow);
+            return \c4g\C4GUtils::removeLastSlashes(parent::generateFrontendUrl($arrRow));
         }
 
 
