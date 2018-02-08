@@ -74,7 +74,7 @@ class C4GUtils {
 			$qsvars[$key] = $value;
 		}
 		$newqs = http_build_query($qsvars);
-		return $urlpart . '?' . $newqs;
+		return \c4g\C4GUtils::removeLastSlashes($urlpart) . '?' . $newqs;
 	}
 
 	/**

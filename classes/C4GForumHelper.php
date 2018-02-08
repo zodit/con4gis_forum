@@ -2985,7 +2985,7 @@ class C4GForumHelper extends \System
 			default:
 				$action = $paramForum;
 		}
-		return strtok($this->frontendUrl,'?') . '?state='.$action.':'.$forumId;
+		return \c4g\C4GUtils::removeLastSlashes(strtok($this->frontendUrl,'?')) . '?state='.$action.':'.$forumId;
 	}
 
 	/**
@@ -3004,7 +3004,7 @@ class C4GForumHelper extends \System
 	 								 ->execute($threadId);
 			$forumId = $data->pid;
 		}
-		return strtok($this->frontendUrl,'?') . '?state='.$paramForum.':'.$forumId.';readthread:'.$threadId;
+		return \c4g\C4GUtils::removeLastSlashes(strtok($this->frontendUrl,'?')) . '?state='.$paramForum.':'.$forumId.';readthread:'.$threadId;
 	}
 
 	/**
@@ -3018,7 +3018,7 @@ class C4GForumHelper extends \System
 		$data = $this->Database->prepare(
 				"SELECT forum_id FROM tl_c4g_forum_post WHERE id=?")
 				->execute($postId);
-		return strtok($this->frontendUrl,'?') . '?state='.$paramForum.':'.$data->forum_id.';readpost:'.$postId;
+		return \c4g\C4GUtils::removeLastSlashes(strtok($this->frontendUrl,'?')) . '?state='.$paramForum.':'.$data->forum_id.';readpost:'.$postId;
 	}
 
 	/**
